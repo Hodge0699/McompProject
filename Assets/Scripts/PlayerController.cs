@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
     private Camera mainCamera;
+    public GunController gun;
     float rayLength;
 
     // Use this for initialization
@@ -38,7 +39,15 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-	}
+        //shooting
+        if(Input.GetMouseButtonDown(0))
+        { gun.isFiring = true; }
+        if(Input.GetMouseButtonUp(0))
+        { gun.isFiring = false; }
+
+
+
+    }
 
     void FixedUpdate()
     {
