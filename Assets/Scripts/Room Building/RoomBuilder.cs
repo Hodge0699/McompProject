@@ -55,7 +55,7 @@ namespace RoomBuilding
         /// <summary>
         /// Builds physical room
         /// </summary>
-        public Room buildRoom()
+        public void buildRoom()
         {
             origin = transform.position;
 
@@ -68,9 +68,7 @@ namespace RoomBuilding
             instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
 
             buildWalls(roomOrigin.transform);
-            List<DoorController> doors = buildDoors(roomOrigin.transform);
-
-            return new Room(origin, dimensions, wallThickness, doors);
+            buildDoors(roomOrigin.transform);
         }
 
         /// <summary>
@@ -140,45 +138,23 @@ namespace RoomBuilding
         /// </summary>
         /// <param name="parent">The parent transform to arrange doors around.</param>
         /// <returns>A list of all doors created.</returns>
-        private List<DoorController> buildDoors(Transform parent)
+        private void buildDoors(Transform parent)
         {
             GameObject doorsParent = new GameObject();
             doorsParent.name = "Doors";
             doorsParent.transform.parent = parent;
 
-            List<DoorController> doors = new List<DoorController>();
-
             if (westWall == wallType.DOOR)
-            {
-                GameObject door = instantiateDoor("West Wall Door", doorsParent.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z));
-                door.transform.Rotate(0.0f, -90.0f, 0.0f);
-
-                doors.Add(door.GetComponent<DoorController>());
-            }
+                instantiateDoor("West Wall Door", doorsParent.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z)).transform.Rotate(0.0f, -90.0f, 0.0f);
 
             if (eastWall == wallType.DOOR)
-            {
-                GameObject door = instantiateDoor("East Wall Door", doorsParent.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z));
-                door.transform.Rotate(0.0f, 90.0f, 0.0f);
-
-                doors.Add(door.GetComponent<DoorController>());
-            }
+                instantiateDoor("East Wall Door", doorsParent.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z)).transform.Rotate(0.0f, 90.0f, 0.0f);
 
             if (northWall == wallType.DOOR)
-            {
-                GameObject door = instantiateDoor("North Wall Door", doorsParent.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)));
-
-                doors.Add(door.GetComponent<DoorController>());
-            }
+                instantiateDoor("North Wall Door", doorsParent.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)));
 
             if (southWall == wallType.DOOR)
-            {
-                GameObject door = instantiateDoor("South Wall Door", doorsParent.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) + (wallThickness / 2)));
-
-                doors.Add(door.GetComponent<DoorController>());
-            }
-
-            return doors;
+                instantiateDoor("South Wall Door", doorsParent.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) + (wallThickness / 2)));
         }
 
         /// <summary>
