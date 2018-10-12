@@ -9,6 +9,10 @@ public class RoomBuilder_GUI : Editor {
     private RoomBuilder room; // The planned room to draw.
     private Vector3 origin; // The Centre of the room.
 
+    private Color defaultColour = Color.white;
+    private Color doorwayColour = Color.cyan;
+    private Color doorColour = Color.green;
+
     private float semiWallsPreview = 0.0f; // Acts as boolean whether to draw top and right walls.
     private float allWallsPreview = 0.0f; // Acts as boolean whether to draw bottom and left walls.
 
@@ -17,7 +21,8 @@ public class RoomBuilder_GUI : Editor {
         room = (RoomBuilder)target;
         origin = room.transform.position;
 
-        Handles.color = Color.white;
+        Handles.color = defaultColour;
+
         Handles.DrawWireCube(origin, new Vector3(room.dimensions.x, 0.0f, room.dimensions.z));
 
         Handles.SphereHandleCap(0, origin, Quaternion.Euler(0.0f, 0.0f, 0.0f), 1, EventType.Repaint);
@@ -64,22 +69,49 @@ public class RoomBuilder_GUI : Editor {
     /// </summary>
     private void drawDoors()
     {
-        Handles.color = Color.green;
-
         //                        _______________________________________________________________________________________________________________________________________________________________________________________________________     ______________________________________________________________________________________________
         //                       || Origin ||                            X                                 |                            Y                             |                                     Z                            |    ||  Size  ||         X         |                     Y                  |            Z        |
-        if (room.doorLeft)
+        if (room.leftWall != RoomBuilder.wallType.SOLID)
+        {
+            if (room.leftWall == RoomBuilder.wallType.DOOR)
+                Handles.color = doorColour;
+            else if (room.leftWall == RoomBuilder.wallType.DOORWAY)
+                Handles.color = doorwayColour;
+
             Handles.DrawWireCube(new Vector3(origin.x - (room.dimensions.x / 2) + (room.wallThickness / 2),    origin.y + ((room.dimensions.y / 2) * allWallsPreview),    origin.z),                                                          new Vector3(room.wallThickness,    room.dimensions.y * allWallsPreview,     room.doorSize));
 
-        if (room.doorRight)
+        }
+
+        if (room.rightWall != RoomBuilder.wallType.SOLID)
+        {
+            if (room.rightWall == RoomBuilder.wallType.DOOR)
+                Handles.color = doorColour;
+            else if (room.rightWall == RoomBuilder.wallType.DOORWAY)
+                Handles.color = doorwayColour;
+
             Handles.DrawWireCube(new Vector3(origin.x + (room.dimensions.x / 2) - (room.wallThickness / 2),    origin.y + ((room.dimensions.y / 2) * semiWallsPreview),   origin.z),                                                          new Vector3(room.wallThickness,    room.dimensions.y * semiWallsPreview,    room.doorSize)); 
+        }
 
-        if (room.doorBottom)
-            Handles.DrawWireCube(new Vector3(origin.x,                                                         origin.y + ((room.dimensions.y / 2) * allWallsPreview),    origin.z - (room.dimensions.z / 2) + (room.wallThickness / 2)),     new Vector3(room.doorSize,         room.dimensions.y * allWallsPreview,     room.wallThickness));
+        if (room.topWall != RoomBuilder.wallType.SOLID)
+        {
+            if (room.topWall == RoomBuilder.wallType.DOOR)
+                Handles.color = doorColour;
+            else if (room.topWall == RoomBuilder.wallType.DOORWAY)
+                Handles.color = doorwayColour;
 
-        if (room.doorTop)
             Handles.DrawWireCube(new Vector3(origin.x,                                                         origin.y + ((room.dimensions.y / 2) * semiWallsPreview),   origin.z + (room.dimensions.z / 2) - (room.wallThickness / 2)),     new Vector3(room.doorSize,         room.dimensions.y * semiWallsPreview,    room.wallThickness));
+        }
 
-        Handles.color = Color.white;
+        if (room.bottomWall != RoomBuilder.wallType.SOLID)
+        {
+            if (room.bottomWall == RoomBuilder.wallType.DOOR)
+                Handles.color = doorColour;
+            else if (room.bottomWall == RoomBuilder.wallType.DOORWAY)
+                Handles.color = doorwayColour;
+
+            Handles.DrawWireCube(new Vector3(origin.x,                                                         origin.y + ((room.dimensions.y / 2) * allWallsPreview),    origin.z - (room.dimensions.z / 2) + (room.wallThickness / 2)),     new Vector3(room.doorSize,         room.dimensions.y * allWallsPreview,     room.wallThickness));
+        }
+
+        Handles.color = defaultColour;
     }
 }

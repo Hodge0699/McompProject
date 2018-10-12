@@ -9,16 +9,19 @@ public class RoomBuilder : MonoBehaviour {
 
     public float wallThickness = 1.0f;
     public float doorSize = 6.0f;
+    public float doorSpeed = 2.0f;
 
     // NONE = 2D, SEMI = top and right walls 3D, ALL = all walls 3D
     public preview previewWalls = preview.SEMI;
-    public enum preview { NONE, SEMI, ALL }; 
+    public enum preview { NONE, SEMI, ALL };
 
     // Which walls should have doors?
-    public bool doorLeft = false;
-    public bool doorTop = false;
-    public bool doorRight = false;
-    public bool doorBottom = false;
+    public enum wallType { SOLID, DOORWAY, DOOR };
+    public wallType leftWall;
+    public wallType rightWall;
+    public wallType topWall;
+    public wallType bottomWall;
+
 
     // Manual build button
     public bool build = false;
@@ -45,13 +48,11 @@ public class RoomBuilder : MonoBehaviour {
         room.transform.position = origin;
 
         // Create floor
-        GameObject floor = instantiateCube("Floor", room.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
+        instantiateCube("Floor", room.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
 
         buildWalls(room.transform);
         buildDoors(room.transform);
     }
-
-
 
     /// <summary>
     /// Places walls around room
@@ -64,7 +65,9 @@ public class RoomBuilder : MonoBehaviour {
         walls.transform.parent = parent;
 
         // Left
-        if (doorLeft)
+        if (leftWall == wallType.SOLID)
+            instantiateCube("Left Wall", walls.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z), new Vector3(wallThickness, dimensions.y, dimensions.z));
+        else
         {
             float newWallSize = (dimensions.z - doorSize) / 2;
             float offset = (newWallSize / 2) + (doorSize / 2);
@@ -72,12 +75,12 @@ public class RoomBuilder : MonoBehaviour {
             instantiateCube("Left Wall (Above door)", walls.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z + offset), new Vector3(wallThickness, dimensions.y, newWallSize));
             instantiateCube("Left Wall (Under door)", walls.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z - offset), new Vector3(wallThickness, dimensions.y, newWallSize));
         }
-        else
-            instantiateCube("Left Wall", walls.transform, new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z), new Vector3(wallThickness, dimensions.y, dimensions.z));
 
 
         // Right
-        if (doorLeft)
+        if (rightWall == wallType.SOLID)
+            instantiateCube("Right Wall", walls.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z), new Vector3(wallThickness, dimensions.y, dimensions.z));
+        else
         {
             float newWallSize = (dimensions.z - doorSize) / 2;
             float offset = (newWallSize / 2) + (doorSize / 2);
@@ -85,12 +88,12 @@ public class RoomBuilder : MonoBehaviour {
             instantiateCube("Right Wall (Above door)", walls.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z + offset), new Vector3(wallThickness, dimensions.y, newWallSize));
             instantiateCube("Right Wall (Under door)", walls.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z - offset), new Vector3(wallThickness, dimensions.y, newWallSize));
         }
-        else
-            instantiateCube("Right Wall", walls.transform, new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2), origin.y + (dimensions.y / 2), origin.z), new Vector3(wallThickness, dimensions.y, dimensions.z));
 
 
         // Top
-        if (doorTop)
+        if (topWall == wallType.SOLID)
+            instantiateCube("Top Wall", walls.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
+        else
         {
             float newWallSize = (dimensions.x - doorSize) / 2;
             float offset = (newWallSize / 2) + (doorSize / 2);
@@ -98,21 +101,19 @@ public class RoomBuilder : MonoBehaviour {
             instantiateCube("Top Wall (Left of door)",  walls.transform, new Vector3(origin.x - offset, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
             instantiateCube("Top Wall (Right of door)", walls.transform, new Vector3(origin.x + offset, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
         }
-        else
-            instantiateCube("Top Wall", walls.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z + (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
 
 
         // Bottom
-        if (doorBottom)
+        if (bottomWall == wallType.SOLID)
+            instantiateCube("Bottom Wall", walls.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
+        else
         {
             float newWallSize = (dimensions.x - doorSize) / 2;
             float offset = (newWallSize / 2) + (doorSize / 2);
 
-            instantiateCube("Bottom Wall (Left of door)", walls.transform, new Vector3(origin.x - offset, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
-            instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(origin.x + offset, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
+            instantiateCube("Bottom Wall (Left of door)",  walls.transform, new Vector3(origin.x - offset, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
+            instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(origin.x + offset, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
         }
-        else
-            instantiateCube("Bottom Wall", walls.transform, new Vector3(origin.x, origin.y + (dimensions.y / 2), origin.z - (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
     }
 
     /// <summary>
@@ -121,6 +122,21 @@ public class RoomBuilder : MonoBehaviour {
     /// <param name="parent">The parent transform to arrange doors around.</param>
     private void buildDoors(Transform parent)
     {
+        GameObject doors = new GameObject();
+        doors.name = "Doors";
+        doors.transform.parent = parent;
+
+        if (leftWall == wallType.DOOR)
+            instantiateDoor("Left Wall Door", doors.transform,    new Vector3(origin.x - (dimensions.x / 2) + (wallThickness / 2),    origin.y + (dimensions.y / 2),    origin.z)).transform.Rotate(0.0f, -90.0f, 0.0f);
+
+        if (rightWall == wallType.DOOR)
+            instantiateDoor("Right Wall Door", doors.transform,   new Vector3(origin.x + (dimensions.x / 2) - (wallThickness / 2),    origin.y + (dimensions.y / 2),    origin.z)).transform.Rotate(0.0f, 90.0f, 0.0f);
+
+        if (topWall == wallType.DOOR)
+            instantiateDoor("Top Wall Door", doors.transform,     new Vector3(origin.x,                                               origin.y + (dimensions.y / 2),    origin.z + (dimensions.z / 2) - (wallThickness / 2)));
+
+        if (bottomWall == wallType.DOOR)
+            instantiateDoor("Bottom Wall Door", doors.transform,  new Vector3(origin.x,                                               origin.y + (dimensions.y / 2),    origin.z - (dimensions.z / 2) + (wallThickness / 2)));
 
     }
 
@@ -140,5 +156,23 @@ public class RoomBuilder : MonoBehaviour {
         cube.transform.localScale = localScale;
 
         return cube;
+    }
+
+    /// <summary>
+    /// Instantiates a cube in the level.
+    /// </summary>
+    /// <param name="parent">The parent object to attach this cube to.</param>
+    /// <param name="localPosition">Position of this cube in relation to parent.</param>
+    /// <returns></returns>
+    private GameObject instantiateDoor(string name, Transform parent, Vector3 localPosition)
+    {
+        GameObject door = Instantiate(Resources.Load("Room Components\\Door")) as GameObject;
+        door.transform.name = name;
+        door.transform.parent = parent;
+        door.transform.localPosition = localPosition;
+
+        door.GetComponent<DoorController>().init(doorSize, dimensions.y, wallThickness * 0.9f, doorSpeed);
+
+        return door;
     }
 }
