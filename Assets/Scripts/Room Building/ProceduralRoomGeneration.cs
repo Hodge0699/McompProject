@@ -6,149 +6,109 @@ namespace RoomBuilding
 {
     public class ProceduralRoomGeneration : MonoBehaviour
     {
-        public int rooms = 5;
-
-        public Vector2 widthBoundaries = new Vector2(25.0f, 40.0f);
-        public Vector2 heightBoundaries = new Vector2(20.0f, 40.0f);
+        public Vector2 maxRoomSize = new Vector2(25.0f, 40.0f);
+        public Vector2 minRoomSize = new Vector2(15.0f, 30.0f);
 
         private RoomBuilder rb;
 
-        private Direction nextEntrance;
+        private Queue<Room> rooms = new Queue<Room>(); // List of all active rooms (should be 1 max).
 
         // Use this for initialization
         void Start()
         {
             rb = GetComponent<RoomBuilder>();
 
-            createStartingRoom();
+            createRoom();
 
-            for (int i = 1; i < rooms - 1; i++)
-                createRoom(nextEntrance);
-
-            createEndRoom(nextEntrance);
+            GameObject player = Instantiate(Resources.Load("Player")) as GameObject;
+            player.transform.position = Vector3.zero;
         }
 
-        void createStartingRoom()
+        /// <summary>
+        /// Creates a new room either completely randomly or based off a previous room.
+        /// </summary>
+        public void createRoom()
         {
-            rb.init();
-            rb.dimensions = new Vector3(Random.Range(widthBoundaries.x, widthBoundaries.y), 5.0f, Random.Range(heightBoundaries.x, heightBoundaries.y));
+            rb.startNewRoom();
 
-            Direction exit = getRandomDirection();
+            Room lastRoom = null;
+            
+            if (rooms.Count > 0)
+                lastRoom = rooms.Dequeue();
 
-            switch (exit)
+            // Randomize new room size
+            rb.dimensions = new Vector3(Random.Range(minRoomSize.x, maxRoomSize.x), 5.0f, Random.Range(minRoomSize.y, maxRoomSize.y));
+
+
+            // Calculate new room origin
+            Vector3 roomOrigin;
+            if (lastRoom != null)
             {
-                case Direction.NORTH:
-                    rb.northWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.EAST:
-                    rb.eastWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.SOUTH:
-                    rb.southWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.WEST:
-                    rb.westWall = RoomBuilder.wallType.DOOR;
-                    break;
+                Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.exit.transform.localPosition.z).normalized;
+
+                roomOrigin = rb.dimensions / 2;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    roomOrigin[i] *= translationAxis[i];
+                    roomOrigin[i] -= translationAxis[i] * (rb.wallThickness / 2);
+                }
+
+                roomOrigin += lastRoom.exit.transform.position;
+
+                roomOrigin.y = 0.0f;
             }
+            else
+                roomOrigin = Vector3.zero;
 
-            nextEntrance = flipDirection(exit);
-
-            rb.buildRoom();
-        }
-
-        void createRoom(Direction entrance)
-        {
-            Vector3 oldDimensions = rb.dimensions;
-            rb.dimensions = new Vector3(Random.Range(widthBoundaries.x, widthBoundaries.y), 5.0f, Random.Range(heightBoundaries.x, heightBoundaries.y));
-
-            Vector3 newOrigin = rb.transform.position;
-
-            rb.init();
+            rb.transform.position = roomOrigin;
 
 
-            switch (entrance)
+            // Generate doors
+            int maxNewDoors;
+
+            if (lastRoom != null)
             {
-                case Direction.NORTH:
-                    rb.northWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.z = newOrigin.z - (oldDimensions.z / 2) - (rb.dimensions.z / 2) + rb.wallThickness;
-                    break;
-                case Direction.EAST:
-                    rb.eastWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.x = newOrigin.x - (oldDimensions.x / 2) - (rb.dimensions.x / 2) + rb.wallThickness;
-                    break;
-                case Direction.SOUTH:
+                maxNewDoors = 3;
+
+                Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.transform.localPosition.z).normalized;
+
+                if (lastRoom.exit.transform.localPosition.z > 0.0f) // Exit was north, entrance will be south
                     rb.southWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.z = newOrigin.z + (oldDimensions.z / 2) + (rb.dimensions.z / 2) - rb.wallThickness;
-                    break;
-                case Direction.WEST:
+                else if (lastRoom.exit.transform.localPosition.x > 0.0f) // Exit was east, entrance will be west
                     rb.westWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.x = newOrigin.x + (oldDimensions.x / 2) + (rb.dimensions.x / 2) - rb.wallThickness;
-                    break;
-            }
-
-            rb.transform.position = newOrigin;
-
-            Direction exit = entrance;
-
-            while (exit == entrance)
-                exit = getRandomDirection();
-
-            switch (exit)
-            {
-                case Direction.NORTH:
-                    rb.northWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.EAST:
-                    rb.eastWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.SOUTH:
-                    rb.southWall = RoomBuilder.wallType.DOOR;
-                    break;
-                case Direction.WEST:
-                    rb.westWall = RoomBuilder.wallType.DOOR;
-                    break;
-            }
-
-            nextEntrance = flipDirection(exit);
-
-            rb.buildRoom();
-        }
-
-        void createEndRoom(Direction entrance)
-        {
-            Vector3 oldDimensions = rb.dimensions;
-            rb.dimensions = new Vector3(Random.Range(widthBoundaries.x, widthBoundaries.y), 5.0f, Random.Range(heightBoundaries.x, heightBoundaries.y));
-
-            Vector3 newOrigin = rb.transform.position;
-
-            rb.init();
-
-
-            switch (entrance)
-            {
-                case Direction.NORTH:
+                else if (lastRoom.exit.transform.localPosition.z < 0.0f) // Exit was south, entrance will be north
                     rb.northWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.z = newOrigin.z - (oldDimensions.z / 2) - (rb.dimensions.z / 2) + rb.wallThickness;
-                    break;
-                case Direction.EAST:
+                else if (lastRoom.exit.transform.localPosition.x < 0.0f) // Exit was west, entrance will be east
                     rb.eastWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.x = newOrigin.x - (oldDimensions.x / 2) - (rb.dimensions.x / 2) + rb.wallThickness;
-                    break;
-                case Direction.SOUTH:
-                    rb.southWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.z = newOrigin.z + (oldDimensions.z / 2) + (rb.dimensions.z / 2) - rb.wallThickness;
-                    break;
-                case Direction.WEST:
-                    rb.westWall = RoomBuilder.wallType.DOORWAY;
-                    newOrigin.x = newOrigin.x + (oldDimensions.x / 2) + (rb.dimensions.x / 2) - rb.wallThickness;
-                    break;
+                else
+                    Debug.LogError("Entrance direction not found!");
+            }
+            else
+                maxNewDoors = 4;
+
+            int doorsToGenerate = Random.Range(2, maxNewDoors);
+
+            for (int i = 0; i < doorsToGenerate; i++)
+            {
+                Direction dir = getRandomDirection();
+
+                if (rb.getWallType(dir) != RoomBuilder.wallType.DOORWAY)
+                    rb.setWallType(dir, RoomBuilder.wallType.DOOR);
             }
 
-            rb.transform.position = newOrigin;
+            // Physically build room and despawn old room.
+            Room newRoom = rb.buildRoom();
 
-            rb.buildRoom();
+            if (lastRoom)
+                lastRoom.despawn(newRoom);
+
+            rooms.Enqueue(newRoom);
         }
 
+        /// <summary>
+        /// Randomises a direction.
+        /// </summary>
         Direction getRandomDirection()
         {
             int rand = Random.Range(0, 4);
@@ -168,22 +128,5 @@ namespace RoomBuilding
             }
         }
 
-        Direction flipDirection(Direction input)
-        {
-            switch (input)
-            {
-                case Direction.NORTH:
-                    return Direction.SOUTH;
-                case Direction.EAST:
-                    return Direction.WEST;
-                case Direction.SOUTH:
-                    return Direction.NORTH;
-                case Direction.WEST:
-                    return Direction.EAST;
-                default:
-                    return Direction.ERROR;
-            }
-
-        }
     }
 }

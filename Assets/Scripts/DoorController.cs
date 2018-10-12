@@ -17,8 +17,13 @@ public class DoorController : MonoBehaviour {
     public State currentState;
     public enum State { CLOSED, OPENING, OPEN, CLOSING };
 
-    public bool locked = true;
-    public float speed = 2.0f;
+    public bool locked = true; // Can the door open? 
+
+    public float speed = 2.0f; // Speed the door opens
+
+    // How soon after the player steps through the door can the door be used again (room generation)
+    private float triggerCooldown = 5.0f;
+    private float triggerCooldownCounter = 0.0f;
 
     public void init(float width = 6, float height = 4, float thickness = 1, float speed = 2.0f)
     {
@@ -36,12 +41,25 @@ public class DoorController : MonoBehaviour {
         leftDoor.transform.localPosition = new Vector3(-width / 4, 0, 0);
         rightDoor.transform.localPosition = new Vector3(width / 4, 0, 0);
 
+        BoxCollider trigger = GetComponent<BoxCollider>();
+        trigger.size = new Vector3(width, height, thickness / 2);
+
         this.speed = speed;
     }
 
     // Update is called once per frame
     void Update() {
-        if (currentState == State.OPENING)
+        // Check if door can be triggered again
+        if (triggerCooldownCounter > 0.0f)
+        {
+            triggerCooldownCounter += Time.fixedDeltaTime;
+
+            if (triggerCooldownCounter >= triggerCooldown)
+                triggerCooldownCounter = 0.0f;
+        }
+
+        // Control states
+        else if (currentState == State.OPENING)
         {
             if (leftDoor.transform.localPosition.x <= -leftDoor.width * 1.5f && rightDoor.transform.localPosition.x >= rightDoor.width * 1.5f)
             {
@@ -63,6 +81,9 @@ public class DoorController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Moves the doors
+    /// </summary>
     private void FixedUpdate()
     {
         if (currentState == State.OPENING)
@@ -74,6 +95,19 @@ public class DoorController : MonoBehaviour {
         {
             leftDoor.transform.localPosition = new Vector3(leftDoor.transform.localPosition.x + (speed * Time.deltaTime), 0.0f, 0.0f);
             rightDoor.transform.localPosition = new Vector3(rightDoor.transform.localPosition.x - (speed * Time.deltaTime), 0.0f, 0.0f);
+        }
+    }
+
+    /// <summary>
+    /// Loads next room and despawns current when player walks through
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (triggerCooldownCounter == 0.0f)
+        {
+            triggerCooldownCounter = Time.deltaTime;
+            GetComponentInParent<Room>().exit = this;
+            FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>().createRoom();
         }
     }
 
