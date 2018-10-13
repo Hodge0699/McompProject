@@ -284,6 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFiring: 0
   bullet: {fileID: 114619293617342762, guid: 44989322af7b59a48bf9c156e40bd199, type: 2}
+  sUpBullet: {fileID: 114250631311878592, guid: f9424df1344171845b20c67aac57a99e,
+    type: 2}
   bulletSpeed: 12
-  timeBetweenShots: 0.05
+  timeBetweenShots: 0.5
+  tM: 0
   firePoint: {fileID: 4481231180104436}

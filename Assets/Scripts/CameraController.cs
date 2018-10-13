@@ -4,22 +4,38 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public GameObject player;
+    //   public GameObject player;
 
-    public Vector3 offset;
+    //   public Vector3 offset;
 
-	// Use this for initialization
-	void Start () {
+    //// Use this for initialization
+    //void Start () {
 
 
-        offset = transform.position - player.transform.position;
-       
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    //       offset = transform.position - player.transform.position;
 
-        transform.position = player.transform.position + offset;
+    //}
 
-	}
+    //// Update is called once per frame
+    //void Update () {
+
+    //       transform.position = player.transform.position + offset;
+
+    //}
+
+    public Transform target;
+    public float smoothing = 5f;
+
+    private Vector3 offset;
+
+    void Start()
+    {
+        offset = transform.position - target.position;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 targetCamPos = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+    }
 }
