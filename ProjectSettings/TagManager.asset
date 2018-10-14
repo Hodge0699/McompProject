@@ -14,10 +14,10 @@ TagManager:
   - UI
   - 
   - 
+  - Floor
+  - Shootable
+  - Invisible
   - PostProcessing
-  - 
-  - 
-  - 
   - 
   - 
   - 

@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour {
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
     private Camera mainCamera;
-    public GunController gun;
     float rayLength;
+
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
-        floorMask = LayerMask.GetMask("Default");
+        floorMask = LayerMask.GetMask("Floor");
         Rigidbody = GetComponent<Rigidbody>();
 
         mainCamera = FindObjectOfType<Camera>();
@@ -32,32 +32,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")); //check whats better raw or not
-        //moveVelocity = moveInput * moveSpeed;
 
-
-        //Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        //Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-        ////check if ray hit plane
-        //if (groundPlane.Raycast(cameraRay, out rayLength))
-        //{
-        //    Vector3 aimAt = cameraRay.GetPoint(rayLength);
-        //    Debug.DrawLine(cameraRay.origin, aimAt, Color.green);
-
-        //    transform.LookAt(new Vector3(aimAt.x, transform.position.y, aimAt.z));
-
-        //}
-
-        //shooting
-        if (Input.GetMouseButtonDown(0))
-        { gun.isFiring = true; }
-        if(Input.GetMouseButtonUp(0))
-        { gun.isFiring = false; }
-        if(Input.GetButtonDown("Right Mouse"))
-        {
-            gun.timeMechanic();
-        }
     }
     void FixedUpdate()
     {

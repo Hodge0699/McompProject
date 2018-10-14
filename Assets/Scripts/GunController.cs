@@ -16,6 +16,9 @@ public class GunController : MonoBehaviour {
     public Transform firePoint;
     Scene m_Scene;
 
+
+
+
     // Use this for initialization
     void Start () {
         m_Scene = SceneManager.GetActiveScene();
