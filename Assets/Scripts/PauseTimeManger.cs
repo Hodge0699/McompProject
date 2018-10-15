@@ -28,4 +28,11 @@ public class PauseTimeManger : MonoBehaviour {
             
         }
 	}
+
+    public void Pausemode()
+    {
+        Time.timeScale = pauseTimeFactor;
+        Time.fixedDeltaTime = Time.timeScale * 0.0f;
+    }
 }
+
