@@ -29,9 +29,9 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 offset;
 
-    void Start()
+    private void Awake()
     {
-        target = GameObject.Find("Player").transform;
+        target = GameObject.FindWithTag("Player").transform;
         offset = transform.position - target.transform.position;
     }
 
