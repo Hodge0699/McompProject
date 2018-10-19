@@ -5,7 +5,9 @@ using UnityEngine;
 public class speedUp : timeMechanic {
 
     public SpeedUpBulletController sUpB;
+
     public Transform secondaryFirePoint;
+
     public GunController gController;
     
     private void Update()
