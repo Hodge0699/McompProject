@@ -15,13 +15,17 @@ public class SpeedUpBulletController : MonoBehaviour
     }
 
     // Update is called once per frame
+
     void Update()
     {
 
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         Destroy(gameObject, 1);
     }
-
+    /// <summary>
+    /// checks for collisions with the bullet
+    /// </summary>
+    /// <param name="collision"></param>
     void OnTriggerEnter(Collider collision)
     {
         Debug.Log("I'm getting inside the collision function when the bullet hits a viable target" + " " + collision.gameObject.tag);

@@ -16,6 +16,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
     void Update()
     {
+        // destroys the bubble after a set time
         bubbleDuration -= Time.deltaTime;
 
         if(bubbleDuration <= 0)
@@ -27,6 +28,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        // if something enters the field of the bubble increase its speed
         if (other.gameObject.tag == "SpeedUp")
         {
             Debug.Log("I'm registering the player is inside the bubble");
