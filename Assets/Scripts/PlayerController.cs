@@ -28,19 +28,8 @@ public class PlayerController : MonoBehaviour {
 
 
         Instantiate (myCamera, transform.position + cameraPos, Quaternion.Euler(33,0,0));
-        //mainCamera = FindObjectOfType<Camera>();
     }
 
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-
-    }
     void FixedUpdate()
     {
         Rigidbody.velocity = moveVelocity;
@@ -52,6 +41,11 @@ public class PlayerController : MonoBehaviour {
         Turning();
     }
 
+    /// <summary>
+    /// Moves player in world space.
+    /// </summary>
+    /// <param name="h">Horizontal movement.</param>
+    /// <param name="v">Vertical movement.</param>
     void Move(float h, float v)
     {
         // Set the movement vector based on the axis input.
@@ -64,7 +58,35 @@ public class PlayerController : MonoBehaviour {
         Rigidbody.MovePosition(transform.position + movement);
     }
 
+    /// <summary>
+    /// Turns player to look at mouse pos
+    /// </summary>
     void Turning()
+    {
+        Vector3? mousePos = getMousePos();
+
+        // Return early if invalid mouse position
+        if (mousePos == null)
+            return;
+
+        // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+        Vector3 playerToMouse = mousePos.Value - transform.position;
+
+        // Ensure the vector is entirely along the floor plane.
+        playerToMouse.y = 0f;
+
+        // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+        Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+
+        // Set the player's rotation to this new rotation.
+        Rigidbody.MoveRotation(newRotation);
+    }
+
+    /// <summary>
+    /// Gets the position of the mouse in world space.
+    /// </summary>
+    /// <returns>Position of mouse or null if mouse not over floor.</returns>
+    public Vector3 ? getMousePos()
     {
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -72,22 +94,9 @@ public class PlayerController : MonoBehaviour {
         // Create a RaycastHit variable to store information about what was hit by the ray.
         RaycastHit floorHit;
 
-        // Perform the raycast and if it hits something on the floor layer...
         if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-        {
-            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-            Vector3 playerToMouse = floorHit.point - transform.position;
-
-            // Ensure the vector is entirely along the floor plane.
-            playerToMouse.y = 0f;
-
-            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
-            // Set the player's rotation to this new rotation.
-            Rigidbody.MoveRotation(newRotation);
-        }
+            return floorHit.point;
+        else
+            return null;
     }
-
-
 }

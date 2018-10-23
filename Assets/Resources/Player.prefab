@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 65809565915298302}
   - component: {fileID: 54364970491831070}
   - component: {fileID: 114436240047496228}
-  - component: {fileID: 114126446649600480}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -520,19 +519,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114126446649600480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653496019388500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 337f231912016fc44bca9633f2063a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 100
-  gun: {fileID: 114976540871227070}
 --- !u!114 &114436240047496228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,12 +543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741bef71e0fd9754bb2d0ca2b9633223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFiring: 0
   bullet: {fileID: 114619293617342762, guid: 44989322af7b59a48bf9c156e40bd199, type: 2}
   sUpBullet: {fileID: 114250631311878592, guid: f9424df1344171845b20c67aac57a99e,
     type: 2}
   bulletSpeed: 12
   timeBetweenShots: 0.5
-  tM: 3
   primaryFirePoint: {fileID: 4528453300267580}
   secondaryFirePoint: {fileID: 4756439425964752}
+  debugging: 0
