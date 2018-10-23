@@ -22,7 +22,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-    }
+    }//
 
 
     private void OnTriggerEnter(Collider other)
