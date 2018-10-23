@@ -26,10 +26,10 @@ public class PlayerShooting : MonoBehaviour {
         { shooting(); }
         if (Input.GetMouseButtonUp(0))
         { gun.isFiring = false; }
-        //if (Input.GetButtonDown("Right Mouse"))
-        //{
-        //    gun.timeMechanic();
-        //}
+        if (Input.GetButtonDown("Right Mouse"))
+        {
+            gun.timeMechanic();
+        }
     }
 
 
