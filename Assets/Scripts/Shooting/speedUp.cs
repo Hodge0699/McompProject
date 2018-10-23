@@ -17,7 +17,7 @@ public class speedUp : timeMechanic {
             Shoot();
         }
     }
-
+    //
     public override void Shoot()
     {
         SpeedUpBulletController newBullet = Instantiate(sUpB, secondaryFirePoint.position, secondaryFirePoint.rotation);

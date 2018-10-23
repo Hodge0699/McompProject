@@ -28,7 +28,7 @@ public class PlayerShooting : MonoBehaviour {
         { gun.isFiring = false; }
         //if (Input.GetButtonDown("Right Mouse"))
         //{
-        //    gun.timeMechanic();
+        //    gun.timeMechanic();//
         //}
     }
 

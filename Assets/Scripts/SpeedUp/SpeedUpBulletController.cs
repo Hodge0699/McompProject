@@ -33,7 +33,7 @@ public class SpeedUpBulletController : MonoBehaviour
         {
             Debug.Log("I'm getting inside the collision function when the bullet hits a viable target");
             Destroy(gameObject);
-
+            //
             SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
         }
     }
