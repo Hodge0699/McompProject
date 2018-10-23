@@ -31,6 +31,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
         // if something enters the field of the bubble increase its speed
         if (other.gameObject.tag == "SpeedUp")
         {
+            //debug
             Debug.Log("I'm registering the player is inside the bubble");
             //other.GetComponent<PlayerController>().moveSpeed = other.GetComponent<PlayerController>().moveSpeed * speed;
             other.transform.Translate(direction * speed * Time.deltaTime);
