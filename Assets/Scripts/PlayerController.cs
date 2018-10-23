@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    [SerializeField]
+    private GameObject myCamera = null;
+
     public float moveSpeed;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
-    private Camera mainCamera;
+    //private Camera mainCamera;
     float rayLength;
 
 
@@ -16,12 +19,16 @@ public class PlayerController : MonoBehaviour {
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
+    Vector3 cameraPos = new Vector3(0f, 7f, -10f);
+
     private void Awake()
     {
         floorMask = LayerMask.GetMask("Floor");
         Rigidbody = GetComponent<Rigidbody>();
 
-        mainCamera = FindObjectOfType<Camera>();
+
+        Instantiate (myCamera, transform.position + cameraPos, Quaternion.Euler(33,0,0));
+        //mainCamera = FindObjectOfType<Camera>();
     }
 
     // Use this for initialization

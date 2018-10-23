@@ -15,9 +15,9 @@ TagManager:
   - 
   - 
   - Floor
-  - 
-  - 
-  - 
+  - Shootable
+  - Invisible
+  - PostProcessing
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: timeMechanic
+    uniqueID: 3901681567
     locked: 0

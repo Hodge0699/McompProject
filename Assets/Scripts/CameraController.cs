@@ -23,14 +23,16 @@ public class CameraController : MonoBehaviour {
 
     //}
 
-    public Transform target;
+    private Transform target;
+
     public float smoothing = 5f;
 
     private Vector3 offset;
 
-    void Start()
+    private void Awake()
     {
-        offset = transform.position - target.position;
+        target = GameObject.FindWithTag("Player").transform;
+        offset = transform.position - target.transform.position;
     }
 
     private void FixedUpdate()
