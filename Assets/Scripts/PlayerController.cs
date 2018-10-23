@@ -12,20 +12,15 @@ public class PlayerController : MonoBehaviour {
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
     //private Camera mainCamera;
-    float rayLength;
-
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
-    int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 
     private void Awake()
     {
-        floorMask = LayerMask.GetMask("Floor");
         Rigidbody = GetComponent<Rigidbody>();
-
 
         Instantiate (myCamera, transform.position + cameraPos, Quaternion.Euler(33,0,0));
     }
@@ -91,11 +86,13 @@ public class PlayerController : MonoBehaviour {
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // Create a RaycastHit variable to store information about what was hit by the ray.
-        RaycastHit floorHit;
+        float distanceToPlayer = (Camera.main.transform.position - transform.position).magnitude;
 
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-            return floorHit.point;
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(camRay, out rayHit, distanceToPlayer * 2))
+            return rayHit.point;
         else
             return null;
     }
