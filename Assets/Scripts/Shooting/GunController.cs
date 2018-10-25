@@ -8,7 +8,7 @@ public class GunController : MonoBehaviour {
     public BulletController bullet;
     public SpeedUpBulletController sUpBullet;
     public float bulletSpeed;
-    public float timeBetweenShots;
+    public float timeBetweenShots = 0.5f; //jack
     private float shotCooldown = 0.0f;
     public Transform primaryFirePoint;
     public Transform secondaryFirePoint;

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpeedUp
+  - Pick Up
+  - ED
+  - MG
   layers:
   - Default
   - TransparentFX
