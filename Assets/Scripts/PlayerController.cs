@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     [SerializeField]
     private GameObject myCamera = null;
-
+    public BulletController BC;
     public float moveSpeed;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
+    
+
     //private Camera mainCamera;
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+    public float Damage = 100f; // jack 
+    public float speed = 12f;
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 
@@ -22,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     {
         Rigidbody = GetComponent<Rigidbody>();
 
-        Instantiate (myCamera, transform.position + cameraPos, Quaternion.Euler(33,0,0));
+        Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
     }
 
     void FixedUpdate()
@@ -81,7 +86,7 @@ public class PlayerController : MonoBehaviour {
     /// Gets the position of the mouse in world space.
     /// </summary>
     /// <returns>Position of mouse or null if mouse not over floor.</returns>
-    public Vector3 ? getMousePos()
+    public Vector3? getMousePos()
     {
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -97,3 +102,5 @@ public class PlayerController : MonoBehaviour {
             return null;
     }
 }
+
+   

@@ -532,6 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 1246727744310432, guid: 03ce7df34882c254f8da8ae8ea42ec76, type: 2}
   moveSpeed: 6
+  Damage: 100
 --- !u!114 &114976540871227070
 MonoBehaviour:
   m_ObjectHideFlags: 1

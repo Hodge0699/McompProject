@@ -7,8 +7,10 @@ public class BulletController : MonoBehaviour {
     public float speed = 12.0f;
     public float lifespan = 1.0f;
 
+
     private void Awake()
     {
+       
         Destroy(gameObject, lifespan);
     }
 

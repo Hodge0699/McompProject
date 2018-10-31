@@ -7,9 +7,9 @@ public class GunController : MonoBehaviour {
 
     public BulletController bullet;
     public SpeedUpBulletController sUpBullet;
-    public float bulletSpeed;
-    public float timeBetweenShots;
-    private float shotCooldown = 0.0f;
+    public float bulletSpeed;  
+    public float timeBetweenShots = 0.5f;
+    public float shotCooldown = 0.0f;
     public Transform primaryFirePoint;
     public Transform secondaryFirePoint;
 
@@ -58,6 +58,8 @@ public class GunController : MonoBehaviour {
 
         BulletController newBullet = Instantiate(bullet, primaryFirePoint.position, primaryFirePoint.rotation);
         newBullet.speed = bulletSpeed;
+        Debug.Log(bulletSpeed);//jack
+      
 
         if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
         {
