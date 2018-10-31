@@ -5,26 +5,32 @@ using UnityEngine;
 public class PowerupMG : MonoBehaviour
 {
 
-    float time = 5.0f;
-    GunController GC;
+    public float time = 5.0f;
+    public GunController GC;
     public float BulletSpeed = 0.25f;
     public float Duration = 30f;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-
+        {
             //StartCoroutine(GC(other));
             Debug.Log("MachineGun Picked Up");
-        GC.timeBetweenShots = BulletSpeed;
+            GC = other.GetComponentInChildren<GunController>();
+            GC.timeBetweenShots = 0.25f;
+            GC.resetTime();
+        }
+        
     }
 
-    void Update()
+    private void Reset()
     {
         time -= Time.deltaTime;
-        if(time == 0)
+        if (time <= 0)
         {
+            Debug.Log("getting inside the reset function");
             GC.timeBetweenShots = 0.5f;
         }
+        time = 5.0f;
     }
 }    
     //IEnumerator GC(Collider player)

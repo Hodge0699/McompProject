@@ -9,6 +9,7 @@ public class GunController : MonoBehaviour {
     public SpeedUpBulletController sUpBullet;
     public float bulletSpeed;  
     public float timeBetweenShots = 0.5f;
+    public float time = 0.0f;
     public float shotCooldown = 0.0f;
     public Transform primaryFirePoint;
     public Transform secondaryFirePoint;
@@ -45,6 +46,12 @@ public class GunController : MonoBehaviour {
 
         if (shotCooldown >= 0.0f)
             shotCooldown -= Time.deltaTime;
+        if (time >= 0.0f)
+            time -= Time.deltaTime;
+        if (time <= 0)
+        {
+            timeBetweenShots = 0.5f;
+        }
     }
 
     /// <summary>
@@ -82,5 +89,10 @@ public class GunController : MonoBehaviour {
     {
         smile.SetActive(e == EMOTION.HAPPY);
         angry.SetActive(e == EMOTION.ANGRY);
+    }
+
+    public void resetTime()
+    {
+        time = 5.0f;
     }
 }
