@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject myCamera = null;
-
+    public BulletController BC;
     public float moveSpeed;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
     public float Damage = 100f; // jack 
+    public float speed = 12f;
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 

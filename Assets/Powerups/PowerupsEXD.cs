@@ -9,6 +9,7 @@ public class PowerupsEXD : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+
             StartCoroutine(PC(other));
         Debug.Log("Power Up Picked Up");
     }

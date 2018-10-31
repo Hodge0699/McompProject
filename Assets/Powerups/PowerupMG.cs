@@ -5,30 +5,42 @@ using UnityEngine;
 public class PowerupMG : MonoBehaviour
 {
 
-    public float BulletSpeed = 2f;
+    float time = 5.0f;
+    GunController GC;
+    public float BulletSpeed = 0.25f;
     public float Duration = 30f;
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        
-            StartCoroutine(GC(other));
-        
-            
+
+            //StartCoroutine(GC(other));
+            Debug.Log("MachineGun Picked Up");
+        GC.timeBetweenShots = BulletSpeed;
     }
-    IEnumerator GC(Collider player)
+
+    void Update()
     {
-        GunController GC = player.GetComponent<GunController>();
-        GC.timeBetweenShots *= BulletSpeed;
-
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
-
-        yield return new WaitForSeconds(Duration);
-        GC.timeBetweenShots /= BulletSpeed;
-
-        Destroy(gameObject);
+        time -= Time.deltaTime;
+        if(time == 0)
+        {
+            GC.timeBetweenShots = 0.5f;
+        }
     }
+}    
+    //IEnumerator GC(Collider player)
+    //{
+    //    GunController GC = player.GetComponent<GunController>();
+    //    GC.timeBetweenShots = BulletSpeed;
+   
+    //    GetComponent<MeshRenderer>().enabled = false;
+    //    GetComponent<Collider>().enabled = false;
+        
+    //    yield return new WaitForSeconds(Duration);
+    //    GC.timeBetweenShots = 0.5f;
 
 
-}
+    //    Destroy(gameObject);
+    //}
+
+
+
