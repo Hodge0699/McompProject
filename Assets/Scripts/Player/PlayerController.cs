@@ -68,17 +68,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Turning()
     {
-        Vector3? mousePos = getMousePos();
-
-        // Return early if invalid mouse position
-        if (mousePos == null)
-            return;
+        Vector3 mousePos = getMousePos();
 
         // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-        Vector3 playerToMouse = mousePos.Value - transform.position;
-
-        if (playerToMouse.magnitude <= 0.75f)
-            return;
+        Vector3 playerToMouse = mousePos - transform.position;
 
         // Ensure the vector is entirely along the floor plane.
         playerToMouse.y = 0f;
