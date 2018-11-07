@@ -89,7 +89,7 @@ public class GunController : MonoBehaviour {
 
         if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
         {
-            Vector3 target = player.getMousePos().Value;
+            Vector3 target = player.getMousePos();
 
             newSGBullet.transform.LookAt(target);
 
