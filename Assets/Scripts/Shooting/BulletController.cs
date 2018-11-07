@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour {
 
     public float speed = 12.0f;
     public float lifespan = 1.0f;
-
+    public int damage;
 
     private void Awake()
     {
@@ -18,4 +18,15 @@ public class BulletController : MonoBehaviour {
     void Update () {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
+
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
+            Destroy(gameObject);
+        }
+    }
+
 }

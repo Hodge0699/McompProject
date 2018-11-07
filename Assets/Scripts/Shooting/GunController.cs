@@ -68,16 +68,12 @@ public class GunController : MonoBehaviour {
         newBullet.speed = bulletSpeed;
         Debug.Log(bulletSpeed);//jack
       
+        Vector3 target = player.getMousePos();
+        target.y = newBullet.transform.position.y;
+        newBullet.transform.LookAt(target); //point bullet at target
 
-        if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
-        {
-            Vector3 target = player.getMousePos().Value;
-
-            newBullet.transform.LookAt(target);
-
-            if (debugging)
-                Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
-        }
+        if (debugging)
+            Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
 
         shotCooldown = timeBetweenShots;
     }

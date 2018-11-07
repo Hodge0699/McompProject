@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RoomBuilding
 {
@@ -22,6 +23,9 @@ namespace RoomBuilding
 
             GameObject player = Instantiate(Resources.Load("Player")) as GameObject;
             player.transform.position = Vector3.zero;
+
+            Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
+            Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;
         }
 
         /// <summary>

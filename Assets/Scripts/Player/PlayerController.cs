@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
-    
+
+    public bool debugging = false;
+
+    Plane mousePlane; // Plane to track the mouse position on screen.
 
     //private Camera mainCamera;
 
@@ -28,6 +31,8 @@ public class PlayerController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
 
         Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
+
+        mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
     }
 
     void FixedUpdate()
@@ -63,14 +68,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Turning()
     {
-        Vector3? mousePos = getMousePos();
-
-        // Return early if invalid mouse position
-        if (mousePos == null)
-            return;
+        Vector3 mousePos = getMousePos();
 
         // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-        Vector3 playerToMouse = mousePos.Value - transform.position;
+        Vector3 playerToMouse = mousePos - transform.position;
 
         // Ensure the vector is entirely along the floor plane.
         playerToMouse.y = 0f;
@@ -85,22 +86,18 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Gets the position of the mouse in world space.
     /// </summary>
-    /// <returns>Position of mouse or null if mouse not over floor.</returns>
-    public Vector3? getMousePos()
+    /// <returns>Position of mouse in world space.</returns>
+    public Vector3 getMousePos()
     {
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        float distanceToPlayer = (Camera.main.transform.position - transform.position).magnitude;
+        float intersect = 0.0f;
+        mousePlane.Raycast(camRay, out intersect);
 
-        // Create a RaycastHit variable to store information about what was hit by the ray.
-        RaycastHit rayHit;
+        if (debugging)
+            Debug.DrawLine(Camera.main.transform.position, camRay.GetPoint(intersect), Color.red);
 
-        if (Physics.Raycast(camRay, out rayHit, distanceToPlayer * 2))
-            return rayHit.point;
-        else
-            return null;
+        return camRay.GetPoint(intersect);
     }
 }
-
-   
