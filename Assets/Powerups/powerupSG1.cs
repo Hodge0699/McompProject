@@ -1,10 +1,10 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class powerupSG : MonoBehaviour
+public class powerupSG1 : MonoBehaviour
 {
+
 
     public SGbulletController SG;
     public GunController GC;

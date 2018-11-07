@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
 
     public BulletController bullet;
+    public SGbulletController SGbullet;
     public SpeedUpBulletController sUpBullet;
     public float bulletSpeed;  
     public float timeBetweenShots = 0.5f;
@@ -39,7 +40,7 @@ public class GunController : MonoBehaviour {
         {
             setFace(EMOTION.ANGRY);
 
-            shoot();
+            Shoot();
         }
         else
             setFace(EMOTION.HAPPY);
@@ -57,7 +58,7 @@ public class GunController : MonoBehaviour {
     /// <summary>
     /// Attempts to shoot a bullet
     /// </summary>
-    void shoot()
+   public void Shoot()
     {
         // Return early if cooldown not reached
         if (shotCooldown >= 0.0f)
@@ -80,6 +81,30 @@ public class GunController : MonoBehaviour {
 
         shotCooldown = timeBetweenShots;
     }
+
+    public void ShootSG() //JACK 
+    {
+        if (shotCooldown >= 0.0f)
+            return;
+
+        SGbulletController newSGBullet = Instantiate(SGbullet, primaryFirePoint.position, primaryFirePoint.rotation);
+        newSGBullet.speed = bulletSpeed;
+        Debug.Log(newSGBullet);//jack
+
+        if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
+        {
+            Vector3 target = player.getMousePos().Value;
+
+            newSGBullet.transform.LookAt(target);
+
+            if (debugging)
+                Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
+        }
+
+        shotCooldown = timeBetweenShots;
+    }
+
+
 
     /// <summary>
     /// Sets Darren's face to an emotion
