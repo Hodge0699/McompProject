@@ -51,12 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3730e48bf293747bfd0a65924357cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorTexture: {fileID: 0}
   dimensions: {x: 25, y: 5, z: 20}
   wallThickness: 1
   doorSize: 6
+  doorSpeed: 2
   previewWalls: 1
-  doorLeft: 0
-  doorTop: 0
-  doorRight: 0
-  doorBottom: 0
+  westWall: 0
+  eastWall: 0
+  northWall: 0
+  southWall: 0
   build: 0

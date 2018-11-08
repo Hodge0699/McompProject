@@ -6,6 +6,9 @@ namespace RoomBuilding
 {
     public class RoomBuilder : MonoBehaviour
     {
+        // Liam: setting floor texture for generated room floor
+        public Texture floorTexture;
+
         public Vector3 dimensions = new Vector3(25.0f, 5.0f, 20.0f); // Dimensions of the room
 
         public float wallThickness = 1.0f;
@@ -119,6 +122,9 @@ namespace RoomBuilding
 
             // Create floor
             GameObject floor = instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
+            // Liam: applying set texture to the floor on generation
+            floor.GetComponent<Renderer>().material.mainTexture = floorTexture;
+
 
             buildWalls(roomOrigin.transform);
             buildDoors(roomOrigin.transform);

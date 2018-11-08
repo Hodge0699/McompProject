@@ -3,7 +3,8 @@ guid: 2a3730e48bf293747bfd0a65924357cb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - floorTexture: {fileID: 2800000, guid: a020c6b0e16d4234fbfab30a2f0b4310, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

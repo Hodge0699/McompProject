@@ -198,7 +198,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b2bd214025b77c64f84e04b160d5526c, type: 2}
+  - {fileID: 2100000, guid: 5f19af78141013b468625c18a0f4dd8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -320,8 +320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120d25f3506c4104b914a91937de5175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
-  lifespan: 1
+  SG: {fileID: 0}
+  GC: {fileID: 0}
+  bulletSpeed: 0
+  time: 5
 --- !u!1001 &1229878007
 Prefab:
   m_ObjectHideFlags: 0
