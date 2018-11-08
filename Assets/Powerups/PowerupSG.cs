@@ -22,9 +22,9 @@ public class powerupSG : MonoBehaviour
         {
             Debug.Log("ShotGun pickup");
             GC = other.GetComponentInChildren<GunController>();
-            GC.ShootSG();
-            GC.resetTime();
-
+            //GC.ShootSG();
+            //GC.resetTime();
+            GC.currentGun = new Gun.Shotgun();
 
 
 
@@ -33,7 +33,7 @@ public class powerupSG : MonoBehaviour
     }
     void Start()
     {
-        SG = new SGbulletController();
+        //SG = new SGbulletController();
     }
     private void Reset()
     {
@@ -41,7 +41,8 @@ public class powerupSG : MonoBehaviour
         if (time <= 0)
         {
             Debug.Log("getting inside the reset function");
-            GC.Shoot();
+            //GC.Shoot();
+            GC.currentGun = new Gun.Handgun();
         }
         time = 5.0f;
     }

@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     //private Camera mainCamera;
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
-    float camRayLength = 100f;          // The length of the ray from the camera into the scene.
     public float Damage = 100f; // jack 
     public float speed = 12f;
 

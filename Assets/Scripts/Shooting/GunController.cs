@@ -15,6 +15,8 @@ public class GunController : MonoBehaviour {
     public Transform primaryFirePoint;
     public Transform secondaryFirePoint;
 
+    public Gun.AbstractGun currentGun;
+
     private PlayerController player;
 
     private enum EMOTION { HAPPY, ANGRY };
@@ -31,6 +33,7 @@ public class GunController : MonoBehaviour {
         angry = transform.parent.Find("AngryFace").gameObject;
 
         player = GetComponentInParent<PlayerController>();
+        setGun(gameObject.AddComponent<Gun.Handgun>());
     }
 
     // Update is called once per frame
@@ -40,67 +43,75 @@ public class GunController : MonoBehaviour {
         {
             setFace(EMOTION.ANGRY);
 
-            Shoot();
+            Vector3 target = player.getMousePos();
+            target.y = primaryFirePoint.transform.position.y;
+
+            currentGun.shoot(primaryFirePoint.position, target);
+            //Shoot();
         }
         else
             setFace(EMOTION.HAPPY);
 
-        if (shotCooldown >= 0.0f)
-            shotCooldown -= Time.deltaTime;
-        if (time >= 0.0f)
-            time -= Time.deltaTime;
-        if (time <= 0)
-        {
-            timeBetweenShots = 0.5f;
-        }
+        //if (shotCooldown >= 0.0f)
+        //    shotCooldown -= Time.deltaTime;
+        //if (time >= 0.0f)
+        //    time -= Time.deltaTime;
+        //if (time <= 0)
+        //{
+        //    timeBetweenShots = 0.5f;
+        //}
     }
 
-    /// <summary>
-    /// Attempts to shoot a bullet
-    /// </summary>
-   public void Shoot()
-    {
-        // Return early if cooldown not reached
-        if (shotCooldown >= 0.0f)
-            return;
+   // /// <summary>
+   // /// Attempts to shoot a bullet
+   // /// </summary>
+   //public void Shoot()
+   // {
+   //     // Return early if cooldown not reached
+   //     if (shotCooldown >= 0.0f)
+   //         return;
 
-        BulletController newBullet = Instantiate(bullet, primaryFirePoint.position, primaryFirePoint.rotation);
-        newBullet.speed = bulletSpeed;
-        Debug.Log(bulletSpeed);//jack
+   //     BulletController newBullet = Instantiate(bullet, primaryFirePoint.position, primaryFirePoint.rotation);
+   //     newBullet.speed = bulletSpeed;
       
-        Vector3 target = player.getMousePos();
-        target.y = newBullet.transform.position.y;
-        newBullet.transform.LookAt(target); //point bullet at target
+   //     Vector3 target = player.getMousePos();
+   //     target.y = newBullet.transform.position.y;
+   //     newBullet.transform.LookAt(target); //point bullet at target
 
-        if (debugging)
-            Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
+   //     if (debugging)
+   //         Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
 
-        shotCooldown = timeBetweenShots;
-    }
+   //     shotCooldown = timeBetweenShots;
+   // }
 
-    public void ShootSG() //JACK 
+   // public void ShootSG() //JACK 
+   // {
+   //     if (shotCooldown >= 0.0f)
+   //         return;
+
+   //     SGbulletController newSGBullet = Instantiate(SGbullet, primaryFirePoint.position, primaryFirePoint.rotation);
+   //     newSGBullet.speed = bulletSpeed;
+   //     Debug.Log(newSGBullet);//jack
+
+   //     if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
+   //     {
+   //         Vector3 target = player.getMousePos();
+
+   //         newSGBullet.transform.LookAt(target);
+
+   //         if (debugging)
+   //             Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
+   //     }
+
+   //     shotCooldown = timeBetweenShots;
+   // }
+
+    public void setGun(Gun.AbstractGun gun)
     {
-        if (shotCooldown >= 0.0f)
-            return;
-
-        SGbulletController newSGBullet = Instantiate(SGbullet, primaryFirePoint.position, primaryFirePoint.rotation);
-        newSGBullet.speed = bulletSpeed;
-        Debug.Log(newSGBullet);//jack
-
-        if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
-        {
-            Vector3 target = player.getMousePos();
-
-            newSGBullet.transform.LookAt(target);
-
-            if (debugging)
-                Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
-        }
-
-        shotCooldown = timeBetweenShots;
+        if (currentGun)
+            Destroy(currentGun);
+        currentGun = gun;
     }
-
-
 
     /// <summary>
     /// Sets Darren's face to an emotion

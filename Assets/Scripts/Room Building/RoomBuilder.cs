@@ -118,7 +118,7 @@ namespace RoomBuilding
             room.dimensions = dimensions;
 
             // Create floor
-            GameObject floor = instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
+            instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
 
             buildWalls(roomOrigin.transform);
             buildDoors(roomOrigin.transform);

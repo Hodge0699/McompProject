@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     public float speed = 12.0f;
-    public float lifespan = 1.0f;
+    public float lifespan = 10.0f;
     public int damage;
 
     private void Awake()
