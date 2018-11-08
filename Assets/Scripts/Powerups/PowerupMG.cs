@@ -16,7 +16,9 @@ public class PowerupMG : MonoBehaviour
             //StartCoroutine(GC(other));
             Debug.Log("MachineGun Picked Up");
             GC = other.GetComponentInChildren<GunController>();
-            GC.timeBetweenShots = 0.25f;
+            
+            //GC.timeBetweenShots = 0.25f;
+            GC.setGun(GC.gameObject.AddComponent<Gun.MachineGun>());
             GC.resetTime();
         }
         
@@ -28,7 +30,7 @@ public class PowerupMG : MonoBehaviour
         if (time <= 0)
         {
             Debug.Log("getting inside the reset function");
-            GC.timeBetweenShots = 0.5f;
+            GC.currentGun = new Gun.Handgun();
         }
         time = 5.0f;
     }

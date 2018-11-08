@@ -11,7 +11,7 @@ namespace Gun
 
         public void Awake()
         {
-            init(5.0f, 10.0f, 5.0f);
+            init(5.0f, 10.0f, 1.0f);
         }
 
         public override void shoot(Vector3 spawnPos, Vector3 target)
