@@ -6,12 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
 
     public BulletController bullet;
-    public SGbulletController SGbullet;
     public SpeedUpBulletController sUpBullet;
-    public float bulletSpeed;  
-    public float timeBetweenShots = 0.5f;
-    public float time = 0.0f;
-    public float shotCooldown = 0.0f;
     public Transform primaryFirePoint;
     public Transform secondaryFirePoint;
 
@@ -23,8 +18,9 @@ public class GunController : MonoBehaviour {
     private GameObject smile;
     private GameObject angry;
 
-
     public bool debugging = false;
+
+    float gunTimer = 0.0f;
 
     private void Awake ()
     {
@@ -33,7 +29,7 @@ public class GunController : MonoBehaviour {
         angry = transform.parent.Find("AngryFace").gameObject;
 
         player = GetComponentInParent<PlayerController>();
-        setGun(gameObject.AddComponent<Gun.Handgun>());
+        setGun(typeof(Gun.Handgun));
     }
 
     // Update is called once per frame
@@ -47,70 +43,45 @@ public class GunController : MonoBehaviour {
             target.y = primaryFirePoint.transform.position.y;
 
             currentGun.shoot(primaryFirePoint.position, target);
-            //Shoot();
         }
         else
             setFace(EMOTION.HAPPY);
 
-        //if (shotCooldown >= 0.0f)
-        //    shotCooldown -= Time.deltaTime;
-        //if (time >= 0.0f)
-        //    time -= Time.deltaTime;
-        //if (time <= 0)
-        //{
-        //    timeBetweenShots = 0.5f;
-        //}
+        if (currentGun.GetType() != typeof(Gun.Handgun))
+        {
+            gunTimer -= Time.deltaTime;
+
+            if (gunTimer <= 0.0f)
+                setGun(typeof(Gun.Handgun));
+        }
     }
 
-   // /// <summary>
-   // /// Attempts to shoot a bullet
-   // /// </summary>
-   //public void Shoot()
-   // {
-   //     // Return early if cooldown not reached
-   //     if (shotCooldown >= 0.0f)
-   //         return;
-
-   //     BulletController newBullet = Instantiate(bullet, primaryFirePoint.position, primaryFirePoint.rotation);
-   //     newBullet.speed = bulletSpeed;
-      
-   //     Vector3 target = player.getMousePos();
-   //     target.y = newBullet.transform.position.y;
-   //     newBullet.transform.LookAt(target); //point bullet at target
-
-   //     if (debugging)
-   //         Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
-
-   //     shotCooldown = timeBetweenShots;
-   // }
-
-   // public void ShootSG() //JACK 
-   // {
-   //     if (shotCooldown >= 0.0f)
-   //         return;
-
-   //     SGbulletController newSGBullet = Instantiate(SGbullet, primaryFirePoint.position, primaryFirePoint.rotation);
-   //     newSGBullet.speed = bulletSpeed;
-   //     Debug.Log(newSGBullet);//jack
-
-   //     if (player.getMousePos() != null) // If mouse in valid position, point bullet at target
-   //     {
-   //         Vector3 target = player.getMousePos();
-
-   //         newSGBullet.transform.LookAt(target);
-
-   //         if (debugging)
-   //             Debug.DrawLine(primaryFirePoint.position, target, Color.red, 2.0f);
-   //     }
-
-   //     shotCooldown = timeBetweenShots;
-   // }
-
-    public void setGun(Gun.AbstractGun gun)
+    /// <summary>
+    /// Sets the current left-click gun
+    /// </summary>
+    /// <param name="gun">The type of gun to use.</param>
+    /// <param name="duration">The amount of time this gun will be active for (0 for infinite).</param>
+    public void setGun(System.Type gun, float duration = 0)
     {
         if (currentGun)
             Destroy(currentGun);
-        currentGun = gun;
+
+        gameObject.AddComponent(gun);
+
+        // Can't destroy old gun immediately on collision so find the right gun from all attached guns
+        Gun.AbstractGun[] attachedGuns = gameObject.GetComponents<Gun.AbstractGun>();
+
+        int i = attachedGuns.Length -1; // Loop backwards, more efficient since gun is most probably latest
+        while (!currentGun || (currentGun.GetType() != gun && i >= 0))
+        {
+            currentGun = attachedGuns[i];
+            i--;
+        }
+
+        gunTimer = duration;
+
+        if (debugging)
+            Debug.Log("Switching to " + currentGun.ToString());
     }
 
     /// <summary>
@@ -121,10 +92,5 @@ public class GunController : MonoBehaviour {
     {
         smile.SetActive(e == EMOTION.HAPPY);
         angry.SetActive(e == EMOTION.ANGRY);
-    }
-
-    public void resetTime()
-    {
-        time = 5.0f;
     }
 }

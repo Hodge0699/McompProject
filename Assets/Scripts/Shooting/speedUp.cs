@@ -8,7 +8,7 @@ public class speedUp : timeMechanic {
 
     public Transform secondaryFirePoint;
 
-    public GunController gController;
+    public float bulletSpeed = 10.0f;
     
     private void Update()
     {
@@ -21,6 +21,6 @@ public class speedUp : timeMechanic {
     public override void Shoot()
     {
         SpeedUpBulletController newBullet = Instantiate(sUpB, secondaryFirePoint.position, secondaryFirePoint.rotation);
-        newBullet.speed = gController.bulletSpeed;
+        newBullet.speed = bulletSpeed;
     }
 }
