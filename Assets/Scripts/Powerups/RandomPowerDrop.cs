@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class RandomPowerDrop : MonoBehaviour {
 
-<<<<<<< HEAD
+
     public Gun.Powerups.Shotgun Shotgun;
     public Gun.Powerups.MachineGun MachineGun;
     public Gun.Powerups.EXDHandgun ExtraDamage;
  
 	
-    public class ItemDrops
-=======
+  
+
 
 
     [System.Serializable]
     public class DropItems
->>>>>>> Jack-Branch
+
     {
         public string name;
         public GameObject item;
@@ -63,34 +63,6 @@ public class RandomPowerDrop : MonoBehaviour {
 
     }
 
-    //public int ItemDropChance = Random.Range(0, 25);
-
-    //public void DropRate()
-    //{
-    //    if (ItemDropChance == 25)
-    //    {
-    //        Debug.Log("Drop");
-    //        //random drop will happen
-    //        int randomDrop = Random.Range(0, 3);
-    //        if(randomDrop ==1)
-    //        {
-    //            ShotgunDrop();
-    //        }
-    //        else if(randomDrop == 2)
-    //        {
-    //            MachineGunDrop();
-    //        }
-    //        else if(randomDrop == 3)
-    //        {
-    //            ExtraDamageDrop();
-
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("No Drop");
-    //            return;
-    //        }
-    //    }
-    //}
+   
 
 }
