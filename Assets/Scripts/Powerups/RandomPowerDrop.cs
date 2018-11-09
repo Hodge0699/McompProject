@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RandomPowerDrop : MonoBehaviour {
 
-    public powerupSG1 Shotgun;
-    public PowerupMG MachineGun;
-    public PowerupsEXD ExtraDamage;
+    public Gun.Powerups.Shotgun Shotgun;
+    public Gun.Powerups.MachineGun MachineGun;
+    public Gun.Powerups.EXDHandgun ExtraDamage;
  
 	
     public class ItemDrops
