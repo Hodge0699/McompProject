@@ -7,7 +7,7 @@ namespace RoomBuilding
     public class RoomBuilder : MonoBehaviour
     {
         // Liam: setting floor texture for generated room floor
-        public Texture floorTexture;
+        public Texture floorTexture; // Liam
 
         public Vector3 dimensions = new Vector3(25.0f, 5.0f, 20.0f); // Dimensions of the room
 
@@ -29,9 +29,11 @@ namespace RoomBuilding
         // Manual build button
         public bool build = false;
 
+        //private EnemiesSpawn es;
+
         private void Start()
         {
-            startNewRoom();
+           startNewRoom();
         }
         
         /// <summary>
@@ -43,7 +45,7 @@ namespace RoomBuilding
             eastWall = wallType.SOLID;
             northWall = wallType.SOLID;
             southWall = wallType.SOLID;
-    }
+        }
 
         /// <summary>
         /// Allows manual use of build button.
@@ -122,9 +124,8 @@ namespace RoomBuilding
 
             // Create floor
             GameObject floor = instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
-            // Liam: applying set texture to the floor on generation
-            floor.GetComponent<Renderer>().material.mainTexture = floorTexture;
-
+            // Liam - applying set texture to the floor on generation
+            floor.GetComponent<Renderer>().material.mainTexture = floorTexture; // Liam
 
             buildWalls(roomOrigin.transform);
             buildDoors(roomOrigin.transform);
@@ -277,5 +278,6 @@ namespace RoomBuilding
 
             return door;
         }
+
     }
 }

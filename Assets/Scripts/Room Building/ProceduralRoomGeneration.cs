@@ -21,8 +21,9 @@ namespace RoomBuilding
 
             createRoom();
 
-            GameObject player = Instantiate(Resources.Load("Player")) as GameObject;
-            player.transform.position = Vector3.zero;
+            // Liam - Spawn player at start of scene when first room is generated
+            GameObject player = Instantiate(Resources.Load("Player")) as GameObject; // Liam
+            player.transform.position = Vector3.zero; // Liam
 
             Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
             Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;

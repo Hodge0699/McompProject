@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be7909fdbd72ba4eaebf181b3a20b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 5
 --- !u!114 &114199829376945486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,6 +366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc191bf6b3e125c409557e83aae8b84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shotgun: {fileID: 0}
+  MachineGun: {fileID: 0}
+  ExtraDamage: {fileID: 0}
   LootTable:
   - name: Shotgun
     item: {fileID: 1139573452153030, guid: 5f861e9ed6915a34ea2602682e50041b, type: 2}

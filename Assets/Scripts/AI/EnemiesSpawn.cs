@@ -12,15 +12,12 @@ public class EnemiesSpawn : MonoBehaviour
     public Vector3 size;
 
     public GameObject Enemyprefab;
+    public GameObject floor;
 
     // Use this for initialization
     void Start()
     {
-
-        center = transform.position;
-
         //Spawn();
-
     }
 
     // Update is called once per frame
@@ -37,6 +34,14 @@ public class EnemiesSpawn : MonoBehaviour
 
     public void Spawn()
     {
+
+    	 floor = GameObject.Find("Floor");
+
+    	center = floor.transform.position;
+    	center.y = center.y + 1;
+
+        size = floor.GetComponent<Renderer>().bounds.size;
+
         Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2), Random.Range(-size.z / 2, size.z / 2));
 
         // Vector2 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.z / 2, size.z / 2));
@@ -48,7 +53,7 @@ public class EnemiesSpawn : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1, 0, 0, 0.5f);
-        // Gizmos.DrawCube(center, size);
+        Gizmos.DrawCube(center, size);
         Gizmos.DrawCube(transform.localPosition, size);
     }
 }
