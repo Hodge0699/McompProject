@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-struct Door
-{
-    public Transform transform;
-    public float width;
-}
-
-
 public class DoorController : MonoBehaviour {
+
+    struct Door
+    {
+        public Transform transform;
+        public float width;
+    }
 
     private Door leftDoor;
     private Door rightDoor;
 
     public State currentState;
     public enum State { CLOSED, OPENING, OPEN, CLOSING };
-
-    public bool locked = true; // Can the door open? 
 
     public float speed = 2.0f; // Speed the door opens
 
@@ -111,12 +108,17 @@ public class DoorController : MonoBehaviour {
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        close();
+    }
+
     /// <summary>
     /// Opens the door
     /// </summary>
     public void open()
     {
-        if (!locked && currentState != State.OPEN)
+        if (currentState != State.OPEN)
             currentState = State.OPENING;
     }
 
@@ -125,16 +127,7 @@ public class DoorController : MonoBehaviour {
     /// </summary>
     public void close()
     {
-        if (!locked && currentState != State.CLOSED)
+        if (currentState != State.CLOSED)
             currentState = State.CLOSING;
-    }
-
-    /// <summary>
-    /// Locks/unlocks the door
-    /// </summary>
-    /// <param name="locked">True to lock, false to unlock.</param>
-    public void setLocked(bool locked = true)
-    {
-        this.locked = locked;
     }
 }

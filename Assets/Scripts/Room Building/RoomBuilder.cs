@@ -128,7 +128,7 @@ namespace RoomBuilding
             floor.GetComponent<Renderer>().material.mainTexture = floorTexture; // Liam
 
             buildWalls(roomOrigin.transform);
-            buildDoors(roomOrigin.transform);
+            room.setDoors(buildDoors(roomOrigin.transform));
 
             return room;
         }
@@ -232,12 +232,6 @@ namespace RoomBuilding
             {
                 GameObject door = instantiateDoor("South Wall Door", doorsParent.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)));
                 doors.Add(door.GetComponent<DoorController>());
-            }
-
-            for (int i = 0; i < doors.Count; i++)
-            {
-                doors[i].locked = false;
-                doors[i].open();
             }
 
             return doors;

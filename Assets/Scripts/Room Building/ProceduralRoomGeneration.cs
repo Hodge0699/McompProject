@@ -10,7 +10,10 @@ namespace RoomBuilding
         public Vector2 maxRoomSize = new Vector2(25.0f, 40.0f);
         public Vector2 minRoomSize = new Vector2(15.0f, 30.0f);
 
+        public int enemiesPer1000UnitsSqrd = 10;
+
         private RoomBuilder rb;
+        private Enemy.EnemiesSpawn enemySpawner;
 
         private Queue<Room> rooms = new Queue<Room>(); // List of all active rooms (should be 1 max).
 
@@ -18,6 +21,7 @@ namespace RoomBuilding
         void Start()
         {
             rb = GetComponent<RoomBuilder>();
+            enemySpawner = GetComponent<Enemy.EnemiesSpawn>();
 
             createRoom();
 
@@ -44,32 +48,62 @@ namespace RoomBuilding
             // Randomize new room size
             rb.dimensions = new Vector3(Random.Range(minRoomSize.x, maxRoomSize.x), 5.0f, Random.Range(minRoomSize.y, maxRoomSize.y));
 
-
             // Calculate new room origin
-            Vector3 roomOrigin;
-            if (lastRoom != null)
-            {
-                Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.exit.transform.localPosition.z).normalized;
+            rb.transform.position = calculateRoomOrigin(lastRoom);
 
-                roomOrigin = rb.dimensions / 2;
-
-                for (int i = 0; i < 3; i++)
-                {
-                    roomOrigin[i] *= translationAxis[i];
-                    roomOrigin[i] -= translationAxis[i] * (rb.wallThickness / 2);
-                }
-
-                roomOrigin += lastRoom.exit.transform.position;
-
-                roomOrigin.y = 0.0f;
-            }
-            else
-                roomOrigin = Vector3.zero;
-
-            rb.transform.position = roomOrigin;
-
+            enemySpawner.size = new Vector3(rb.dimensions.x - (rb.wallThickness * 4), 0.0f, rb.dimensions.z - (rb.wallThickness * 4));
+            enemySpawner.center = rb.transform.position;
+            enemySpawner.center.y += 1.0f;
 
             // Generate doors
+            generateDoors(lastRoom);
+
+            // Physically build room and despawn old room.
+            Room newRoom = rb.buildRoom();
+
+            if (lastRoom)
+                lastRoom.despawn(newRoom);
+
+
+            spawnEnemies(newRoom);
+
+            rooms.Enqueue(newRoom);
+        }
+
+        /// <summary>
+        /// Calculates the origin of the next room to be built.
+        /// </summary>
+        /// <param name="lastRoom">The last room that was built (or null if this is first room).</param>
+        /// <returns>A suitable origin based on the last room and current dimensions of this room.</returns>
+        private Vector3 calculateRoomOrigin(Room lastRoom)
+        {
+            if (lastRoom == null)
+                return Vector3.zero;
+
+            Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.exit.transform.localPosition.z).normalized;
+
+            Vector3 roomOrigin = rb.dimensions / 2;
+
+            for (int i = 0; i < 3; i++)
+            {
+                roomOrigin[i] *= translationAxis[i];
+                roomOrigin[i] -= translationAxis[i] * (rb.wallThickness / 2);
+            }
+
+            roomOrigin += lastRoom.exit.transform.position;
+
+            roomOrigin.y = 0.0f;
+
+            return roomOrigin;
+        }
+
+        /// <summary>
+        /// Randomises doors and sends them to the room builder.
+        /// </summary>
+        /// <param name="lastRoom">The previous room in order to determine which direction needs an empty doorway.</param>
+        private void generateDoors(Room lastRoom)
+        {
+            int minNewDoors = 1;
             int maxNewDoors;
 
             if (lastRoom != null)
@@ -92,23 +126,26 @@ namespace RoomBuilding
             else
                 maxNewDoors = 4;
 
-            int doorsToGenerate = Random.Range(2, maxNewDoors);
+            int doorCount = Random.Range(minNewDoors, maxNewDoors + 1);
 
-            for (int i = 0; i < doorsToGenerate; i++)
+            for (int i = 0; i < doorCount; i++)
             {
-                Direction dir = getRandomDirection();
-
-                if (rb.getWallType(dir) != RoomBuilder.wallType.DOORWAY)
-                    rb.setWallType(dir, RoomBuilder.wallType.DOOR);
+                Direction dir;
+                do
+                    dir = getRandomDirection();
+                while (rb.getWallType(dir) != RoomBuilder.wallType.SOLID);
+                
+                rb.setWallType(dir, RoomBuilder.wallType.DOOR);
             }
+        }
 
-            // Physically build room and despawn old room.
-            Room newRoom = rb.buildRoom();
+        private void spawnEnemies(Room room)
+        {
+            int roomSizeUnitsSqrt = (int)(room.dimensions.x * room.dimensions.z);
+            int enemyCount = (roomSizeUnitsSqrt / 1000) * enemiesPer1000UnitsSqrd;
 
-            if (lastRoom)
-                lastRoom.despawn(newRoom);
-
-            rooms.Enqueue(newRoom);
+            for (int i = 0; i < enemyCount; i++)
+                room.addEnemy(enemySpawner.Spawn().GetComponent<EnemyController>());
         }
 
         /// <summary>
@@ -132,6 +169,5 @@ namespace RoomBuilding
                     return Direction.ERROR;
             }
         }
-
     }
 }
