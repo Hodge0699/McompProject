@@ -18,9 +18,7 @@ public class DoorController : MonoBehaviour {
 
     public float speed = 2.0f; // Speed the door opens
 
-    // How soon after the player steps through the door can the door be used again (room generation)
-    private float triggerCooldown = 5.0f;
-    private float triggerCooldownCounter = 0.0f;
+    private bool triggered = false; // Has the exit been triggered?
 
     public void init(float width = 6, float height = 4, float thickness = 1, float speed = 2.0f)
     {
@@ -46,17 +44,9 @@ public class DoorController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        // Check if door can be triggered again
-        if (triggerCooldownCounter > 0.0f)
-        {
-            triggerCooldownCounter += Time.fixedDeltaTime;
-
-            if (triggerCooldownCounter >= triggerCooldown)
-                triggerCooldownCounter = 0.0f;
-        }
-
+        
         // Control states
-        else if (currentState == State.OPENING)
+        if (currentState == State.OPENING)
         {
             if (leftDoor.transform.localPosition.x <= -leftDoor.width * 1.5f && rightDoor.transform.localPosition.x >= rightDoor.width * 1.5f)
             {
@@ -100,16 +90,25 @@ public class DoorController : MonoBehaviour {
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (triggerCooldownCounter == 0.0f)
-        {
-            triggerCooldownCounter = Time.deltaTime;
-            GetComponentInParent<Room>().exit = this;
-            FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>().createRoom();
-        }
+        if (other.GetComponent<PlayerController>() == null || triggered)
+            return;
+
+        triggered = true;
+        GetComponentInParent<Room>().exit = this;
+        FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>().createRoom();
     }
 
+    /// <summary>
+    /// Closes the door after the player steps through
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
+        if (other.GetComponent<PlayerController>() == null)
+            return;
+
+        triggered = false;
+
         close();
     }
 
