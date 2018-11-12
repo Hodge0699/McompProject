@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealthManager : MonoBehaviour
 {
 
-    public int health;
-    private int currentHealth;
+    public float health;
+    private float currentHealth;
+
+    public Action deathCallback;
 
     // Use this for initialization
     void Start()
@@ -16,19 +19,11 @@ public class EnemyHealthManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-
-    }
-
-    public void HurtEnemy(int damage)
+    public void HurtEnemy(float damage)
     {
         currentHealth -= damage;
+
+        if (currentHealth <= 0)
+            deathCallback();
     }
 }

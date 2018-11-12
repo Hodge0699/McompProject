@@ -33,7 +33,7 @@ namespace Gun
 
             GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject)), spawnPos, Quaternion.Euler(Vector3.zero)) as GameObject;
             BulletController bulletController = bullet.GetComponent<BulletController>();
-            bulletController.speed = speed;
+            bulletController.init(damage, speed);
 
             bullet.transform.LookAt(target); //point bullet at target
 
