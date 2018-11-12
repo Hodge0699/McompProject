@@ -46,15 +46,15 @@ namespace Enemy
 
 	    public GameObject Spawn()
 	    {
-	        Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.0f, Random.Range(-size.z / 2, size.z / 2));
-
-	        // Vector2 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.z / 2, size.z / 2));
-	        
-	        return Instantiate(Enemyprefab, pos, Quaternion.identity);
+	        return Instantiate(Enemyprefab, generateNewPosition(), Quaternion.identity);
 	    }
 
+        public Vector3 generateNewPosition()
+        {
+            return center + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.0f, Random.Range(-size.z / 2, size.z / 2));
+        }
 
-	    void OnDrawGizmosSelected()
+        void OnDrawGizmosSelected()
 	    {
 	        Gizmos.color = new Color(1, 0, 0, 0.5f);
 	        Gizmos.DrawCube(center, size);

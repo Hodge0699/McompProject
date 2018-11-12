@@ -17,17 +17,21 @@ namespace RoomBuilding
 
         private Queue<Room> rooms = new Queue<Room>(); // List of all active rooms (should be 1 max).
 
+        private GameObject player;
+
+        private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
+
         // Use this for initialization
         void Start()
         {
             rb = GetComponent<RoomBuilder>();
             enemySpawner = GetComponent<Enemy.EnemiesSpawn>();
 
-            createRoom();
-
             // Liam - Spawn player at start of scene when first room is generated
-            GameObject player = Instantiate(Resources.Load("Player")) as GameObject; // Liam
+            player = Instantiate(Resources.Load("Player")) as GameObject; // Liam
             player.transform.position = Vector3.zero; // Liam
+
+            createRoom();
 
             Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
             Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;
@@ -63,7 +67,6 @@ namespace RoomBuilding
 
             if (lastRoom)
                 lastRoom.despawn(newRoom);
-
 
             spawnEnemies(newRoom);
 
@@ -139,13 +142,24 @@ namespace RoomBuilding
             }
         }
 
+        /// <summary>
+        /// Spawns all enemies inside the room.
+        /// </summary>
         private void spawnEnemies(Room room)
         {
             int roomSizeUnitsSqrt = (int)(room.dimensions.x * room.dimensions.z);
             int enemyCount = (roomSizeUnitsSqrt / 1000) * enemiesPer1000UnitsSqrd;
 
             for (int i = 0; i < enemyCount; i++)
-                room.addEnemy(enemySpawner.Spawn().GetComponent<EnemyController>());
+            {
+                GameObject enemy = enemySpawner.Spawn();
+
+                // If enemy too close to player generate new position
+                while ((enemy.transform.position - player.transform.position).magnitude < minEnemyDistance)
+                    enemy.transform.position = enemySpawner.generateNewPosition();
+
+                room.addEnemy(enemy.GetComponent<EnemyController>());
+            }
         }
 
         /// <summary>
