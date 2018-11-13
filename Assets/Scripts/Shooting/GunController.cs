@@ -7,9 +7,10 @@ public class GunController : MonoBehaviour {
 
     public BulletController bullet;
     public SpeedUpBulletController sUpBullet;
-    public Transform primaryFirePoint;
-    public Transform secondaryFirePoint;
-
+    //public Transform primaryFirePoint;
+    //public Transform secondaryFirePoint;
+    public Transform firePoint;
+    public bool mainGun;
     public Gun.AbstractGun currentGun;
 
     private PlayerController player;
@@ -35,14 +36,21 @@ public class GunController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+
+        //if (mainGun) if (Input.GetKey(KeyCode.Joystick1Button5)) { currentGun.shoot(firePoint.position, ); }
+   
+        //if (!mainGun) if (Input.GetKey(KeyCode.Joystick1Button4)) { currentGun.shoot(firePoint.position, Vector3(firePoint.rotation)); }
+
+       
+
         if (Input.GetMouseButton(0))
         {
             setFace(EMOTION.ANGRY);
 
             Vector3 target = player.getMousePos();
-            target.y = primaryFirePoint.transform.position.y;
+            target.y = firePoint.transform.position.y;
 
-            currentGun.shoot(primaryFirePoint.position, target);
+            currentGun.shoot(firePoint.position, target);
         }
         else
             setFace(EMOTION.HAPPY);
@@ -83,6 +91,7 @@ public class GunController : MonoBehaviour {
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
     }
+
 
     /// <summary>
     /// Sets Darren's face to an emotion

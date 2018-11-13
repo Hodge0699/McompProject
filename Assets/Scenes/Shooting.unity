@@ -200,9 +200,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &680226339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1653496019388500, guid: ad39af0fc3a950547966b40ca79132f9,
+--- !u!4 &910074725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4528453300267580, guid: ad39af0fc3a950547966b40ca79132f9,
     type: 2}
   m_PrefabInternal: {fileID: 1451838668}
 --- !u!1001 &1451838668
@@ -244,6 +244,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114436240047496228, guid: ad39af0fc3a950547966b40ca79132f9,
+        type: 2}
+      propertyPath: useController
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114976540871227070, guid: ad39af0fc3a950547966b40ca79132f9,
+        type: 2}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 910074725}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
   m_IsPrefabAsset: 0
@@ -402,5 +412,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4f5012e1de166448301df1f329c7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 680226339}
-  offset: {x: 0, y: 0, z: 0}
+  smoothing: 5

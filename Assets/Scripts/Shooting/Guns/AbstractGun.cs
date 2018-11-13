@@ -26,6 +26,9 @@ namespace Gun
             spawnBullet(spawnPos, target);
         }
 
+   
+
+
         protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
         {
             if (!canFire() && !ignoreCooldown)

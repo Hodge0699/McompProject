@@ -7,21 +7,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject myCamera = null;
-    public BulletController BC;
+   // public BulletController BC;
     public float moveSpeed;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
 
     public bool debugging = false;
-
+    public bool useController;
     Plane mousePlane; // Plane to track the mouse position on screen.
 
     //private Camera mainCamera;
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     public float Damage = 100f; // jack 
-    public float speed = 12f;
+    //public float speed = 12f;
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 
@@ -41,8 +41,16 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Move(h, v);
-        Turning();
+        if (!useController)
+        {
+            Move(h, v);
+            Turning();
+        }
+        if (useController)
+        {
+            Move(h, v);
+            TurningWithController();
+        }
     }
 
     /// <summary>
@@ -98,5 +106,15 @@ public class PlayerController : MonoBehaviour
             Debug.DrawLine(Camera.main.transform.position, camRay.GetPoint(intersect), Color.red);
 
         return camRay.GetPoint(intersect);
+    }
+
+    void TurningWithController()
+    {
+        Vector3 playerDirection = Vector3.right * Input.GetAxisRaw("ShootHorizontal") + Vector3.forward * -Input.GetAxisRaw("ShootVertical");
+        //check if vector tree registered a movement
+        if (playerDirection.sqrMagnitude > 0.0f)
+        {
+            transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+        }
     }
 }
