@@ -5,16 +5,6 @@ using UnityEngine;
 
 public class RandomPowerDrop : MonoBehaviour {
 
-
-    public Gun.Powerups.Shotgun Shotgun;
-    public Gun.Powerups.MachineGun MachineGun;
-    public Gun.Powerups.EXDHandgun ExtraDamage;
- 
-	
-  
-
-
-
     [System.Serializable]
     public class DropItems
 
@@ -27,7 +17,7 @@ public class RandomPowerDrop : MonoBehaviour {
     public List<DropItems> LootTable = new List<DropItems>();
     public int  ItemDropChance;
 
-    void CalculateLoot()
+    public void CalculateLoot()
     {
         int Calc_ItemDropChance = Random.Range(0, 101);
         if (Calc_ItemDropChance > ItemDropChance)

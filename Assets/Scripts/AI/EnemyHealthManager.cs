@@ -9,6 +9,7 @@ public class EnemyHealthManager : MonoBehaviour
     public float health;
     private float currentHealth;
 
+    public RandomPowerDrop RPD;
     public Action deathCallback;
 
     // Use this for initialization
@@ -25,5 +26,8 @@ public class EnemyHealthManager : MonoBehaviour
 
         if (currentHealth <= 0)
             deathCallback();
+            Destroy(gameObject);
+            RPD.CalculateLoot();
+            
     }
 }

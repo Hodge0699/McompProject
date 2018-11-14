@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  RPD: {fileID: 114837830595050186}
 --- !u!114 &114199829376945486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   thePlayer: {fileID: 0}
+  myRoom: {fileID: 0}
 --- !u!114 &114803216485001240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,20 +368,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc191bf6b3e125c409557e83aae8b84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Shotgun: {fileID: 0}
-  MachineGun: {fileID: 0}
-  ExtraDamage: {fileID: 0}
   LootTable:
   - name: Shotgun
     item: {fileID: 1139573452153030, guid: 5f861e9ed6915a34ea2602682e50041b, type: 2}
     dropRarity: 50
   - name: Machine Gun
     item: {fileID: 1140473012404356, guid: 3ae5c55c111e5994c870aca111ebaa6b, type: 2}
-    dropRarity: 20
+    dropRarity: 100
   - name: ExtraDamage
     item: {fileID: 0}
-    dropRarity: 80
-  ItemDropChance: 0
+    dropRarity: 0
+  ItemDropChance: 50
 --- !u!136 &136578267741842500
 CapsuleCollider:
   m_ObjectHideFlags: 1
