@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 65809565915298302}
   - component: {fileID: 54364970491831070}
   - component: {fileID: 114436240047496228}
+  - component: {fileID: 114872564346895096}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -531,8 +532,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCamera: {fileID: 1246727744310432, guid: 03ce7df34882c254f8da8ae8ea42ec76, type: 2}
+  BC: {fileID: 0}
   moveSpeed: 6
+  debugging: 0
   Damage: 100
+  speed: 12
+--- !u!114 &114872564346895096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653496019388500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1d3a95fa05e8c498995843ae02d4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 10
+  currentHealth: 0
 --- !u!114 &114976540871227070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -547,8 +564,7 @@ MonoBehaviour:
   bullet: {fileID: 114619293617342762, guid: 44989322af7b59a48bf9c156e40bd199, type: 2}
   sUpBullet: {fileID: 114250631311878592, guid: f9424df1344171845b20c67aac57a99e,
     type: 2}
-  bulletSpeed: 12
-  timeBetweenShots: 0.5
   primaryFirePoint: {fileID: 4528453300267580}
   secondaryFirePoint: {fileID: 4756439425964752}
+  currentGun: {fileID: 0}
   debugging: 0

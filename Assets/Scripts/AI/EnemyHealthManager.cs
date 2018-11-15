@@ -22,12 +22,14 @@ public class EnemyHealthManager : MonoBehaviour
 
     public void HurtEnemy(float damage)
     {
-        currentHealth -= damage;
+        currentHealth = currentHealth - damage;
 
         if (currentHealth <= 0)
+        {
             deathCallback();
             Destroy(gameObject);
             RPD.CalculateLoot();
+        }
             
     }
 }

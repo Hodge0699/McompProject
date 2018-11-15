@@ -8,7 +8,7 @@ namespace Gun
     {
         public void Awake()
         {
-            init(10.0f, 10.0f, 10.0f);
+            init(10.0f, 10.0f, 15.0f);
         }
     }
 }
