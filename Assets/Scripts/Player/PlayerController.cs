@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (Input.GetKeyDown("p"))
+        { useController = !useController; }
+
         Rigidbody.velocity = moveVelocity;
 
         float h = Input.GetAxisRaw("Horizontal");

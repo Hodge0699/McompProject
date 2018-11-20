@@ -21,42 +21,40 @@ namespace Gun
             this.fireRate = fireRate;
         }
 
-        //public virtual void shoot(Vector3 spawnPos, Vector3 target)
-        //{
-        //    spawnBullet(spawnPos, target);
-        //}
 
-
-
-
-        //protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
-        //{
-        //    if (!canFire() && !ignoreCooldown)
-        //        return null;
-
-        //    GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject)), spawnPos, Quaternion.Euler(Vector3.zero)) as GameObject;
-        //    BulletController bulletController = bullet.GetComponent<BulletController>();
-        //    bulletController.init(damage, speed);
-
-        //    bullet.transform.LookAt(target); //point bullet at target
-
-        //    if (debugging)
-        //        Debug.DrawLine(spawnPos, target, Color.red, 2.0f);
-
-        //    currentCooldown = 1 / fireRate;
-
-        //    return bullet;
-        //}
-
-        public virtual void shoot(Vector3 spawnPos, Transform target)
+        public virtual void shoot(Vector3 spawnPos, Vector3 target)
         {
             spawnBullet(spawnPos, target);
         }
 
 
+        public virtual void shootController(Vector3 spawnPos, Transform target)
+        {
+            spawnBulletController(spawnPos, target);
+        }
 
 
-        protected GameObject spawnBullet(Vector3 spawnPos, Transform target, bool ignoreCooldown = false)
+        protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
+        {
+            if (!canFire() && !ignoreCooldown)
+                return null;
+
+            GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject)), spawnPos, Quaternion.Euler(Vector3.zero)) as GameObject;
+            BulletController bulletController = bullet.GetComponent<BulletController>();
+            bulletController.init(damage, speed);
+
+            bullet.transform.LookAt(target); //point bullet at target
+
+            if (debugging)
+                Debug.DrawLine(spawnPos, target, Color.red, 2.0f);
+
+            currentCooldown = 1 / fireRate;
+
+            return bullet;
+        }
+
+
+        protected GameObject spawnBulletController(Vector3 spawnPos, Transform target, bool ignoreCooldown = false)
         {
             if (!canFire() && !ignoreCooldown)
                 return null;

@@ -12,12 +12,12 @@ public class GunController : MonoBehaviour {
     //public Transform secondaryFirePoint;
     public Transform firePoint;
     public bool mainGun; //shoot with leftClick or left bumper if true
-                         //whoot with rightClick or right bumper if false
+                         //shoot with rightClick or right bumper if false
     public Gun.AbstractGun currentGun;
 
     private PlayerController player;
 
-    Transform target;
+    
     //Vector3 targetMouse;
 
 
@@ -53,26 +53,23 @@ public class GunController : MonoBehaviour {
             if (Input.GetMouseButton(0))
             {
                 setFace(EMOTION.ANGRY);
-                target = firePoint;
-                //target.position = player.getMousePos();
-                target.position.Set(player.getMousePos().x,  firePoint.transform.position.y, player.getMousePos().z);
-                target.rotation.Set(0, 0, 0, 0);
+                Vector3 target = player.getMousePos();
+                target.y = firePoint.transform.position.y;
 
                 currentGun.shoot(firePoint.position, target);
             }
             else
                 setFace(EMOTION.HAPPY);
 
-            if (Input.GetKey(KeyCode.Joystick1Button4))
+            if ((Input.GetKey(KeyCode.Joystick1Button4)) && (player.useController))
             {
                 setFace(EMOTION.ANGRY);
 
+                Transform target;
                 target = firePoint;
 
                 target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-                
-
-                currentGun.shoot(firePoint.position, target);
+                currentGun.shootController(firePoint.position, target);
             }
             else
                 setFace(EMOTION.HAPPY);
@@ -84,26 +81,23 @@ public class GunController : MonoBehaviour {
             if (Input.GetMouseButton(1))
             {
                 setFace(EMOTION.ANGRY);
-                target = firePoint;
-                //target.position = player.getMousePos();
-                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-                target.rotation.Set(0, 0, 0, 0);
+                Vector3 target = player.getMousePos();
+                target.y = firePoint.transform.position.y;
 
                 currentGun.shoot(firePoint.position, target);
             }
             else
                 setFace(EMOTION.HAPPY);
 
-            if (Input.GetKey(KeyCode.Joystick1Button5))
+            if ((Input.GetKey(KeyCode.Joystick1Button5)) && (player.useController))
             {
                 setFace(EMOTION.ANGRY);
 
+                Transform target;
                 target = firePoint;
 
                 target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-
-
-                currentGun.shoot(firePoint.position, target);
+                currentGun.shootController(firePoint.position, target);
             }
             else
                 setFace(EMOTION.HAPPY);

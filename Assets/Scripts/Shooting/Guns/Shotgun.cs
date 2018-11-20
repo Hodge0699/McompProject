@@ -14,22 +14,22 @@ namespace Gun
             init(5.0f, 10.0f, 3.0f);
         }
 
-        //public override void shoot(Vector3 spawnPos, Vector3 target)
-        //{
-        //    if (!canFire())
-        //        return;
+        public override void shoot(Vector3 spawnPos, Vector3 target)
+        {
+            if (!canFire())
+                return;
 
-        //    for (int i = 0; i < pellets; i++)
-        //    {
-        //        Vector3 bulletTarget = target;
-        //        bulletTarget.x += Random.Range(-spreadRange, spreadRange);
-        //        bulletTarget.y += Random.Range(-spreadRange, spreadRange);
-        //        GameObject bullet = base.spawnBullet(spawnPos, bulletTarget, true);
-        //    }
-        //}
+            for (int i = 0; i < pellets; i++)
+            {
+                Vector3 bulletTarget = target;
+                bulletTarget.x += Random.Range(-spreadRange, spreadRange);
+                bulletTarget.y += Random.Range(-spreadRange, spreadRange);
+                GameObject bullet = base.spawnBullet(spawnPos, bulletTarget, true);
+            }
+        }
 
 
-        public override void shoot(Vector3 spawnPos, Transform target)
+        public override void shootController(Vector3 spawnPos, Transform target)
         {
             if (!canFire())
                 return;
@@ -38,7 +38,7 @@ namespace Gun
             {
                 Transform bulletTarget = target;
                 bulletTarget.position.Set((Random.Range(-spreadRange, spreadRange)), (Random.Range(-spreadRange, spreadRange)), bulletTarget.position.z);
-                GameObject bullet = base.spawnBullet(spawnPos, bulletTarget, true);
+                GameObject bullet = base.spawnBulletController(spawnPos, bulletTarget, true);
             }
         }
 
