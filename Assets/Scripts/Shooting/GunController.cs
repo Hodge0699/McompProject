@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour {
 
+    
     public BulletController bullet;
     public SpeedUpBulletController sUpBullet;
     //public Transform primaryFirePoint;
     //public Transform secondaryFirePoint;
     public Transform firePoint;
-    public bool mainGun;
+    public bool mainGun; //shoot with leftClick or left bumper if true
+                         //whoot with rightClick or right bumper if false
     public Gun.AbstractGun currentGun;
 
     private PlayerController player;
+
+    Transform target;
+    //Vector3 targetMouse;
+
 
     private enum EMOTION { HAPPY, ANGRY };
     private GameObject smile;
@@ -38,22 +44,76 @@ public class GunController : MonoBehaviour {
     {
 
         //if (mainGun) if (Input.GetKey(KeyCode.Joystick1Button5)) { currentGun.shoot(firePoint.position, ); }
-   
+
         //if (!mainGun) if (Input.GetKey(KeyCode.Joystick1Button4)) { currentGun.shoot(firePoint.position, Vector3(firePoint.rotation)); }
 
-       
 
-        if (Input.GetMouseButton(0))
+        if (mainGun)
         {
-            setFace(EMOTION.ANGRY);
+            if (Input.GetMouseButton(0))
+            {
+                setFace(EMOTION.ANGRY);
+                target = firePoint;
+                //target.position = player.getMousePos();
+                target.position.Set(player.getMousePos().x,  firePoint.transform.position.y, player.getMousePos().z);
+                target.rotation.Set(0, 0, 0, 0);
 
-            Vector3 target = player.getMousePos();
-            target.y = firePoint.transform.position.y;
+                currentGun.shoot(firePoint.position, target);
+            }
+            else
+                setFace(EMOTION.HAPPY);
 
-            currentGun.shoot(firePoint.position, target);
+            if (Input.GetKey(KeyCode.Joystick1Button4))
+            {
+                setFace(EMOTION.ANGRY);
+
+                target = firePoint;
+
+                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
+                
+
+                currentGun.shoot(firePoint.position, target);
+            }
+            else
+                setFace(EMOTION.HAPPY);
+
         }
-        else
-            setFace(EMOTION.HAPPY);
+
+        if (!mainGun)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                setFace(EMOTION.ANGRY);
+                target = firePoint;
+                //target.position = player.getMousePos();
+                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
+                target.rotation.Set(0, 0, 0, 0);
+
+                currentGun.shoot(firePoint.position, target);
+            }
+            else
+                setFace(EMOTION.HAPPY);
+
+            if (Input.GetKey(KeyCode.Joystick1Button5))
+            {
+                setFace(EMOTION.ANGRY);
+
+                target = firePoint;
+
+                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
+
+
+                currentGun.shoot(firePoint.position, target);
+            }
+            else
+                setFace(EMOTION.HAPPY);
+
+        }
+
+
+
+
+
 
         if (currentGun.GetType() != typeof(Gun.Handgun))
         {
@@ -62,6 +122,8 @@ public class GunController : MonoBehaviour {
             if (gunTimer <= 0.0f)
                 setGun(typeof(Gun.Handgun));
         }
+
+
     }
 
     /// <summary>
