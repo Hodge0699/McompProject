@@ -50,30 +50,26 @@ public class GunController : MonoBehaviour {
 
         if (mainGun)
         {
+            Vector3 ? target = null;
+
             if (Input.GetMouseButton(0))
             {
-                setFace(EMOTION.ANGRY);
-                Vector3 target = player.getMousePos();
-                target.y = firePoint.transform.position.y;
-
-                currentGun.shoot(firePoint.position, target);
+                Vector3 mouseTarget = player.getMousePos();
+                mouseTarget.y = firePoint.transform.position.y;
+                target = mouseTarget;
             }
-            else
-                setFace(EMOTION.HAPPY);
+            else if (Input.GetKey(KeyCode.Joystick1Button4))
+                target = player.transform.position + (player.transform.forward * 100.0f);
 
-            if ((Input.GetKey(KeyCode.Joystick1Button4)) && (player.useController))
+
+            if (target != null)
             {
                 setFace(EMOTION.ANGRY);
 
-                Transform target;
-                target = firePoint;
-
-                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-                currentGun.shootController(firePoint.position, target);
+                currentGun.shoot(firePoint.position, target.Value);
             }
             else
                 setFace(EMOTION.HAPPY);
-
         }
 
         if (!mainGun)
@@ -97,7 +93,7 @@ public class GunController : MonoBehaviour {
                 target = firePoint;
 
                 target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-                currentGun.shootController(firePoint.position, target);
+                currentGun.shoot(firePoint.position, target.position);
             }
             else
                 setFace(EMOTION.HAPPY);
