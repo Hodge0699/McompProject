@@ -27,21 +27,5 @@ namespace Gun
                 GameObject bullet = base.spawnBullet(spawnPos, bulletTarget, true);
             }
         }
-
-
-        public override void shootController(Vector3 spawnPos, Transform target)
-        {
-            if (!canFire())
-                return;
-
-            for (int i = 0; i < pellets; i++)
-            {
-                Transform bulletTarget = target;
-                bulletTarget.position.Set((Random.Range(-spreadRange, spreadRange)), (Random.Range(-spreadRange, spreadRange)), bulletTarget.position.z);
-                GameObject bullet = base.spawnBulletController(spawnPos, bulletTarget, true);
-            }
-        }
-
-
     }
 }
