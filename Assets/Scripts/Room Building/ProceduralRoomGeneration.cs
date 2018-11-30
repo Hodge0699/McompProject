@@ -17,7 +17,7 @@ namespace RoomBuilding
 
         private Queue<Room> rooms = new Queue<Room>(); // List of all active rooms (should be 1 max).
 
-        private GameObject player;
+        private PlayerController player;
 
         private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
 
@@ -28,10 +28,13 @@ namespace RoomBuilding
             enemySpawner = GetComponent<Enemy.EnemiesSpawn>();
 
             // Liam - Spawn player at start of scene when first room is generated
-            player = Instantiate(Resources.Load("Player")) as GameObject; // Liam
-            player.transform.position = Vector3.zero; // Liam
+            GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
+            playerObj.transform.position = Vector3.zero; // Liam
+
+            player = playerObj.GetComponent<PlayerController>();
 
             createRoom();
+
 
             Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
             Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;
@@ -40,7 +43,7 @@ namespace RoomBuilding
         /// <summary>
         /// Creates a new room either completely randomly or based off a previous room.
         /// </summary>
-        public void createRoom()
+        public Room createRoom()
         {
             rb.startNewRoom();
 
@@ -71,6 +74,10 @@ namespace RoomBuilding
             spawnEnemies(newRoom);
 
             rooms.Enqueue(newRoom);
+
+            player.myCamera.GetComponent<CameraController>().setRoom(newRoom);
+
+            return newRoom;
         }
 
         /// <summary>

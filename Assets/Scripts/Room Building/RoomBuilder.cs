@@ -29,11 +29,9 @@ namespace RoomBuilding
         // Manual build button
         public bool build = false;
 
-        //private EnemiesSpawn es;
-
         private void Start()
         {
-           startNewRoom();
+            startNewRoom();
         }
         
         /// <summary>

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject myCamera = null;
+    public GameObject myCamera = null;
     public float moveSpeed;
     private Vector3 moveInput;
     private Rigidbody Rigidbody;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody = GetComponent<Rigidbody>();
 
-        Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
+        myCamera = Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
 
         mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
     }
