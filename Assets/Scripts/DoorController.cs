@@ -38,6 +38,7 @@ public class DoorController : MonoBehaviour {
 
         BoxCollider trigger = GetComponent<BoxCollider>();
         trigger.size = new Vector3(width, height, thickness / 2);
+        trigger.center += new Vector3(0.0f, 0.0f, thickness / 4);
 
         this.speed = speed;
     }
@@ -96,6 +97,10 @@ public class DoorController : MonoBehaviour {
         triggered = true;
         GetComponentInParent<Room>().exit = this;
         FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>().createRoom();
+
+        other.GetComponent<PlayerController>().forceMove(this.transform.forward, 6.5f);
+
+        this.transform.Rotate(Vector3.up, 180.0f);
     }
 
     /// <summary>
