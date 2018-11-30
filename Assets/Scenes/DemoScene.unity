@@ -441,27 +441,27 @@ Prefab:
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: maxRoomSize.x
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: maxRoomSize.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: minRoomSize.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: minRoomSize.y
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
+      propertyPath: maxRoomSize.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: minRoomSize.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: minRoomSize.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
       propertyPath: enemiesPer1000UnitsSqrd
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}

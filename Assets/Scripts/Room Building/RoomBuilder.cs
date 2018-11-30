@@ -212,14 +212,14 @@ namespace RoomBuilding
             if (westWall == wallType.DOOR)
             {
                 GameObject door = instantiateDoor("West Wall Door", doorsParent.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, 0.0f));
-                door.transform.Rotate(0.0f, -90.0f, 0.0f);
+                door.transform.Rotate(Vector3.up, -90.0f);
                 doors.Add(door.GetComponent<DoorController>());
             }
 
             if (eastWall == wallType.DOOR)
             {
                 GameObject door = instantiateDoor("East Wall Door", doorsParent.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), dimensions.y / 2, 0.0f));
-                door.transform.Rotate(0.0f, 90.0f, 0.0f);
+                door.transform.Rotate(Vector3.up, 90.0f);
                 doors.Add(door.GetComponent<DoorController>());
             }
 
@@ -231,6 +231,7 @@ namespace RoomBuilding
             if (southWall == wallType.DOOR)
             {
                 GameObject door = instantiateDoor("South Wall Door", doorsParent.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)));
+                door.transform.Rotate(Vector3.up, 180.0f);
                 doors.Add(door.GetComponent<DoorController>());
             }
 

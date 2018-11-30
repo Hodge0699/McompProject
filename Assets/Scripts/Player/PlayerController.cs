@@ -7,21 +7,19 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject myCamera = null;
-   // public BulletController BC;
     public float moveSpeed;
     private Vector3 moveInput;
-    private Vector3 moveVelocity;
     private Rigidbody Rigidbody;
 
     public bool debugging = false;
     public bool useController;
     Plane mousePlane; // Plane to track the mouse position on screen.
 
-    //private Camera mainCamera;
+    Vector3 directionVector;
 
-    Vector3 movement;                   // The vector to store the direction of the player's movement.
-    public float Damage = 100f; // jack 
-    //public float speed = 12f;
+    public bool allowPlayerControl = true;
+    private float forceMoveDistanceCounter = 0.0f;
+    private float forceMoveDistanceTarget = 0.0f;
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 
@@ -40,38 +38,60 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown("p"))
         { useController = !useController; }
 
-        Rigidbody.velocity = moveVelocity;
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-
-        if (!useController)
+        if (allowPlayerControl)
         {
-            Move(h, v);
-            Turning();
+            directionVector.x = Input.GetAxisRaw("Horizontal");
+            directionVector.z = Input.GetAxisRaw("Vertical");
         }
+
+        Move();
+
         if (useController)
-        {
-            Move(h, v);
             TurningWithController();
-        }
+        else
+            Turning();
     }
 
     /// <summary>
-    /// Moves player in world space.
+    /// Moves the player based on its current direction vector
     /// </summary>
-    /// <param name="h">Horizontal movement.</param>
-    /// <param name="v">Vertical movement.</param>
-    void Move(float h, float v)
+    void Move()
     {
-        // Set the movement vector based on the axis input.
-        movement.Set(h, 0f, v);
+        Vector3 movement = directionVector.normalized * moveSpeed * Time.deltaTime;
 
-        // Normalise the movement vector and make it proportional to the speed per second.
-        movement = movement.normalized * moveSpeed * Time.deltaTime;
-
-        // Move the player to it's current position plus the movement.
         Rigidbody.MovePosition(transform.position + movement);
+        Rigidbody.velocity = movement;
+
+        if (!allowPlayerControl)
+        {
+            forceMoveDistanceCounter += movement.magnitude;
+
+            if (forceMoveDistanceCounter >= forceMoveDistanceTarget)
+            {
+                forceMoveDistanceCounter = 0.0f;
+                forceMoveDistanceTarget = 0.0f;
+                allowPlayerControl = true;
+            }
+        }
+        else
+            directionVector = Vector3.zero;
+    }
+
+    /// <summary>
+    /// Forces a player to move in a direction for a set distance
+    /// </summary>
+    /// <param name="dir">Direction to move in.</param>
+    /// <param name="distance">Distance to travel before stopping.</param>
+    public void forceMove(Vector3 dir, float distance)
+    {
+        if (dir == Vector3.zero)
+            return;
+
+        allowPlayerControl = false;
+        forceMoveDistanceTarget = distance;
+
+        directionVector = dir;
     }
 
     /// <summary>
