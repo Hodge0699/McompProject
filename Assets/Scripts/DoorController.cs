@@ -95,11 +95,12 @@ public class DoorController : MonoBehaviour {
             return;
 
         triggered = true;
-        GetComponentInParent<Room>().exit = this;
-        FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>().createRoom();
+        GetComponentInParent<Room>().playerExitted(this);
 
+        // Move player into next room
         other.GetComponent<PlayerController>().forceMove(this.transform.forward, 6.5f);
 
+        // Flip to point outwards
         this.transform.Rotate(Vector3.up, 180.0f);
     }
 
