@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 cameraPos = new Vector3(0f, 7f, -10f);
 
+    private Room currentRoom;
+
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -140,5 +142,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
+    }
+
+    /// <summary>
+    /// Sets the player's current room for reference.
+    /// </summary>
+    /// <param name="room">Player's current room.</param>
+    public void setRoom(Room room)
+    {
+        this.currentRoom = room;
+    }
+
+    /// <summary>
+    /// Gets the current room the player is in
+    /// </summary>
+    public Room getCurrentRoom()
+    {
+        return currentRoom;
     }
 }

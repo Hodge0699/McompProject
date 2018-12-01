@@ -42,6 +42,9 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void die()
     {
+        if (!isAlive)
+            return;
+
         isAlive = false;
 
         Vector3 up = transform.position;

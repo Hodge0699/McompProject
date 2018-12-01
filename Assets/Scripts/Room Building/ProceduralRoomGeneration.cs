@@ -31,12 +31,10 @@ namespace RoomBuilding
 
             player = playerObj.GetComponent<PlayerController>();
 
+
+            // Create initial room
             Room startRoom = createRoom(null, null);
-
-            player.myCamera.GetComponent<CameraController>().setRoom(startRoom);
-
-            //for (int i = 0; i < startRoom.doors.Count; i++)
-            //    startRoom.addChildRoom(createRoom(startRoom, startRoom.doors[i]));
+            player.setRoom(startRoom);
 
             Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
             Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;

@@ -17,6 +17,13 @@ public class RandomPowerDrop : MonoBehaviour {
     public List<DropItems> LootTable = new List<DropItems>();
     public int  ItemDropChance;
 
+    private PlayerController player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<PlayerController>();
+    }
+
     public void CalculateLoot()
     {
         int Calc_ItemDropChance = Random.Range(0, 101);
@@ -41,18 +48,15 @@ public class RandomPowerDrop : MonoBehaviour {
             {
                 if (randomValue <= LootTable[j].dropRarity)
                 {
-                    Instantiate(LootTable[j].item, transform.position, Quaternion.identity);
+                    GameObject drop = Instantiate(LootTable[j].item, transform.position, Quaternion.identity);
+
+                    // Tie drop to current room - Jake
+                    player.getCurrentRoom().addPowerUpDrop(drop);
                     return;
                 }
                 randomValue -= LootTable[j].dropRarity;
                 Debug.Log("Random Value decreased" + randomValue);
             }
         }
-
-
-
     }
-
-   
-
 }
