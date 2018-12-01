@@ -15,8 +15,6 @@ namespace RoomBuilding
         private RoomBuilder rb;
         private Enemy.EnemiesSpawn enemySpawner;
 
-        private Queue<Room> rooms = new Queue<Room>(); // List of all active rooms (should be 1 max).
-
         private PlayerController player;
 
         private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
@@ -33,8 +31,12 @@ namespace RoomBuilding
 
             player = playerObj.GetComponent<PlayerController>();
 
-            createRoom();
+            Room startRoom = createRoom(null, null);
 
+            player.myCamera.GetComponent<CameraController>().setRoom(startRoom);
+
+            //for (int i = 0; i < startRoom.doors.Count; i++)
+            //    startRoom.addChildRoom(createRoom(startRoom, startRoom.doors[i]));
 
             Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
             Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;
@@ -43,39 +45,26 @@ namespace RoomBuilding
         /// <summary>
         /// Creates a new room either completely randomly or based off a previous room.
         /// </summary>
-        public Room createRoom()
+        public Room createRoom(Room lastRoom, DoorController connectingDoor)
         {
             rb.startNewRoom();
-
-            Room lastRoom = null;
-            
-            if (rooms.Count > 0)
-                lastRoom = rooms.Dequeue();
 
             // Randomize new room size
             rb.dimensions = new Vector3(Random.Range(minRoomSize.x, maxRoomSize.x), 5.0f, Random.Range(minRoomSize.y, maxRoomSize.y));
 
             // Calculate new room origin
-            rb.transform.position = calculateRoomOrigin(lastRoom);
+            rb.transform.position = calculateRoomOrigin(lastRoom, connectingDoor);
+
+            // Create doors
+            generateDoors(lastRoom, connectingDoor);
+
+            // Physically build room
+            Room newRoom = rb.buildRoom();
 
             enemySpawner.size = new Vector3(rb.dimensions.x - (rb.wallThickness * 4), 0.0f, rb.dimensions.z - (rb.wallThickness * 4));
             enemySpawner.center = rb.transform.position;
             enemySpawner.center.y += 1.0f;
-
-            // Generate doors
-            generateDoors(lastRoom);
-
-            // Physically build room and despawn old room.
-            Room newRoom = rb.buildRoom();
-
-            if (lastRoom)
-                lastRoom.despawn(newRoom);
-
             spawnEnemies(newRoom);
-
-            rooms.Enqueue(newRoom);
-
-            player.myCamera.GetComponent<CameraController>().setRoom(newRoom);
 
             return newRoom;
         }
@@ -85,12 +74,12 @@ namespace RoomBuilding
         /// </summary>
         /// <param name="lastRoom">The last room that was built (or null if this is first room).</param>
         /// <returns>A suitable origin based on the last room and current dimensions of this room.</returns>
-        private Vector3 calculateRoomOrigin(Room lastRoom)
+        private Vector3 calculateRoomOrigin(Room lastRoom, DoorController connectingDoor)
         {
             if (lastRoom == null)
                 return Vector3.zero;
 
-            Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.exit.transform.localPosition.z).normalized;
+            Vector3 translationAxis = new Vector3(connectingDoor.transform.localPosition.x, 0.0f, connectingDoor.transform.localPosition.z).normalized;
 
             Vector3 roomOrigin = rb.dimensions / 2;
 
@@ -100,7 +89,7 @@ namespace RoomBuilding
                 roomOrigin[i] -= translationAxis[i] * (rb.wallThickness / 2);
             }
 
-            roomOrigin += lastRoom.exit.transform.position;
+            roomOrigin += connectingDoor.transform.position;
 
             roomOrigin.y = 0.0f;
 
@@ -111,7 +100,7 @@ namespace RoomBuilding
         /// Randomises doors and sends them to the room builder.
         /// </summary>
         /// <param name="lastRoom">The previous room in order to determine which direction needs an empty doorway.</param>
-        private void generateDoors(Room lastRoom)
+        private void generateDoors(Room lastRoom, DoorController connectingDoor)
         {
             int minNewDoors = 1;
             int maxNewDoors;
@@ -120,15 +109,15 @@ namespace RoomBuilding
             {
                 maxNewDoors = 3;
 
-                Vector3 translationAxis = new Vector3(lastRoom.exit.transform.localPosition.x, 0.0f, lastRoom.transform.localPosition.z).normalized;
+                Vector3 translationAxis = new Vector3(connectingDoor.transform.localPosition.x, 0.0f, connectingDoor.transform.localPosition.z).normalized;
 
-                if (lastRoom.exit.transform.localPosition.z > 0.0f) // Exit was north, entrance will be south
+                if (connectingDoor.transform.localPosition.z > 0.0f) // Exit was north, entrance will be south
                     rb.southWall = RoomBuilder.wallType.DOORWAY;
-                else if (lastRoom.exit.transform.localPosition.x > 0.0f) // Exit was east, entrance will be west
+                else if (connectingDoor.transform.localPosition.x > 0.0f) // Exit was east, entrance will be west
                     rb.westWall = RoomBuilder.wallType.DOORWAY;
-                else if (lastRoom.exit.transform.localPosition.z < 0.0f) // Exit was south, entrance will be north
+                else if (connectingDoor.transform.localPosition.z < 0.0f) // Exit was south, entrance will be north
                     rb.northWall = RoomBuilder.wallType.DOORWAY;
-                else if (lastRoom.exit.transform.localPosition.x < 0.0f) // Exit was west, entrance will be east
+                else if (connectingDoor.transform.localPosition.x < 0.0f) // Exit was west, entrance will be east
                     rb.eastWall = RoomBuilder.wallType.DOORWAY;
                 else
                     Debug.LogError("Entrance direction not found!");

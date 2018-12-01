@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour {
 
     private Room currentRoom;
 
+
     private void Awake()
     {
         target = GameObject.FindWithTag("Player").transform;
@@ -42,25 +43,24 @@ public class CameraController : MonoBehaviour {
         Vector3 roomSize = currentRoom.dimensions;
 
         if      (targetPos.x > roomPos.x + (roomSize.x / 2) - size.x)
-                    targetPos.x = roomPos.x + (roomSize.x / 2) - size.x;
+                 targetPos.x = roomPos.x + (roomSize.x / 2) - size.x;
         else if (targetPos.x < roomPos.x - (roomSize.x / 2) + size.x)
-                    targetPos.x = roomPos.x - (roomSize.x / 2) + size.x;
+                 targetPos.x = roomPos.x - (roomSize.x / 2) + size.x;
 
         if      (targetPos.z > roomPos.z + (roomSize.z / 2) - (size.y * 0.5f))
-                    targetPos.z = roomPos.z + (roomSize.z / 2) - (size.y * 0.5f);
+                 targetPos.z = roomPos.z + (roomSize.z / 2) - (size.y * 0.5f);
         else if (targetPos.z < roomPos.z - (roomSize.z / 2) + (size.y * 1.5f))
-                    targetPos.z = roomPos.z - (roomSize.z / 2) + (size.y * 1.5f);
+                 targetPos.z = roomPos.z - (roomSize.z / 2) + (size.y * 1.5f);
 
         return targetPos + offset;
     }
 
+    /// <summary>
+    /// Sets the players current room so the camer doesn't go out of bounds
+    /// </summary>
+    /// <param name="room">Player's current room.</param>
     public void setRoom(Room room)
     {
         this.currentRoom = room;
-    }
-
-    public void setRoomSize(Vector3 roomSize)
-    {
-        this.roomSize = roomSize;
     }
 }
