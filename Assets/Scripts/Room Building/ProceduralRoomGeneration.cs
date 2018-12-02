@@ -7,10 +7,11 @@ namespace RoomBuilding
 {
     public class ProceduralRoomGeneration : MonoBehaviour
     {
-        public Vector2 maxRoomSize = new Vector2(25.0f, 40.0f);
-        public Vector2 minRoomSize = new Vector2(15.0f, 30.0f);
+        public Vector2 maxRoomSize = new Vector2(50.0f, 50.0f); // Maximum size of a room.
+        public Vector2 minRoomSize = new Vector2(32.0f, 32.0f); // Minimum size of a room .
 
-        public int enemiesPer1000UnitsSqrd = 10;
+        [Range(0, 25)]
+        public int enemyFrequency = 5; // Amount of enemies to be spawned per 1000 units squared
 
         private RoomBuilder rb;
         private Enemy.EnemiesSpawn enemySpawner;
@@ -36,8 +37,8 @@ namespace RoomBuilding
             Room startRoom = createRoom(null, null);
             player.setRoom(startRoom);
 
-            Camera minimapCamera = Instantiate(Resources.Load("MinimapCamera")) as Camera;
-            Image minimapBoarder = Instantiate(Resources.Load("MinimapBoarder")) as Image;
+            Instantiate(Resources.Load("MinimapCamera"));
+            Instantiate(Resources.Load("MinimapBoarder"));
         }
 
         /// <summary>
@@ -141,10 +142,13 @@ namespace RoomBuilding
         /// </summary>
         private void spawnEnemies(Room room)
         {
-            int roomSizeUnitsSqrt = (int)(room.dimensions.x * room.dimensions.z);
-            int enemyCount = (roomSizeUnitsSqrt / 1000) * enemiesPer1000UnitsSqrd;
+            if (enemyFrequency == 0)
+                return;
 
-            for (int i = 0; i < enemyCount; i++)
+            float roomSizeSqr = room.dimensions.x * room.dimensions.z;
+            int enemyCount = (int)((roomSizeSqr / 1000) * enemyFrequency);
+
+            do
             {
                 GameObject enemy = enemySpawner.Spawn();
 
@@ -153,7 +157,9 @@ namespace RoomBuilding
                     enemy.transform.position = enemySpawner.generateNewPosition();
 
                 room.addEnemy(enemy.GetComponent<EnemyController>());
-            }
+
+                enemyCount--;
+            } while (enemyCount > 0);
         }
 
         /// <summary>
