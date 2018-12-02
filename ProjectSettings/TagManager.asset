@@ -8,6 +8,9 @@ TagManager:
   - Pick Up
   - ED
   - MG
+  - Enemy
+  - HealthUI
+  - DamageImage
   layers:
   - Default
   - TransparentFX

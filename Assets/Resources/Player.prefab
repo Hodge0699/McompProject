@@ -583,7 +583,7 @@ MonoBehaviour:
   moveSpeed: 6
   debugging: 0
   useController: 0
-  Damage: 100
+  allowPlayerControl: 1
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -595,8 +595,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1d3a95fa05e8c498995843ae02d4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10
+  startingHealth: 3
   currentHealth: 0
+  healthSlider: {fileID: 0}
+  damageImage: {fileID: 0}
+  damageImageFinder: {fileID: 0}
+  flashSpeed: 5
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  healthUI: {fileID: 0}
 --- !u!114 &114976540871227070
 MonoBehaviour:
   m_ObjectHideFlags: 1
