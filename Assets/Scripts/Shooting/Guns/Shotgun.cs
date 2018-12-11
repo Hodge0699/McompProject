@@ -14,10 +14,12 @@ namespace Gun
             init(5.0f, 10.0f, 3.0f);
         }
 
-        public override void shoot(Vector3 spawnPos, Vector3 target)
+        public override GameObject shoot(Vector3 spawnPos, Vector3 target)
         {
             if (!canFire())
-                return;
+                return null;
+
+            GameObject pelletBurst = new GameObject();
 
             for (int i = 0; i < pellets; i++)
             {
@@ -25,7 +27,10 @@ namespace Gun
                 bulletTarget.x += Random.Range(-spreadRange, spreadRange);
                 bulletTarget.y += Random.Range(-spreadRange, spreadRange);
                 GameObject bullet = base.spawnBullet(spawnPos, bulletTarget, true);
+                bullet.transform.parent = pelletBurst.transform.parent;
             }
+
+            return pelletBurst;
         }
     }
 }
