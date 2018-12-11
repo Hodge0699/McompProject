@@ -5,29 +5,23 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour {
 
-    
-    public BulletController bullet;
-    public SpeedUpBulletController sUpBullet;
-    //public Transform primaryFirePoint;
-    //public Transform secondaryFirePoint;
-    public Transform firePoint;
-    public bool mainGun; //shoot with leftClick or left bumper if true
-                         //shoot with rightClick or right bumper if false
-    public Gun.AbstractGun currentGun;
-
     private PlayerController player;
-
-    
-    //Vector3 targetMouse;
-
 
     private enum EMOTION { HAPPY, ANGRY };
     private GameObject smile;
     private GameObject angry;
 
-    public bool debugging = false;
+    private float gunTimer = 0.0f;
 
-    float gunTimer = 0.0f;
+    private GameObject bulletContainer; // Container GameObject to hide all bullets in heirarchy
+
+
+    public Transform firePoint;
+    public bool mainGun; //shoot with leftClick or left bumper if true
+                         //shoot with rightClick or right bumper if false
+    public Gun.AbstractGun currentGun;
+
+    public bool debugging = false;
 
     private void Awake ()
     {
@@ -37,17 +31,15 @@ public class GunController : MonoBehaviour {
 
         player = GetComponentInParent<PlayerController>();
         setGun(typeof(Gun.Handgun));
+
+        bulletContainer = new GameObject();
+        bulletContainer.name = "Active Bullets";
+        bulletContainer.transform.position = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //if (mainGun) if (Input.GetKey(KeyCode.Joystick1Button5)) { currentGun.shoot(firePoint.position, ); }
-
-        //if (!mainGun) if (Input.GetKey(KeyCode.Joystick1Button4)) { currentGun.shoot(firePoint.position, Vector3(firePoint.rotation)); }
-
-
         if (mainGun)
         {
             Vector3 ? target = null;
@@ -66,7 +58,10 @@ public class GunController : MonoBehaviour {
             {
                 setFace(EMOTION.ANGRY);
 
-                currentGun.shoot(firePoint.position, target.Value);
+                GameObject bullet = currentGun.shoot(firePoint.position, target.Value);
+
+                if (bullet != null)
+                    bullet.transform.parent = bulletContainer.transform;
             }
             else
                 setFace(EMOTION.HAPPY);
@@ -100,11 +95,6 @@ public class GunController : MonoBehaviour {
 
         }
 
-
-
-
-
-
         if (currentGun.GetType() != typeof(Gun.Handgun))
         {
             gunTimer -= Time.deltaTime;
@@ -123,6 +113,12 @@ public class GunController : MonoBehaviour {
     /// <param name="duration">The amount of time this gun will be active for (0 for infinite).</param>
     public void setGun(System.Type gun, float duration = 0)
     {
+        if (currentGun != null && currentGun.GetType() == gun)
+        {
+            gunTimer = duration;
+            return;
+        }
+
         if (currentGun)
             Destroy(currentGun);
 

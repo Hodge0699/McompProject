@@ -21,9 +21,9 @@ namespace Gun
             this.fireRate = fireRate;
         }
 
-        public virtual void shoot(Vector3 spawnPos, Vector3 target)
+        public virtual GameObject shoot(Vector3 spawnPos, Vector3 target)
         {
-            spawnBullet(spawnPos, target);
+            return spawnBullet(spawnPos, target);
         }
 
         protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
