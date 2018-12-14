@@ -7,17 +7,24 @@ public class EnemyController : MonoBehaviour
     private Rigidbody myRB;
     public float moveSpeed;
 
-    public PlayerController thePlayer;
+    public PlayerController player;
     public Room myRoom;
 
     private bool isAlive = true;
+
+    public float health = 100.0f;
+    private float currentHealth;
+
+    private RandomPowerDrop RPD;
 
     // Use this for initialization
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
-        thePlayer = FindObjectOfType<PlayerController>();
-        GetComponent<EnemyHealthManager>().deathCallback = die;
+        player = FindObjectOfType<PlayerController>();
+        RPD = GetComponent<RandomPowerDrop>();
+
+        currentHealth = health;
     }
 
     void FixedUpdate()
@@ -34,11 +41,29 @@ public class EnemyController : MonoBehaviour
         if (!isAlive)
             return;
 
-        transform.LookAt(thePlayer.transform.position);
+        transform.LookAt(player.transform.position);
     }
 
     /// <summary>
-    /// Kills the enemy (doesn't destroy gameobject, leaves it to be destroyed by room exit)
+    /// Hurts the enemy
+    /// </summary>
+    /// <param name="damage">Damage to hurt by</param>
+    /// <returns>The remaining health</returns>
+    public float hurt(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0.0f;
+            die();
+        }
+
+        return currentHealth;
+    }
+
+    /// <summary>
+    /// Kills the enemy.
     /// </summary>
     private void die()
     {
@@ -47,11 +72,10 @@ public class EnemyController : MonoBehaviour
 
         isAlive = false;
 
-        Vector3 up = transform.position;
-        up.y += 10.0f;
-
-        transform.LookAt(up);
-
         myRoom.enemyKilled(this);
+
+        RPD.CalculateLoot();
+
+        Destroy(gameObject);
     }
 }
