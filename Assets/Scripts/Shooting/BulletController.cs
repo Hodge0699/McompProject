@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour {
 
-    public float damage;
+    public float damage; 
     public float speed = 12.0f;
-    public float lifespan = 10.0f;
+    public float lifespan = 10.0f; // Seconds before despawning
 
+    /// <summary>
+    /// Initialises damage, speed and lifespan
+    /// </summary>
     public void init(float damage, float speed = 12.0f, float lifespan = 10.0f)
     {
         this.damage = damage;
@@ -30,9 +33,8 @@ public class BulletController : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
+            other.gameObject.GetComponent<EnemyController>().hurt(damage);
             Destroy(gameObject);
         }
     }
-
 }

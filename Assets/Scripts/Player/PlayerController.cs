@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
 
     private Room currentRoom;
 
+    // Temporarily added to allow switching
+    public enum AimMethod { PLAYER_LOOK_AT, GUN_LOOK_AT }; 
+    public AimMethod aimMethod;
+    public bool useDeadzone = false;
+
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -101,19 +106,50 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Turning()
     {
-        Vector3 mousePos = getMousePos();
+        if (aimMethod == AimMethod.PLAYER_LOOK_AT)
+        {
+            Vector3 mousePos = getMousePos();
 
-        // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-        Vector3 playerToMouse = mousePos - transform.position;
+            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+            Vector3 playerToMouse = mousePos - transform.position;
 
-        // Ensure the vector is entirely along the floor plane.
-        playerToMouse.y = 0f;
+            // Ensure the vector is entirely along the floor plane.
+            playerToMouse.y = 0f;
 
-        // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-        Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+            if (useDeadzone && playerToMouse.magnitude < 1.0f)
+                return;
 
-        // Set the player's rotation to this new rotation.
-        Rigidbody.MoveRotation(newRotation);
+            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+
+            // Set the player's rotation to this new rotation.
+            Rigidbody.MoveRotation(newRotation);
+        }
+        else
+        {
+            Transform firePoint = transform.Find("GunPrimary").transform.Find("Body");//.transform.Find("PrimaryFirePoint");
+            Vector3 gunForward = firePoint.forward;
+            Vector3 gunToTarget = getMousePos() - firePoint.transform.position;
+
+            gunToTarget.y = 0;
+
+            if (useDeadzone && (transform.position - getMousePos()).magnitude < 1.1f)
+                return;
+
+            gunToTarget.Normalize();
+
+
+            float turnAngle = Vector3.SignedAngle(gunForward, gunToTarget, Vector3.up);
+
+            if (debugging)
+            {
+                Debug.DrawLine(getMousePos() - Vector3.up * 5, getMousePos() + Vector3.up * 5, Color.red);
+                Debug.DrawRay(firePoint.transform.position, gunForward);
+                Debug.DrawRay(firePoint.transform.position, gunToTarget);
+            }
+
+            transform.Rotate(Vector3.up, turnAngle);
+        }
     }
 
     /// <summary>
