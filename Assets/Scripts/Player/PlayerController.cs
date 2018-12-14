@@ -25,12 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private Room currentRoom;
 
-    // Temporarily added to allow switching
-    public enum AimMethod { PLAYER_LOOK_AT, GUN_LOOK_AT, DYNAMIC_LOOK_AT }; 
-    public AimMethod aimMethod;
-    public bool useDeadzone = false;
-
-    Transform firePoint;
+    private Transform firePoint;
 
     private void Awake()
     {
@@ -44,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if (Input.GetKeyDown("p"))
         { useController = !useController; }
 
@@ -109,90 +103,30 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Turning()
     {
-        if (aimMethod == AimMethod.PLAYER_LOOK_AT)
+        Vector3 target = getMousePos() - transform.position; // Get direction vector from player to target
+
+        if (target.magnitude < 1.5f) // If direction vector too short, extend it 
         {
-            Vector3 mousePos = getMousePos();
-
-            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-            Vector3 playerToMouse = mousePos - transform.position;
-
-            // Ensure the vector is entirely along the floor plane.
-            playerToMouse.y = 0f;
-
-            if (useDeadzone && playerToMouse.magnitude < 1.0f)
-                return;
-
-            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
-            // Set the player's rotation to this new rotation.
-            Rigidbody.MoveRotation(newRotation);
+            target.Normalize();
+            target *= 1.5f;
         }
-        else if (aimMethod == AimMethod.GUN_LOOK_AT)
+
+        target += transform.position; // Apply this position to altered direction vector to produce new target position
+
+        Vector3 gunToTarget = target - firePoint.transform.position; // Get direction vector from gun to target
+        gunToTarget.y = 0;
+        gunToTarget.Normalize();
+
+        float turnAngle = Vector3.SignedAngle(transform.forward, gunToTarget, Vector3.up); // Calculate angle between gun forward and target dir
+
+        if (debugging)
         {
-            Transform firePoint = transform.Find("GunPrimary").transform.Find("Body");//.transform.Find("PrimaryFirePoint");
-            Vector3 gunForward = firePoint.forward;
-            Vector3 gunToTarget = getMousePos() - firePoint.transform.position;
-
-            gunToTarget.y = 0;
-
-            if (useDeadzone && (transform.position - getMousePos()).magnitude < 1.1f)
-                return;
-
-            gunToTarget.Normalize();
-
-
-            float turnAngle = Vector3.SignedAngle(gunForward, gunToTarget, Vector3.up);
-
-            if (debugging)
-            {
-                Debug.DrawLine(getMousePos() - Vector3.up * 5, getMousePos() + Vector3.up * 5, Color.red);
-                Debug.DrawRay(firePoint.transform.position, gunForward);
-                Debug.DrawRay(firePoint.transform.position, gunToTarget);
-            }
-
-            transform.Rotate(Vector3.up, turnAngle);
+            Debug.DrawLine(getMousePos() - Vector3.up * 5, getMousePos() + Vector3.up * 5, Color.red);
+            Debug.DrawRay(firePoint.transform.position, transform.forward);
+            Debug.DrawRay(firePoint.transform.position, gunToTarget);
         }
-        else if (aimMethod == AimMethod.DYNAMIC_LOOK_AT)
-        {
-            Vector3 mousePos = getMousePos();
-            Vector3 gunToTarget = mousePos - firePoint.transform.position;
-            gunToTarget.y = 0;
 
-            // If mouse pos behind gun, use player look at
-            if ((transform.position - mousePos).magnitude < 1.2f)
-            {
-                // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-                Vector3 playerToMouse = mousePos - transform.position;
-
-                // Ensure the vector is entirely along the floor plane.
-                playerToMouse.y = 0f;
-
-                // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
-                // Set the player's rotation to this new rotation.
-                Rigidbody.MoveRotation(newRotation);
-            }
-            else
-            {
-                Transform firePoint = transform.Find("GunPrimary").transform.Find("Body");
-                Vector3 gunForward = firePoint.forward;
-
-                gunToTarget.Normalize();
-
-                float turnAngle = Vector3.SignedAngle(gunForward, gunToTarget, Vector3.up);
-
-                if (debugging)
-                {
-                    Debug.DrawLine(getMousePos() - Vector3.up * 5, getMousePos() + Vector3.up * 5, Color.red);
-                    Debug.DrawRay(firePoint.transform.position, gunForward);
-                    Debug.DrawRay(firePoint.transform.position, gunToTarget);
-                }
-
-                transform.Rotate(Vector3.up, turnAngle);
-            }
-        }
+        transform.Rotate(Vector3.up, turnAngle);
     }
 
     /// <summary>

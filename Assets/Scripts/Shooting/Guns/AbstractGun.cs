@@ -21,27 +21,19 @@ namespace Gun
             this.fireRate = fireRate;
         }
 
-        public virtual GameObject shoot(Vector3 spawnPos, Vector3 ? target)
+        public virtual GameObject shoot(Vector3 spawnPos)
         {
-            if (target == null)
-                target = getForwardTarget();
-
-            return spawnBullet(spawnPos, target.Value);
+            return spawnBullet(spawnPos);
         }
 
-        protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
+        protected GameObject spawnBullet(Vector3 spawnPos, bool ignoreCooldown = false)
         {
             if (!canFire() && !ignoreCooldown)
                 return null;
 
             GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject)), spawnPos, Quaternion.Euler(0.0f, 0.0f, 0.0f)) as GameObject;
             BulletController bulletController = bullet.GetComponent<BulletController>();
-            bulletController.init(damage, speed);
-
-            bullet.transform.LookAt(target); //point bullet at target
-
-            if (debugging)
-                Debug.DrawLine(spawnPos, target, Color.red, 2.0f);
+            bulletController.init(transform.position + (transform.forward * 100), damage, speed);
 
             currentCooldown = 1 / fireRate;
 
@@ -57,11 +49,6 @@ namespace Gun
         protected bool canFire()
         {
             return !(currentCooldown > 0.0f);
-        }
-
-        protected Vector3 getForwardTarget()
-        {
-            return transform.localPosition + (transform.forward * 100);
         }
     }
 }

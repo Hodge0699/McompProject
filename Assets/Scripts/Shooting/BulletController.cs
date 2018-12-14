@@ -11,8 +11,10 @@ public class BulletController : MonoBehaviour {
     /// <summary>
     /// Initialises damage, speed and lifespan
     /// </summary>
-    public void init(float damage, float speed = 12.0f, float lifespan = 10.0f)
+    public void init(Vector3 forward, float damage, float speed = 12.0f, float lifespan = 10.0f)
     {
+        transform.LookAt(forward);
+
         this.damage = damage;
         this.speed = speed;
         this.lifespan = lifespan;

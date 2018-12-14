@@ -42,26 +42,11 @@ public class GunController : MonoBehaviour {
     {
         if (mainGun)
         {
-            Vector3 ? target = null;
-
-            if (Input.GetMouseButton(0))
-            {
-                Vector3 mouseTarget = player.getMousePos();
-                mouseTarget.y = firePoint.transform.position.y;
-                target = mouseTarget;
-            }
-            else if (Input.GetKey(KeyCode.Joystick1Button4))
-                target = player.transform.position + (player.transform.forward * 100.0f);
-
-
-            if (target != null)
+            if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Joystick1Button4))
             {
                 setFace(EMOTION.ANGRY);
 
-                if (player.aimMethod == PlayerController.AimMethod.GUN_LOOK_AT || player.aimMethod == PlayerController.AimMethod.DYNAMIC_LOOK_AT)
-                    target = null;
-
-                GameObject bullet = currentGun.shoot(firePoint.position, target);
+                GameObject bullet = currentGun.shoot(firePoint.position);
 
                 if (bullet != null)
                     bullet.transform.parent = bulletContainer.transform;
@@ -75,10 +60,8 @@ public class GunController : MonoBehaviour {
             if (Input.GetMouseButton(1))
             {
                 setFace(EMOTION.ANGRY);
-                Vector3 target = player.getMousePos();
-                target.y = firePoint.transform.position.y;
 
-                currentGun.shoot(firePoint.position, target);
+                currentGun.shoot(firePoint.position);
             }
             else
                 setFace(EMOTION.HAPPY);
@@ -87,11 +70,7 @@ public class GunController : MonoBehaviour {
             {
                 setFace(EMOTION.ANGRY);
 
-                Transform target;
-                target = firePoint;
-
-                target.position.Set(player.getMousePos().x, firePoint.transform.position.y, player.getMousePos().z);
-                currentGun.shoot(firePoint.position, target.position);
+                currentGun.shoot(firePoint.position);
             }
             else
                 setFace(EMOTION.HAPPY);
@@ -105,8 +84,6 @@ public class GunController : MonoBehaviour {
             if (gunTimer <= 0.0f)
                 setGun(typeof(Gun.Handgun));
         }
-
-
     }
 
     /// <summary>
