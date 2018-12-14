@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
         myCamera = Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
 
         mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
+
+        GameObject playerUI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
+
+        GetComponent<PlayerHealthManager>().init(playerUI);
     }
 
     void FixedUpdate()
