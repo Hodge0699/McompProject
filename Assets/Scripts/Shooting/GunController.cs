@@ -58,7 +58,10 @@ public class GunController : MonoBehaviour {
             {
                 setFace(EMOTION.ANGRY);
 
-                GameObject bullet = currentGun.shoot(firePoint.position, target.Value);
+                if (player.aimMethod == PlayerController.AimMethod.GUN_LOOK_AT || player.aimMethod == PlayerController.AimMethod.DYNAMIC_LOOK_AT)
+                    target = null;
+
+                GameObject bullet = currentGun.shoot(firePoint.position, target);
 
                 if (bullet != null)
                     bullet.transform.parent = bulletContainer.transform;

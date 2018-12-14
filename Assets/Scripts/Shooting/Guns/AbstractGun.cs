@@ -21,9 +21,12 @@ namespace Gun
             this.fireRate = fireRate;
         }
 
-        public virtual GameObject shoot(Vector3 spawnPos, Vector3 target)
+        public virtual GameObject shoot(Vector3 spawnPos, Vector3 ? target)
         {
-            return spawnBullet(spawnPos, target);
+            if (target == null)
+                target = getForwardTarget();
+
+            return spawnBullet(spawnPos, target.Value);
         }
 
         protected GameObject spawnBullet(Vector3 spawnPos, Vector3 target, bool ignoreCooldown = false)
@@ -54,6 +57,11 @@ namespace Gun
         protected bool canFire()
         {
             return !(currentCooldown > 0.0f);
+        }
+
+        protected Vector3 getForwardTarget()
+        {
+            return transform.localPosition + (transform.forward * 100);
         }
     }
 }
