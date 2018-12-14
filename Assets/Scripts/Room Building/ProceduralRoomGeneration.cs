@@ -32,7 +32,6 @@ namespace RoomBuilding
 
             player = playerObj.GetComponent<PlayerController>();
 
-
             // Create initial room
             Room startRoom = createRoom(null, null);
             player.setRoom(startRoom);
