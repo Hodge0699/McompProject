@@ -40,6 +40,9 @@ public class CameraController : MonoBehaviour {
     {
         Vector3 targetPos = target;
 
+        if (player.getCurrentRoom() == null)
+            return targetPos + offset;
+
         Vector3 roomPos = player.getCurrentRoom().transform.position;
         Vector3 roomSize = player.getCurrentRoom().dimensions;
 
