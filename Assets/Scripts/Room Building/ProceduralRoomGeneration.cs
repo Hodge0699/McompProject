@@ -20,6 +20,11 @@ namespace RoomBuilding
 
         private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
 
+        public int rooms = 5; // Number of rooms player must progress through before boss room spawns.
+        private int roomsBeat = 0;
+
+        public GameObject bossRoom; // Room prefab to spawn after player beats sufficient rooms.
+
         // Use this for initialization
         void Start()
         {
@@ -43,8 +48,14 @@ namespace RoomBuilding
         /// <summary>
         /// Creates a new room either completely randomly or based off a previous room.
         /// </summary>
-        public Room createRoom(Room lastRoom, DoorController connectingDoor)
+        /// <param name="lastRoom">The room the player has just beat. Null if first room.</param>
+        /// <param name="connectingDoor">Door connecting old and new room.</param>
+        /// <returns>The newly created room.</returns>
+        private Room createRoom(Room lastRoom, DoorController connectingDoor)
         {
+            if (roomsBeat >= rooms)
+                return createBossRoom(lastRoom, connectingDoor);
+
             rb.startNewRoom();
 
             // Randomize new room size
@@ -68,6 +79,47 @@ namespace RoomBuilding
         }
 
         /// <summary>
+        /// Spawns a boss room instead of a generating a regular room
+        /// </summary>
+        /// <param name="lastRoom">The room the player has just beat.</param>
+        /// <param name="connectingDoor">Door connecting old and new room.</param>
+        /// <returns>The newly created boss room.</returns>
+        private Room createBossRoom(Room lastRoom, DoorController connectingDoor)
+        {
+            GameObject roomObj = Instantiate(bossRoom);
+            Room roomScr = roomObj.GetComponent<Room>();
+
+            if (connectingDoor.transform.forward == new Vector3(0.0f, 0.0f, -1.0f)) // South
+                roomObj.transform.Rotate(Vector3.up, 90);
+            else if (connectingDoor.transform.forward == new Vector3(-1.0f, 0.0f, 0.0f)) // West
+                roomObj.transform.Rotate(Vector3.up, 180);
+            else if (connectingDoor.transform.forward == new Vector3(0.0f, 0.0f, 1.0f)) // North
+                roomObj.transform.Rotate(Vector3.up, 270);
+
+            Vector3 origin = connectingDoor.transform.position;
+
+            for (int i = 0; i < 3; i++)
+            {
+                origin[i] += connectingDoor.transform.forward[i] * (roomScr.dimensions.x / 2);
+                origin[i] -= connectingDoor.transform.forward[i] * (rb.wallThickness / 2);
+            }
+
+            origin.y = 0;
+
+            roomObj.transform.position = origin;
+
+            // Flip x and z dimensions in script if room now sideways (for camera bounds)
+            if (connectingDoor.transform.forward.z != 0.0f)
+            {
+                float temp = roomScr.dimensions.x;
+                roomScr.dimensions.x = roomScr.dimensions.z;
+                roomScr.dimensions.z = temp;
+            }
+
+            return roomScr;
+        }
+
+        /// <summary>
         /// Calculates the origin of the next room to be built.
         /// </summary>
         /// <param name="lastRoom">The last room that was built (or null if this is first room).</param>
@@ -77,14 +129,12 @@ namespace RoomBuilding
             if (lastRoom == null)
                 return Vector3.zero;
 
-            Vector3 translationAxis = new Vector3(connectingDoor.transform.localPosition.x, 0.0f, connectingDoor.transform.localPosition.z).normalized;
-
             Vector3 roomOrigin = rb.dimensions / 2;
 
             for (int i = 0; i < 3; i++)
             {
-                roomOrigin[i] *= translationAxis[i];
-                roomOrigin[i] -= translationAxis[i] * (rb.wallThickness / 2);
+                roomOrigin[i] *= connectingDoor.transform.forward[i];
+                roomOrigin[i] -= connectingDoor.transform.forward[i] * (rb.wallThickness / 2);
             }
 
             roomOrigin += connectingDoor.transform.position;
@@ -181,6 +231,24 @@ namespace RoomBuilding
                 default:
                     return Direction.ERROR;
             }
+        }
+
+        /// <summary>
+        /// Called by rooms to signal they've been beat. Spawns next room
+        /// </summary>
+        /// <param name="room">Beaten room</param>
+        public List<Room> roomBeat(Room room)
+        {
+            roomsBeat++;
+
+            List<DoorController> doors = room.getDoors();
+
+            List<Room> newRooms = new List<Room>();
+
+            for (int i = 0; i < doors.Count; i++)
+                newRooms.Add(createRoom(room, doors[i]));
+
+            return newRooms;
         }
     }
 }

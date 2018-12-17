@@ -112,6 +112,14 @@ public class Room : MonoBehaviour {
     }
 
     /// <summary>
+    /// Returns list of doors.
+    /// </summary>
+    public List<DoorController> getDoors()
+    {
+        return doors;
+    }
+
+    /// <summary>
     /// Adds a single door to the doors list.
     /// </summary>
     /// <param name="door">Exit from previous room.</param>
@@ -167,11 +175,9 @@ public class Room : MonoBehaviour {
         {
             openAllDoors();
 
-
             RoomBuilding.ProceduralRoomGeneration builder = FindObjectOfType<RoomBuilding.ProceduralRoomGeneration>();
 
-            for (int i = 0; i < doors.Count; i++)
-                childRooms.Add(builder.createRoom(this, doors[i]));
+            childRooms = builder.roomBeat(this);
         }
     }
 
