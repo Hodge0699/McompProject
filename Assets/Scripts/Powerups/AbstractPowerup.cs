@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gun.Powerups
+using Weapon.Gun;
+
+namespace Powerups
 {
     public class AbstractPowerup : MonoBehaviour
     {

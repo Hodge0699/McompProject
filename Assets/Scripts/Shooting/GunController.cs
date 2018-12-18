@@ -3,34 +3,22 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
+using Weapon.Gun;
+
 public class GunController : MonoBehaviour {
-
-    private PlayerController player;
-
-    private enum EMOTION { HAPPY, ANGRY };
-    private GameObject smile;
-    private GameObject angry;
-
-    private float gunTimer = 0.0f;
 
     private GameObject bulletContainer; // Container GameObject to hide all bullets in heirarchy
 
-
     public Transform firePoint;
-    public bool mainGun; //shoot with leftClick or left bumper if true
-                         //shoot with rightClick or right bumper if false
-    public Gun.AbstractGun currentGun;
+
+    public Weapon.Gun.AbstractGun currentGun;
+    private float gunTimer = 0.0f;
 
     public bool debugging = false;
 
     private void Awake ()
     {
-        // Only search through parent's children, quicker than searching through whole scene - Jake
-        smile = transform.parent.Find("SmileFace").gameObject;
-        angry = transform.parent.Find("AngryFace").gameObject;
-
-        player = GetComponentInParent<PlayerController>();
-        setGun(typeof(Gun.Handgun));
+        setGun(typeof(Handgun));
 
         bulletContainer = new GameObject();
         bulletContainer.name = "Active Bullets";
@@ -40,50 +28,24 @@ public class GunController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (mainGun)
-        {
-            if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Joystick1Button4))
-            {
-                setFace(EMOTION.ANGRY);
-
-                GameObject bullet = currentGun.shoot(firePoint.position);
-
-                if (bullet != null)
-                    bullet.transform.parent = bulletContainer.transform;
-            }
-            else
-                setFace(EMOTION.HAPPY);
-        }
-
-        if (!mainGun)
-        {
-            if (Input.GetMouseButton(1))
-            {
-                setFace(EMOTION.ANGRY);
-
-                currentGun.shoot(firePoint.position);
-            }
-            else
-                setFace(EMOTION.HAPPY);
-
-            if ((Input.GetKey(KeyCode.Joystick1Button5)) && (player.useController))
-            {
-                setFace(EMOTION.ANGRY);
-
-                currentGun.shoot(firePoint.position);
-            }
-            else
-                setFace(EMOTION.HAPPY);
-
-        }
-
-        if (currentGun.GetType() != typeof(Gun.Handgun))
+        if (currentGun.GetType() != typeof(Handgun))
         {
             gunTimer -= Time.deltaTime;
 
             if (gunTimer <= 0.0f)
-                setGun(typeof(Gun.Handgun));
+                setGun(typeof(Handgun));
         }
+    }
+
+    /// <summary>
+    /// Shoots the current gun
+    /// </summary>
+    public void shoot()
+    {
+        GameObject bullet = currentGun.shoot(firePoint.position);
+
+        if (bullet != null)
+            bullet.transform.parent = bulletContainer.transform;
     }
 
     /// <summary>
@@ -105,7 +67,7 @@ public class GunController : MonoBehaviour {
         gameObject.AddComponent(gun);
 
         // Can't destroy old gun immediately on collision so find the right gun from all attached guns
-        Gun.AbstractGun[] attachedGuns = gameObject.GetComponents<Gun.AbstractGun>();
+        AbstractGun[] attachedGuns = gameObject.GetComponents<AbstractGun>();
 
         int i = attachedGuns.Length -1; // Loop backwards, more efficient since gun is most probably latest
         while (!currentGun || (currentGun.GetType() != gun && i >= 0))
@@ -118,16 +80,5 @@ public class GunController : MonoBehaviour {
 
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
-    }
-
-
-    /// <summary>
-    /// Sets Darren's face to an emotion
-    /// </summary>
-    /// <param name="e">Happy or angry.</param>
-    private void setFace(EMOTION e)
-    {
-        smile.SetActive(e == EMOTION.HAPPY);
-        angry.SetActive(e == EMOTION.ANGRY);
     }
 }

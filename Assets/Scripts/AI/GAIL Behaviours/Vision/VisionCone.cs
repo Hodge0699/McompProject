@@ -50,32 +50,38 @@ public class VisionCone : MonoBehaviour
                 RaycastHit hitInfo = new RaycastHit(); // Hit information ready for raycast
                 Physics.Raycast(transform.position, direction, out hitInfo, viewDistance); // Send raycast from this location, to target's location to see if it will hit.
 
-                if (hitInfo.collider && targetTags.Contains(hitInfo.collider.tag)) // If collider was hit and it has valid tag
+                if (hitInfo.collider) // If collider was hit
                 {
-                    if (!visibleTargets.Contains(nearbyTargets[i]))
+                    while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject))
+                        Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance);
+
+                    if (hitInfo.collider.gameObject == nearbyTargets[i] || isAChildOf(hitInfo.collider.gameObject, nearbyTargets[i])) // Collider is target we were aiming for
                     {
-                        visibleTargets.Add(hitInfo.collider.gameObject); // Add target to visible target array
+                        if (!visibleTargets.Contains(nearbyTargets[i]))
+                        {
+                            visibleTargets.Add(nearbyTargets[i]); // Add target to visible target array
 
-                        Visibility vis = nearbyTargets[i].GetComponent<Visibility>();
+                            Visibility vis = nearbyTargets[i].GetComponent<Visibility>();
 
-                        if (vis != null && !ignoreVisibilityValue)
-                            sightTime.Add((vis.getVisiblity() * Time.deltaTime) / 100);
+                            if (vis != null && !ignoreVisibilityValue)
+                                sightTime.Add((vis.getVisiblity() * Time.deltaTime) / 100);
+                            else
+                                sightTime.Add(Time.deltaTime);
+                        }
                         else
-                            sightTime.Add(Time.deltaTime);
-                    }
-                    else
-                    {
-                        int index = visibleTargets.IndexOf(nearbyTargets[i]);
+                        {
+                            int index = visibleTargets.IndexOf(nearbyTargets[i]);
 
-                        Visibility vis = visibleTargets[index].GetComponent<Visibility>();
+                            Visibility vis = visibleTargets[index].GetComponent<Visibility>();
 
-                        if (vis != null)
-                            sightTime[index] += (vis.getVisiblity() * Time.deltaTime) / 100;
-                        else
-                            sightTime[index] += Time.deltaTime;
+                            if (vis != null)
+                                sightTime[index] += (vis.getVisiblity() * Time.deltaTime) / 100;
+                            else
+                                sightTime[index] += Time.deltaTime;
 
-                        if (sightTime[index] > timeToSpot)
-                            sightTime[index] = timeToSpot;
+                            if (sightTime[index] > timeToSpot)
+                                sightTime[index] = timeToSpot;
+                        }
                     }
                 }
                 else // obscured
@@ -98,11 +104,8 @@ public class VisionCone : MonoBehaviour
     /// <param name="other">Colliding game object</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (targetTags.Contains(other.gameObject.tag))
+        if (targetTags.Contains(other.transform.tag))
             nearbyTargets.Add(other.gameObject);
-
-        //if (other.CompareTag(targetTag)) // If target is in proximity
-        //    nearbyTargets.Add(other.gameObject); // Add it to nearbyTargets list
     }
 
     /// <summary>
@@ -111,7 +114,7 @@ public class VisionCone : MonoBehaviour
     /// <param name="other">Agent that left the trigger area</param>
     private void OnTriggerExit(Collider other)
     {
-        if (targetTags.Contains(other.gameObject.tag)) // If the target's tag is in the targetTag list
+        if (targetTags.Contains(other.transform.tag)) // If the target's tag is in the targetTag list
         {
             if (nearbyTargets.Contains(other.gameObject)) // If the target is in the nearbyTargets array, remove it
                 nearbyTargets.Remove(other.gameObject);
@@ -229,5 +232,18 @@ public class VisionCone : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    private bool isAChildOf(GameObject testObject, GameObject parent)
+    {
+        bool isChild = false;
+
+        if (testObject == parent)
+            return true;
+
+        if (testObject.transform.parent != null)
+            return isAChildOf(testObject.transform.parent.gameObject, parent);
+
+        return isChild;
     }
 }
