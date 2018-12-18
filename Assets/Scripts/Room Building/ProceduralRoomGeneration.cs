@@ -14,7 +14,7 @@ namespace RoomBuilding
         public int enemyFrequency = 5; // Amount of enemies to be spawned per 1000 units squared
 
         private RoomBuilder rb;
-        private Enemy.EnemiesSpawn enemySpawner;
+        private EnemySpawner enemySpawner;
 
         private PlayerController player;
 
@@ -29,7 +29,7 @@ namespace RoomBuilding
         void Start()
         {
             rb = GetComponent<RoomBuilder>();
-            enemySpawner = GetComponent<Enemy.EnemiesSpawn>();
+            enemySpawner = GetComponent<EnemySpawner>();
 
             // Liam - Spawn player at start of scene when first room is generated
             GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
@@ -69,8 +69,8 @@ namespace RoomBuilding
             Room newRoom = rb.buildRoom();
 
             enemySpawner.size = new Vector3(rb.dimensions.x - (rb.wallThickness * 4), 0.0f, rb.dimensions.z - (rb.wallThickness * 4));
-            enemySpawner.center = rb.transform.position;
-            enemySpawner.center.y += 1.0f;
+            enemySpawner.transform.position = rb.transform.position;
+
             spawnEnemies(newRoom);
 
             return newRoom;
@@ -197,13 +197,13 @@ namespace RoomBuilding
 
             do
             {
-                GameObject enemy = enemySpawner.Spawn();
+                GameObject enemy = enemySpawner.spawn(typeof(EnemyType.MeleeEnemy));
 
                 // If enemy too close to player generate new position
                 while ((enemy.transform.position - player.transform.position).magnitude < minEnemyDistance)
                     enemy.transform.position = enemySpawner.generateNewPosition();
 
-                room.addEnemy(enemy.GetComponent<EnemyController>());
+                room.addEnemy(enemy.GetComponent<EnemyType.AbstractEnemy>());
 
                 enemyCount--;
             } while (enemyCount > 0);

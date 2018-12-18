@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public int startingHealth;
-    public int currentHealth;
+    public float startingHealth;
+    public float currentHealth;
     public Slider healthSlider;
     public Image damageImage;
     public float flashSpeed = 5f;
@@ -42,11 +42,12 @@ public class PlayerHealthManager : MonoBehaviour
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 
         damaged = false;
+
         if (currentHealth <= 0)
             gameObject.SetActive(false);
     }
 
-    public void HurtPlayer(int damageAmount)
+    public void HurtPlayer(float damageAmount)
     {
         damaged = true;
         currentHealth -= damageAmount;
