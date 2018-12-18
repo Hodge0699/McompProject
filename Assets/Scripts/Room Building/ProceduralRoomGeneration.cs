@@ -41,8 +41,6 @@ namespace RoomBuilding
             Room startRoom = createRoom(null, null);
             player.setRoom(startRoom);
 
-            Instantiate(Resources.Load("MinimapCamera"));
-            Instantiate(Resources.Load("MinimapBoarder"));
         }
 
         /// <summary>
