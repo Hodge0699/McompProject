@@ -72,6 +72,7 @@ namespace RoomBuilding
 
             enemySpawner.size = new Vector3(rb.dimensions.x - (rb.wallThickness * 4), 0.0f, rb.dimensions.z - (rb.wallThickness * 4));
             enemySpawner.transform.position = rb.transform.position;
+
             spawnEnemies(newRoom);
 
             return newRoom;
@@ -198,7 +199,7 @@ namespace RoomBuilding
 
             do
             {
-                GameObject enemy = enemySpawner.spawn();
+                GameObject enemy = enemySpawner.spawn(typeof(EnemyType.MeleeEnemy));
 
                 // If enemy too close to player generate new position
                 while ((enemy.transform.position - player.transform.position).magnitude < minEnemyDistance)

@@ -16,15 +16,20 @@ namespace EnemyType
         private void Update()
         {
             if (visionCone.hasVisibleTargets())
-            {
-                GameObject target = visionCone.getClosestVisibleTarget();
-                transform.LookAt(target.transform);
-                directionVector = transform.forward;
+                chase();
+            else
+                wander();
+        }
 
-                if ((target.transform.position - this.transform.position).magnitude <= attackRange && attackCooldownCounter == 0.0f)
-                {
-                    target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
-                }
+        private void chase()
+        {
+            GameObject target = visionCone.getClosestVisibleTarget();
+            transform.LookAt(target.transform);
+            directionVector = transform.forward;
+
+            if ((target.transform.position - this.transform.position).magnitude <= attackRange && attackCooldownCounter == 0.0f)
+            {
+                target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
             }
         }
     }
