@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField]
     public GameObject myCamera = null;
     public float moveSpeed;
@@ -21,44 +20,51 @@ public class PlayerController : MonoBehaviour
     private float forceMoveDistanceCounter = 0.0f;
     private float forceMoveDistanceTarget = 0.0f;
 
-    Vector3 cameraPos = new Vector3(0f, 7f, -10f);
+    private Vector3 cameraOffset = new Vector3(0f, 7f, -10f);
 
     private Room currentRoom;
 
     private Transform firePoint;
+
+    public enum EMOTION { HAPPY, ANGRY };
+    private GameObject smile;
+    private GameObject angry;
 
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
         firePoint = transform.Find("GunPrimary").transform.Find("Body");
 
-        myCamera = Instantiate(myCamera, transform.position + cameraPos, Quaternion.Euler(33, 0, 0));
+        myCamera = Instantiate(myCamera, transform.position + cameraOffset, Quaternion.Euler(33, 0, 0));
 
         mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
 
         GameObject playerUI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
 
         GetComponent<PlayerHealthManager>().init(playerUI);
+
+        smile = transform.Find("SmileFace").gameObject;
+        angry = transform.Find("AngryFace").gameObject;
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown("p"))
-        { useController = !useController; }
-
-
-        if (allowPlayerControl)
-        {
-            directionVector.x = Input.GetAxisRaw("Horizontal");
-            directionVector.z = Input.GetAxisRaw("Vertical");
-        }
-
         Move();
 
         if (useController)
             TurningWithController();
         else
             Turning();
+    }
+
+    /// <summary>
+    /// Sets the direction vector to be acted upon at the end of the frame
+    /// </summary>
+    /// <param name="dir">Normalised vector</param>
+    public void setDirectionVector(Vector3 dir)
+    {
+        dir.Normalize();
+        this.directionVector = dir;
     }
 
     /// <summary>
@@ -176,5 +182,15 @@ public class PlayerController : MonoBehaviour
     public Room getCurrentRoom()
     {
         return currentRoom;
+    }
+
+    /// <summary>
+    /// Sets Darren's face to an emotion
+    /// </summary>
+    /// <param name="e">Happy or angry.</param>
+    public void setFace(EMOTION e)
+    {
+        smile.SetActive(e == EMOTION.HAPPY);
+        angry.SetActive(e == EMOTION.ANGRY);
     }
 }

@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
 
         isAlive = false;
 
-        myRoom.enemyKilled(this);
+        //myRoom.enemyKilled(this);
 
         RPD.CalculateLoot();
 

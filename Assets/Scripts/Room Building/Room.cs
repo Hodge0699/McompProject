@@ -148,7 +148,7 @@ public class Room : MonoBehaviour {
     /// Sets an enemy's room to this and creates enemies GameObject if needed.
     /// </summary>
     /// <param name="enemy">Instantiated enemy.</param>
-    public void addEnemy(EnemyController enemy)
+    public void addEnemy(EnemyType.AbstractEnemy enemy)
     {
         if (enemies == null)
         {
@@ -157,7 +157,7 @@ public class Room : MonoBehaviour {
             enemies.transform.parent = this.transform;
         }
 
-        enemy.myRoom = this;
+        enemy.setRoom(this);
         enemy.transform.parent = enemies.transform;
 
         enemyCount++;
@@ -167,7 +167,7 @@ public class Room : MonoBehaviour {
     /// Called when an enemy is killed to decrease enemyCount
     /// </summary>
     /// <param name="enemy">Enemy that was killed.</param>
-    public void enemyKilled(EnemyController enemy)
+    public void enemyKilled(EnemyType.AbstractEnemy enemy)
     {
         enemyCount--;
 
