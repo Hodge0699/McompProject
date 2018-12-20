@@ -7,7 +7,7 @@ namespace Weapon.Gun
     public class Shotgun : AbstractGun
     {
         public int pellets = 5;
-        public float spreadRange = 0.25f;
+        public float spreadRange = 5.0f;
 
         public void Awake()
         {
@@ -20,17 +20,15 @@ namespace Weapon.Gun
                 return null;
 
             GameObject pelletBurst = new GameObject();
+            pelletBurst.name = "Pellet Burst";
 
             for (int i = 0; i < pellets; i++)
             {
-                Vector3 bulletTarget = transform.forward * 10;
-
-                bulletTarget.x += Random.Range(-spreadRange, spreadRange);
-                bulletTarget.y += Random.Range(-spreadRange, spreadRange);
-
                 GameObject bullet = base.spawnBullet(spawnPos, true);
-                bullet.transform.LookAt(bulletTarget);
-                bullet.transform.parent = pelletBurst.transform.parent;
+                bullet.transform.parent = pelletBurst.transform;
+
+                bullet.transform.Rotate(Vector3.up, Random.Range(-spreadRange, spreadRange));
+                bullet.transform.Rotate(Vector3.right, Random.Range(-spreadRange, spreadRange));
             }
 
             return pelletBurst;

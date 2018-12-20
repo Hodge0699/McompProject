@@ -64,8 +64,7 @@ namespace EnemyType
 
             myRoom.enemyKilled(this);
 
-            RandomPowerDrop RPD = gameObject.AddComponent<RandomPowerDrop>();
-            RPD.CalculateLoot();
+            gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
             Destroy(gameObject);
         }
