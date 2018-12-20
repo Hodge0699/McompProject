@@ -13,6 +13,13 @@ namespace EnemyType
 
         public float attackDamage = 1.0f;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            movementSpeed *= 2;
+        }
+
         private void Update()
         {
             if (attackCooldownCounter >= 0.0f)
