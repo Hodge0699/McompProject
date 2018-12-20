@@ -11,7 +11,8 @@ public class GunController : MonoBehaviour {
 
     public Transform firePoint;
 
-    public Weapon.Gun.AbstractGun currentGun;
+    public AbstractGun currentGun;
+
     private float gunTimer = 0.0f;
 
     public bool debugging = false;
@@ -65,16 +66,7 @@ public class GunController : MonoBehaviour {
             Destroy(currentGun);
 
         gameObject.AddComponent(gun);
-
-        // Can't destroy old gun immediately on collision so find the right gun from all attached guns
-        AbstractGun[] attachedGuns = gameObject.GetComponents<AbstractGun>();
-
-        int i = attachedGuns.Length -1; // Loop backwards, more efficient since gun is most probably latest
-        while (!currentGun || (currentGun.GetType() != gun && i >= 0))
-        {
-            currentGun = attachedGuns[i];
-            i--;
-        }
+        currentGun = gameObject.GetComponent(gun) as AbstractGun;
 
         gunTimer = duration;
 

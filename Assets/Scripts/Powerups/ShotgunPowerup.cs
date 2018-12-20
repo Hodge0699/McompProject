@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Weapon.Gun;
+
 namespace Powerups
 {
-    public class Shotgun : AbstractPowerup
+    public class ShotgunPowerup : AbstractPowerup
     {
         private void Awake()
         {

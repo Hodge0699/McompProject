@@ -7,7 +7,6 @@ public class RandomPowerDrop : MonoBehaviour {
 
     [System.Serializable]
     public class DropItems
-
     {
         public string name;
         public GameObject item;
@@ -15,7 +14,7 @@ public class RandomPowerDrop : MonoBehaviour {
     }
 
     public List<DropItems> LootTable = new List<DropItems>();
-    public int  ItemDropChance;
+    public int  ItemDropChance = 50;
 
     private PlayerController player;
 
