@@ -40,6 +40,8 @@ public class VisionCone : MonoBehaviour
     /// </summary>
     private void checkSight()
     {
+        validateObjects();
+
         for (int i = 0; i < nearbyTargets.Count; i++) // Loop through nearby agents
         {
             Vector3 direction = nearbyTargets[i].transform.position - transform.position; // Direction vector between agent and target
@@ -135,6 +137,8 @@ public class VisionCone : MonoBehaviour
     /// <returns>The time the target has been in this agent's view or -1 if not in view</returns>
     public float getTimeVisible(GameObject target)
     {
+        validateObjects();
+
         if (visibleTargets.Contains(target))
         {
             int index = visibleTargets.IndexOf(target);
@@ -151,6 +155,8 @@ public class VisionCone : MonoBehaviour
     /// <returns>closest visible GameObject or null if no visible target</returns>
     public GameObject getClosestVisibleTarget()
     {
+        validateObjects();
+
         float shortestDistance = Mathf.Infinity;
         GameObject closestTarget = null;
 
@@ -175,6 +181,8 @@ public class VisionCone : MonoBehaviour
     /// <returns>Most visible gameobject or null if no visible targets.</returns>
     public GameObject getMostVisibleTarget()
     {
+        validateObjects();
+
         GameObject mostVisible = null;
         float longestSighting = 0;
 
@@ -196,6 +204,8 @@ public class VisionCone : MonoBehaviour
     /// <returns>A list of nearby enemy GameObjects</returns>
     public List<GameObject> getNearbyTargets()
     {
+        validateObjects();
+
         return nearbyTargets;
     }
 
@@ -205,6 +215,8 @@ public class VisionCone : MonoBehaviour
     /// <returns>A list of visible GameObjects</returns>
     public List<GameObject> getVisibleTargets()
     {
+        validateObjects();
+
         return visibleTargets;
     }
 
@@ -228,22 +240,60 @@ public class VisionCone : MonoBehaviour
     /// <returns>True if there is an unobstructed target in field of view, else false</returns>
     public bool hasVisibleTargets()
     {
+        validateObjects();
+
         if (visibleTargets.Count > 0)
             return true;
         else
             return false;
     }
 
-    private bool isAChildOf(GameObject testObject, GameObject parent)
+    /// <summary>
+    /// Checks to see if an object is a child of another
+    /// </summary>
+    /// <param name="potChild">Potential child object</param>
+    /// <param name="potParent">Potential parent object</param>
+    /// <returns>True if </returns>
+    private bool isAChildOf(GameObject potChild, GameObject potParent)
     {
         bool isChild = false;
 
-        if (testObject == parent)
+        if (potChild == potParent)
             return true;
 
-        if (testObject.transform.parent != null)
-            return isAChildOf(testObject.transform.parent.gameObject, parent);
+        if (potChild.transform.parent != null)
+            return isAChildOf(potChild.transform.parent.gameObject, potParent);
 
         return isChild;
+    }
+
+    /// <summary>
+    /// Clears nearbyObjects list of destroyed objects
+    /// </summary>
+    private void validateObjects()
+    {
+        List<int> nullIndices = new List<int>();
+
+        // Find destroyed
+        for (int i = 0; i < nearbyTargets.Count; i++)
+        {
+            if (nearbyTargets[i] == null)
+                nullIndices.Add(i);
+        }
+
+        // Remove destroyed
+        for (int i = nullIndices.Count - 1; i >= 0; i--)
+            nearbyTargets.RemoveAt(i);
+
+        nullIndices.Clear();
+
+        for (int i = 0; i < visibleTargets.Count; i++)
+        {
+            if (visibleTargets[i] == null)
+                nullIndices.Add(i);
+        }
+
+        for (int i = nullIndices.Count - 1; i >= 0; i--)
+            visibleTargets.RemoveAt(i);
     }
 }

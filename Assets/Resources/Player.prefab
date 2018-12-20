@@ -253,8 +253,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1620791898820896}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.33217537, z: 0.639}
-  m_LocalScale: {x: 1.5865492, y: 3.0474799, z: 2.310803}
+  m_LocalPosition: {x: 0.1, y: 1.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4401846483183230}
   m_RootOrder: 0
@@ -563,6 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4528453300267580}
   currentGun: {fileID: 0}
+  ignoreTags:
+  - Player
   debugging: 0
 --- !u!114 &114436240047496228
 MonoBehaviour:
@@ -605,9 +607,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1d3a95fa05e8c498995843ae02d4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 30
   currentHealth: 0
   healthSlider: {fileID: 0}
   damageImage: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  debugging: 0

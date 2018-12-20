@@ -9,7 +9,6 @@ namespace Player.Input
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
-
         PlayerController player;
         GunController gun;
 
@@ -29,10 +28,7 @@ namespace Player.Input
         void Update()
         {
             if (UnityEngine.Input.GetKeyDown(controlSchemeToggle))
-            {
                 player.useController = !player.useController;
-                
-            }
 
             // Movement
             if (player.allowPlayerControl)

@@ -15,6 +15,11 @@ public class PlayerHealthManager : MonoBehaviour
 
     private bool initialised = false;
 
+    private bool godmode = false;
+    private float godmodeTimer = 0.0f;
+
+    public bool debugging = false;
+
     /// <summary>
     /// Finds ui elements 
     /// </summary>
@@ -45,12 +50,41 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (currentHealth <= 0)
             gameObject.SetActive(false);
+
+        if (godmodeTimer > 0.0f)
+        {
+            godmodeTimer -= Time.deltaTime;
+
+            if (godmodeTimer <= 0.0f)
+                setGodmode(false);
+        }
     }
 
+    /// <summary>
+    /// Damages the player by a set amount
+    /// </summary>
+    /// <param name="damageAmount">Damage to inflict</param>
     public void HurtPlayer(float damageAmount)
     {
+        if (godmode)
+            return;
+
         damaged = true;
         currentHealth -= damageAmount;
         healthSlider.value = currentHealth;
+    }
+
+    /// <summary>
+    /// Makes the player invincible (useful for when player controls are taken away)
+    /// </summary>
+    /// <param name="duration">Seconds invincibility will last for</param>
+    public void setGodmode(bool godmode = true, float duration = 0)
+    {
+        this.godmode = godmode;
+
+        godmodeTimer = duration;
+
+        if (debugging)
+            Debug.Log("Godmode set to " + godmode);
     }
 }
