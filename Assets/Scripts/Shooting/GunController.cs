@@ -13,6 +13,8 @@ public class GunController : MonoBehaviour {
 
     public AbstractGun currentGun;
 
+    public List<string> ignoreTags = new List<string>();
+
     private float gunTimer = 0.0f;
 
     public bool debugging = false;
@@ -45,8 +47,20 @@ public class GunController : MonoBehaviour {
     {
         GameObject bullet = currentGun.shoot(firePoint.position);
 
-        if (bullet != null)
-            bullet.transform.parent = bulletContainer.transform;
+        if (bullet == null)
+            return;
+
+        if (bullet.GetComponent<BulletController>())
+            bullet.GetComponent<BulletController>().ignoreTags = ignoreTags;
+        else
+        {
+            BulletController[] bulletControllers = bullet.GetComponentsInChildren<BulletController>();
+
+            for (int i = 0; i < bulletControllers.Length; i++)
+                bulletControllers[i].ignoreTags = ignoreTags;
+        }
+
+        bullet.transform.parent = bulletContainer.transform;
     }
 
     /// <summary>
@@ -72,5 +86,10 @@ public class GunController : MonoBehaviour {
 
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(bulletContainer);
     }
 }

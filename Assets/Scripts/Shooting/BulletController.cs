@@ -8,6 +8,8 @@ public class BulletController : MonoBehaviour {
     public float speed = 12.0f;
     public float lifespan = 10.0f; // Seconds before despawning
 
+    public List<string> ignoreTags = new List<string>();
+
     /// <summary>
     /// Initialises damage, speed and lifespan
     /// </summary>
@@ -33,14 +35,11 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Enemy")
-        {
+        if (other.gameObject.tag == "Enemy" && !ignoreTags.Contains("Enemy"))
             other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage, this.transform);
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.tag == "Player")
-        {
+        else if (other.gameObject.tag == "Player" && !ignoreTags.Contains("Player"))
             other.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage);
-        }
+
+        Destroy(gameObject);
     }
 }

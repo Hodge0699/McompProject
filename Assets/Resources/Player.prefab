@@ -563,6 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4528453300267580}
   currentGun: {fileID: 0}
+  ignoreTags:
+  - Player
   debugging: 0
 --- !u!114 &114436240047496228
 MonoBehaviour:
@@ -605,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1d3a95fa05e8c498995843ae02d4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 30
   currentHealth: 0
   healthSlider: {fileID: 0}
   damageImage: {fileID: 0}

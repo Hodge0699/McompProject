@@ -362,7 +362,7 @@ MonoBehaviour:
   targetTags:
   - Pick Up
   viewDistance: 20
-  FOV: 100
+  FOV: 225
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
 --- !u!114 &114366130200967614
@@ -378,6 +378,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4032538554264364}
   currentGun: {fileID: 0}
+  ignoreTags:
+  - Enemy
   debugging: 0
 --- !u!114 &114503873376885194
 MonoBehaviour:

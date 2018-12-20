@@ -20,21 +20,48 @@ namespace EnemyType
         private void Update()
         {
             if (pickUpVisionCone.hasVisibleTargets())
-                moveToPickup();
+            {
+                if (visionCone.hasVisibleTargets())
+                {
+                    transform.LookAt(visionCone.getClosestVisibleTarget().transform);
+                    moveToPickup(true);
+                    shoot();
+                }
+                else
+                    moveToPickup();
+            }
             else if (target == null)
                 wander();
             else
             {
                 chase();
+                shoot();
             }
         }
 
-        private void moveToPickup()
+        private void shoot()
+        {
+            gunController.shoot();
+        }
+
+        /// <summary>
+        /// Moves the agent to a pickup if there is one visible.
+        /// </summary>
+        /// <param name="strafe">Set as true if rotation is handled elsewhere.</param>
+        private void moveToPickup(bool strafe = false)
         {
             GameObject target = pickUpVisionCone.getClosestVisibleTarget();
 
-            transform.LookAt(target.transform);
-            directionVector = transform.forward;
+            if (target == null)
+                return;
+
+            if (strafe)
+                directionVector = (target.transform.position - transform.position).normalized;
+            else
+            {
+                transform.LookAt(target.transform);
+                directionVector = transform.forward;
+            }
         }
     }
 }
