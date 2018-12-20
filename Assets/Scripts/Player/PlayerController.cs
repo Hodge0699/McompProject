@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
                 forceMoveDistanceCounter = 0.0f;
                 forceMoveDistanceTarget = 0.0f;
                 allowPlayerControl = true;
+
+                GetComponent<PlayerHealthManager>().setGodmode(true, 1.5f);
             }
         }
         else
@@ -106,6 +108,8 @@ public class PlayerController : MonoBehaviour
         forceMoveDistanceTarget = distance;
 
         directionVector = dir;
+
+        GetComponent<PlayerHealthManager>().setGodmode(true);
     }
 
     /// <summary>

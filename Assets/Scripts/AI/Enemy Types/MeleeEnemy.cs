@@ -15,22 +15,28 @@ namespace EnemyType
 
         private void Update()
         {
-            if (visionCone.hasVisibleTargets())
+            if (attackCooldownCounter >= 0.0f)
+                attackCooldownCounter -= Time.deltaTime;
+
+            if (target != null)
                 chase();
             else
                 wander();
+
+            if (target != null && targetWithinRange() && attackCooldownCounter <= 0.0f)
+                target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
         }
 
-        private void chase()
+        /// <summary>
+        /// Tests if the target is within range
+        /// </summary>
+        /// <returns>True if distance to target is less than attackRange.</returns>
+        private bool targetWithinRange()
         {
-            GameObject target = visionCone.getClosestVisibleTarget();
-            transform.LookAt(target.transform);
-            directionVector = transform.forward;
+            if (target == null)
+                return false;
 
-            if ((target.transform.position - this.transform.position).magnitude <= attackRange && attackCooldownCounter == 0.0f)
-            {
-                target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
-            }
+            return getDistanceToTarget() <= attackRange;
         }
     }
 }

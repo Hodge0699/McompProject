@@ -15,7 +15,8 @@ namespace EnemyType
 
         public Vector3 directionVector; // Direction vector to act on at end of frame
 
-        protected PlayerController player;
+        protected GameObject target; // The GameObject this agent is currently attacking
+
         private Room myRoom;
 
         protected VisionCone visionCone;
@@ -25,7 +26,6 @@ namespace EnemyType
         void Awake()
         {
             currentHealth = health;
-            player = FindObjectOfType<PlayerController>();
             visionCone = GetComponent<VisionCone>();
         }
 
@@ -38,18 +38,33 @@ namespace EnemyType
 
             directionVector = Vector3.zero;
 
+            if (visionCone.hasVisibleTargets())
+                target = visionCone.getClosestVisibleTarget();
+            else
+                target = null;
         }
 
         /// <summary>
         /// Damages this enemy.
         /// </summary>
         /// <param name="damage">Amount of damage to inflict.</param>
-        public void hurt(float damage)
+        public void hurt(float damage, Transform attacker = null)
         {
             currentHealth -= (int)damage;
 
             if (currentHealth <= 0)
+            {
                 die();
+                return;
+            }
+
+            if (target == null && attacker != null)
+            {
+                Transform attackDir = attacker;
+                attackDir.position += -attacker.forward * 2;
+
+                transform.LookAt(attackDir);
+            }
         }
 
         /// <summary>
@@ -78,6 +93,23 @@ namespace EnemyType
         }
 
         /// <summary>
+        /// Calculates the distance to the target.
+        /// </summary>
+        /// <returns>Infinity if target null.</returns>
+        protected float getDistanceToTarget()
+        {
+            if (target == null)
+                return Mathf.Infinity;
+
+            return (transform.position - target.transform.position).magnitude;
+        }
+
+
+        //
+        // Behaviours
+        //
+
+        /// <summary>
         /// Randomly sets the direction vector
         /// </summary>
         protected void wander()
@@ -93,6 +125,18 @@ namespace EnemyType
                 transform.Rotate(Vector3.up, Mathf.Lerp(0.0f, rotation, Time.deltaTime));
             }
 
+            directionVector = transform.forward;
+        }
+
+        /// <summary>
+        /// Chases the target if there is one
+        /// </summary>
+        protected void chase()
+        {
+            if (target == null)
+                return;
+
+            transform.LookAt(target.transform);
             directionVector = transform.forward;
         }
     }

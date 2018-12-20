@@ -18,6 +18,8 @@ public class RandomPowerDrop : MonoBehaviour {
 
     private PlayerController player;
 
+    public bool debugging = false;
+
     private void Awake()
     {
         player = FindObjectOfType<PlayerController>();
@@ -28,7 +30,8 @@ public class RandomPowerDrop : MonoBehaviour {
         int Calc_ItemDropChance = Random.Range(0, 101);
         if (Calc_ItemDropChance > ItemDropChance)
         {
-            Debug.Log("No loot");
+            if (debugging)
+                Debug.Log("No loot");
             return;
         }
         if (Calc_ItemDropChance <= ItemDropChance)
@@ -39,7 +42,9 @@ public class RandomPowerDrop : MonoBehaviour {
             {
                 ItemWeight += LootTable[i].dropRarity;
             }
-            Debug.Log("ItemWeight= " + ItemWeight);
+
+            if (debugging)
+                Debug.Log("ItemWeight= " + ItemWeight);
 
             int randomValue = Random.Range(0, ItemWeight);
 
@@ -54,7 +59,9 @@ public class RandomPowerDrop : MonoBehaviour {
                     return;
                 }
                 randomValue -= LootTable[j].dropRarity;
-                Debug.Log("Random Value decreased" + randomValue);
+
+                if (debugging)
+                    Debug.Log("Random Value decreased" + randomValue);
             }
         }
     }

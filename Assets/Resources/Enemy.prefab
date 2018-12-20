@@ -368,6 +368,7 @@ MonoBehaviour:
     item: {fileID: 1218043071481870, guid: 7ce984c4576a6424eb9fd2f958ef71ba, type: 2}
     dropRarity: 10
   ItemDropChance: 50
+  debugging: 0
 --- !u!114 &114779128417070500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTags:
   - Player
-  viewDistance: 20
+  viewDistance: 5
   FOV: 100
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
