@@ -19,9 +19,9 @@ namespace EnemyType
 
         private void Update()
         {
-            if (pickUpVisionCone.hasVisibleTargets())
+            if (pickUpVisionCone.hasVisibleTargets()) // Can see pickup
             {
-                if (visionCone.hasVisibleTargets())
+                if (visionCone.hasVisibleTargets()) // Can also see player
                 {
                     transform.LookAt(visionCone.getClosestVisibleTarget().transform);
                     moveToPickup(true);
@@ -30,13 +30,17 @@ namespace EnemyType
                 else
                     moveToPickup();
             }
-            else if (target == null)
-                wander();
-            else
+            else if (target != null) // Can see player
             {
-                chase();
+                if (getDistanceToTarget() >= 5.0f)
+                    chase();
+                else
+                    transform.LookAt(target.transform);
+
                 shoot();
             }
+            else 
+                wander();
         }
 
         private void shoot()
