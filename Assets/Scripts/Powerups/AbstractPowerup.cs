@@ -18,6 +18,9 @@ namespace Powerups
         /// <param name="other">Colliding object (player).</param>
         void OnTriggerEnter(Collider other)
         {
+            if (other.isTrigger)
+                return;
+
             GunController gunController = other.GetComponentInChildren<GunController>();
 
             if (gunController != null)
@@ -27,5 +30,7 @@ namespace Powerups
                 Destroy(gameObject);
             }
         }
+
+
     }
 }
