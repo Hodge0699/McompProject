@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114206841251269720}
   m_Layer: 0
   m_Name: MachineGunTest
-  m_TagString: MG
+  m_TagString: Pick Up
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

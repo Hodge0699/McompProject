@@ -18,11 +18,11 @@ namespace Powerups
         /// <param name="other">Colliding object (player).</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                GunController GC = other.GetComponentInChildren<GunController>();
+            GunController gunController = other.GetComponentInChildren<GunController>();
 
-                GC.setGun(gun, duration);
+            if (gunController != null)
+            {
+                gunController.setGun(gun, duration);
 
                 Destroy(gameObject);
             }

@@ -32,6 +32,8 @@ public class VisionCone : MonoBehaviour
 
     private void Update()
     {
+        validateNearbyObjects();
+
         checkSight();
     }
 
@@ -234,16 +236,41 @@ public class VisionCone : MonoBehaviour
             return false;
     }
 
-    private bool isAChildOf(GameObject testObject, GameObject parent)
+    /// <summary>
+    /// Checks to see if an object is a child of another
+    /// </summary>
+    /// <param name="potChild">Potential child object</param>
+    /// <param name="potParent">Potential parent object</param>
+    /// <returns>True if </returns>
+    private bool isAChildOf(GameObject potChild, GameObject potParent)
     {
         bool isChild = false;
 
-        if (testObject == parent)
+        if (potChild == potParent)
             return true;
 
-        if (testObject.transform.parent != null)
-            return isAChildOf(testObject.transform.parent.gameObject, parent);
+        if (potChild.transform.parent != null)
+            return isAChildOf(potChild.transform.parent.gameObject, potParent);
 
         return isChild;
+    }
+
+    /// <summary>
+    /// Clears nearbyObjects list of destroyed objects
+    /// </summary>
+    private void validateNearbyObjects()
+    {
+        List<int> nullIndices = new List<int>();
+
+        // Find destroyed
+        for (int i = 0; i < nearbyTargets.Count; i++)
+        {
+            if (nearbyTargets[i] == null)
+                nullIndices.Add(i);
+        }
+
+        // Remove destroyed
+        for (int i = nullIndices.Count - 1; i >= 0; i--)
+            nearbyTargets.RemoveAt(i);
     }
 }

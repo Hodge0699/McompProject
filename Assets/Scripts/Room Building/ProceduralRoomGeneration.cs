@@ -197,7 +197,7 @@ namespace RoomBuilding
 
             do
             {
-                GameObject enemy = enemySpawner.spawn(typeof(EnemyType.MeleeEnemy));
+                GameObject enemy = enemySpawner.spawn(typeof(EnemyType.GunEnemy));
 
                 // If enemy too close to player generate new position
                 while ((enemy.transform.position - player.transform.position).magnitude < minEnemyDistance)

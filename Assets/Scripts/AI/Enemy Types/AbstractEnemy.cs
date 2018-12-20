@@ -23,7 +23,7 @@ namespace EnemyType
         protected PathFollower pathFollower;
 
         // Use this for initialization
-        void Awake()
+        protected virtual void Awake()
         {
             currentHealth = health;
             visionCone = GetComponent<VisionCone>();

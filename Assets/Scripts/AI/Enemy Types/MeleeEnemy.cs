@@ -18,13 +18,15 @@ namespace EnemyType
             if (attackCooldownCounter >= 0.0f)
                 attackCooldownCounter -= Time.deltaTime;
 
-            if (target != null)
-                chase();
-            else
+            if (target == null)
                 wander();
+            else
+            {
+                chase();
 
-            if (target != null && targetWithinRange() && attackCooldownCounter <= 0.0f)
-                target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
+                if (targetWithinRange() && attackCooldownCounter <= 0.0f)
+                    target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
+            }
         }
 
         /// <summary>
