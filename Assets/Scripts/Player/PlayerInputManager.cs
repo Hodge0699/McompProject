@@ -9,6 +9,10 @@ namespace Player.Input
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+        // Used for rewind system
+        [System.NonSerialized]
+        public bool canShoot = true;
+
         PlayerController player;
         GunController gun;
 
@@ -39,8 +43,11 @@ namespace Player.Input
 
             if (UnityEngine.Input.GetKey(mouseShoot) || UnityEngine.Input.GetKey(controllerShoot))
             {
-                gun.shoot();
-                player.setFace(PlayerController.EMOTION.ANGRY);
+                if (canShoot) // Used for rewind system
+                {
+                    gun.shoot();
+                    player.setFace(PlayerController.EMOTION.ANGRY);
+                }
             }
             else
                 player.setFace(PlayerController.EMOTION.HAPPY);
