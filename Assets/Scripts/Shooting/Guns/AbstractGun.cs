@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gun
+namespace Weapon.Gun
 {
     public abstract class AbstractGun : MonoBehaviour
     {

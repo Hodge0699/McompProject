@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gun.Powerups
+using Weapon.Gun;
+
+namespace Powerups
 {
-    public class EXDHandgun : AbstractPowerup
+    public class MachineGunPowerup : AbstractPowerup
     {
         private void Awake()
         {
-            gun = typeof(Gun.EXDHandgun);
+            gun = typeof(MachineGun);
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gun.Powerups
+using Weapon.Gun;
+
+namespace Powerups
 {
     public class AbstractPowerup : MonoBehaviour
     {
@@ -16,14 +18,19 @@ namespace Gun.Powerups
         /// <param name="other">Colliding object (player).</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                GunController GC = other.GetComponentInChildren<GunController>();
+            if (other.isTrigger)
+                return;
 
-                GC.setGun(gun, duration);
+            GunController gunController = other.GetComponentInChildren<GunController>();
+
+            if (gunController != null)
+            {
+                gunController.setGun(gun, duration);
 
                 Destroy(gameObject);
             }
         }
+
+
     }
 }
