@@ -22,6 +22,11 @@ namespace EnemyType
         protected VisionCone visionCone;
         protected PathFollower pathFollower;
 
+
+        public bool isTouching = false;
+        public float maxDistance = 1.6f;
+
+
         // Use this for initialization
         protected virtual void Awake()
         {
@@ -135,9 +140,19 @@ namespace EnemyType
         {
             if (target == null)
                 return;
-
-            transform.LookAt(target.transform);
-            directionVector = transform.forward;
+            if (Vector3.Distance(target.transform.position, this.transform.position) < maxDistance)
+            {
+                isTouching = true; // they are touching AND close
+            }
+            else
+            {
+                isTouching = false;
+            }
+            if(isTouching == false)
+            {
+                transform.LookAt(target.transform);
+                directionVector = transform.forward;
+            }
         }
     }
 }
