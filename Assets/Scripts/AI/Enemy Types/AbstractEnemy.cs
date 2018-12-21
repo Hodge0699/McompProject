@@ -7,7 +7,7 @@ namespace EnemyType
     public class AbstractEnemy : MonoBehaviour
     {
         public int health = 100;
-        private int currentHealth;
+        public int currentHealth;
 
         private bool isAlive = true;
 
@@ -83,7 +83,7 @@ namespace EnemyType
             isAlive = false;
 
             myRoom.enemyKilled(this);
-
+            
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
             Destroy(gameObject);
