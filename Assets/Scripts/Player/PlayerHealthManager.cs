@@ -13,6 +13,8 @@ public class PlayerHealthManager : MonoBehaviour
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
     bool damaged;
 
+    public GameObject deathScene;
+
     private bool initialised = false;
 
     private bool godmode = false;
@@ -31,6 +33,7 @@ public class PlayerHealthManager : MonoBehaviour
         healthSlider = ui.transform.Find("HealthUI").transform.Find("HealthSlider").GetComponent<Slider>();
 
         damageImage = ui.transform.Find("DamageImage").GetComponent<Image>();
+        deathScene = ui.transform.Find("DeathScene").gameObject;
 
         initialised = true;
     }
@@ -49,7 +52,10 @@ public class PlayerHealthManager : MonoBehaviour
         damaged = false;
 
         if (currentHealth <= 0)
+        {
             gameObject.SetActive(false);
+            deathScene.SetActive(true);
+        }
 
         if (godmodeTimer > 0.0f)
         {
@@ -58,6 +64,8 @@ public class PlayerHealthManager : MonoBehaviour
             if (godmodeTimer <= 0.0f)
                 setGodmode(false);
         }
+        
+
     }
 
     /// <summary>

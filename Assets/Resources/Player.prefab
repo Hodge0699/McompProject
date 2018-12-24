@@ -607,10 +607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1d3a95fa05e8c498995843ae02d4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 0}
   damageImage: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  deathScene: {fileID: 0}
   debugging: 0
