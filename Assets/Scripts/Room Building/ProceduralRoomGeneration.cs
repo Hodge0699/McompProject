@@ -15,6 +15,7 @@ namespace RoomBuilding
 
         private RoomBuilder rb;
         private EnemySpawner enemySpawner;
+        public BossSpawner bossSpawner;
 
         private PlayerController player;
 
@@ -30,6 +31,7 @@ namespace RoomBuilding
         {
             rb = GetComponent<RoomBuilder>();
             enemySpawner = GetComponent<EnemySpawner>();
+            bossSpawner = GetComponent<BossSpawner>();
 
             // Liam - Spawn player at start of scene when first room is generated
             GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
@@ -113,7 +115,6 @@ namespace RoomBuilding
                 roomScr.dimensions.x = roomScr.dimensions.z;
                 roomScr.dimensions.z = temp;
             }
-
             return roomScr;
         }
 
@@ -183,7 +184,6 @@ namespace RoomBuilding
                 rb.setWallType(dir, RoomBuilder.wallType.DOOR);
             }
         }
-
         /// <summary>
         /// Spawns all enemies inside the room.
         /// </summary>
