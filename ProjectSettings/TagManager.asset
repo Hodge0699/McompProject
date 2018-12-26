@@ -12,6 +12,7 @@ TagManager:
   - HealthUI
   - DamageImage
   - Boss
+  - GameManager
   layers:
   - Default
   - TransparentFX
