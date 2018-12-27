@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public GameObject myCamera = null;
     public float moveSpeed;
+    public Vector3 movement;
     private Vector3 moveInput;
     private Rigidbody Rigidbody;
 
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Move()
     {
-        Vector3 movement = directionVector.normalized * moveSpeed * Time.deltaTime;
+        movement = directionVector.normalized * moveSpeed * Time.deltaTime;
 
         Rigidbody.MovePosition(transform.position + movement);
         Rigidbody.velocity = movement;
