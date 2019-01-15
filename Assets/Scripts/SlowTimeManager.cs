@@ -2,23 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowTimeManager : MonoBehaviour {
+public class SlowTimeManager : MonoBehaviour
+{
+
+    [SerializeField]
+    bool isSlowMotion = false;
 
     public float slowDownFactor = 0.05f;
-    public float slowDownLength = 3f;
+    private float normTimeFactor = 1.0f;
+
+    //public float slowDownLength = 2f;
 
     // Update is called once per frame
     void Update()
     {
 
-        Time.timeScale += (1f / slowDownLength) * Time.unscaledDeltaTime;
-        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
+            StartSlowMotion();
+        else
+            StopSlowMotion();
     }
 
-    public void SlowMotion()
+    void StartSlowMotion()
     {
+        isSlowMotion = true;
 
         Time.timeScale = slowDownFactor;
-        Time.fixedDeltaTime = Time.timeScale * .02f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    }
+
+    void StopSlowMotion()
+    {
+        isSlowMotion = false;
+        Time.timeScale = normTimeFactor;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 }

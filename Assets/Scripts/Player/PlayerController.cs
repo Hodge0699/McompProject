@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public GameObject myCamera = null;
     public float moveSpeed;
+    public Vector3 movement;
     private Vector3 moveInput;
     private Rigidbody Rigidbody;
 
@@ -30,13 +31,6 @@ public class PlayerController : MonoBehaviour
     private GameObject smile;
     private GameObject angry;
 
-    //Finds Scene's GameManager
-    [SerializeField]
-    private GameObject gameManager;
-    //slow down time mechanic
-    [SerializeField]
-    private SlowTimeManager slowDownScript;
-
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -49,9 +43,6 @@ public class PlayerController : MonoBehaviour
         GameObject playerUI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
 
         GetComponent<PlayerHealthManager>().init(playerUI);
-
-        gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        slowDownScript = gameManager.GetComponent<SlowTimeManager>();
 
         smile = transform.Find("SmileFace").gameObject;
         angry = transform.Find("AngryFace").gameObject;
@@ -76,33 +67,16 @@ public class PlayerController : MonoBehaviour
         dir.Normalize();
         this.directionVector = dir;
     }
-    public double fwdSpeed;
+
     /// <summary>
     /// Moves the player based on its current direction vector
     /// </summary>
     void Move()
     {
-        Vector3 movement = directionVector.normalized * moveSpeed * Time.deltaTime;
+        movement = directionVector.normalized * moveSpeed * Time.deltaTime;
+
         Rigidbody.MovePosition(transform.position + movement);
         Rigidbody.velocity = movement;
-        if (slowDownScript == gameManager.GetComponent<SlowTimeManager>())
-        {
-            fwdSpeed = (directionVector * Time.deltaTime).magnitude * 3.6;
-            if (movement.magnitude <= 0)
-            {
-                slowDownScript.SlowMotion();
-                Debug.Log("Confirming " + movement.magnitude);
-            }
-            else if (movement.magnitude >= 0)
-            {
-                Debug.Log("speed up " + movement.magnitude);
-            }
-            else
-            {
-                Debug.Log("movement's magnitude " + movement.magnitude);
-                
-            }
-        }
 
         if (!allowPlayerControl)
         {
@@ -224,5 +198,4 @@ public class PlayerController : MonoBehaviour
         smile.SetActive(e == EMOTION.HAPPY);
         angry.SetActive(e == EMOTION.ANGRY);
     }
-
 }
