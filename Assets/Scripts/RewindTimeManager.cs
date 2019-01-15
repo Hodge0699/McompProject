@@ -8,7 +8,7 @@ public class RewindTimeManager : MonoBehaviour {
 
     bool isRewinding = false;
 
-    public float recordTime = 3f;
+    private float recordTime = 3f;
 
     List<PointInTime> pointsInTime;
 

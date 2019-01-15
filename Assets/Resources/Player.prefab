@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 114872564346895096}
   - component: {fileID: 114768021787505068}
   - component: {fileID: 114483397632992554}
+  - component: {fileID: 114737799830531368}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -580,6 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 1246727744310432, guid: 03ce7df34882c254f8da8ae8ea42ec76, type: 2}
   moveSpeed: 6
+  movement: {x: 0, y: 0, z: 0}
   debugging: 0
   useController: 0
   allowPlayerControl: 1
@@ -594,7 +596,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordTime: 5
+--- !u!114 &114737799830531368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653496019388500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3008ae7b499bd4cb51c315f1d2b6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSlowMotion: 0
+  slowDownFactor: 0.05
 --- !u!114 &114768021787505068
 MonoBehaviour:
   m_ObjectHideFlags: 1
