@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using sceneTransitions;
+
 namespace EnemyType
 {
     public class AbstractEnemy : MonoBehaviour
@@ -22,6 +24,7 @@ namespace EnemyType
         protected VisionCone visionCone;
         protected PathFollower pathFollower;
 
+        protected SceneTransitions sT;
 
         public bool isTouching = false;
         public float maxDistance = 1.6f;
@@ -85,7 +88,10 @@ namespace EnemyType
             myRoom.enemyKilled(this);
             
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
-
+            if(sT != null)
+            {
+                sT.LoadNextScene();
+            }
             Destroy(gameObject);
         }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapon.Gun;
 
+using sceneTransitions;
+
 namespace EnemyType
 {
     public class BossEnemy : AbstractEnemy
@@ -10,11 +12,13 @@ namespace EnemyType
         protected System.Type gun;
         private GunController gunController;
         private int gunSwitchChanger = 0;
+        private GameObject SceneManager;
 
         protected override void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
-
+            SceneManager = GameObject.Find("SceneManager");
+            base.sT = SceneManager.GetComponent<SceneTransitions>();
             base.Awake();
         }
 
@@ -26,11 +30,11 @@ namespace EnemyType
                     chase();
                 else
                     transform.LookAt(target.transform);
-
                 shoot();
             }
             else
                 wander();
+
             if(base.currentHealth <= base.health / 2 && base.currentHealth >= base.health /4 && gunSwitchChanger == 0)
             {
                 gun = typeof(Shotgun);
@@ -47,13 +51,7 @@ namespace EnemyType
 
         private void shoot()
         {
-            if (gunController.currentGun.GetType() == typeof(Handgun))
-            {
-                InvokeRepeating("handGunShooting", 1, 5);
-                
-            }
-            else
-                gunController.shoot();
+            gunController.shoot();
         }
         private void handGunShooting()
         {
