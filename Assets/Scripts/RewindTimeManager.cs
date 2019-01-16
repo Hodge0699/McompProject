@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Player.Input;
 using EnemyType;
@@ -16,6 +17,12 @@ public class RewindTimeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "LevelTwo")
+            gameObject.GetComponent<RewindTimeManager>().enabled = true;
+        else
+            gameObject.GetComponent<RewindTimeManager>().enabled = false;
+
         pointsInTime = new List<PointInTime>();
 
         if (gameObject.GetComponent<Rigidbody>() != null)
