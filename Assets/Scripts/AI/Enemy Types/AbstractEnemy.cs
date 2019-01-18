@@ -70,7 +70,7 @@ namespace EnemyType
             {
                 Transform attackDir = attacker;
                 attackDir.position += -attacker.forward * 2;
-
+                Debug.Log("I got hit");
                 transform.LookAt(attackDir);
             }
         }

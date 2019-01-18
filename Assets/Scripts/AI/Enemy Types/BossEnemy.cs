@@ -24,16 +24,19 @@ namespace EnemyType
         {
             if (target != null) // Can see player
             {
-                if (getDistanceToTarget() >= 5.0f)
+                if (getDistanceToTarget() > 5.0f)
                     chase();
                 else
                     transform.LookAt(target.transform);
+
                 shoot();
             }
             else
                 wander();
         }
-
+        /// <summary>
+        /// shoots at player
+        /// </summary>
         private void shoot()
         {
             gunController.shoot();

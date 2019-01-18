@@ -21,7 +21,7 @@ public class BossGunSwitchM : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        // checks health to switch guns
         if (bEnemy.currentHealth <= bEnemy.health / 2 && bEnemy.currentHealth >= bEnemy.health / 4 && gunSwitchChanger == 0)
         {
             gun = typeof(Shotgun);

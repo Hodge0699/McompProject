@@ -8,6 +8,7 @@ public class BossTeleportM : MonoBehaviour {
     [SerializeField]
     List<GameObject> teleportLocations;
     BossEnemy bEnemy;
+    bool stopChecking = false;
 
     private void Awake()
     {
@@ -24,19 +25,28 @@ public class BossTeleportM : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-        for(int i = 0; i < teleportLocations.Capacity; i++)
+        Debug.Log("Teleport Location Capacity " + teleportLocations.Capacity);
+        //removes null locations
+        for (int i = 0; i < teleportLocations.Capacity; i++)
         {
-            if(teleportLocations[i] == null)
+            if (!teleportLocations[i])
             {
                 teleportLocations.RemoveAt(i);
+                Debug.Log("count me" + i);
             }
         }
-        if(bEnemy.currentHealth < 800)
+        if (bEnemy.currentHealth < 800)
         {
             int i = Random.Range(0, 3);
             this.transform.position = teleportLocations[i].transform.position;
         }
+        
 
 	}
+
+    void checkForErrors()
+    {
+
+        
+    }
 }
