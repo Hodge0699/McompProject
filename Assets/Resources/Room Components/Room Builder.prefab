@@ -54,6 +54,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRoomSize: {x: 25, y: 40}
   minRoomSize: {x: 15, y: 30}
+  enemyFrequency: 5
+  bossSpawner: {fileID: 0}
+  rooms: 5
+  bossRoom: {fileID: 0}
 --- !u!114 &114875700387579782
 MonoBehaviour:
   m_ObjectHideFlags: 1
