@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 114274402187804128}
   - component: {fileID: 114251800140084072}
   - component: {fileID: 114291354166412330}
+  - component: {fileID: 114952255045601490}
+  - component: {fileID: 114892507652557058}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -310,6 +312,7 @@ MonoBehaviour:
   directionVector: {x: 0, y: 0, z: 0}
   isTouching: 0
   maxDistance: 1.6
+  gunController: {fileID: 0}
 --- !u!114 &114856080320444528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,6 +326,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackFrequency: 3
+--- !u!114 &114892507652557058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d47434e03a184d8e750022c3f1e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &114952255045601490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cde2ab489b2e6448935af8fcdb29a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114992227738951252
 MonoBehaviour:
   m_ObjectHideFlags: 1

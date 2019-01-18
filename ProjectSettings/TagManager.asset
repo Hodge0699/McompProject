@@ -13,6 +13,7 @@ TagManager:
   - DamageImage
   - Boss
   - GameManager
+  - BossRandomTeleporter
   layers:
   - Default
   - TransparentFX

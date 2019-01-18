@@ -9,9 +9,7 @@ namespace EnemyType
 {
     public class BossEnemy : AbstractEnemy
     {
-        protected System.Type gun;
-        private GunController gunController;
-        private int gunSwitchChanger = 0;
+        public GunController gunController;
         private GameObject SceneManager;
 
         protected override void Awake()
@@ -34,26 +32,9 @@ namespace EnemyType
             }
             else
                 wander();
-
-            if(base.currentHealth <= base.health / 2 && base.currentHealth >= base.health /4 && gunSwitchChanger == 0)
-            {
-                gun = typeof(Shotgun);
-                gunController.setGun(gun, 300);
-                gunSwitchChanger = 1;
-            }
-            else if (base.currentHealth <= base.health / 4 && base.currentHealth > 0 && gunSwitchChanger == 1)
-            {
-                gun = typeof(EXDHandgun);
-                gunController.setGun(gun, 300);
-                gunSwitchChanger = 2;
-            }
         }
 
         private void shoot()
-        {
-            gunController.shoot();
-        }
-        private void handGunShooting()
         {
             gunController.shoot();
         }
