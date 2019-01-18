@@ -20,19 +20,18 @@ public class SlowTimeManager : MonoBehaviour
         if (scene.name == "LevelOne")
             gameObject.GetComponent<SlowTimeManager>().enabled = true;
         else
-        {
             gameObject.GetComponent<SlowTimeManager>().enabled = false;
-            StopSlowMotion();
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
-            StartSlowMotion();
-        else
-            StopSlowMotion();
+        if (this.enabled) {
+            if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
+                StartSlowMotion();
+            else
+                StopSlowMotion();
+        }
     }
 
     void StartSlowMotion()

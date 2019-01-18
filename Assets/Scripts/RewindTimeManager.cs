@@ -88,10 +88,12 @@ public class RewindTimeManager : MonoBehaviour {
     public void StartRewind()
     {
         isRewinding = true;
-        rb.isKinematic = true;
+        if (rb != null)
+            rb.isKinematic = true;
 
         if (gameObject.tag == "Enemy")
-            gameObject.GetComponent<GunEnemy>().canShoot = false;
+            if (gameObject.GetComponent<GunEnemy>() != null)
+                gameObject.GetComponent<GunEnemy>().canShoot = false;
 
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = false;
@@ -101,10 +103,12 @@ public class RewindTimeManager : MonoBehaviour {
     public void StopRewind()
     {
         isRewinding = false;
-        rb.isKinematic = false;
+        if (rb != null)
+            rb.isKinematic = false;
 
         if (gameObject.tag == "Enemy")
-            gameObject.GetComponent<GunEnemy>().canShoot = true;
+            if (gameObject.GetComponent<GunEnemy>() != null)
+                gameObject.GetComponent<GunEnemy>().canShoot = true;
 
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = true;
