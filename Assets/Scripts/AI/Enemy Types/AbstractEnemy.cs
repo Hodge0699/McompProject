@@ -24,11 +24,7 @@ namespace EnemyType
         protected VisionCone visionCone;
         protected PathFollower pathFollower;
 
-        protected SceneTransitions sT;
-
-        public bool isTouching = false;
         public float maxDistance = 1.6f;
-
 
         // Use this for initialization
         protected virtual void Awake()
@@ -88,12 +84,16 @@ namespace EnemyType
             myRoom.enemyKilled(this);
             
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
-            if(sT != null)
-            {
-                sT.LoadNextScene();
-            }
+
+            onDeath();
+
             Destroy(gameObject);
         }
+
+        /// <summary>
+        /// Override if a specific enemy should do something special on death
+        /// </summary>
+        protected virtual void onDeath() { }
 
         /// <summary>
         /// Links this enemy to a room
@@ -146,15 +146,8 @@ namespace EnemyType
         {
             if (target == null)
                 return;
-            if (Vector3.Distance(target.transform.position, this.transform.position) < maxDistance)
-            {
-                isTouching = true; // they are touching AND close
-            }
-            else
-            {
-                isTouching = false;
-            }
-            if(isTouching == false)
+
+            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
                 transform.LookAt(target.transform);
                 directionVector = transform.forward;

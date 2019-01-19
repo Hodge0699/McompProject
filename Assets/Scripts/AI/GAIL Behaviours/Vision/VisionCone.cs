@@ -26,8 +26,11 @@ public class VisionCone : MonoBehaviour
     private void Start()
     {
         proximity = gameObject.AddComponent<CapsuleCollider>(); // Create new collider
-        proximity.radius = viewDistance; // Set radius to view distance
         proximity.isTrigger = true; // Set to trigger
+
+        // Account for gameobject scale
+        float scale = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3.0f;
+        proximity.radius = (1.0f / scale) * viewDistance;
     }
 
     private void Update()

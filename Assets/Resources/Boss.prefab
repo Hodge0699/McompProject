@@ -310,7 +310,6 @@ MonoBehaviour:
   currentHealth: 0
   movementSpeed: 3
   directionVector: {x: 0, y: 0, z: 0}
-  isTouching: 0
   maxDistance: 1.6
   gunController: {fileID: 0}
 --- !u!114 &114856080320444528

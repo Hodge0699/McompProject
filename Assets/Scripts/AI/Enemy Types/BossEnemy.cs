@@ -16,7 +16,6 @@ namespace EnemyType
         {
             gunController = GetComponentInChildren<GunController>();
             SceneManager = GameObject.Find("SceneManager");
-            base.sT = SceneManager.GetComponent<SceneTransitions>();
             base.Awake();
         }
 
@@ -40,6 +39,14 @@ namespace EnemyType
         private void shoot()
         {
             gunController.shoot();
+        }
+
+        /// <summary>
+        /// Load next scene on death
+        /// </summary>
+        protected override void onDeath()
+        {
+            SceneManager.GetComponent<SceneTransitions>().LoadNextScene();
         }
     }
 }
