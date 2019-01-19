@@ -12,10 +12,13 @@ public class BossTeleportM : MonoBehaviour {
 
     private void Awake()
     {
+        // This will find every teleport location in the scene (including other rooms since multiple boss
+        // initially spawn before the player decideds which one to walk into), fix this - Jake
         foreach (GameObject teleportlocations in GameObject.FindGameObjectsWithTag("BossRandomTeleporter"))
         {
             teleportLocations.Add(teleportlocations);
         }
+
         bEnemy = this.GetComponent<BossEnemy>();
     }
     // Use this for initialization
