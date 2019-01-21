@@ -15,6 +15,9 @@ public class RewindTimeManager : MonoBehaviour {
 
     Rigidbody rb;
 
+    PlayerHealthManager playerHealth;
+    AbstractEnemy enemyHealth;
+
 	// Use this for initialization
 	void Start () {
         Scene scene = SceneManager.GetActiveScene();
@@ -24,6 +27,8 @@ public class RewindTimeManager : MonoBehaviour {
             gameObject.GetComponent<RewindTimeManager>().enabled = false;
 
         pointsInTime = new List<PointInTime>();
+
+        playerHealth = gameObject.GetComponent<PlayerHealthManager>();
 
         if (gameObject.GetComponent<Rigidbody>() != null)
             rb = GetComponent<Rigidbody>();
@@ -58,6 +63,13 @@ public class RewindTimeManager : MonoBehaviour {
             PointInTime pointInTime = pointsInTime[0];
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
+            if (gameObject.tag == "Player")
+            {
+                playerHealth.currentHealth = pointInTime.health;
+                playerHealth.healthSlider.value = playerHealth.currentHealth;
+            }
+            else if (gameObject.tag == "Enemy")
+                enemyHealth.currentHealth = pointInTime.health;
             pointsInTime.RemoveAt(0);
         }
         else
@@ -78,7 +90,12 @@ public class RewindTimeManager : MonoBehaviour {
         {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
-        pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+        if (gameObject.tag == "Player")
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, playerHealth.currentHealth));
+        else if (gameObject.tag == "Enemy")
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, enemyHealth.currentHealth));
+        else
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
     }
 
     /// <summary>

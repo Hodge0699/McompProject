@@ -8,8 +8,8 @@ namespace EnemyType
 {
     public class AbstractEnemy : MonoBehaviour
     {
-        public int health = 100;
-        public int currentHealth;
+        public float health = 100;
+        public float currentHealth;
 
         private bool isAlive = true;
 
