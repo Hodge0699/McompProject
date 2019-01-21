@@ -61,13 +61,10 @@ namespace EnemyType
                 return;
             }
 
-            if (target == null && attacker != null)
-            {
-                Transform attackDir = attacker;
-                attackDir.position += -attacker.forward * 2;
-                Debug.Log("I got hit");
-                transform.LookAt(attackDir);
-            }
+            // Look at player
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
         }
 
         /// <summary>
