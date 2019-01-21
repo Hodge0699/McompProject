@@ -22,7 +22,6 @@ namespace EnemyType
         private Room myRoom;
 
         protected VisionCone visionCone;
-        protected PathFollower pathFollower;
 
         public float maxDistance = 1.6f;
 
