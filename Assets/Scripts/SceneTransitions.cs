@@ -10,10 +10,24 @@ namespace sceneTransitions
 
         public Animator transitionAnim;
         public string sceneName;
+        public GameObject winScene;
+        Scene scene;
+        
+        private void Start()
+        {
+            scene = SceneManager.GetActiveScene();
+        }
 
         public void LoadNextScene()
         {
-            Debug.Log("I GOT HERE");
+            
+
+            if (scene.name == "LevelTwo")
+            {
+                Debug.Log("I GOT HERE");
+                winScene.SetActive(true);
+            }
+
             StartCoroutine(WaitAnim());
         }
 

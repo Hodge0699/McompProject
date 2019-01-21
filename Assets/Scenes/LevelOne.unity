@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnim: {fileID: 1526157812}
   sceneName: LevelTwo
+  winScene: {fileID: 0}
 --- !u!4 &2187332
 Transform:
   m_ObjectHideFlags: 0

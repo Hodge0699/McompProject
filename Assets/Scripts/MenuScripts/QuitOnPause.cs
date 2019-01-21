@@ -10,7 +10,7 @@ public class QuitOnPause : MonoBehaviour {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else
-		SceneManager.LoadScene (MainMenu);
+		SceneManager.LoadScene ("MainMenu");
         #endif
     }
 }
