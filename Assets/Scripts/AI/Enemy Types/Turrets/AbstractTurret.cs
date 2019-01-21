@@ -38,8 +38,11 @@ namespace EnemyType.Turrets
 
                 firePoint.transform.localPosition = new Vector3(x, -0.75f, z);
                 guns.Add(firePoint.AddComponent<GunController>());
+                Vector3 dir = (firePoint.transform.position - transform.position).normalized;
+                dir.y = 0.0f;
+                firePoint.transform.LookAt(firePoint.transform.position + (dir * 10));
+
                 guns[i].ignoreTags.Add("Boss");
-                guns[i].transform.LookAt(new Vector3(x, 0.0f, z) * 100);
                 guns[i].firePoint = firePoint.transform;
             }
         }
