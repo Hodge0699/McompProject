@@ -29,6 +29,7 @@ public class RewindTimeManager : MonoBehaviour {
         pointsInTime = new List<PointInTime>();
 
         playerHealth = gameObject.GetComponent<PlayerHealthManager>();
+        enemyHealth = gameObject.GetComponent<AbstractEnemy>();
 
         if (gameObject.GetComponent<Rigidbody>() != null)
             rb = GetComponent<Rigidbody>();
