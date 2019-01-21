@@ -1046,6 +1046,7 @@ GameObject:
   - component: {fileID: 65855459422506582}
   - component: {fileID: 114765550530747108}
   - component: {fileID: 114331787307657472}
+  - component: {fileID: 54576369820762024}
   m_Layer: 0
   m_Name: ShootingMachine
   m_TagString: Untagged
@@ -4149,6 +4150,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412529664710486}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54576369820762024
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836660502569804}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!64 &64245076105065210
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -4818,7 +4834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunCount: 8
-  radius: 0.7
+  radius: 0.8
   serialFireRate: 7
   serialPhaseDuration: 5
   parallelFireRate: 1.5
