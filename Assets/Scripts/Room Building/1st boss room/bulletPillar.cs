@@ -1,46 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EnemyType;
 
-public class bulletPillar : AbstractEnemy
+namespace EnemyType.Turrets
 {
-
-    public float timer = 10.0f;
-    private Transform pillarTransform;
-    public GunController[] gunController;
-    // Use this for initialization
-    void Start () {
-        pillarTransform = this.GetComponent<Transform>();
-        for (int i = 0; i <= 30; i++)
-        {
-            gunController = new GunController[i];
-            
-        }
-        for(int j = 0; j < 30; j++)
-        {
-            gunController[j] = GetComponent<GunController>();
-        }
-        
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        timer = timer - Time.deltaTime;
-        if(timer < 0)
-        {
-            //ominDirectionalShooting();
-            timer = 10.0f;
-            
-        }
-        
-	}
-    private void ominDirectionalShooting()
+    public class bulletPillar : AbstractTurret
     {
-        for (int i = 0; i < 30; i++)
+        public float serialFireRate = 10.0f;
+        private float serialFireTimer;
+
+        public float serialPhaseDuration = 5.0f;
+        private float serialPhaseCounter = 0.0f;
+
+        public float parallelFireRate = 1.5f;
+        private float parallelFireTimer;
+
+        public float parallelPhaseDuration = 15.0f;
+        private float parallelPhaseCounter = 0.0f;
+
+        public enum FireMode { SERIAL, PARALLEL };
+        public FireMode currentPhase = FireMode.PARALLEL;
+
+        private int currentGun = 0;
+
+        public void Start()
         {
-            gunController[i].shoot();
-            gunController[i].firePoint.transform.Rotate(Vector3.up, 0.2f);
+            base.Start();
+            serialFireTimer = 1 / serialFireRate;
+            parallelFireTimer = 1 / parallelFireRate;
+
+            serialPhaseCounter = serialPhaseDuration;
+            parallelPhaseCounter = parallelPhaseDuration;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (fov.hasVisibleTargets())
+            {
+                if (currentPhase == FireMode.SERIAL && serialFireTimer <= 0.0f)
+                {
+                    shoot(currentGun);
+                    currentGun++;
+
+                    if (currentGun >= gunCount)
+                        currentGun = 0;
+
+                    serialFireTimer = 1 / serialFireRate;
+                }
+                else if (currentPhase == FireMode.PARALLEL && parallelFireTimer <= 0.0f)
+                {
+                    shoot();
+                    parallelFireTimer = 1 / parallelFireRate;
+                }
+            }
+
+            managePhases();
+        }
+
+        void managePhases()
+        {
+            if (currentPhase == FireMode.SERIAL)
+            {
+                serialFireTimer -= Time.deltaTime;
+                serialPhaseCounter -= Time.deltaTime;
+
+                if (serialPhaseCounter <= 0.0f)
+                {
+                    currentPhase = FireMode.PARALLEL;
+                    parallelPhaseCounter = parallelPhaseDuration;
+                    setGuns(typeof(Weapon.Gun.Handgun));
+                }
+
+            }
+            else if (currentPhase == FireMode.PARALLEL)
+            {
+                parallelFireTimer -= Time.deltaTime;
+                parallelPhaseCounter -= Time.deltaTime;
+
+                if (parallelPhaseCounter <= 0.0f)
+                {
+                    currentPhase = FireMode.SERIAL;
+                    serialPhaseCounter = serialPhaseDuration;
+                    setGuns(typeof(Weapon.Gun.Shotgun));
+                }
+            }
         }
     }
 }
