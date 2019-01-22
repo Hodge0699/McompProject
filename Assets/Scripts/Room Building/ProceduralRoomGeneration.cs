@@ -13,25 +13,22 @@ namespace RoomBuilding
         [Range(0, 25)]
         public int enemyFrequency = 5; // Amount of enemies to be spawned per 1000 units squared
 
-        private RoomBuilder rb;
-        private EnemySpawner enemySpawner;
-        public BossSpawner bossSpawner;
-
-        private PlayerController player;
-
-        private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
-
+        [Range(0,15)]
         public int rooms = 5; // Number of rooms player must progress through before boss room spawns.
         private int roomsBeat = 0;
 
         public GameObject bossRoom; // Room prefab to spawn after player beats sufficient rooms.
+
+        private RoomBuilder rb;
+        private EnemySpawner enemySpawner;
+
+        private PlayerController player;
 
         // Use this for initialization
         void Start()
         {
             rb = GetComponent<RoomBuilder>();
             enemySpawner = GetComponent<EnemySpawner>();
-            bossSpawner = GetComponent<BossSpawner>();
 
             // Liam - Spawn player at start of scene when first room is generated
             GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
@@ -189,6 +186,8 @@ namespace RoomBuilding
         /// </summary>
         private void spawnEnemies(Room room)
         {
+            float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
+
             if (enemyFrequency == 0)
                 return;
 

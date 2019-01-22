@@ -74,6 +74,12 @@ public class Room : MonoBehaviour {
     /// <param name="exit">The exit door used.</param>
     public void playerExitted(DoorController exit)
     {
+        if (exit.transform.Find("Left Door").transform.Find("Fader"))
+            Destroy(exit.transform.Find("Left Door").transform.Find("Fader").gameObject);
+
+        if (exit.transform.Find("Right Door").transform.Find("Fader"))
+            Destroy(exit.transform.Find("Right Door").transform.Find("Fader").gameObject);
+
         bool roomFound = false;
         int i = 0;
 
@@ -96,7 +102,6 @@ public class Room : MonoBehaviour {
 
         roomBeaten = true;
     }
-
 
 
     //
@@ -137,8 +142,6 @@ public class Room : MonoBehaviour {
         for (int i = 0; i < doors.Count; i++)
             doors[i].open();
     }
-
-
 
     //
     // Enemies

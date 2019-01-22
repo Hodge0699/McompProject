@@ -223,7 +223,7 @@ Prefab:
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: enemyFrequency
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
@@ -241,7 +241,12 @@ Prefab:
       propertyPath: build
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1365513603276702, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114254514015239344, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &622758084
