@@ -218,6 +218,42 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: enemyFrequency
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: rooms
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: bossRoom
+      value: 
+      objectReference: {fileID: 1084932854252756, guid: 4a722eba0a517144f9079e673122fe97,
+        type: 2}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: minRoomSize.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: minRoomSize.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: maxRoomSize.x
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: maxRoomSize.y
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
   m_IsPrefabAsset: 0
