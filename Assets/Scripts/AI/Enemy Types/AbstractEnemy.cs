@@ -19,7 +19,7 @@ namespace EnemyType
 
         protected GameObject target; // The GameObject this agent is currently attacking
 
-        private Room myRoom;
+        protected Room myRoom;
 
         protected VisionCone visionCone;
 

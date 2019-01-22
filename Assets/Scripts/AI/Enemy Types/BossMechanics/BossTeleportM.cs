@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyType;
 
+using RoomBuilding;
+
 public class BossTeleportM : MonoBehaviour {
 
     [SerializeField]
     List<GameObject> teleportLocations;
-    BossEnemy bEnemy;
-    bool stopChecking = false;
+    private BossEnemy bEnemy;
+    [SerializeField]
+    private Room myRoom;
+    private bool stopChecking = false;
 
     private void Awake()
     {
         // This will find every teleport location in the scene (including other rooms since multiple boss
-        // initially spawn before the player decideds which one to walk into), fix this - Jake
-        foreach (GameObject teleportlocations in GameObject.FindGameObjectsWithTag("BossRandomTeleporter"))
+        // initially spawn before the player decideds which one to walk into), fix this - Jake - suck me - Nicky 
+        myRoom = bEnemy.getMyRoom();
+        foreach (GameObject teleportlocations in myRoom.transform.Find("BossTeleporter"))
         {
             teleportLocations.Add(teleportlocations);
         }
@@ -29,15 +34,6 @@ public class BossTeleportM : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log("Teleport Location Capacity " + teleportLocations.Capacity);
-        //removes null locations
-        for (int i = 0; i < teleportLocations.Capacity; i++)
-        {
-            if (!teleportLocations[i])
-            {
-                teleportLocations.RemoveAt(i);
-                Debug.Log("count me" + i);
-            }
-        }
         if (bEnemy.currentHealth < 800)
         {
             int i = Random.Range(0, 3);

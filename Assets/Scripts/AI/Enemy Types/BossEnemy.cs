@@ -20,7 +20,7 @@ namespace EnemyType
         }
 
         private void Update()
-        {
+        { 
             if (target != null) // Can see player
             {
                 if (getDistanceToTarget() > 5.0f)
@@ -47,6 +47,14 @@ namespace EnemyType
         protected override void onDeath()
         {
             SceneManager.GetComponent<SceneTransitions>().LoadNextScene();
+        }
+        /// <summary>
+        /// gets the gameobject myRoom from abstract enemy 
+        /// </summary>
+        /// <returns></returns>
+        public Room getMyRoom()
+        {
+            return this.myRoom;
         }
     }
 }
