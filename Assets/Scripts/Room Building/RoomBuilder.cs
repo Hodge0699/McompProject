@@ -141,7 +141,7 @@ namespace RoomBuilding
             walls.name = "Walls";
             walls.transform.parent = parent;
             walls.transform.localPosition = Vector3.zero;
-
+            
             // West
             if (westWall == wallType.SOLID)
                 instantiateCube("Left Wall", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, 0.0f), new Vector3(wallThickness, dimensions.y, dimensions.z));
@@ -183,21 +183,14 @@ namespace RoomBuilding
 
             // South
             if (southWall == wallType.SOLID)
-            {
-                GameObject wall = instantiateCube("Bottom Wall", walls.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
-
-                instantiateFader(wall.transform);
-            }
+                instantiateCube("Bottom Wall", walls.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
             else
             {
                 float newWallSize = (dimensions.x - doorSize) / 2;
                 float offset = (newWallSize / 2) + (doorSize / 2);
 
-                GameObject lWall = instantiateCube("Bottom Wall (Left of door)", walls.transform, new Vector3(-offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
-                GameObject rWall = instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
-
-                instantiateFader(lWall.transform);
-                instantiateFader(rWall.transform);
+                instantiateCube("Bottom Wall (Left of door)", walls.transform, new Vector3(-offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
+                instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
             }
         }
 
@@ -237,11 +230,6 @@ namespace RoomBuilding
             {
                 GameObject door = instantiateDoor("South Wall Door", doorsParent.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)));
                 door.transform.Rotate(Vector3.up, 180.0f);
-
-                GameObject f1 = instantiateFader(door.transform.Find("Left Door"));
-
-                GameObject f2 = instantiateFader(door.transform.Find("Right Door"));
-
                 doors.Add(door.GetComponent<DoorController>());
             }
 
@@ -282,22 +270,6 @@ namespace RoomBuilding
             door.GetComponent<DoorController>().init(doorSize, dimensions.y, wallThickness * 0.9f, doorSpeed);
 
             return door;
-        }
-
-        private GameObject instantiateFader(Transform parent)
-        {
-            GameObject fader = Instantiate(Resources.Load("Room Components\\GeometryFader")) as GameObject;
-
-            fader.transform.name = "Fader";
-            fader.transform.parent = parent;
-            fader.transform.localPosition = Vector3.zero;
-            fader.transform.localScale = Vector3.one;
-
-            BoxCollider trigger = fader.GetComponent<BoxCollider>();
-            trigger.isTrigger = true;
-            trigger.center = new Vector3(0.0f, 0.0f, 4.0f);
-            trigger.size = new Vector3(20.0f, 1.0f, 8.0f);
-            return fader;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossRoom : Room
+public class BossSpawner : Room
 {
     public GameObject boss;
     public Transform spawnSpot;

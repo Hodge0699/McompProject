@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
         firePoint = transform.Find("GunPrimary").transform.Find("Body");
 
         myCamera = Instantiate(myCamera, transform.position + cameraOffset, Quaternion.Euler(33, 0, 0));
-        myCamera.GetComponent<Camera>().nearClipPlane = -2.5f; // Let objects penetrate camera by 2.5 units before culling (stops visible wall cull)
 
         mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
 
