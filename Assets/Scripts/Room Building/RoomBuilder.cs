@@ -239,7 +239,6 @@ namespace RoomBuilding
                 door.transform.Rotate(Vector3.up, 180.0f);
 
                 GameObject f1 = instantiateFader(door.transform.Find("Left Door"));
-
                 GameObject f2 = instantiateFader(door.transform.Find("Right Door"));
 
                 doors.Add(door.GetComponent<DoorController>());
@@ -284,6 +283,11 @@ namespace RoomBuilding
             return door;
         }
 
+        /// <summary>
+        /// Creates a trigger that fades the parent option
+        /// </summary>
+        /// <param name="parent">Object to fade.</param>
+        /// <returns>The fader created.</returns>
         private GameObject instantiateFader(Transform parent)
         {
             GameObject fader = Instantiate(Resources.Load("Room Components\\GeometryFader")) as GameObject;
