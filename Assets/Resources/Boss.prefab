@@ -336,9 +336,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056d47434e03a184d8e750022c3f1e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRoom: {fileID: 0}
   teleportLocations: []
+  furthestTeleport: 1
   randTeleport: 0
+  teleportHealth: 699
 --- !u!114 &114952255045601490
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,14 +7,16 @@ using RoomBuilding;
 
 public class BossTeleportM : MonoBehaviour {
 
-    [SerializeField]
     private Room myRoom;
-    private bool stopChecking = false;
     [SerializeField]
-    private List<GameObject> teleportLocations = new List<GameObject>();
+    private List<GameObject> teleportLocations = new List<GameObject>(); // list of teleport locations 
     private BossEnemy bEnemy;
     [SerializeField]
-    private bool randTeleport = false;
+    private bool furthestTeleport = false;
+    [SerializeField]
+    private bool randTeleport = false; // bool for user to decide if they want the boss to randomly teleport among the list of teleport locations
+    [SerializeField]
+    private int teleportHealth; // health you want the boss to teleport after
     private bool teleport = true;
 
     private void Start()
@@ -34,7 +36,8 @@ public class BossTeleportM : MonoBehaviour {
 	void Update () {
         if(randTeleport == true)
             randomTeleport();
-        
+        if (furthestTeleport == true)
+            furthestAway();
 
 	}
     /// <summary>
@@ -42,14 +45,44 @@ public class BossTeleportM : MonoBehaviour {
     /// </summary>
     private void randomTeleport()
     {
-        if (bEnemy.currentHealth < 700)
+        Debug.Log("Getting inside randomTeleport function");
+        if (bEnemy.currentHealth < teleportHealth)
         {
+            Debug.Log("I'm getting inside here");
             if (teleport == true)
             {
                 int i = Random.Range(0, teleportLocations.Capacity);
                 this.transform.position = teleportLocations[i].transform.position;
+                teleport = false;
             }
         }
-        teleport = false;
+    }
+    /// <summary>
+    /// Teleportes the boss to the furthest away teleport location
+    /// </summary>
+    private void furthestAway()
+    {
+        Vector3 position = transform.position;
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+
+        foreach (GameObject item in teleportLocations)
+        {
+            Vector3 diff = item.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+
+            if (curDistance < distance)
+            {
+                closest = item;
+                distance = curDistance;
+            }
+        }
+
+        if(bEnemy.currentHealth <= teleportHealth && teleport == true)
+        {
+            this.transform.position = closest.transform.position;
+            teleport = false;
+        }
+
     }
 }
