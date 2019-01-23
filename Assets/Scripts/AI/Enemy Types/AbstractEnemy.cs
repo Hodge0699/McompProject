@@ -111,6 +111,13 @@ namespace EnemyType
             return (transform.position - target.transform.position).magnitude;
         }
 
+        /// <summary>
+        /// Returns the room this enemy has been assigned to 
+        /// </summary>
+        public Room getRoom()
+        {
+            return myRoom;
+        }
 
         //
         // Behaviours

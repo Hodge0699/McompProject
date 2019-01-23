@@ -43,7 +43,10 @@ public class GeometryFader : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null || other.GetComponent<EnemyType.AbstractEnemy>() != null || other.GetComponent<Powerups.AbstractPowerup>() != null)
-            obstructedObjects.Add(other.gameObject);
+        {
+            if (!obstructedObjects.Contains(other.gameObject))
+                obstructedObjects.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)

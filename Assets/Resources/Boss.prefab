@@ -156,7 +156,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
+  - {fileID: 2100000, guid: c136e285497fe414da8169ca4770c45c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,7 +191,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
+  - {fileID: 2100000, guid: c136e285497fe414da8169ca4770c45c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -336,12 +336,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056d47434e03a184d8e750022c3f1e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   teleportLocations:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   myRoom: {fileID: 0}
+=======
+>>>>>>> master
 --- !u!114 &114952255045601490
 MonoBehaviour:
   m_ObjectHideFlags: 1
