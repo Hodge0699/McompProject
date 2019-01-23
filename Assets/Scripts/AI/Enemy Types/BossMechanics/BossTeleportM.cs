@@ -5,51 +5,18 @@ using EnemyType;
 
 public class BossTeleportM : MonoBehaviour {
 
-    [SerializeField]
-    List<GameObject> teleportLocations;
-    BossEnemy bEnemy;
-    bool stopChecking = false;
+    private List<GameObject> teleportLocations = new List<GameObject>();
+    private BossEnemy bEnemy;
 
-    private void Awake()
+    private void Start()
     {
-        // This will find every teleport location in the scene (including other rooms since multiple boss
-        // initially spawn before the player decideds which one to walk into), fix this - Jake
-        foreach (GameObject teleportlocations in GameObject.FindGameObjectsWithTag("BossRandomTeleporter"))
-        {
-            teleportLocations.Add(teleportlocations);
-        }
-
         bEnemy = this.GetComponent<BossEnemy>();
-    }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Debug.Log("Teleport Location Capacity " + teleportLocations.Capacity);
-        //removes null locations
-        for (int i = 0; i < teleportLocations.Capacity; i++)
-        {
-            if (!teleportLocations[i])
-            {
-                teleportLocations.RemoveAt(i);
-                Debug.Log("count me" + i);
-            }
-        }
-        if (bEnemy.currentHealth < 800)
-        {
-            int i = Random.Range(0, 3);
-            this.transform.position = teleportLocations[i].transform.position;
-        }
-        
 
-	}
-
-    void checkForErrors()
-    {
-
-        
+        // Code I told Nicky to type while making nuggets that ended up not working because he had that ^ line
+        // below it and it was called in Awake instead of Start. So I ended up doing it on my branch and 
+        // fixing it but he wanted a mention anyway - Jake.
+        Transform teleContainer = bEnemy.getRoom().transform.Find("BossTeleporter").transform;
+        for (int i = 0; i < teleContainer.childCount; i++)
+            teleportLocations.Add(teleContainer.GetChild(i).gameObject);
     }
 }
