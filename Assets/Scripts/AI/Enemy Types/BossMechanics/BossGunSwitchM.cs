@@ -6,6 +6,7 @@ using EnemyType;
 
 public class BossGunSwitchM : MonoBehaviour {
 
+    HealthManager health;
     BossEnemy bEnemy;
     protected System.Type gun;
     private int gunSwitchChanger = 0;
@@ -13,6 +14,7 @@ public class BossGunSwitchM : MonoBehaviour {
     private void Awake()
     {
         bEnemy = this.GetComponent<BossEnemy>();
+        health = GetComponent<HealthManager>();
     }
     // Use this for initialization
     void Start () {
@@ -22,13 +24,13 @@ public class BossGunSwitchM : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // checks health to switch guns
-        if (bEnemy.currentHealth <= bEnemy.health / 2 && bEnemy.currentHealth >= bEnemy.health / 4 && gunSwitchChanger == 0)
+        if (health.getHealthPercentage() <= 0.5f && health.getHealthPercentage() > 0.25f && gunSwitchChanger == 0)
         {
             gun = typeof(Shotgun);
             bEnemy.gunController.setGun(gun, 300);
             gunSwitchChanger = 1;
         }
-        else if (bEnemy.currentHealth <= bEnemy.health / 4 && bEnemy.currentHealth > 0 && gunSwitchChanger == 1)
+        else if (health.getHealthPercentage() <= 0.25f && health.getHealth() > 0 && gunSwitchChanger == 1)
         {
             gun = typeof(EXDHandgun);
             bEnemy.gunController.setGun(gun, 300);

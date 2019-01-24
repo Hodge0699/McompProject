@@ -8,11 +8,6 @@ namespace EnemyType
 {
     public class AbstractEnemy : MonoBehaviour
     {
-        public float health = 100;
-        public float currentHealth;
-
-        private bool isAlive = true;
-
         public float movementSpeed = 3.0f;
 
         public Vector3 directionVector; // Direction vector to act on at end of frame
@@ -25,15 +20,20 @@ namespace EnemyType
 
         public float maxDistance = 1.6f;
 
+        private HealthManager health;
+
         // Use this for initialization
         protected virtual void Awake()
         {
-            currentHealth = health;
             visionCone = GetComponent<VisionCone>();
+            health = GetComponent<HealthManager>();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
+            if (health.isDead())
+                die();
+
             directionVector.Normalize();
             Vector3 movement = directionVector * movementSpeed * Time.deltaTime;
 
@@ -48,35 +48,10 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Damages this enemy.
-        /// </summary>
-        /// <param name="damage">Amount of damage to inflict.</param>
-        public void hurt(float damage, Transform attacker = null)
-        {
-            currentHealth -= (int)damage;
-
-            if (currentHealth <= 0)
-            {
-                die();
-                return;
-            }
-
-            // Look at player
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-                transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
-        }
-
-        /// <summary>
         /// Kills the enemy.
         /// </summary>
         private void die()
         {
-            if (!isAlive)
-                return;
-
-            isAlive = false;
-
             myRoom.enemyKilled(this);
             
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();

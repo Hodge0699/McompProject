@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyType;
 
-using RoomBuilding;
-
 public class BossTeleportM : MonoBehaviour {
 
-    private Room myRoom;
     [SerializeField]
     private List<GameObject> teleportLocations = new List<GameObject>(); // list of teleport locations 
     private BossEnemy bEnemy;
+    private HealthManager bHealth;
     [SerializeField]
     private bool furthestTeleport = false;
     [SerializeField]
@@ -24,8 +22,9 @@ public class BossTeleportM : MonoBehaviour {
         // This will find every teleport location in the scene (including other rooms since multiple boss
         // initially spawn before the player decideds which one to walk into), fix this - Jake - suck me - Nicky 
         bEnemy = this.GetComponent<BossEnemy>();
-        myRoom = bEnemy.getMyRoom();
+        bHealth = GetComponent<HealthManager>();
 
+        // omg u deleted my comment saying I taught u how to do this whilst making nuggets?? smh, no honesty - Jake
         Transform teleContainer = bEnemy.getRoom().transform.Find("BossTeleporter").transform;
         for (int i = 0; i < teleContainer.childCount; i++)
             teleportLocations.Add(teleContainer.GetChild(i).gameObject);
@@ -46,7 +45,7 @@ public class BossTeleportM : MonoBehaviour {
     private void randomTeleport()
     {
         Debug.Log("Getting inside randomTeleport function");
-        if (bEnemy.currentHealth < teleportHealth)
+        if (bHealth.getHealth() < teleportHealth)
         {
             Debug.Log("I'm getting inside here");
             if (teleport == true)
@@ -78,7 +77,7 @@ public class BossTeleportM : MonoBehaviour {
             }
         }
 
-        if(bEnemy.currentHealth <= teleportHealth && teleport == true)
+        if(bHealth.getHealth() <= teleportHealth && teleport == true)
         {
             this.transform.position = closest.transform.position;
             teleport = false;

@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthManager : MonoBehaviour
+public class PlayerHealthManager : HealthManager
 {
-    public float startingHealth;
-    public float currentHealth;
-    public Slider healthSlider;
-    public Image damageImage;
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
-    [SerializeField]
-    bool damaged;
-
     public GameObject deathScene;
 
+    private bool damaged;
+    private Image damageImage;
+    private Slider healthSlider;
+
     private bool initialised = false;
-
-    private bool godmode = false;
-    private float godmodeTimer = 0.0f;
-
-    public bool debugging = false;
 
     /// <summary>
     /// Finds ui elements 
@@ -30,8 +22,6 @@ public class PlayerHealthManager : MonoBehaviour
     /// <param name="ui">UI Canvas object</param>
     public void init(GameObject ui)
     {
-        currentHealth = startingHealth;
-
         healthSlider = ui.transform.Find("HealthUI").transform.Find("HealthSlider").GetComponent<Slider>();
 
         damageImage = ui.transform.Find("DamageImage").GetComponent<Image>();
@@ -41,10 +31,12 @@ public class PlayerHealthManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         if (!initialised)
             return;
+
+        base.Update();
 
         if(damaged)
             damageImage.color = flashColour;
@@ -53,48 +45,34 @@ public class PlayerHealthManager : MonoBehaviour
 
         damaged = false;
 
-        if (currentHealth <= 0)
+        if (isDead())
         {
             gameObject.SetActive(false);
             deathScene.SetActive(true);
         }
-
-        if (godmodeTimer > 0.0f)
-        {
-            godmodeTimer -= Time.deltaTime;
-
-            if (godmodeTimer <= 0.0f)
-                setGodmode(false);
-        }
-        
-
     }
 
     /// <summary>
-    /// Damages the player by a set amount
+    /// Inflicts damage and sets new value on health slider.
     /// </summary>
-    /// <param name="damageAmount">Damage to inflict</param>
-    public void HurtPlayer(float damageAmount)
+    /// <param name="damageAmount">Damage to inflict.</param>
+    public override void hurt(float damageAmount)
     {
-        if (godmode)
-            return;
+        base.hurt(damageAmount);
 
         damaged = true;
-        currentHealth -= damageAmount;
         healthSlider.value = currentHealth;
     }
 
     /// <summary>
-    /// Makes the player invincible (useful for when player controls are taken away)
+    /// Sets the health of the player and updates UI.
     /// </summary>
-    /// <param name="duration">Seconds invincibility will last for</param>
-    public void setGodmode(bool godmode = true, float duration = 0)
+    /// <param name="health">The value to set it to.</param>
+    /// <param name="force">True to force the value, false to let it cap if too high.</param>
+    public override void setHealth(float health, bool force = false)
     {
-        this.godmode = godmode;
+        base.setHealth(health, force);
 
-        godmodeTimer = duration;
-
-        if (debugging)
-            Debug.Log("Godmode set to " + godmode);
+        healthSlider.value = currentHealth;
     }
 }
