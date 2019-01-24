@@ -44,12 +44,15 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Enemy" && !ignoreTags.Contains("Enemy"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage, this.transform);
-        else if (other.gameObject.tag == "Player" && !ignoreTags.Contains("Player"))
-            other.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage);
-        else if (other.gameObject.tag == "Boss" && !ignoreTags.Contains("Boss"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage / 3, this.transform);
+
+        if (!ignoreTags.Contains(other.gameObject.tag))
+        {
+            HealthManager health = other.gameObject.GetComponent<HealthManager>();
+
+            if (health != null)
+                health.hurt(damage);
+        }
+
         Destroy(gameObject);
     }
 }

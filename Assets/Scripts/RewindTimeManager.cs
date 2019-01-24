@@ -15,8 +15,7 @@ public class RewindTimeManager : MonoBehaviour {
 
     Rigidbody rb;
 
-    PlayerHealthManager playerHealth;
-    AbstractEnemy enemyHealth;
+    HealthManager health;
 
 	// Use this for initialization
 	void Start () {
@@ -28,8 +27,7 @@ public class RewindTimeManager : MonoBehaviour {
 
         pointsInTime = new List<PointInTime>();
 
-        playerHealth = gameObject.GetComponent<PlayerHealthManager>();
-        enemyHealth = gameObject.GetComponent<AbstractEnemy>();
+        health = gameObject.GetComponent<HealthManager>();
 
         if (gameObject.GetComponent<Rigidbody>() != null)
             rb = GetComponent<Rigidbody>();
@@ -64,13 +62,10 @@ public class RewindTimeManager : MonoBehaviour {
             PointInTime pointInTime = pointsInTime[0];
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
-            if (gameObject.tag == "Player")
-            {
-                playerHealth.currentHealth = pointInTime.health;
-                playerHealth.healthSlider.value = playerHealth.currentHealth;
-            }
-            else if (gameObject.tag == "Enemy")
-                enemyHealth.currentHealth = pointInTime.health;
+
+            if (health != null)
+                health.setHealth(pointInTime.health);
+
             pointsInTime.RemoveAt(0);
         }
         else
@@ -88,13 +83,10 @@ public class RewindTimeManager : MonoBehaviour {
     void Record()
     {
         if (pointsInTime.Count >  Mathf.Round(recordTime / Time.fixedDeltaTime))
-        {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
-        }
-        if (gameObject.tag == "Player")
-            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, playerHealth.currentHealth));
-        else if (gameObject.tag == "Enemy")
-            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, enemyHealth.currentHealth));
+
+        if (health != null)
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, health.getHealth()));
         else
             pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
     }

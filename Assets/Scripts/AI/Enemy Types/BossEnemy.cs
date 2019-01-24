@@ -48,6 +48,8 @@ namespace EnemyType
         {
             SceneManager.GetComponent<SceneTransitions>().LoadNextScene();
         }
+
+
         /// <summary>
         /// gets the gameobject myRoom from abstract enemy 
         /// </summary>
