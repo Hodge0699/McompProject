@@ -362,7 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  currentHealth: 0
   debugging: 0
 --- !u!114 &114327954224221082
 MonoBehaviour:
@@ -422,16 +421,16 @@ MonoBehaviour:
   LootTable:
   - name: Shotgun
     item: {fileID: 1139573452153030, guid: 5f861e9ed6915a34ea2602682e50041b, type: 2}
-    dropRarity: 0
+    dropRarity: 50
   - name: Machine Gun
     item: {fileID: 1140473012404356, guid: 3ae5c55c111e5994c870aca111ebaa6b, type: 2}
-    dropRarity: 0
+    dropRarity: 50
   - name: EXD Handgun
     item: {fileID: 1218043071481870, guid: 7ce984c4576a6424eb9fd2f958ef71ba, type: 2}
-    dropRarity: 0
+    dropRarity: 20
   - name: Time Gun
     item: {fileID: 1185478885353658, guid: a799a827aaf694c4e893b85926792f52, type: 2}
-    dropRarity: 10
+    dropRarity: 20
   ItemDropChance: 100
   debugging: 0
 --- !u!114 &114779128417070500
