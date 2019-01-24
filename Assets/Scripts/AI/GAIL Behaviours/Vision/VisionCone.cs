@@ -55,9 +55,6 @@ public class VisionCone : MonoBehaviour
                 RaycastHit hitInfo = new RaycastHit(); // Hit information ready for raycast
                 Physics.Raycast(transform.position, direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore); // Send raycast from this location, to target's location to see if it will hit.
 
-                Debug.DrawRay(this.transform.position, direction, Color.cyan);
-
-
                 if (hitInfo.collider) // If collider was hit
                 {
                     while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject))
@@ -91,11 +88,16 @@ public class VisionCone : MonoBehaviour
                                 sightTime[index] = timeToSpot;
                         }
                     }
+                    else // Obscured
+                    {
+                        if (visibleTargets.Contains(nearbyTargets[i]))
+                            unsee(nearbyTargets[i]);
+                    }
                 }
-                else // obscured
+                else // Out of range
                 {
                     if (visibleTargets.Contains(nearbyTargets[i]))
-                    unsee(nearbyTargets[i]);
+                        unsee(nearbyTargets[i]);
                 }
             }
             else // Not in field of view
