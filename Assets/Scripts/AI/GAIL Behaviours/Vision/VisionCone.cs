@@ -53,12 +53,15 @@ public class VisionCone : MonoBehaviour
             if (angle <= FOV / 2) // Is target in view angle.
             {
                 RaycastHit hitInfo = new RaycastHit(); // Hit information ready for raycast
-                Physics.Raycast(transform.position, direction, out hitInfo, viewDistance); // Send raycast from this location, to target's location to see if it will hit.
+                Physics.Raycast(transform.position, direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore); // Send raycast from this location, to target's location to see if it will hit.
+
+                Debug.DrawRay(this.transform.position, direction, Color.cyan);
+
 
                 if (hitInfo.collider) // If collider was hit
                 {
                     while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject))
-                        Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance);
+                        Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
                     if (hitInfo.collider.gameObject == nearbyTargets[i] || isAChildOf(hitInfo.collider.gameObject, nearbyTargets[i])) // Collider is target we were aiming for
                     {

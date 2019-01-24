@@ -104,10 +104,18 @@ namespace EnemyType
         protected void wander()
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 3.0f);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 3.0f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
-            if (hitInfo.collider)
-                transform.Rotate(Vector3.up, Random.Range(140.0f, 220.0f));
+            if (hitInfo.collider) // Wall ahead, turn
+            {
+                float rotation = Random.Range(70.0f, 110.0f);
+                int sign = Random.Range(0, 1); // rotation or -rotation (left or right turn)
+
+                if (sign == 0)
+                    transform.Rotate(Vector3.up, rotation);
+                else
+                    transform.Rotate(Vector3.up, -rotation);
+            }
             else
             {
                 float rotation = Random.Range(-90.0f, 90.0f);
