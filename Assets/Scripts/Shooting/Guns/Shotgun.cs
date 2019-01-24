@@ -11,7 +11,7 @@ namespace Weapon.Gun
 
         public void Awake()
         {
-            init(5.0f, 10.0f, 3.0f);
+            init(5.0f, 10.0f, 3.0f, true);
         }
 
         public override GameObject shoot(Vector3 spawnPos)

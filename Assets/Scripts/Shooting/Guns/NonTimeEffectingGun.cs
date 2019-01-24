@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Weapon.Gun
 {
-    public class MachineGun : AbstractGun
+    public class NonTimeEffectingGun : AbstractGun
     {
         public void Awake()
         {
-            init(10.0f, 10.0f, 15.0f, true);
+            init(10, 10, 5, false);
         }
     }
 }

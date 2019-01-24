@@ -8,6 +8,8 @@ public class BulletController : MonoBehaviour {
     public float speed = 12.0f;
     public float lifespan = 10.0f; // Seconds before despawning
 
+    public bool timeEffected = true;
+
     public List<string> ignoreTags = new List<string>();
 
     /// <summary>
@@ -29,7 +31,11 @@ public class BulletController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if(timeEffected == false)
+            transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
+        else
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
     }
 
 
