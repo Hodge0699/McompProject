@@ -40,7 +40,7 @@ public class BulletController : MonoBehaviour {
         else if (other.gameObject.tag == "Player" && !ignoreTags.Contains("Player"))
             other.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage);
         else if (other.gameObject.tag == "Boss" && !ignoreTags.Contains("Boss"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage / 3, this.transform);
+            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage, this.transform);
         Destroy(gameObject);
     }
 }
