@@ -6,6 +6,10 @@ namespace EnemyType.Turrets
 {
     public class bulletPillar : AbstractTurret
     {
+        // Used for rewind system
+        //[System.NonSerialized]
+        public bool canShoot = true;
+
         public float serialFireRate = 10.0f;
         private float serialFireTimer;
 
@@ -40,7 +44,8 @@ namespace EnemyType.Turrets
             {
                 if (currentPhase == FireMode.SERIAL && serialFireTimer <= 0.0f)
                 {
-                    shoot(currentGun);
+                    if (canShoot) // Used for rewind system
+                        shoot(currentGun);
                     currentGun++;
 
                     if (currentGun >= gunCount)
@@ -50,7 +55,8 @@ namespace EnemyType.Turrets
                 }
                 else if (currentPhase == FireMode.PARALLEL && parallelFireTimer <= 0.0f)
                 {
-                    shoot();
+                    if (canShoot) // Used for rewind system
+                        shoot();
                     parallelFireTimer = 1 / parallelFireRate;
                 }
             }

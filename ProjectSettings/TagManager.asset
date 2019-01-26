@@ -14,6 +14,7 @@ TagManager:
   - Boss
   - GameManager
   - BossRandomTeleporter
+  - Turret
   layers:
   - Default
   - TransparentFX

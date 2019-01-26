@@ -9,6 +9,10 @@ namespace EnemyType
 {
     public class BossEnemy : AbstractEnemy
     {
+        // Used for rewind system
+        [System.NonSerialized]
+        public bool canShoot = true;
+
         public GunController gunController;
         private GameObject SceneManager;
 
@@ -28,7 +32,8 @@ namespace EnemyType
                 else
                     transform.LookAt(target.transform);
 
-                shoot();
+                if (canShoot) // Used for rewind system
+                    shoot();
             }
             else
                 wander();

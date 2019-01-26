@@ -1045,10 +1045,11 @@ GameObject:
   - component: {fileID: 65855459422506582}
   - component: {fileID: 114765550530747108}
   - component: {fileID: 114331787307657472}
+  - component: {fileID: 114372575237861104}
   - component: {fileID: 54576369820762024}
   m_Layer: 0
   m_Name: ShootingMachine
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4789,6 +4790,17 @@ MonoBehaviour:
   FOV: 360
   ignoreVisibilityValue: 0
   timeToSpot: 5
+--- !u!114 &114372575237861104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836660502569804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114700335622420640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4819,6 +4831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunCount: 8
   radius: 0.8
+  canShoot: 1
   serialFireRate: 7
   serialPhaseDuration: 5
   parallelFireRate: 1.5

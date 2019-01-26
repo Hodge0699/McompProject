@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using Player.Input;
 using EnemyType;
+using EnemyType.Turrets;
 
 public class RewindTimeManager : MonoBehaviour {
 
@@ -105,6 +106,14 @@ public class RewindTimeManager : MonoBehaviour {
             if (gameObject.GetComponent<GunEnemy>() != null)
                 gameObject.GetComponent<GunEnemy>().canShoot = false;
 
+        if (gameObject.tag == "Boss")
+            if (gameObject.GetComponent<BossEnemy>() != null)
+                gameObject.GetComponent<BossEnemy>().canShoot = false;
+
+        if (gameObject.tag == "Turret")
+            if (gameObject.GetComponent<bulletPillar>() != null)
+                gameObject.GetComponent<bulletPillar>().canShoot = false;
+
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = false;
         
@@ -119,6 +128,14 @@ public class RewindTimeManager : MonoBehaviour {
         if (gameObject.tag == "Enemy")
             if (gameObject.GetComponent<GunEnemy>() != null)
                 gameObject.GetComponent<GunEnemy>().canShoot = true;
+
+        if (gameObject.tag == "Boss")
+            if (gameObject.GetComponent<BossEnemy>() != null)
+                gameObject.GetComponent<BossEnemy>().canShoot = true;
+
+        if (gameObject.tag == "Turret")
+            if (gameObject.GetComponent<bulletPillar>() != null)
+                gameObject.GetComponent<bulletPillar>().canShoot = true;
 
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = true;
