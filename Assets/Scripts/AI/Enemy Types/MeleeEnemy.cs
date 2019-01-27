@@ -32,7 +32,10 @@ namespace EnemyType
                 chase();
 
                 if (targetWithinRange() && attackCooldownCounter <= 0.0f)
-                    target.GetComponent<PlayerHealthManager>().HurtPlayer(attackDamage);
+                {
+                    target.GetComponent<HealthManager>().hurt(attackDamage);
+                    attackCooldownCounter = attackCooldown;
+                }
             }
         }
 

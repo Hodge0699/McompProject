@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Player.Input;
 using EnemyType;
+using EnemyType.Turrets;
 
 public class RewindTimeManager : MonoBehaviour {
 
@@ -14,9 +16,19 @@ public class RewindTimeManager : MonoBehaviour {
 
     Rigidbody rb;
 
+    HealthManager health;
+
 	// Use this for initialization
 	void Start () {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "LevelTwo")
+            gameObject.GetComponent<RewindTimeManager>().enabled = true;
+        else
+            gameObject.GetComponent<RewindTimeManager>().enabled = false;
+
         pointsInTime = new List<PointInTime>();
+
+        health = gameObject.GetComponent<HealthManager>();
 
         if (gameObject.GetComponent<Rigidbody>() != null)
             rb = GetComponent<Rigidbody>();
@@ -51,6 +63,10 @@ public class RewindTimeManager : MonoBehaviour {
             PointInTime pointInTime = pointsInTime[0];
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
+
+            if (health != null)
+                health.setHealth(pointInTime.health);
+
             pointsInTime.RemoveAt(0);
         }
         else
@@ -68,10 +84,12 @@ public class RewindTimeManager : MonoBehaviour {
     void Record()
     {
         if (pointsInTime.Count >  Mathf.Round(recordTime / Time.fixedDeltaTime))
-        {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
-        }
-        pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+
+        if (health != null)
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, health.getHealth()));
+        else
+            pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
     }
 
     /// <summary>
@@ -81,10 +99,20 @@ public class RewindTimeManager : MonoBehaviour {
     public void StartRewind()
     {
         isRewinding = true;
-        rb.isKinematic = true;
+        if (rb != null)
+            rb.isKinematic = true;
 
         if (gameObject.tag == "Enemy")
-            gameObject.GetComponent<GunEnemy>().canShoot = false;
+            if (gameObject.GetComponent<GunEnemy>() != null)
+                gameObject.GetComponent<GunEnemy>().canShoot = false;
+
+        if (gameObject.tag == "Boss")
+            if (gameObject.GetComponent<BossEnemy>() != null)
+                gameObject.GetComponent<BossEnemy>().canShoot = false;
+
+        if (gameObject.tag == "Turret")
+            if (gameObject.GetComponent<bulletPillar>() != null)
+                gameObject.GetComponent<bulletPillar>().canShoot = false;
 
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = false;
@@ -94,10 +122,20 @@ public class RewindTimeManager : MonoBehaviour {
     public void StopRewind()
     {
         isRewinding = false;
-        rb.isKinematic = false;
+        if (rb != null)
+            rb.isKinematic = false;
 
         if (gameObject.tag == "Enemy")
-            gameObject.GetComponent<GunEnemy>().canShoot = true;
+            if (gameObject.GetComponent<GunEnemy>() != null)
+                gameObject.GetComponent<GunEnemy>().canShoot = true;
+
+        if (gameObject.tag == "Boss")
+            if (gameObject.GetComponent<BossEnemy>() != null)
+                gameObject.GetComponent<BossEnemy>().canShoot = true;
+
+        if (gameObject.tag == "Turret")
+            if (gameObject.GetComponent<bulletPillar>() != null)
+                gameObject.GetComponent<bulletPillar>().canShoot = true;
 
         if (gameObject.tag == "Player")
             gameObject.GetComponent<PlayerInputManager>().canShoot = true;

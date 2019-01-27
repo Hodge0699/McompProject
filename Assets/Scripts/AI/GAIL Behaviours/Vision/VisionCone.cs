@@ -26,8 +26,11 @@ public class VisionCone : MonoBehaviour
     private void Start()
     {
         proximity = gameObject.AddComponent<CapsuleCollider>(); // Create new collider
-        proximity.radius = viewDistance; // Set radius to view distance
         proximity.isTrigger = true; // Set to trigger
+
+        // Account for gameobject scale
+        float scale = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3.0f;
+        proximity.radius = (1.0f / scale) * viewDistance;
     }
 
     private void Update()
@@ -50,12 +53,12 @@ public class VisionCone : MonoBehaviour
             if (angle <= FOV / 2) // Is target in view angle.
             {
                 RaycastHit hitInfo = new RaycastHit(); // Hit information ready for raycast
-                Physics.Raycast(transform.position, direction, out hitInfo, viewDistance); // Send raycast from this location, to target's location to see if it will hit.
+                Physics.Raycast(transform.position, direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore); // Send raycast from this location, to target's location to see if it will hit.
 
                 if (hitInfo.collider) // If collider was hit
                 {
                     while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject))
-                        Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance);
+                        Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
                     if (hitInfo.collider.gameObject == nearbyTargets[i] || isAChildOf(hitInfo.collider.gameObject, nearbyTargets[i])) // Collider is target we were aiming for
                     {
@@ -85,11 +88,16 @@ public class VisionCone : MonoBehaviour
                                 sightTime[index] = timeToSpot;
                         }
                     }
+                    else // Obscured
+                    {
+                        if (visibleTargets.Contains(nearbyTargets[i]))
+                            unsee(nearbyTargets[i]);
+                    }
                 }
-                else // obscured
+                else // Out of range
                 {
                     if (visibleTargets.Contains(nearbyTargets[i]))
-                    unsee(nearbyTargets[i]);
+                        unsee(nearbyTargets[i]);
                 }
             }
             else // Not in field of view

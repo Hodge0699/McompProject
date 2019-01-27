@@ -8,6 +8,11 @@ public class BulletController : MonoBehaviour {
     public float speed = 12.0f;
     public float lifespan = 10.0f; // Seconds before despawning
 
+    public bool timeEffected = true;
+
+    private float defaultTimeScale = 1.0f;
+    //private float elapsedTime = Time.deltaTime * defaultTimeScale;
+
     public List<string> ignoreTags = new List<string>();
 
     /// <summary>
@@ -28,19 +33,26 @@ public class BulletController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    void FixedUpdate () {
+        if(timeEffected == false)
+            transform.Translate(Vector3.forward * speed * Time.unscaledDeltaTime);
+        else
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
     }
 
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Enemy" && !ignoreTags.Contains("Enemy"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage, this.transform);
-        else if (other.gameObject.tag == "Player" && !ignoreTags.Contains("Player"))
-            other.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage);
-        else if (other.gameObject.tag == "Boss" && !ignoreTags.Contains("Boss"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage / 3, this.transform);
+
+        if (!ignoreTags.Contains(other.gameObject.tag))
+        {
+            HealthManager health = other.gameObject.GetComponent<HealthManager>();
+
+            if (health != null)
+                health.hurt(damage);
+        }
+
         Destroy(gameObject);
     }
 }

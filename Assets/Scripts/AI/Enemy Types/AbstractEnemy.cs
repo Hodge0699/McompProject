@@ -2,40 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using sceneTransitions;
+
 namespace EnemyType
 {
     public class AbstractEnemy : MonoBehaviour
     {
-        public int health = 100;
-        public int currentHealth;
-
-        private bool isAlive = true;
-
         public float movementSpeed = 3.0f;
 
         public Vector3 directionVector; // Direction vector to act on at end of frame
 
         protected GameObject target; // The GameObject this agent is currently attacking
 
-        private Room myRoom;
+        protected Room myRoom;
 
         protected VisionCone visionCone;
-        protected PathFollower pathFollower;
 
-
-        public bool isTouching = false;
         public float maxDistance = 1.6f;
 
+        private HealthManager health;
 
         // Use this for initialization
         protected virtual void Awake()
         {
-            currentHealth = health;
             visionCone = GetComponent<VisionCone>();
+            health = GetComponent<HealthManager>();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
+            if (health.isDead())
+                die();
+
             directionVector.Normalize();
             Vector3 movement = directionVector * movementSpeed * Time.deltaTime;
 
@@ -50,44 +48,23 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Damages this enemy.
-        /// </summary>
-        /// <param name="damage">Amount of damage to inflict.</param>
-        public void hurt(float damage, Transform attacker = null)
-        {
-            currentHealth -= (int)damage;
-
-            if (currentHealth <= 0)
-            {
-                die();
-                return;
-            }
-
-            if (target == null && attacker != null)
-            {
-                Transform attackDir = attacker;
-                attackDir.position += -attacker.forward * 2;
-
-                transform.LookAt(attackDir);
-            }
-        }
-
-        /// <summary>
         /// Kills the enemy.
         /// </summary>
         private void die()
         {
-            if (!isAlive)
-                return;
-
-            isAlive = false;
-
             myRoom.enemyKilled(this);
             
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
+            onDeath();
+
             Destroy(gameObject);
         }
+
+        /// <summary>
+        /// Override if a specific enemy should do something special on death
+        /// </summary>
+        protected virtual void onDeath() { }
 
         /// <summary>
         /// Links this enemy to a room
@@ -109,6 +86,13 @@ namespace EnemyType
             return (transform.position - target.transform.position).magnitude;
         }
 
+        /// <summary>
+        /// Returns the room this enemy has been assigned to 
+        /// </summary>
+        public Room getRoom()
+        {
+            return myRoom;
+        }
 
         //
         // Behaviours
@@ -120,10 +104,18 @@ namespace EnemyType
         protected void wander()
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 3.0f);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 3.0f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
-            if (hitInfo.collider)
-                transform.Rotate(Vector3.up, Random.Range(140.0f, 220.0f));
+            if (hitInfo.collider) // Wall ahead, turn
+            {
+                float rotation = Random.Range(70.0f, 110.0f);
+                int sign = Random.Range(0, 1); // rotation or -rotation (left or right turn)
+
+                if (sign == 0)
+                    transform.Rotate(Vector3.up, rotation);
+                else
+                    transform.Rotate(Vector3.up, -rotation);
+            }
             else
             {
                 float rotation = Random.Range(-90.0f, 90.0f);
@@ -140,15 +132,8 @@ namespace EnemyType
         {
             if (target == null)
                 return;
-            if (Vector3.Distance(target.transform.position, this.transform.position) < maxDistance)
-            {
-                isTouching = true; // they are touching AND close
-            }
-            else
-            {
-                isTouching = false;
-            }
-            if(isTouching == false)
+
+            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
                 transform.LookAt(target.transform);
                 directionVector = transform.forward;

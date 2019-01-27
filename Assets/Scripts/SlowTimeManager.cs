@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class SlowTimeManager : MonoBehaviour {
+public class SlowTimeManager : MonoBehaviour
+{
 
     [SerializeField]
     bool isSlowMotion = false;
@@ -12,14 +14,25 @@ public class SlowTimeManager : MonoBehaviour {
 
     //public float slowDownLength = 2f;
 
-	// Update is called once per frame
-	void Update () {
-
-        if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
-            StartSlowMotion();
+    void Start()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "LevelOne")
+            gameObject.GetComponent<SlowTimeManager>().enabled = true;
         else
-            StopSlowMotion();
-	}
+            gameObject.GetComponent<SlowTimeManager>().enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (this.enabled) {
+            if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
+                StartSlowMotion();
+            else
+                StopSlowMotion();
+        }
+    }
 
     void StartSlowMotion()
     {

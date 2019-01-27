@@ -40,7 +40,7 @@ namespace Weapon
         private void attack()
         {
             for (int i = 0; i < collidingObjects.Count; i++)
-                collidingObjects[i].GetComponent<PlayerHealthManager>().HurtPlayer(damage);
+                collidingObjects[i].GetComponent<HealthManager>().hurt(damage);
 
             attackCooldown = attackFrequency;
         }

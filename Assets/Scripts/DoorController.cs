@@ -49,12 +49,12 @@ public class DoorController : MonoBehaviour {
         // Control states
         if (currentState == State.OPENING)
         {
-            if (leftDoor.transform.localPosition.x <= -leftDoor.width * 1.5f && rightDoor.transform.localPosition.x >= rightDoor.width * 1.5f)
+            if (leftDoor.transform.localPosition.x <= -leftDoor.width * 1.525f && rightDoor.transform.localPosition.x >= rightDoor.width * 1.525f)
             {
                 currentState = State.OPEN;
 
-                leftDoor.transform.localPosition = new Vector3(-leftDoor.width * 1.5f, 0.0f, 0.0f);
-                rightDoor.transform.localPosition = new Vector3(rightDoor.width * 1.5f, 0.0f, 0.0f);
+                leftDoor.transform.localPosition = new Vector3(-leftDoor.width * 1.525f, 0.0f, 0.0f);
+                rightDoor.transform.localPosition = new Vector3(rightDoor.width * 1.525f, 0.0f, 0.0f);
             }
         }
         else if (currentState == State.CLOSING)

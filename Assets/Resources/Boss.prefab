@@ -45,6 +45,10 @@ GameObject:
   - component: {fileID: 114274402187804128}
   - component: {fileID: 114251800140084072}
   - component: {fileID: 114291354166412330}
+  - component: {fileID: 114952255045601490}
+  - component: {fileID: 114892507652557058}
+  - component: {fileID: 114416188896621982}
+  - component: {fileID: 114773474117098752}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -131,8 +135,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1219392479142710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000019073486, y: 0.27, z: -59.1267}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
   m_Children:
   - {fileID: 4767085673046728}
   - {fileID: 4308276667118160}
@@ -154,7 +158,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
+  - {fileID: 2100000, guid: 3e53ee785c6d51043bdc9479d4270d2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,7 +193,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
+  - {fileID: 2100000, guid: 3e53ee785c6d51043bdc9479d4270d2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -290,7 +294,7 @@ MonoBehaviour:
   targetTags:
   - Player
   viewDistance: 20
-  FOV: 100
+  FOV: 132
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
 --- !u!114 &114291354166412330
@@ -304,12 +308,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d6080272110964186eff4228b8a8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 800
-  currentHealth: 0
   movementSpeed: 3
   directionVector: {x: 0, y: 0, z: 0}
-  isTouching: 0
   maxDistance: 1.6
+  gunController: {fileID: 0}
+--- !u!114 &114416188896621982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a031abeaec39a841957cc7d807f3656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 2100
+  debugging: 0
+--- !u!114 &114773474117098752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114856080320444528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,6 +349,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackFrequency: 3
+--- !u!114 &114892507652557058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d47434e03a184d8e750022c3f1e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportLocations: []
+  furthestTeleport: 1
+  randTeleport: 0
+  teleportHealth: 699
+--- !u!114 &114952255045601490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219392479142710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cde2ab489b2e6448935af8fcdb29a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114992227738951252
 MonoBehaviour:
   m_ObjectHideFlags: 1

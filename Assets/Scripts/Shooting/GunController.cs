@@ -82,7 +82,10 @@ public class GunController : MonoBehaviour {
         gameObject.AddComponent(gun);
         currentGun = gameObject.GetComponent(gun) as AbstractGun;
 
-        gunTimer = duration;
+        if (duration == 0)
+            gunTimer = Mathf.Infinity;
+        else
+            gunTimer = duration;
 
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
