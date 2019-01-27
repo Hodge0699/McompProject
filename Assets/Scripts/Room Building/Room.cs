@@ -74,11 +74,11 @@ public class Room : MonoBehaviour {
     /// <param name="exit">The exit door used.</param>
     public void playerExitted(DoorController exit)
     {
-        if (exit.transform.Find("Left Door").transform.Find("Fader"))
-            Destroy(exit.transform.Find("Left Door").transform.Find("Fader").gameObject);
+        if (exit.transform.Find("Left Door").transform.Find("GeometryFader(Clone)"))
+            Destroy(exit.transform.Find("Left Door").transform.Find("GeometryFader(Clone)").gameObject);
 
-        if (exit.transform.Find("Right Door").transform.Find("Fader"))
-            Destroy(exit.transform.Find("Right Door").transform.Find("Fader").gameObject);
+        if (exit.transform.Find("Right Door").transform.Find("GeometryFader(Clone)"))
+            Destroy(exit.transform.Find("Right Door").transform.Find("GeometryFader(Clone)").gameObject);
 
         bool roomFound = false;
         int i = 0;
@@ -113,7 +113,8 @@ public class Room : MonoBehaviour {
     /// </summary>
     public void setDoors(List<DoorController> doors)
     {
-        this.doors = doors;
+        foreach (DoorController door in doors)
+            addDoor(door);
     }
 
     /// <summary>
@@ -132,6 +133,14 @@ public class Room : MonoBehaviour {
     {
         door.transform.parent = transform.Find("Doors").transform;
         doors.Add(door);
+
+        // If the door is now the bottom door, create a fader
+        if (door.transform.position.z - transform.position.z < 0)
+        {
+            GameObject fader;
+            fader = instantiateFader(door.transform.Find("Left Door"));
+            fader = instantiateFader(door.transform.Find("Right Door"));
+        }
     }
 
     /// <summary>
@@ -204,5 +213,73 @@ public class Room : MonoBehaviour {
         }
 
         powerUpDrop.transform.parent = powerUpDrops.transform;
+    }
+
+
+    //
+    // Geometry Fader
+    //
+
+    /// <summary>
+    /// Adds a geometry fader to the wall(s) (and door if applicable) with the lowest z value 
+    /// 
+    /// Should ONLY be called AFTER doors and walls are added.
+    /// </summary>
+    public void createGeometryShaders()
+    {
+        float tolerance = 0.5f;
+
+        // Walls
+        List<Transform> lowerWalls = getCameraLowerWalls(tolerance);
+
+        for (int i = 0; i < lowerWalls.Count; i++)
+            instantiateFader(lowerWalls[i]);
+    }
+
+    /// <summary>
+    /// Returns a list of walls that have the lowest z value
+    /// </summary>
+    /// <param name="tolerance">The tolerance between z values of walls</param>
+    /// <returns>The transform of the walls</returns>
+    private List<Transform> getCameraLowerWalls(float tolerance)
+    {
+        Transform walls = transform.Find("Walls");
+
+        float lowestZ = Mathf.Infinity;
+        List<Transform> lowerWalls = new List<Transform>();
+
+        for (int i = 0; i < walls.childCount; i++)
+        {
+            Transform currentWall = walls.GetChild(i);
+
+            if (Mathf.Abs(currentWall.transform.position.z - lowestZ) <= tolerance)
+                lowerWalls.Add(currentWall);
+            else if (currentWall.transform.position.z < lowestZ)
+            {
+                lowestZ = currentWall.transform.position.z;
+                lowerWalls.Clear();
+                lowerWalls.Add(currentWall);
+            }
+        }
+
+        return lowerWalls;
+    }
+    /// <summary>
+    /// Creates a trigger that fades the parent option
+    /// </summary>
+    /// <param name="parent">Object to fade.</param>
+    /// <returns>The fader created.</returns>
+    protected GameObject instantiateFader(Transform parent)
+    {
+        GameObject fader = Instantiate(Resources.Load("Room Components\\GeometryFader")) as GameObject;
+
+        fader.transform.parent = parent;
+        fader.transform.localPosition = new Vector3(0.0f, 0.0f, -4.0f);
+        fader.transform.localScale = Vector3.one;
+
+        BoxCollider trigger = fader.GetComponent<BoxCollider>();
+        trigger.isTrigger = true;
+        trigger.size = new Vector3(20.0f, 1.0f, 8.0f);
+        return fader;
     }
 }

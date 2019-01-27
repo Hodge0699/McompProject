@@ -6,10 +6,14 @@ public class BossRoom : Room
 {
     public GameObject boss;
     public Transform spawnSpot;
+
     void Start()
     {
         spawn();
+
+        createGeometryShaders();
     }
+
     public void spawn()
     {
         boss = Instantiate(Resources.Load("boss")) as GameObject;

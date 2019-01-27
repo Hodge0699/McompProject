@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GeometryFader : MonoBehaviour {
 
+    public float maxAlpha = 1.0f;
+    public float minAlpha = 0.2f;
+
     private List<GameObject> obstructedObjects = new List<GameObject>();
 
     private float maxDist;
@@ -28,10 +31,7 @@ public class GeometryFader : MonoBehaviour {
         {
             alpha = getClosestObjectDist() / maxDist;
 
-            if (alpha < 0.2f)
-                alpha = 0.2f;
-            else if (alpha > 1.0f)
-                alpha = 1.0f;
+            alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
         }
         else
             alpha = 1.0f;
