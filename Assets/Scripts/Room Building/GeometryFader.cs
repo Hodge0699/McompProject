@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class GeometryFader : MonoBehaviour {
 
+    public float maxAlpha = 1.0f;
+    public float minAlpha = 0.2f;
+
     private List<GameObject> obstructedObjects = new List<GameObject>();
 
     private float maxDist;
 
     private MeshRenderer mesh;
 
+    private enum RenderMode { OPAQUE, FADE };
+
 	// Use this for initialization
 	void Start () {
         maxDist = GetComponent<BoxCollider>().size.z * 1.5f;
         mesh = transform.parent.GetComponent<MeshRenderer>();
-	}
+
+        setRenderMode(RenderMode.FADE);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,10 +35,7 @@ public class GeometryFader : MonoBehaviour {
         {
             alpha = getClosestObjectDist() / maxDist;
 
-            if (alpha < 0.2f)
-                alpha = 0.2f;
-            else if (alpha > 1.0f)
-                alpha = 1.0f;
+            alpha = Mathf.Clamp(alpha, minAlpha, maxAlpha);
         }
         else
             alpha = 1.0f;
@@ -53,6 +57,38 @@ public class GeometryFader : MonoBehaviour {
     {
         if (obstructedObjects.Contains(other.gameObject))
             obstructedObjects.Remove(other.gameObject);
+    }
+
+    /// <summary>
+    /// Sets the render mode to Fade
+    /// </summary>
+    /// <param name="renderMode">The Rendering mode to use.</param>
+    private void setRenderMode(RenderMode renderMode)
+    {
+        switch (renderMode)
+        {
+            case (RenderMode.OPAQUE):
+                Color meshCol = mesh.material.color;
+                mesh.material.color = new Color(meshCol.r, meshCol.g, meshCol.b, 1.0f);
+                mesh.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                mesh.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                mesh.material.SetInt("_ZWrite", 1);
+                mesh.material.DisableKeyword("_ALPHATEST_ON");
+                mesh.material.DisableKeyword("_ALPHABLEND_ON");
+                mesh.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                mesh.material.renderQueue = -1;
+                break;
+            case (RenderMode.FADE):
+                mesh.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                mesh.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                mesh.material.SetInt("_ZWrite", 0);
+                mesh.material.DisableKeyword("_ALPHATEST_ON");
+                mesh.material.EnableKeyword("_ALPHABLEND_ON");
+                mesh.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                mesh.material.renderQueue = 3000;
+                break;
+        }
+
     }
 
     /// <summary>
@@ -96,7 +132,6 @@ public class GeometryFader : MonoBehaviour {
 
     private void OnDestroy()
     {
-        Color meshCol = mesh.material.color;
-        mesh.material.color = new Color(meshCol.r, meshCol.g, meshCol.b, 1.0f);
+        setRenderMode(RenderMode.OPAQUE);
     }
 }
