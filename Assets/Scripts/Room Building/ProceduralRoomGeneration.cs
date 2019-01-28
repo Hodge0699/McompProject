@@ -22,7 +22,7 @@ namespace RoomBuilding
         private RoomBuilder rb;
         private EnemySpawner enemySpawner;
 
-        private PlayerController player;
+        private Player.PlayerController player;
 
         // Use this for initialization
         void Start()
@@ -34,7 +34,7 @@ namespace RoomBuilding
             GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
             playerObj.transform.position = Vector3.zero; // Liam
 
-            player = playerObj.GetComponent<PlayerController>();
+            player = playerObj.GetComponent<Player.PlayerController>();
 
             // Create initial room
             Room startRoom = createRoom(null, null);
