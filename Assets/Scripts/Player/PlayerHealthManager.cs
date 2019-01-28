@@ -3,76 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthManager : HealthManager
+namespace Player
 {
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
-
-    public GameObject deathScene;
-
-    private bool damaged;
-    private Image damageImage;
-    private Slider healthSlider;
-
-    private bool initialised = false;
-
-    /// <summary>
-    /// Finds ui elements 
-    /// </summary>
-    /// <param name="ui">UI Canvas object</param>
-    public void init(GameObject ui)
+    public class PlayerHealthManager : HealthManager
     {
-        healthSlider = ui.transform.Find("HealthUI").transform.Find("HealthSlider").GetComponent<Slider>();
+        public float flashSpeed = 5f;
+        public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
-        damageImage = ui.transform.Find("DamageImage").GetComponent<Image>();
-        deathScene = ui.transform.Find("DeathScene").gameObject;
+        public GameObject deathScene;
 
-        initialised = true;
-    }
+        private bool damaged;
+        private Image damageImage;
+        private Slider healthSlider;
 
-    // Update is called once per frame
-    new void Update()
-    {
-        if (!initialised)
-            return;
+        private bool initialised = false;
 
-        base.Update();
-
-        if(damaged)
-            damageImage.color = flashColour;
-        else
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-
-        damaged = false;
-
-        if (isDead())
+        /// <summary>
+        /// Finds ui elements 
+        /// </summary>
+        /// <param name="ui">UI Canvas object</param>
+        public void init(GameObject ui)
         {
-            gameObject.SetActive(false);
-            deathScene.SetActive(true);
+            healthSlider = ui.transform.Find("HealthUI").transform.Find("HealthSlider").GetComponent<Slider>();
+
+            damageImage = ui.transform.Find("DamageImage").GetComponent<Image>();
+            deathScene = ui.transform.Find("DeathScene").gameObject;
+
+            initialised = true;
         }
-    }
 
-    /// <summary>
-    /// Inflicts damage and sets new value on health slider.
-    /// </summary>
-    /// <param name="damageAmount">Damage to inflict.</param>
-    public override void hurt(float damageAmount)
-    {
-        base.hurt(damageAmount);
+        // Update is called once per frame
+        new void Update()
+        {
+            if (!initialised)
+                return;
 
-        damaged = true;
-        healthSlider.value = currentHealth;
-    }
+            base.Update();
 
-    /// <summary>
-    /// Sets the health of the player and updates UI.
-    /// </summary>
-    /// <param name="health">The value to set it to.</param>
-    /// <param name="force">True to force the value, false to let it cap if too high.</param>
-    public override void setHealth(float health, bool force = false)
-    {
-        base.setHealth(health, force);
+            if (damaged)
+                damageImage.color = flashColour;
+            else
+                damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 
-        healthSlider.value = currentHealth;
+            damaged = false;
+
+            if (isDead())
+            {
+                gameObject.SetActive(false);
+                deathScene.SetActive(true);
+            }
+        }
+
+        /// <summary>
+        /// Inflicts damage and sets new value on health slider.
+        /// </summary>
+        /// <param name="damageAmount">Damage to inflict.</param>
+        public override void hurt(float damageAmount)
+        {
+            base.hurt(damageAmount);
+
+            damaged = true;
+            healthSlider.value = currentHealth;
+        }
+
+        /// <summary>
+        /// Sets the health of the player and updates UI.
+        /// </summary>
+        /// <param name="health">The value to set it to.</param>
+        /// <param name="force">True to force the value, false to let it cap if too high.</param>
+        public override void setHealth(float health, bool force = false)
+        {
+            base.setHealth(health, force);
+
+            healthSlider.value = currentHealth;
+        }
     }
 }

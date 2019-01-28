@@ -91,14 +91,14 @@ public class DoorController : MonoBehaviour {
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() == null || triggered)
+        if (other.GetComponent<Player.PlayerController>() == null || triggered)
             return;
 
         triggered = true;
         GetComponentInParent<Room>().playerExitted(this);
 
         // Move player into next room
-        other.GetComponent<PlayerController>().forceMove(this.transform.forward, 6.5f);
+        other.GetComponent<Player.PlayerInputManager>().forceMove(this.transform.forward, 6.5f);
 
         // Flip to point outwards
         this.transform.Rotate(Vector3.up, 180.0f);
@@ -110,7 +110,7 @@ public class DoorController : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerController>() == null)
+        if (other.GetComponent<Player.PlayerController>() == null)
             return;
 
         triggered = false;

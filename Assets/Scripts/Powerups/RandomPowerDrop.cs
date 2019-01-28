@@ -16,13 +16,13 @@ public class RandomPowerDrop : MonoBehaviour {
     public List<DropItems> LootTable = new List<DropItems>();
     public int  ItemDropChance = 50;
 
-    private PlayerController player;
+    private Player.PlayerController player;
 
     public bool debugging = false;
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player.PlayerController>();
     }
 
     public void CalculateLoot()

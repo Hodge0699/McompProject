@@ -27,7 +27,7 @@ public class SlowTimeManager : MonoBehaviour
     void Update()
     {
         if (this.enabled) {
-            if (gameObject.GetComponent<PlayerController>().movement.magnitude <= 0)
+            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
                 StartSlowMotion();
             else
                 StopSlowMotion();

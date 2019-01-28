@@ -22,7 +22,7 @@ public class Room : MonoBehaviour {
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerController>().gameObject;
+        player = FindObjectOfType<Player.PlayerController>().gameObject;
     }
 
     public void Update()
@@ -89,7 +89,7 @@ public class Room : MonoBehaviour {
             {
                 childRooms[i].addDoor(exit);
 
-                player.GetComponent<PlayerController>().setRoom(childRooms[i]);
+                player.GetComponent<Player.PlayerController>().setRoom(childRooms[i]);
 
                 childRooms.RemoveAt(i);
                 doors.RemoveAt(i);
