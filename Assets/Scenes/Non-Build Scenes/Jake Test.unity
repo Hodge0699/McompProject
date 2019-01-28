@@ -304,6 +304,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: wallMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ee1a6843ab6333479e7c18343f1c869, type: 2}
+    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: doorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
   m_IsPrefabAsset: 0
