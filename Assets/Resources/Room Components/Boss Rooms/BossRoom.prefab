@@ -4816,7 +4816,7 @@ MonoBehaviour:
   enemyCount: 0
   enemies: {fileID: 0}
   lifetimeAfterExit: 2
-  boss: {fileID: 1219392479142710, guid: 63648a11eff014b45b303491f67402ed, type: 2}
+  bossPrefab: {fileID: 1219392479142710, guid: 63648a11eff014b45b303491f67402ed, type: 2}
   spawnSpot: {fileID: 4442485374896424}
 --- !u!114 &114765550530747108
 MonoBehaviour:
