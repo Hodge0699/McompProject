@@ -173,7 +173,7 @@ namespace RoomBuilding
 
             for (int i = 0; i < doorCount; i++)
             {
-                Direction dir;
+                RoomBuilder.Direction dir;
                 do
                     dir = getRandomDirection();
                 while (rb.getWallType(dir) != RoomBuilder.wallType.SOLID);
@@ -211,22 +211,22 @@ namespace RoomBuilding
         /// <summary>
         /// Randomises a direction.
         /// </summary>
-        Direction getRandomDirection()
+        RoomBuilder.Direction getRandomDirection()
         {
             int rand = Random.Range(0, 4);
 
             switch (rand)
             {
                 case 0:
-                    return Direction.NORTH;
+                    return RoomBuilder.Direction.NORTH;
                 case 1:
-                    return Direction.EAST;
+                    return RoomBuilder.Direction.EAST;
                 case 2:
-                    return Direction.SOUTH;
+                    return RoomBuilder.Direction.SOUTH;
                 case 3:
-                    return Direction.WEST;
+                    return RoomBuilder.Direction.WEST;
                 default:
-                    return Direction.ERROR;
+                    return RoomBuilder.Direction.ERROR;
             }
         }
 

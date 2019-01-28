@@ -6,6 +6,8 @@ namespace RoomBuilding
 {
     public class RoomBuilder : MonoBehaviour
     {
+        public enum Direction { NORTH, EAST, SOUTH, WEST, ERROR };
+
         // Liam: setting floor texture for generated room floor
         public Texture floorTexture; // Liam
 
