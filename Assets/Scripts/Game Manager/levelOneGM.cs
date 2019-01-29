@@ -6,7 +6,7 @@ public class levelOneGM : MonoBehaviour {
     [SerializeField]
     GameObject player;
     [SerializeField]
-    PlayerController pC;
+    Player.PlayerController pC;
 
 	// Use this for initialization
 	void Start () {

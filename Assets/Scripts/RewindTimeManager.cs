@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using Player.Input;
 using EnemyType;
 using EnemyType.Turrets;
 
@@ -115,7 +114,7 @@ public class RewindTimeManager : MonoBehaviour {
                 gameObject.GetComponent<bulletPillar>().canShoot = false;
 
         if (gameObject.tag == "Player")
-            gameObject.GetComponent<PlayerInputManager>().canShoot = false;
+            gameObject.GetComponent<Player.PlayerInputManager>().canShoot = false;
         
     }
 
@@ -138,7 +137,7 @@ public class RewindTimeManager : MonoBehaviour {
                 gameObject.GetComponent<bulletPillar>().canShoot = true;
 
         if (gameObject.tag == "Player")
-            gameObject.GetComponent<PlayerInputManager>().canShoot = true;
+            gameObject.GetComponent<Player.PlayerInputManager>().canShoot = true;
         
     }
 }

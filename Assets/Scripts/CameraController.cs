@@ -14,13 +14,13 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 roomSize; // Size of the current room
 
-    private PlayerController player;
+    private Player.PlayerController player;
 
 
     private void Awake()
     {
         target = GameObject.FindWithTag("Player").transform;
-        player = target.GetComponent<PlayerController>();
+        player = target.GetComponent<Player.PlayerController>();
         offset = transform.position - target.transform.position;
     }
 
