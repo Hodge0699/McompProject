@@ -6,10 +6,6 @@ namespace EnemyType
 {
     public class GunEnemy : AbstractEnemy
     {
-        // Used for rewind system
-        [System.NonSerialized]
-        public bool canShoot = true;
-
         private GunController gunController;
         private VisionCone pickUpVisionCone;
 
@@ -29,8 +25,7 @@ namespace EnemyType
                 {
                     transform.LookAt(visionCone.getClosestVisibleTarget().transform);
                     moveToPickup(true);
-                    if (canShoot) // Used for rewind system
-                        shoot();
+                    shoot();
                 }
                 else
                     moveToPickup();
@@ -42,8 +37,7 @@ namespace EnemyType
                 else
                     transform.LookAt(target.transform);
 
-                if (canShoot) // Used for rewind system
-                    shoot();
+                shoot();
             }
             else 
                 wander();

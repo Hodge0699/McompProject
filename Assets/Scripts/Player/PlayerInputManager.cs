@@ -9,6 +9,7 @@ namespace Player
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+<<<<<<< HEAD
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
@@ -16,6 +17,10 @@ namespace Player
         private PlayerController player;
         private new Rigidbody rigidbody;
         private GunController gun;
+=======
+        PlayerController player;
+        GunController gun;
+>>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 
         public KeyCode controlSchemeToggle = KeyCode.P;
 
@@ -175,11 +180,8 @@ namespace Player
             // Shooting
             if (UnityEngine.Input.GetKey(mouseShoot) || UnityEngine.Input.GetKey(controllerShoot))
             {
-                if (canShoot) // Used for rewind system
-                {
-                    gun.shoot();
-                    player.setFace(PlayerController.EMOTION.ANGRY);
-                }
+                gun.shoot();
+                player.setFace(PlayerController.EMOTION.ANGRY);
             }
             else
                 player.setFace(PlayerController.EMOTION.HAPPY);
