@@ -95,11 +95,8 @@ GameObject:
   - component: {fileID: 114779128417070500}
   - component: {fileID: 114327954224221082}
   - component: {fileID: 114503873376885194}
-<<<<<<< HEAD
   - component: {fileID: 114472080346373822}
   - component: {fileID: 114202657293538214}
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -399,7 +396,6 @@ MonoBehaviour:
   ignoreTags:
   - Enemy
   debugging: 0
-<<<<<<< HEAD
 --- !u!114 &114472080346373822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -411,8 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 --- !u!114 &114503873376885194
 MonoBehaviour:
   m_ObjectHideFlags: 1

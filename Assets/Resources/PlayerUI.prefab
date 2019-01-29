@@ -80,7 +80,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1164423831905256
-<<<<<<< HEAD
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,8 +97,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1174982512348006
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,11 +322,8 @@ GameObject:
   - component: {fileID: 114607270071639590}
   - component: {fileID: 114055623070772688}
   - component: {fileID: 114444856143738476}
-<<<<<<< HEAD
   - component: {fileID: 114858198008518720}
   - component: {fileID: 114670037958397210}
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -338,7 +332,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1392635577164034
-<<<<<<< HEAD
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -356,8 +349,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1398568419435336
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,7 +365,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!1 &1445229321070326
 GameObject:
   m_ObjectHideFlags: 1
@@ -393,9 +383,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1446080812445694
-=======
---- !u!1 &1398568419435336
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1030,11 +1017,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1332,11 +1319,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1896,11 +1883,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2177,7 +2164,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-<<<<<<< HEAD
 --- !u!114 &114717551718081236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2230,8 +2216,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 --- !u!114 &114801348124695296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2319,7 +2303,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Mouse Sensitivity
-<<<<<<< HEAD
 --- !u!114 &114858198008518720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2588,8 +2571,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 --- !u!114 &114925054980339498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2686,7 +2667,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446355537375084}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!222 &222169477445850524
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2694,8 +2674,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006756235005200}
   m_CullTransparentMesh: 0
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 --- !u!222 &222199668603483572
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2801,7 +2779,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026684996309476}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!222 &222811085841734946
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2809,8 +2786,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445229321070326}
   m_CullTransparentMesh: 0
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 --- !u!222 &222814083937577590
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2918,7 +2893,6 @@ RectTransform:
   m_SizeDelta: {x: 285.5, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224093721504210194
-<<<<<<< HEAD
 RectTransform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2937,8 +2911,6 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224143435080008352
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 RectTransform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3308,10 +3280,7 @@ RectTransform:
   - {fileID: 224583879476789968}
   - {fileID: 224615598711062584}
   - {fileID: 224689060817990242}
-<<<<<<< HEAD
   - {fileID: 224233508847855422}
-=======
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

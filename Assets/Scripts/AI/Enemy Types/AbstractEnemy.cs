@@ -8,14 +8,6 @@ namespace EnemyType
 {
     public class AbstractEnemy : MonoBehaviour
     {
-<<<<<<< HEAD
-=======
-        public int health = 100;
-        private int currentHealth;
-
-        private bool isAlive = true;
-
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
         public float movementSpeed = 3.0f;
 
         public Vector3 directionVector; // Direction vector to act on at end of frame
@@ -61,7 +53,7 @@ namespace EnemyType
         private void die()
         {
             myRoom.enemyKilled(this);
-
+            
             gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
             onDeath();

@@ -44,7 +44,6 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-<<<<<<< HEAD
 
         if (!ignoreTags.Contains(other.gameObject.tag))
         {
@@ -53,12 +52,6 @@ public class BulletController : MonoBehaviour {
             if (health != null)
                 health.hurt(damage);
         }
-=======
-        if (other.gameObject.tag == "Enemy" && !ignoreTags.Contains("Enemy"))
-            other.gameObject.GetComponent<EnemyType.AbstractEnemy>().hurt(damage, this.transform);
-        else if (other.gameObject.tag == "Player" && !ignoreTags.Contains("Player"))
-            other.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage);
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
 
         Destroy(gameObject);
     }

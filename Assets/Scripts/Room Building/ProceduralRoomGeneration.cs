@@ -13,17 +13,7 @@ namespace RoomBuilding
         [Range(0, 25)]
         public int enemyFrequency = 5; // Amount of enemies to be spawned per 1000 units squared
 
-<<<<<<< HEAD
         [Range(0,15)]
-=======
-        private RoomBuilder rb;
-        private EnemySpawner enemySpawner;
-
-        private PlayerController player;
-
-        private float minEnemyDistance = 7.5f; // How far away from the players must the enemies spawn.
-
->>>>>>> parent of ba59760... Merge branch 'master' into Jack-Branch
         public int rooms = 5; // Number of rooms player must progress through before boss room spawns.
         private int roomsBeat = 0;
 
@@ -122,7 +112,6 @@ namespace RoomBuilding
                 roomScr.dimensions.x = roomScr.dimensions.z;
                 roomScr.dimensions.z = temp;
             }
-
             return roomScr;
         }
 
@@ -192,7 +181,6 @@ namespace RoomBuilding
                 rb.setWallType(dir, RoomBuilder.wallType.DOOR);
             }
         }
-
         /// <summary>
         /// Spawns all enemies inside the room.
         /// </summary>
