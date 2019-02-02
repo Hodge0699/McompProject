@@ -6,12 +6,12 @@ namespace EnemyType
 {
     public class MeleeEnemy : AbstractEnemy
     {
-        public float attackCooldown = 3.0f;
+        public float attackCooldown = 1.0f;
         private float attackCooldownCounter = 0.0f;
 
-        public float attackRange = 1.0f;
+        public float attackRange = 2.0f;
 
-        public float attackDamage = 1.0f;
+        public float attackDamage = 10.0f;
 
         protected override void Awake()
         {
@@ -22,6 +22,7 @@ namespace EnemyType
 
         private void Update()
         {
+            Debug.Log(attackCooldownCounter);
             if (attackCooldownCounter >= 0.0f)
                 attackCooldownCounter -= Time.deltaTime;
 
