@@ -401,6 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTags:
   - Player
+  ignoreTags:
+  - Bullet
   viewDistance: 20
   FOV: 132
   ignoreVisibilityValue: 1
