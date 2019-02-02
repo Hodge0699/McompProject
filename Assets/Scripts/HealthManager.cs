@@ -12,6 +12,7 @@ public class HealthManager : MonoBehaviour
 
     public bool debugging = false;
 
+
     private void Awake()
     {
         currentHealth = startingHealth;
