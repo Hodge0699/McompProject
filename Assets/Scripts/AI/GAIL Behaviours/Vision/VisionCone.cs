@@ -291,7 +291,7 @@ public class VisionCone : MonoBehaviour
 
         // Remove destroyed
         for (int i = nullIndices.Count - 1; i >= 0; i--)
-            nearbyTargets.RemoveAt(i);
+            nearbyTargets.RemoveAt(nullIndices[i]);
 
         nullIndices.Clear();
 
@@ -302,6 +302,6 @@ public class VisionCone : MonoBehaviour
         }
 
         for (int i = nullIndices.Count - 1; i >= 0; i--)
-            visibleTargets.RemoveAt(i);
+            visibleTargets.RemoveAt(nullIndices[i]);
     }
 }
