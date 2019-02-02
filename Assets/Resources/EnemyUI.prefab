@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 223259829636116140}
   - component: {fileID: 114781981691886084}
   - component: {fileID: 114106844701292174}
+  - component: {fileID: 114402745381259806}
   m_Layer: 5
   m_Name: EnemyUI
   m_TagString: Untagged
@@ -106,6 +107,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114402745381259806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096444385756452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a3a64a6a01b3140aa409565f39fd35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114549894905546742
 MonoBehaviour:
   m_ObjectHideFlags: 1
