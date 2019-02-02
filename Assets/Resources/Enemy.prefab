@@ -417,6 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTags:
   - Pick Up
+  ignoreTags: []
   viewDistance: 20
   FOV: 225
   ignoreVisibilityValue: 1
@@ -562,6 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTags:
   - Player
+  ignoreTags:
+  - Bullet
   viewDistance: 20
   FOV: 100
   ignoreVisibilityValue: 1
@@ -605,6 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  godmode: 0
   debugging: 0
   healthBar: {fileID: 114748638028866890}
 --- !u!114 &114803216485001240
