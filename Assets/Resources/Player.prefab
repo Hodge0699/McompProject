@@ -579,12 +579,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69905d179f56f9a4cb02903bccc8cb60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCamera: {fileID: 1246727744310432, guid: 03ce7df34882c254f8da8ae8ea42ec76, type: 2}
   moveSpeed: 6
-  movement: {x: 0, y: 0, z: 0}
   debugging: 0
   useController: 0
-  allowPlayerControl: 1
 --- !u!114 &114483397632992554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -623,6 +620,7 @@ MonoBehaviour:
   controlSchemeToggle: 112
   mouseShoot: 323
   controllerShoot: 354
+  allowInput: 1
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,10 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  currentHealth: 0
-  healthSlider: {fileID: 0}
-  damageImage: {fileID: 0}
+  debugging: 0
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   deathScene: {fileID: 0}
-  debugging: 0
