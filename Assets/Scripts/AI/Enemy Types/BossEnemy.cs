@@ -67,15 +67,11 @@ namespace EnemyType
         {
             targetPosition = target.transform.position;
             targetVelocity = target.GetComponent<Rigidbody>().velocity;
-            Vector3 interceptPoint = FirstOrderIntercept
-            (
-                shooterPosition,
+            transform.LookAt(FirstOrderIntercept(shooterPosition,
                 shooterVelocity,
                 shotSpeed,
                 targetPosition,
-                targetVelocity
-            );
-            transform.LookAt(interceptPoint);
+                targetVelocity));
             gunController.shoot();
         }
 
@@ -97,19 +93,37 @@ namespace EnemyType
             return this.myRoom;
         }
 
+        /// <summary>
+        /// gets the sqrMagnitude of an object
+        /// </summary>
+        /// <param name="v3"></param>
+        /// <returns></returns>
         static float sqrMagnitude(Vector3 v3)
         {
             float temp = (float)(Math.Pow(v3.x, 2) + Math.Pow(v3.y,2) + Math.Pow(v3.z,2));
             return temp;
         }
-
+        /// <summary>
+        /// gets the Magnitude of an object
+        /// </summary>
+        /// <param name="v3"></param>
+        /// <returns></returns>
         static float magnitude(Vector3 v3)
         {
             float temp = (float)Math.Sqrt(Math.Pow(v3.x, 2) + Math.Pow(v3.y, 2) + Math.Pow(v3.z, 2));
             return temp;
         }
 
-        //first-order intercept using absolute target position
+
+        /// <summary>
+        /// calculates the relative velocity of the object to adjust for predictive shooting
+        /// </summary>
+        /// <param name="shooterPosition"></param>
+        /// <param name="shooterVelocity"></param>
+        /// <param name="shotSpeed"></param>
+        /// <param name="targetPosition"></param>
+        /// <param name="targetVelocity"></param>
+        /// <returns></returns>
         public static Vector3 FirstOrderIntercept
         (
             Vector3 shooterPosition,
@@ -121,15 +135,26 @@ namespace EnemyType
             shooterPosition = shooterPosition * speed * Time.deltaTime;
             Vector3 targetRelativePosition = targetPosition - shooterPosition;
             Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
-            float t = FirstOrderInterceptTime
-            (
-                shotSpeed,
-                targetRelativePosition,
-                targetRelativeVelocity
-            );
-            return targetPosition + t * (targetRelativeVelocity);
+            //float t = FirstOrderInterceptTime
+            //(
+            //    shotSpeed,
+            //    targetRelativePosition,           // not needed as there is no bullet drop in the game
+            //    targetRelativeVelocity
+            //);
+            const float predictionTime = 10; // One second prediction, you need to experiment.
+
+            return targetPosition + predictionTime * (targetRelativeVelocity);
+            //return turnToTarget + t * (targetRelativeVelocity); // applying bullet drop to the calculations
         }
-        //first-order intercept using relative target position
+
+
+        /// <summary>
+        /// Calculates the trajectory to the target if the bullet had a drop applied. 
+        /// </summary>
+        /// <param name="shotSpeed"></param>
+        /// <param name="targetRelativePosition"></param>
+        /// <param name="targetRelativeVelocity"></param>
+        /// <returns></returns>
         public static float FirstOrderInterceptTime
         (
             float shotSpeed,
