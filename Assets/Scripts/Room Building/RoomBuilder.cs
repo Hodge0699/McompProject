@@ -144,7 +144,6 @@ namespace RoomBuilding
             walls.name = "Walls";
             walls.transform.parent = parent;
             walls.transform.localPosition = Vector3.zero;
-
             // West
             if (westWall == wallType.SOLID)
                 instantiateCube("Left Wall", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 270);

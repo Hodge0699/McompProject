@@ -36,6 +36,12 @@ namespace Player
         private enum ControlMethod { KBM, CONTROLLER };
         private ControlMethod control = ControlMethod.KBM;
 
+        private Vector3 lastMoveDir;
+
+        [Header("Dash Distance")]
+        [SerializeField]
+        float dashDistance = 30f;
+
         // Use this for initialization
         void Start()
         {
@@ -57,6 +63,10 @@ namespace Player
             move();
             turn(control);
             actions();
+        }
+        private void FixedUpdate()
+        {
+            dash();
         }
 
         /// <summary>
@@ -88,6 +98,7 @@ namespace Player
             Vector3 movement = directionVector.normalized * player.moveSpeed * Time.deltaTime;
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.velocity = movement;
+            lastMoveDir = movement;
 
             if (!allowInput)
             {
@@ -213,6 +224,58 @@ namespace Player
             mousePos = newPos;
 
             return moved;
+        }
+
+        private bool CanMove(Vector3 dir, float distance)
+        {
+            RaycastHit hitInfo = new RaycastHit();
+            Physics.Raycast(transform.position, dir, out hitInfo, distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            if (hitInfo.collider.gameObject.tag == "Enemy")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool TryDash(Vector3 baseMoveDir, float distance)
+        {
+            //Vector3 moveDir = baseMoveDir;
+            //bool canMove = CanMove(moveDir, distance);
+            //if(!canMove)
+            //{
+            //    // can't move diagonally
+            //    moveDir = new Vector3(baseMoveDir.x, 0f).normalized;
+            //    canMove = moveDir.x != 0f && CanMove(moveDir, distance);
+            //    if(!canMove)
+            //    {
+            //        // can't move horizontally
+            //        moveDir = new Vector3(0f, baseMoveDir.y).normalized;
+            //        canMove = moveDir.y != 0f && CanMove(moveDir, distance);
+            //    }
+            //}
+
+            //if(canMove)
+            //{
+            //    lastMoveDir = moveDir;
+            //    transform.position += moveDir * distance;
+            //    return true;
+            //} else
+            //{
+            //    return false;
+            //}
+            return false;
+
+        }
+        private void dash()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (CanMove(lastMoveDir, dashDistance))
+                    transform.position += lastMoveDir * dashDistance;
+            }
         }
     }
 }

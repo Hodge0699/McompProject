@@ -621,6 +621,7 @@ MonoBehaviour:
   mouseShoot: 323
   controllerShoot: 354
   allowInput: 1
+  dashDistance: 30
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,6 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  godmode: 0
   debugging: 0
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
