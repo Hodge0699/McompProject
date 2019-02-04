@@ -7,7 +7,7 @@ public class HealthManager : MonoBehaviour
     public float startingHealth;
     protected float currentHealth;
 
-    public bool godmode = false;
+    protected bool godmode = false;
     private float godmodeTimer = 0.0f;
 
     public bool debugging = false;
