@@ -9,10 +9,12 @@ public class BossTeleportM : MonoBehaviour {
     private List<GameObject> teleportLocations = new List<GameObject>(); // list of teleport locations 
     private BossEnemy bEnemy;
     private HealthManager bHealth;
+    [Header("Boss Teleporting Mechanic method")]
     [SerializeField]
     private bool furthestTeleport = false;
     [SerializeField]
     private bool randTeleport = false; // bool for user to decide if they want the boss to randomly teleport among the list of teleport locations
+    [Header("Teleport health value")]
     [SerializeField]
     private int teleportHealth; // health you want the boss to teleport after
     private bool teleport = true;
@@ -44,10 +46,8 @@ public class BossTeleportM : MonoBehaviour {
     /// </summary>
     private void randomTeleport()
     {
-        Debug.Log("Getting inside randomTeleport function");
         if (bHealth.getHealth() < teleportHealth)
         {
-            Debug.Log("I'm getting inside here");
             if (teleport == true)
             {
                 int i = Random.Range(0, teleportLocations.Capacity);
