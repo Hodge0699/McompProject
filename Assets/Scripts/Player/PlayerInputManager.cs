@@ -16,6 +16,7 @@ namespace Player
         private PlayerController player;
         private new Rigidbody rigidbody;
         private GunController gun;
+        public TimeStop TS;
 
         public KeyCode controlSchemeToggle = KeyCode.P;
 
@@ -49,6 +50,8 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            
+            
             control = getControlMethod();
 
             if (debugging)
