@@ -23,30 +23,17 @@ namespace EnemyType
 
         private void Update()
         {
-            if (pickUpVisionCone.hasVisibleTargets()) // Can see pickup
-            {
-                if (visionCone.hasVisibleTargets()) // Can also see player
-                {
-                    transform.LookAt(visionCone.getClosestVisibleTarget().transform);
-                    moveToPickup(true);
-                    if (canShoot) // Used for rewind system
-                        shoot();
-                }
-                else
-                    moveToPickup();
-            }
-            else if (target != null) // Can see player
-            {
-                if (getDistanceToTarget() >= 5.0f)
-                    chase();
-                else
-                    transform.LookAt(target.transform);
+            
 
-                if (canShoot) // Used for rewind system
-                    shoot();
-            }
-            else 
+            if (pickUpVisionCone.hasVisibleTargets())
+                moveToPickup();
+            else if (target != null && getDistanceToTarget() >= 5.0f)
+                chase();
+            else
                 wander();
+
+            if (target != null && canShoot)
+                shoot();
         }
 
         private void shoot()
@@ -57,19 +44,23 @@ namespace EnemyType
         /// <summary>
         /// Moves the agent to a pickup if there is one visible.
         /// </summary>
-        /// <param name="strafe">Set as true if rotation is handled elsewhere.</param>
-        private void moveToPickup(bool strafe = false)
+        private void moveToPickup()
         {
-            GameObject target = pickUpVisionCone.getClosestVisibleTarget();
+            Vector3 pickupLocation;
 
-            if (target == null)
+            if (pickUpVisionCone.hasVisibleTargets())
+                pickupLocation = pickUpVisionCone.getClosestVisibleTarget().transform.position;
+            else
                 return;
 
-            if (strafe)
-                directionVector = (target.transform.position - transform.position).normalized;
-            else
+            if (target != null)
             {
                 transform.LookAt(target.transform);
+                directionVector = (pickupLocation - transform.position).normalized;
+            }
+            else
+            {
+                transform.LookAt(pickupLocation);
                 directionVector = transform.forward;
             }
         }
