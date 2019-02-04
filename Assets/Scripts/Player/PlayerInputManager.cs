@@ -229,8 +229,9 @@ namespace Player
         private bool CanMove(Vector3 dir, float distance)
         {
             RaycastHit hitInfo = new RaycastHit();
-            Physics.Raycast(transform.position, dir, out hitInfo, distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-            if (hitInfo.collider.gameObject.tag == "Enemy")
+            Physics.Raycast(transform.position, dir, out hitInfo, 10f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            GameObject Gobject = hitInfo.collider.gameObject;
+            if (Gobject.tag == "Untagged" && hitInfo.distance >= distance)
             {
                 return false;
             }
@@ -242,39 +243,40 @@ namespace Player
 
         private bool TryDash(Vector3 baseMoveDir, float distance)
         {
-            //Vector3 moveDir = baseMoveDir;
-            //bool canMove = CanMove(moveDir, distance);
-            //if(!canMove)
-            //{
-            //    // can't move diagonally
-            //    moveDir = new Vector3(baseMoveDir.x, 0f).normalized;
-            //    canMove = moveDir.x != 0f && CanMove(moveDir, distance);
-            //    if(!canMove)
-            //    {
-            //        // can't move horizontally
-            //        moveDir = new Vector3(0f, baseMoveDir.y).normalized;
-            //        canMove = moveDir.y != 0f && CanMove(moveDir, distance);
-            //    }
-            //}
+            Vector3 moveDir = baseMoveDir;
+            bool canMove = CanMove(moveDir, distance);
+            if (!canMove)
+            {
+                // can't move diagonally
+                moveDir = new Vector3(baseMoveDir.x, 0f).normalized;
+                canMove = moveDir.x != 0f && CanMove(moveDir, distance);
+                if (!canMove)
+                {
+                    // can't move horizontally
+                    moveDir = new Vector3(0f, baseMoveDir.y).normalized;
+                    canMove = moveDir.y != 0f && CanMove(moveDir, distance);
+                }
+            }
 
-            //if(canMove)
-            //{
-            //    lastMoveDir = moveDir;
-            //    transform.position += moveDir * distance;
-            //    return true;
-            //} else
-            //{
-            //    return false;
-            //}
-            return false;
+            if (canMove)
+            {
+                lastMoveDir = moveDir;
+                transform.position += moveDir * distance;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
         private void dash()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (CanMove(lastMoveDir, dashDistance))
-                    transform.position += lastMoveDir * dashDistance;
+                TryDash(lastMoveDir, dashDistance);
+                //if (CanMove(lastMoveDir, dashDistance))
+                //    transform.position += lastMoveDir * dashDistance;
             }
         }
     }
