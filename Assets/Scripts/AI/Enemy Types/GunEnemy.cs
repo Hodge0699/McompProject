@@ -13,15 +13,11 @@ namespace EnemyType
         private GunController gunController;
         private VisionCone pickUpVisionCone;
 
-        private bool usePredictiveAiming = false; // Barebones lightweight predictive shooting (not ready)
+        private bool usePredictiveAiming = false; // Lightweight predictive shooting
                                                   //
                                                   // To do:
-                                                  // - Fix tracking issue when player sharp turns at close range (enemy predicts movement 
-                                                  //   correctly but looking at it puts player out of FOV).
                                                   // - Fix issue where bullets fall behind player when moving in straight line far away.
                                                   // - Artificial stupidity.
-                                                  // - Smooth aiming when player is using KB+M (player's direction vector changing from 
-                                                  //   (1,0,0) to (-1,0,0) produces big jump in aiming, potentially cap turn speed?).
 
         protected override void Awake()
         {
@@ -38,18 +34,13 @@ namespace EnemyType
             else if (target != null)
             {
                 if (getDistanceToTarget() >= 5.0f)
-                {
-                    if (usePredictiveAiming)
-                        chaseP();
-                    else
-                        chase();
-                }
+                    chase();
                 else
                 {
                     if (usePredictiveAiming)
                         predictiveAim();
                     else
-                        transform.LookAt(target.transform);
+                        turnTo(target);
                 }
             }
             else
@@ -81,12 +72,31 @@ namespace EnemyType
                 if (usePredictiveAiming)
                     predictiveAim();
                 else
-                    transform.LookAt(target.transform);
+                    turnTo(target);
                 directionVector = (pickupLocation - transform.position).normalized;
             }
             else
             {
-                transform.LookAt(pickupLocation);
+                turnTo(pickupLocation);
+                directionVector = transform.forward;
+            }
+        }
+
+        /// <summary>
+        /// Chases the target with predictive aiming
+        /// </summary>
+        protected override void chase()
+        {
+            if (target == null)
+                return;
+
+            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
+            {
+                if (usePredictiveAiming)
+                    predictiveAim();
+                else
+                    turnTo(target);
+
                 directionVector = transform.forward;
             }
         }
@@ -108,32 +118,7 @@ namespace EnemyType
             float targetSpeed = target.GetComponent<Player.PlayerController>().moveSpeed;
             targetPos += targetDir * targetSpeed * secondsToImpact;
 
-            transform.LookAt(targetPos);
-
-            bool debugging = false;
-            if (debugging)
-            {
-                Debug.Log(targetPos - target.transform.position);
-                Debug.DrawLine(transform.position, targetPos);
-                Debug.DrawLine(target.transform.position, targetPos);
-            }
-        }
-
-        /// <summary>
-        /// Chases the target if there is one
-        /// 
-        /// TEMPORARY (ugly)
-        /// </summary>
-        protected void chaseP()
-        {
-            if (target == null)
-                return;
-
-            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
-            {
-                predictiveAim();
-                directionVector = transform.forward;
-            }
+            turnTo(targetPos);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Player
         public float moveSpeed;
 
         public bool debugging = false;
-        public bool useController;
 
         private GameObject myCamera = null;
         private Vector3 cameraOffset = new Vector3(0f, 7f, -10f);

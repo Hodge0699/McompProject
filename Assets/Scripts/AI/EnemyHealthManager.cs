@@ -25,7 +25,12 @@ public class EnemyHealthManager : HealthManager {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             if (player != null)
-                transform.LookAt(player.transform);
+            {
+                Vector3 targetPos = player.transform.position;
+                targetPos.y = this.transform.position.y;
+
+                transform.LookAt(targetPos);
+            }
         }
     }
 

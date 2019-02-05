@@ -19,6 +19,8 @@ namespace RoomBuilding
 
         public GameObject bossRoom; // Room prefab to spawn after player beats sufficient rooms.
 
+        public bool spawnPlayer = true; // Should the player be generated (false if test player used).
+
         private RoomBuilder rb;
         private EnemySpawner enemySpawner;
 
@@ -30,11 +32,16 @@ namespace RoomBuilding
             rb = GetComponent<RoomBuilder>();
             enemySpawner = GetComponent<EnemySpawner>();
 
-            // Liam - Spawn player at start of scene when first room is generated
-            GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
-            playerObj.transform.position = Vector3.zero; // Liam
+            if (spawnPlayer)
+            {
+                // Liam - Spawn player at start of scene when first room is generated
+                GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject; // Liam
+                playerObj.transform.position = Vector3.zero; // Liam
 
-            player = playerObj.GetComponent<Player.PlayerController>();
+                player = playerObj.GetComponent<Player.PlayerController>();
+            }
+            else
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerController>();
 
             // Create initial room
             Room startRoom = createRoom(null, null);
