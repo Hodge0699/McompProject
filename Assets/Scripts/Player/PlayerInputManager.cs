@@ -226,57 +226,40 @@ namespace Player
             return moved;
         }
 
-        private bool CanMove(Vector3 dir, float distance)
+        /// <summary>
+        /// Checks to see if the player can dash forward without hitting an object
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        private void CanMove(Vector3 dir, float distance)
         {
             RaycastHit hitInfo = new RaycastHit();
-            Physics.Raycast(transform.position, dir, out hitInfo, 10f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            Physics.Raycast(transform.position, dir, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
             GameObject Gobject = hitInfo.collider.gameObject;
-            if (Gobject.tag == "Untagged" && hitInfo.distance >= distance)
+            if (Gobject.tag == "Untagged" && hitInfo.distance <= 1)
             {
-                return false;
+
+            }
+            else if (Gobject.tag == "Untagged" && hitInfo.distance <= 4.0f)
+            {
+                transform.position += dir * (distance - hitInfo.distance) /2;
             }
             else
             {
-                return true;
+                Debug.Log("Can dash");
+                transform.position += dir * distance;
             }
         }
 
-        private bool TryDash(Vector3 baseMoveDir, float distance)
-        {
-            Vector3 moveDir = baseMoveDir;
-            bool canMove = CanMove(moveDir, distance);
-            if (!canMove)
-            {
-                // can't move diagonally
-                moveDir = new Vector3(baseMoveDir.x, 0f).normalized;
-                canMove = moveDir.x != 0f && CanMove(moveDir, distance);
-                if (!canMove)
-                {
-                    // can't move horizontally
-                    moveDir = new Vector3(0f, baseMoveDir.y).normalized;
-                    canMove = moveDir.y != 0f && CanMove(moveDir, distance);
-                }
-            }
-
-            if (canMove)
-            {
-                lastMoveDir = moveDir;
-                transform.position += moveDir * distance;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
+        /// <summary>
+        /// Checks to see if user tries to dash
+        /// </summary>
         private void dash()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                TryDash(lastMoveDir, dashDistance);
-                //if (CanMove(lastMoveDir, dashDistance))
-                //    transform.position += lastMoveDir * dashDistance;
+                CanMove(lastMoveDir, dashDistance);
             }
         }
     }
