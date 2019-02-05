@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class SlowTimeManager : MonoBehaviour
 {
-
     [SerializeField]
     bool isSlowMotion = false;
 
     public float slowDownFactor = 0.05f;
     private float normTimeFactor = 1.0f;
 
-    //public float slowDownLength = 2f;
+    private Player.PlayerInputManager playerInput;
 
     void Start()
     {
         Scene scene = SceneManager.GetActiveScene();
+        playerInput = GetComponent<Player.PlayerInputManager>();
+
         if (scene.name == "LevelOne")
             gameObject.GetComponent<SlowTimeManager>().enabled = true;
         else
@@ -26,12 +27,13 @@ public class SlowTimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.enabled) {
-            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
-                StartSlowMotion();
-            else
-                StopSlowMotion();
-        }
+        if (playerInput.isPaused())
+            return;
+
+        if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
+            StartSlowMotion();
+        else
+            StopSlowMotion();
     }
 
     void StartSlowMotion()

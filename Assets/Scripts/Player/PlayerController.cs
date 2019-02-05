@@ -9,7 +9,6 @@ namespace Player
         public float moveSpeed;
 
         public bool debugging = false;
-        public bool useController;
 
         private GameObject myCamera = null;
         private Vector3 cameraOffset = new Vector3(0f, 7f, -10f);
@@ -20,14 +19,16 @@ namespace Player
         private GameObject smile;
         private GameObject angry;
 
+        private GameObject UI;
+
         private void Awake()
         {
             myCamera = Instantiate(Resources.Load("Main Camera"), transform.position + cameraOffset, Quaternion.Euler(33, 0, 0)) as GameObject;
             myCamera.GetComponent<Camera>().nearClipPlane = -2.5f; // Let objects penetrate camera by 2.5 units before culling (stops visible wall cull)
 
-            GameObject playerUI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
+            UI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
 
-            GetComponent<PlayerHealthManager>().init(playerUI);
+            GetComponent<PlayerHealthManager>().init(UI);
 
             smile = transform.Find("SmileFace").gameObject;
             angry = transform.Find("AngryFace").gameObject;
@@ -58,6 +59,15 @@ namespace Player
         {
             smile.SetActive(e == EMOTION.HAPPY);
             angry.SetActive(e == EMOTION.ANGRY);
+        }
+
+        /// <summary>
+        /// Returns PlayerUI so scene doesn't have to be searched.
+        /// </summary>
+        /// <returns></returns>
+        public GameObject getUI()
+        {
+            return UI;
         }
     }
 }

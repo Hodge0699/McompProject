@@ -13,6 +13,12 @@ namespace EnemyType
         private GunController gunController;
         private VisionCone pickUpVisionCone;
 
+        private bool usePredictiveAiming = false; // Lightweight predictive shooting
+                                                  //
+                                                  // To do:
+                                                  // - Fix issue where bullets fall behind player when moving in straight line far away.
+                                                  // - Artificial stupidity.
+
         protected override void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
@@ -23,30 +29,25 @@ namespace EnemyType
 
         private void Update()
         {
-            if (pickUpVisionCone.hasVisibleTargets()) // Can see pickup
-            {
-                if (visionCone.hasVisibleTargets()) // Can also see player
-                {
-                    transform.LookAt(visionCone.getClosestVisibleTarget().transform);
-                    moveToPickup(true);
-                    if (canShoot) // Used for rewind system
-                        shoot();
-                }
-                else
-                    moveToPickup();
-            }
-            else if (target != null) // Can see player
+            if (pickUpVisionCone.hasVisibleTargets())
+                moveToPickup();
+            else if (target != null)
             {
                 if (getDistanceToTarget() >= 5.0f)
                     chase();
                 else
-                    transform.LookAt(target.transform);
-
-                if (canShoot) // Used for rewind system
-                    shoot();
+                {
+                    if (usePredictiveAiming)
+                        predictiveAim();
+                    else
+                        turnTo(target);
+                }
             }
-            else 
+            else
                 wander();
+
+            if (target != null && canShoot)
+                shoot();
         }
 
         private void shoot()
@@ -57,21 +58,67 @@ namespace EnemyType
         /// <summary>
         /// Moves the agent to a pickup if there is one visible.
         /// </summary>
-        /// <param name="strafe">Set as true if rotation is handled elsewhere.</param>
-        private void moveToPickup(bool strafe = false)
+        private void moveToPickup()
         {
-            GameObject target = pickUpVisionCone.getClosestVisibleTarget();
+            Vector3 pickupLocation;
 
+            if (pickUpVisionCone.hasVisibleTargets())
+                pickupLocation = pickUpVisionCone.getClosestVisibleTarget().transform.position;
+            else
+                return;
+
+            if (target != null)
+            {
+                if (usePredictiveAiming)
+                    predictiveAim();
+                else
+                    turnTo(target);
+                directionVector = (pickupLocation - transform.position).normalized;
+            }
+            else
+            {
+                turnTo(pickupLocation);
+                directionVector = transform.forward;
+            }
+        }
+
+        /// <summary>
+        /// Chases the target with predictive aiming
+        /// </summary>
+        protected override void chase()
+        {
             if (target == null)
                 return;
 
-            if (strafe)
-                directionVector = (target.transform.position - transform.position).normalized;
-            else
+            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
-                transform.LookAt(target.transform);
+                if (usePredictiveAiming)
+                    predictiveAim();
+                else
+                    turnTo(target);
+
                 directionVector = transform.forward;
             }
+        }
+
+        /// <summary>
+        /// Aims at the player taking into consideration distance, 
+        /// player velocity and bot velocity.
+        /// </summary>
+        private void predictiveAim()
+        {
+            if (target == null)
+                return;
+
+            float bulletSpeed = 10.0f;
+            float secondsToImpact = ((target.transform.position - transform.position).magnitude) / bulletSpeed;
+
+            Vector3 targetPos = target.transform.position;
+            Vector3 targetDir = target.GetComponent<Player.PlayerInputManager>().getDirectionVector();
+            float targetSpeed = target.GetComponent<Player.PlayerController>().moveSpeed;
+            targetPos += targetDir * targetSpeed * secondsToImpact;
+
+            turnTo(targetPos);
         }
     }
 }

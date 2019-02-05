@@ -9,25 +9,33 @@ namespace Player
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+        public bool testInput = false; // Used to figure out keycodes without looking them up,
+                                       // should be true only when discovering buttons to map.
+
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
+
+
+
+        [Header("Keyboard + Mouse Controls")]
+        public KeyCode kbmShoot = KeyCode.Mouse0;
+        public KeyCode kbmPause = KeyCode.Escape;
+
+        [Header("Joystick Controls")]
+        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
+        public KeyCode controllerPause = KeyCode.Joystick1Button7;
+
+        private Plane mousePlane; // Plane to track the mouse position on screen.
+        private Vector2 mousePos;
 
         private PlayerController player;
         private new Rigidbody rigidbody;
         private GunController gun;
 
-        public KeyCode controlSchemeToggle = KeyCode.P;
-
-        public KeyCode mouseShoot = KeyCode.Mouse0;
-        public KeyCode controllerShoot = KeyCode.Joystick1Button4;
-
-        private Plane mousePlane; // Plane to track the mouse position on screen.
-        private Vector2 mousePos;
-
         private bool debugging = false;
 
-        public bool allowInput = true;
+        private bool allowInput = true;
         private float forceMoveDistanceCounter = 0.0f;
         private float forceMoveDistanceTarget = 0.0f;
 
@@ -36,11 +44,14 @@ namespace Player
         private enum ControlMethod { KBM, CONTROLLER };
         private ControlMethod control = ControlMethod.KBM;
 
+        private bool paused = false; // Is player input halted?
+
         private Vector3 lastMoveDir;
 
         [Header("Dash Distance")]
         [SerializeField]
         float dashDistance = 30f;
+
 
         // Use this for initialization
         void Start()
@@ -55,6 +66,15 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            if (testInput)
+                printKeys();
+
+
+            handlePauseToggle();
+
+            if (paused)
+                return;
+
             control = getControlMethod();
 
             if (debugging)
@@ -113,8 +133,6 @@ namespace Player
                     GetComponent<PlayerHealthManager>().setGodmode(true, 1.5f);
                 }
             }
-            else
-                directionVector = Vector3.zero;
         }
 
         /// <summary>
@@ -184,7 +202,7 @@ namespace Player
         private void actions()
         {
             // Shooting
-            if (UnityEngine.Input.GetKey(mouseShoot) || UnityEngine.Input.GetKey(controllerShoot))
+            if (UnityEngine.Input.GetKey(kbmShoot) || UnityEngine.Input.GetKey(controllerShoot))
             {
                 if (canShoot) // Used for rewind system
                 {
@@ -194,6 +212,35 @@ namespace Player
             }
             else
                 player.setFace(PlayerController.EMOTION.HAPPY);
+        }
+
+        /// <summary>
+        /// Used only to pause/unpause the game. 
+        /// 
+        /// Allows input checking even when game is paused.
+        /// </summary>
+        private void handlePauseToggle()
+        {
+            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+                pause();
+        }
+
+        /// <summary>
+        /// Pauses/unpauses player input
+        /// </summary>
+        /// <param name="pause">True to pause, False to unpause.</param>
+        public void pause(bool pause = true)
+        {
+            paused = !paused;
+            player.getUI().GetComponentInChildren<PauseMenu>().Pause(paused);
+        }
+
+        /// <summary>
+        /// Returns true if player is paused.
+        /// </summary>
+        public bool isPaused()
+        {
+            return paused;
         }
 
         /// <summary>
@@ -260,6 +307,30 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 CanMove(lastMoveDir, dashDistance);
+            }
+        }
+
+        /// Returns the direction vector of the player
+        /// </summary>
+        public Vector3 getDirectionVector()
+        {
+            return directionVector;
+        }
+
+        /// <summary>
+        /// Prints a statement for each key currently pressed.
+        /// 
+        /// Used to figure out keycodes without looking them up.
+        /// 
+        /// Very slow, should only be called when discovering new
+        /// buttons to map.
+        /// </summary>
+        private void printKeys()
+        {
+            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(key))
+                    Debug.Log(key);
             }
         }
     }
