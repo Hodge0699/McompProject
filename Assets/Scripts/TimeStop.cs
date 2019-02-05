@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class TimeStop : MonoBehaviour
@@ -7,41 +8,26 @@ public class TimeStop : MonoBehaviour
 
     [SerializeField]
 
-    bool pausetime = false;
 
-    public float PauseTime = 0.0f;
-    private float NonPausedTime = 1.0f;
-    
-     void Start()
+    //uncomment onces levelThree has been created
+
+    //void Start()
+    //{
+    //    Scene scene = SceneManager.GetActiveScene();
+    //    if (scene.name == "LevelThree")
+    //        gameObject.GetComponent<TimeStop>().enabled = true;
+    //    else
+    //        gameObject.GetComponent<TimeStop>().enabled = false;
+    //}
+
+    void Update()
     {
-       
-    }
-
-
-    public void Update()
-    {
-       if(Input.GetKeyDown("space"))
+        if(Input.GetKeyDown("space"))
         {
-       
-            StartPaused(); 
+            if (Time.timeScale == 1.0)
+                Time.timeScale = 0.0f;
+            else
+                Time.timeScale = 1.0f;
         }
-       else
-        if(Input.GetKeyUp("space"))
-        {
-            EndPaused();
-        }
-    }
-
-
-    void EndPaused()
-    {
-        Time.timeScale = NonPausedTime;
-    }
-    void StartPaused()
-    {
-        
-        pausetime = true;
-        Time.timeScale = PauseTime;
-        
     }
 }

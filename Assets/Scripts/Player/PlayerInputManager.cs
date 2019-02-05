@@ -87,8 +87,8 @@ namespace Player
         {
             if (allowInput)
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
-
-            Vector3 movement = directionVector.normalized * player.moveSpeed * Time.deltaTime;
+            // changed from delta time to unscaledDeltaTime for pause time ability 
+            Vector3 movement = directionVector.normalized * player.moveSpeed * Time.unscaledDeltaTime; 
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.velocity = movement;
 
