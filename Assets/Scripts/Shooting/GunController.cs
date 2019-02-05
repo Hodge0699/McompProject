@@ -11,8 +11,9 @@ public class GunController : MonoBehaviour {
 
     public Transform firePoint;
 
-
     public List<string> ignoreTags = new List<string>();
+
+    public bool autoSwitchOnEmpty = true; // Automatically switch weapon when empty?
 
     public bool debugging = false;
 
@@ -55,13 +56,16 @@ public class GunController : MonoBehaviour {
         }
 
         bullet.transform.parent = bulletContainer.transform;
+
+        if (currentGun.getCurrentAmmo() <= 0)
+            setGun(typeof(Handgun));
     }
 
     /// <summary>
     /// Sets the current left-click gun.
     /// </summary>
     /// <param name="gun">The type of gun to use.</param>
-    public void setGun(System.Type gun)
+    public void setGun(System.Type gun, bool infiniteAmmo = false)
     {
         int index = getIndex(gun);
 
@@ -70,8 +74,26 @@ public class GunController : MonoBehaviour {
         else
             currentGun = guns[index];
 
+        if (infiniteAmmo)
+            currentGun.giveInfiniteAmmo();
+
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
+    }
+
+    /// <summary>
+    /// Switches to the best weapon available with ammo
+    /// </summary>
+    public void switchToBest()
+    {
+        for (int i = guns.Count - 1; i > 0; i--)
+        {
+            if (guns[i].getCurrentAmmo() > 0)
+            {
+                setGun(guns[i].GetType());
+                return;
+            }
+        }
     }
 
     /// <summary>

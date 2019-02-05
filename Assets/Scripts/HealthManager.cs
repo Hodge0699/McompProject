@@ -46,6 +46,10 @@ public class HealthManager : MonoBehaviour
     /// <param name="duration">Seconds invincibility will last for</param>
     public void setGodmode(bool godmode = true, float duration = 0)
     {
+        // Don't set a timed godmode if unlimited is already on
+        if (this.godmode == godmode && godmodeTimer <= 0.0f)
+            return;
+
         this.godmode = godmode;
 
         godmodeTimer = duration;

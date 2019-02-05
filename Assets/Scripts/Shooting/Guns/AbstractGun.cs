@@ -33,7 +33,7 @@ namespace Weapon.Gun
             this.fireRate = fireRate;
             this.timeEffected = timeEffected;
 
-            giveUnlimitedAmmo();
+            giveInfiniteAmmo();
         }
 
         /// <summary>
@@ -152,10 +152,10 @@ namespace Weapon.Gun
         }
 
         /// <summary>
-        /// Gives the gun unlimited ammo
+        /// Gives the gun infinite ammo
         /// </summary>
-        /// <param name="duration">Seconds to have unlimited ammo for (leave blank or 0 for infinite).</param>
-        public void giveUnlimitedAmmo(float duration = 0.0f)
+        /// <param name="duration">Seconds to have infinite ammo for (leave blank or 0 for infinite).</param>
+        public void giveInfiniteAmmo(float duration = 0.0f)
         {
             currentAmmo = int.MaxValue;
 

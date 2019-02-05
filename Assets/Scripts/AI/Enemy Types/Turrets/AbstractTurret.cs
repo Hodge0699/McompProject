@@ -68,7 +68,7 @@ namespace EnemyType.Turrets
         protected void setGuns(System.Type gun)
         {
             for (int i = 0; i < gunCount; i++)
-                guns[i].setGun(gun);
+                guns[i].setGun(gun, true);
         }
     }
 }
