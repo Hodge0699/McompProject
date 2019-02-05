@@ -4,37 +4,26 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
 
-    public static bool GameIsPaused = false;
-
     public GameObject pauseMenuUI;
 
+    private Player.PlayerInputManager playerInput;
 
-	// Update is called once per frame
-	void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-	}
-
-    public void Resume()
+    private void Start()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
+        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerInputManager>();
     }
 
-    public void Pause()
+    public void Pause(bool pause = true)
     {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+        pauseMenuUI.SetActive(pause);
+
+        if (pause)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
+
+        // If input has come from menu rather than player input, we need to send a signal to it
+        if (playerInput.isPaused() != pause)
+            playerInput.pause(pause);
     }
 }

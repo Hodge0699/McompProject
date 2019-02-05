@@ -17,10 +17,11 @@ namespace Player
         private new Rigidbody rigidbody;
         private GunController gun;
 
-        public KeyCode controlSchemeToggle = KeyCode.P;
-
         public KeyCode mouseShoot = KeyCode.Mouse0;
-        public KeyCode controllerShoot = KeyCode.Joystick1Button4;
+        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
+
+        public KeyCode kbmPause = KeyCode.Escape;
+        public KeyCode controllerPause = KeyCode.Joystick1Button7;
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
         private Vector2 mousePos;
@@ -36,6 +37,10 @@ namespace Player
         private enum ControlMethod { KBM, CONTROLLER };
         private ControlMethod control = ControlMethod.KBM;
 
+        public bool testInput = false; // Used to figure out keycodes without looking them up,
+                                       // should be true only when discovering buttons to map.
+        bool paused = false;
+
         // Use this for initialization
         void Start()
         {
@@ -49,6 +54,15 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            if (testInput)
+                printKeys();
+
+
+            handlePauseToggle();
+
+            if (paused)
+                return;
+
             control = getControlMethod();
 
             if (debugging)
@@ -102,8 +116,6 @@ namespace Player
                     GetComponent<PlayerHealthManager>().setGodmode(true, 1.5f);
                 }
             }
-            else
-                directionVector = Vector3.zero;
         }
 
         /// <summary>
@@ -186,6 +198,35 @@ namespace Player
         }
 
         /// <summary>
+        /// Used only to pause/unpause the game. 
+        /// 
+        /// Allows input checking even when game is paused.
+        /// </summary>
+        private void handlePauseToggle()
+        {
+            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+                pause();
+        }
+
+        /// <summary>
+        /// Pauses/unpauses player input
+        /// </summary>
+        /// <param name="pause">True to pause, False to unpause.</param>
+        public void pause(bool pause = true)
+        {
+            paused = !paused;
+            player.getUI().GetComponentInChildren<PauseMenu>().Pause(paused);
+        }
+
+        /// <summary>
+        /// Returns true if player is paused.
+        /// </summary>
+        public bool isPaused()
+        {
+            return paused;
+        }
+
+        /// <summary>
         /// Figures out which control method is being used (for turning)
         /// </summary>
         /// <returns>KBM for mouse, CONTROLLER for joystick</returns>
@@ -213,6 +254,31 @@ namespace Player
             mousePos = newPos;
 
             return moved;
+        }
+
+        /// <summary>
+        /// Returns the direction vector of the player
+        /// </summary>
+        public Vector3 getDirectionVector()
+        {
+            return directionVector;
+        }
+
+        /// <summary>
+        /// Prints a statement for each key currently pressed.
+        /// 
+        /// Used to figure out keycodes without looking them up.
+        /// 
+        /// Very slow, should only be called when discovering new
+        /// buttons to map.
+        /// </summary>
+        private void printKeys()
+        {
+            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(key))
+                    Debug.Log(key);
+            }
         }
     }
 }

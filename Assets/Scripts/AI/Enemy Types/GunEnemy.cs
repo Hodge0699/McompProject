@@ -13,6 +13,8 @@ namespace EnemyType
         private GunController gunController;
         private VisionCone pickUpVisionCone;
 
+        private bool usePredictiveAiming = false; // Barebones lightweight predictive shooting (not ready)
+
         protected override void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
@@ -23,12 +25,25 @@ namespace EnemyType
 
         private void Update()
         {
-            
-
             if (pickUpVisionCone.hasVisibleTargets())
                 moveToPickup();
-            else if (target != null && getDistanceToTarget() >= 5.0f)
-                chase();
+            else if (target != null)
+            {
+                if (getDistanceToTarget() >= 5.0f)
+                {
+                    if (usePredictiveAiming)
+                        chaseP();
+                    else
+                        chase();
+                }
+                else
+                {
+                    if (usePredictiveAiming)
+                        predictiveAim();
+                    else
+                        transform.LookAt(target.transform);
+                }
+            }
             else
                 wander();
 
@@ -55,12 +70,55 @@ namespace EnemyType
 
             if (target != null)
             {
-                transform.LookAt(target.transform);
+                if (usePredictiveAiming)
+                    predictiveAim();
+                else
+                    transform.LookAt(target.transform);
                 directionVector = (pickupLocation - transform.position).normalized;
             }
             else
             {
                 transform.LookAt(pickupLocation);
+                directionVector = transform.forward;
+            }
+        }
+
+        /// <summary>
+        /// Aims at the player taking into consideration distance, 
+        /// player velocity and bot velocity.
+        /// </summary>
+        private void predictiveAim()
+        {
+            if (target == null)
+                return;
+
+            float bulletSpeed = 10.0f;
+            float secondsToImpact = ((target.transform.position - transform.position).magnitude) / bulletSpeed;
+
+            Vector3 targetPos = target.transform.position;
+            Vector3 dir = target.GetComponent<Player.PlayerInputManager>().getDirectionVector();
+            float mov = target.GetComponent<Player.PlayerController>().moveSpeed;
+            targetPos += dir * mov  * secondsToImpact;
+
+            transform.LookAt(targetPos);
+            Debug.Log(targetPos - target.transform.position);
+            Debug.DrawLine(transform.position, targetPos);
+            Debug.DrawLine(target.transform.position, targetPos);
+        }
+
+        /// <summary>
+        /// Chases the target if there is one
+        /// 
+        /// TEMPORARY (ugly)
+        /// </summary>
+        protected void chaseP()
+        {
+            if (target == null)
+                return;
+
+            if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
+            {
+                predictiveAim();
                 directionVector = transform.forward;
             }
         }
