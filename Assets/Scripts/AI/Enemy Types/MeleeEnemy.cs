@@ -22,7 +22,6 @@ namespace EnemyType
 
         private void Update()
         {
-            Debug.Log(attackCooldownCounter);
             if (attackCooldownCounter >= 0.0f)
                 attackCooldownCounter -= Time.deltaTime;
 
