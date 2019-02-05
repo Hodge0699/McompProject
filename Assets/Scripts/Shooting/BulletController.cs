@@ -10,9 +10,6 @@ public class BulletController : MonoBehaviour {
 
     public bool timeEffected = true;
 
-    private float defaultTimeScale = 1.0f;
-    //private float elapsedTime = Time.deltaTime * defaultTimeScale;
-
     public List<string> ignoreTags = new List<string>();
 
     /// <summary>
@@ -34,7 +31,7 @@ public class BulletController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
-        if(timeEffected == false)
+        if(!timeEffected)
             transform.Translate(Vector3.forward * speed * Time.unscaledDeltaTime);
         else
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -44,7 +41,6 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-
         if (!ignoreTags.Contains(other.gameObject.tag))
         {
             HealthManager health = other.gameObject.GetComponent<HealthManager>();

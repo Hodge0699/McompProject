@@ -14,6 +14,14 @@ namespace EnemyType
         private VisionCone pickUpVisionCone;
 
         private bool usePredictiveAiming = false; // Barebones lightweight predictive shooting (not ready)
+                                                  //
+                                                  // To do:
+                                                  // - Fix tracking issue when player sharp turns at close range (enemy predicts movement 
+                                                  //   correctly but looking at it puts player out of FOV).
+                                                  // - Fix issue where bullets fall behind player when moving in straight line far away.
+                                                  // - Artificial stupidity.
+                                                  // - Smooth aiming when player is using KB+M (player's direction vector changing from 
+                                                  //   (1,0,0) to (-1,0,0) produces big jump in aiming, potentially cap turn speed?).
 
         protected override void Awake()
         {
@@ -96,14 +104,19 @@ namespace EnemyType
             float secondsToImpact = ((target.transform.position - transform.position).magnitude) / bulletSpeed;
 
             Vector3 targetPos = target.transform.position;
-            Vector3 dir = target.GetComponent<Player.PlayerInputManager>().getDirectionVector();
-            float mov = target.GetComponent<Player.PlayerController>().moveSpeed;
-            targetPos += dir * mov  * secondsToImpact;
+            Vector3 targetDir = target.GetComponent<Player.PlayerInputManager>().getDirectionVector();
+            float targetSpeed = target.GetComponent<Player.PlayerController>().moveSpeed;
+            targetPos += targetDir * targetSpeed * secondsToImpact;
 
             transform.LookAt(targetPos);
-            Debug.Log(targetPos - target.transform.position);
-            Debug.DrawLine(transform.position, targetPos);
-            Debug.DrawLine(target.transform.position, targetPos);
+
+            bool debugging = false;
+            if (debugging)
+            {
+                Debug.Log(targetPos - target.transform.position);
+                Debug.DrawLine(transform.position, targetPos);
+                Debug.DrawLine(target.transform.position, targetPos);
+            }
         }
 
         /// <summary>

@@ -20,20 +20,14 @@ namespace EnemyType
 
         public float maxDistance = 1.6f;
 
-        private HealthManager health;
-
         // Use this for initialization
         protected virtual void Awake()
         {
             visionCone = GetComponent<VisionCone>();
-            health = GetComponent<HealthManager>();
         }
 
         private void LateUpdate()
         {
-            if (health.isDead())
-                die();
-
             directionVector.Normalize();
             Vector3 movement = directionVector * movementSpeed * Time.deltaTime;
 
@@ -48,23 +42,9 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Kills the enemy.
-        /// </summary>
-        private void die()
-        {
-            myRoom.enemyKilled(this);
-            
-            gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
-
-            onDeath();
-
-            Destroy(gameObject);
-        }
-
-        /// <summary>
         /// Override if a specific enemy should do something special on death
         /// </summary>
-        protected virtual void onDeath() { }
+        public virtual void onDeath() { }
 
         /// <summary>
         /// Links this enemy to a room

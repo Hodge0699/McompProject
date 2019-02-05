@@ -16,17 +16,15 @@ public class RandomPowerDrop : MonoBehaviour {
     public List<DropItems> LootTable = new List<DropItems>();
     public int  ItemDropChance = 50;
 
-    private Player.PlayerController player;
-
     public bool debugging = false;
 
-    private void Awake()
-    {
-        player = FindObjectOfType<Player.PlayerController>();
-    }
 
     public void CalculateLoot()
     {
+        // Don't drop a power up if enemy not tied to a room - Jake
+        if (GetComponent<EnemyType.AbstractEnemy>().getRoom() == null)
+            return;
+
         int Calc_ItemDropChance = Random.Range(0, 101);
         if (Calc_ItemDropChance > ItemDropChance)
         {
@@ -55,7 +53,7 @@ public class RandomPowerDrop : MonoBehaviour {
                     GameObject drop = Instantiate(LootTable[j].item, transform.position, Quaternion.identity);
 
                     // Tie drop to current room - Jake
-                    player.getCurrentRoom().addPowerUpDrop(drop);
+                    GetComponent<EnemyType.AbstractEnemy>().getRoom().addPowerUpDrop(drop);
                     return;
                 }
                 randomValue -= LootTable[j].dropRarity;

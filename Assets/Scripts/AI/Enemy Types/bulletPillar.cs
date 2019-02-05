@@ -27,7 +27,7 @@ namespace EnemyType.Turrets
 
         private int currentGun = 0;
 
-        public void Start()
+        public new void Start()
         {
             base.Start();
             serialFireTimer = 1 / serialFireRate;

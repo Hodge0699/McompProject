@@ -14,10 +14,36 @@ public class EnemyHealthManager : HealthManager {
 
         healthBar.fillAmount = base.currentHealth / base.startingHealth;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (currentHealth <= 0.0f)
+        {
+            die();
+            return;
+        }
+        else
+        {
+            // look at player
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null)
-            transform.LookAt(player.transform);
+            if (player != null)
+                transform.LookAt(player.transform);
+        }
+    }
 
+
+    /// <summary>
+    /// Kills the enemy.
+    /// </summary>
+    private void die()
+    {
+        EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
+
+        if (me.getRoom() != null)
+            me.getRoom().enemyKilled(me);
+
+        gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
+
+        me.onDeath();
+
+        Destroy(gameObject);
     }
 }

@@ -78,7 +78,7 @@ namespace EnemyType
         /// <summary>
         /// Load next scene on death
         /// </summary>
-        protected override void onDeath()
+        public override void onDeath()
         {
             SceneManager.GetComponent<SceneTransitions>().LoadNextScene();
         }
