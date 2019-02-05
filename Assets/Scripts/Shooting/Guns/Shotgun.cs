@@ -27,8 +27,7 @@ namespace Weapon.Gun
                 GameObject bullet = base.spawnBullet(spawnPos, true);
                 bullet.transform.parent = pelletBurst.transform;
 
-                bullet.transform.Rotate(Vector3.up, Random.Range(-spreadRange, spreadRange));
-                bullet.transform.Rotate(Vector3.right, Random.Range(-spreadRange, spreadRange));
+                bullet.transform.Rotate(Vector3.up, Random.Range(-spreadRange, spreadRange)); // spreads horizontally only 
             }
 
             return pelletBurst;

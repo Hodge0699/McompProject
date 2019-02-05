@@ -107,7 +107,7 @@ public class GeometryFader : MonoBehaviour {
 
         // Remove destroyed
         for (int i = nullIndices.Count - 1; i >= 0; i--)
-            obstructedObjects.RemoveAt(i);
+            obstructedObjects.RemoveAt(nullIndices[i]);
     }
 
     /// <summary>
@@ -117,14 +117,17 @@ public class GeometryFader : MonoBehaviour {
     {
         float parentZ = transform.parent.transform.position.z;
 
-        float minZ = Mathf.Abs(obstructedObjects[0].transform.position.z - parentZ);
+        float minZ = Mathf.Infinity;
 
-        for (int i = 1; i < obstructedObjects.Count; i++)
+        for (int i = 0; i < obstructedObjects.Count; i++)
         {
-            float dist = Mathf.Abs(obstructedObjects[i].transform.position.z - parentZ);
+            if (obstructedObjects[i] != null)
+            {
+                float dist = Mathf.Abs(obstructedObjects[i].transform.position.z - parentZ);
 
-            if (dist < minZ)
-                minZ = dist;
+                if (dist < minZ)
+                    minZ = dist;
+            }
         }
 
         return minZ;
