@@ -13,7 +13,7 @@ namespace EnemyType
         private GunController gunController;
         private VisionCone pickUpVisionCone;
 
-        private bool usePredictiveAiming = false; // Lightweight predictive shooting
+        private bool usePredictiveAiming = true; // Lightweight predictive shooting
                                                   //
                                                   // To do:
                                                   // - Fix issue where bullets fall behind player when moving in straight line far away.
@@ -29,6 +29,8 @@ namespace EnemyType
 
         private void Update()
         {
+            gunController.switchToBest();
+
             if (pickUpVisionCone.hasVisibleTargets())
                 moveToPickup();
             else if (target != null)

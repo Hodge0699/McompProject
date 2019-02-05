@@ -8,7 +8,7 @@ namespace Weapon.Gun
     {
         public void Awake()
         {
-            init(10, 10, 5, false);
+            init(10, 10, 5, false, 30);
         }
     }
 }

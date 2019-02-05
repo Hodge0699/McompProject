@@ -287,12 +287,17 @@ Prefab:
     - target: {fileID: 114436240047496228, guid: ad39af0fc3a950547966b40ca79132f9,
         type: 2}
       propertyPath: debugging
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114872564346895096, guid: ad39af0fc3a950547966b40ca79132f9,
         type: 2}
       propertyPath: godmode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114068056962961248, guid: ad39af0fc3a950547966b40ca79132f9,
+        type: 2}
+      propertyPath: debugging
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
@@ -503,7 +508,7 @@ Prefab:
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: enemyFrequency
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}

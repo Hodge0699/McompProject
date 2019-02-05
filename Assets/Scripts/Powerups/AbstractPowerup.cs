@@ -8,12 +8,12 @@ namespace Powerups
 {
     public class AbstractPowerup : MonoBehaviour
     {
-        public float duration; // Length of time this gun will be active
+        public int ammo; // Amount of ammo to replenish
 
-        protected System.Type gun; // Type of gun to switch to
+        protected System.Type gun; // Type of gun to replenish
 
         /// <summary>
-        /// Switch players gun when colliding.
+        /// Add ammo to gun when collided
         /// </summary>
         /// <param name="other">Colliding object (player).</param>
         void OnTriggerEnter(Collider other)
@@ -25,8 +25,8 @@ namespace Powerups
 
             if (gunController != null)
             {
-                gunController.setGun(gun, duration);
-
+                //gunController.setGun(gun, duration);
+                gunController.addAmmo(gun, ammo);
                 Destroy(gameObject);
             }
         }

@@ -11,6 +11,7 @@ namespace Powerups
         private void Awake()
         {
             gun = typeof(NonTimeEffectingGun);
+            ammo = 30;
         }
     }
 }
