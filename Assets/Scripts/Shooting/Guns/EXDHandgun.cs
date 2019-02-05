@@ -14,7 +14,7 @@ namespace Weapon.Gun
             Handgun baseHandgun = gameObject.AddComponent<Handgun>();
             Destroy(baseHandgun);
 
-            base.init(baseHandgun.damage * damageMultiplyer, baseHandgun.speed, baseHandgun.fireRate, true);
+            base.init(baseHandgun.damage * damageMultiplyer, baseHandgun.speed, baseHandgun.fireRate, true, 30);
         }
     }
 }

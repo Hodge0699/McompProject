@@ -11,33 +11,27 @@ public class GunController : MonoBehaviour {
 
     public Transform firePoint;
 
-    public AbstractGun currentGun;
 
     public List<string> ignoreTags = new List<string>();
 
-    private float gunTimer = 0.0f;
-
     public bool debugging = false;
+
+    private AbstractGun currentGun;
+    private List<AbstractGun> guns = new List<AbstractGun>();
 
     private void Awake ()
     {
-        setGun(typeof(Handgun));
-
         bulletContainer = new GameObject();
         bulletContainer.name = "Active Bullets";
         bulletContainer.transform.position = Vector3.zero;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentGun.GetType() != typeof(Handgun))
-        {
-            gunTimer -= Time.deltaTime;
+        guns.Add(gameObject.AddComponent<Handgun>());
+        guns.Add(gameObject.AddComponent<Shotgun>());
+        guns.Add(gameObject.AddComponent<MachineGun>());
+        guns.Add(gameObject.AddComponent<EXDHandgun>());
+        guns.Add(gameObject.AddComponent<NonTimeEffectingGun>());
 
-            if (gunTimer <= 0.0f)
-                setGun(typeof(Handgun));
-        }
+        setGun(typeof(Handgun));
     }
 
     /// <summary>
@@ -64,31 +58,59 @@ public class GunController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Sets the current left-click gun
+    /// Sets the current left-click gun.
     /// </summary>
     /// <param name="gun">The type of gun to use.</param>
-    /// <param name="duration">The amount of time this gun will be active for (0 for infinite).</param>
-    public void setGun(System.Type gun, float duration = 0)
+    public void setGun(System.Type gun)
     {
-        if (currentGun != null && currentGun.GetType() == gun)
-        {
-            gunTimer = duration;
+        int index = getIndex(gun);
+
+        if (index == -1)
             return;
-        }
-
-        if (currentGun)
-            Destroy(currentGun);
-
-        gameObject.AddComponent(gun);
-        currentGun = gameObject.GetComponent(gun) as AbstractGun;
-
-        if (duration == 0)
-            gunTimer = Mathf.Infinity;
         else
-            gunTimer = duration;
+            currentGun = guns[index];
 
         if (debugging)
             Debug.Log("Switching to " + currentGun.ToString());
+    }
+
+    /// <summary>
+    /// Gets the current gun
+    /// </summary>
+    public AbstractGun getGun()
+    {
+        return currentGun;
+    }
+
+    /// <summary>
+    /// Adds ammo to a certain gun
+    /// </summary>
+    /// <param name="gun">Gun to replenish.</param>
+    /// <param name="ammo">Amount of ammo to add.</param>
+    public void addAmmo(System.Type gun, int ammo)
+    {
+        int index = getIndex(gun);
+
+        if (index == -1) // Gun not found
+            return;
+        else
+            guns[index].addAmmo(ammo);
+    }
+
+    /// <summary>
+    /// Gets the index of a type of gun in guns array.
+    /// </summary>
+    /// <param name="gun">Gun to search for.</param>
+    /// <returns>Index of gun or -1 if not in array.</returns>
+    private int getIndex(System.Type gun)
+    {
+        for (int i = 0; i < guns.Count; i++)
+        {
+            if (guns[i].GetType() == gun)
+                return i;
+        }
+
+        return -1;
     }
 
     private void OnDestroy()

@@ -8,7 +8,6 @@ public class BossGunSwitchM : MonoBehaviour {
 
     HealthManager health;
     BossEnemy bEnemy;
-    protected System.Type gun;
     private int gunSwitchChanger = 0;
 
     private void Awake()
@@ -26,14 +25,14 @@ public class BossGunSwitchM : MonoBehaviour {
         // checks health to switch guns
         if (health.getHealthPercentage() <= 0.5f && health.getHealthPercentage() > 0.25f && gunSwitchChanger == 0)
         {
-            gun = typeof(Shotgun);
-            bEnemy.gunController.setGun(gun, 300);
+            bEnemy.gunController.setGun(typeof(Shotgun));
+            bEnemy.gunController.getGun().giveUnlimitedAmmo();
             gunSwitchChanger = 1;
         }
         else if (health.getHealthPercentage() <= 0.25f && health.getHealth() > 0 && gunSwitchChanger == 1)
         {
-            gun = typeof(EXDHandgun);
-            bEnemy.gunController.setGun(gun, 300);
+            bEnemy.gunController.setGun(typeof(EXDHandgun));
+            bEnemy.gunController.getGun().giveUnlimitedAmmo();
             gunSwitchChanger = 2;
         }
     }

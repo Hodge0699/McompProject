@@ -564,7 +564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4528453300267580}
-  currentGun: {fileID: 0}
   ignoreTags:
   - Player
   debugging: 0
@@ -581,7 +580,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   debugging: 0
-  useController: 0
 --- !u!114 &114483397632992554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -617,13 +615,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17817e59ee190e64aba15e723afa4327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseShoot: 323
-  controllerShoot: 355
-  kbmPause: 27
-  controllerPause: 337
-  allowInput: 1
-  dashDistance: 30
   testInput: 0
+  kbmShoot: 323
+  kbmPause: 27
+  weaponSwitches: 3100000032000000330000003400000035000000
+  controllerShoot: 355
+  controllerPause: 337
+  dashDistance: 30
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1

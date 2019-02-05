@@ -17,21 +17,25 @@ namespace Player
         public bool canShoot = true;
 
 
-
         [Header("Keyboard + Mouse Controls")]
         public KeyCode kbmShoot = KeyCode.Mouse0;
         public KeyCode kbmPause = KeyCode.Escape;
 
+        public List<KeyCode> weaponSwitches = new List<KeyCode>();
+        public List<System.Type> weapons = new List<System.Type>();
+
+
         [Header("Joystick Controls")]
         public KeyCode controllerShoot = KeyCode.Joystick1Button5;
         public KeyCode controllerPause = KeyCode.Joystick1Button7;
+
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
         private Vector2 mousePos;
 
         private PlayerController player;
         private new Rigidbody rigidbody;
-        private GunController gun;
+        private GunController gunController;
 
         private bool debugging = false;
 
@@ -58,9 +62,23 @@ namespace Player
         {
             player = GetComponent<PlayerController>();
             rigidbody = GetComponent<Rigidbody>();
-            gun = transform.Find("GunPrimary").GetComponent<GunController>();
+            gunController = transform.Find("GunPrimary").GetComponent<GunController>();
 
             mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
+
+            initWeaponTypes();
+        }
+
+        /// <summary>
+        /// Adds iterable weapon types to a list
+        /// </summary>
+        private void initWeaponTypes()
+        {
+            weapons.Add(typeof(Weapon.Gun.Handgun));
+            weapons.Add(typeof(Weapon.Gun.Shotgun));
+            weapons.Add(typeof(Weapon.Gun.MachineGun));
+            weapons.Add(typeof(Weapon.Gun.EXDHandgun));
+            weapons.Add(typeof(Weapon.Gun.NonTimeEffectingGun));
         }
 
         // Update is called once per frame
@@ -202,16 +220,27 @@ namespace Player
         private void actions()
         {
             // Shooting
-            if (UnityEngine.Input.GetKey(kbmShoot) || UnityEngine.Input.GetKey(controllerShoot))
+            if (Input.GetKey(kbmShoot) || Input.GetKey(controllerShoot))
             {
                 if (canShoot) // Used for rewind system
                 {
-                    gun.shoot();
+                    gunController.shoot();
                     player.setFace(PlayerController.EMOTION.ANGRY);
                 }
             }
             else
                 player.setFace(PlayerController.EMOTION.HAPPY);
+
+            for (int i = 0; i < weaponSwitches.Count; i++)
+            {
+                if (Input.GetKeyDown(weaponSwitches[i]))
+                {
+                    if (weapons.Count > i)
+                        gunController.setGun(weapons[i]);
+                    else
+                        Debug.LogError("Weapon not mapped to button " + weaponSwitches[i] + "!");
+                }
+            }
         }
 
         /// <summary>
