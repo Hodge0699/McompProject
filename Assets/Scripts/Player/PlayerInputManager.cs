@@ -42,6 +42,9 @@ namespace Player
         [SerializeField]
         float dashDistance = 30f;
 
+        [Header("Dash Particle Effect")]
+        [SerializeField]
+        private GameObject dashEffect;
         // Use this for initialization
         void Start()
         {
@@ -243,15 +246,26 @@ namespace Player
             }
             else if (Gobject.tag == "Untagged" && hitInfo.distance <= 4.0f)
             {
+                dashParticle();
                 transform.position += dir * (distance - hitInfo.distance) /2;
+                destroyDash();
             }
             else
             {
-                Debug.Log("Can dash");
+                dashParticle();
                 transform.position += dir * distance;
+                destroyDash();
             }
         }
 
+        private void dashParticle()
+        {
+            Instantiate(dashEffect, transform.position, Quaternion.identity);
+        }
+        private void destroyDash()
+        {
+            Destroy(dashEffect, 5);
+        }
         /// <summary>
         /// Checks to see if user tries to dash
         /// </summary>

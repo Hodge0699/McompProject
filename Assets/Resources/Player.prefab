@@ -622,6 +622,7 @@ MonoBehaviour:
   controllerShoot: 354
   allowInput: 1
   dashDistance: 30
+  dashEffect: {fileID: 1645522716988758, guid: b7fcded2421a9d84d814a94708792847, type: 2}
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
