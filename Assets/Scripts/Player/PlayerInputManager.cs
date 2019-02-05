@@ -9,26 +9,33 @@ namespace Player
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+        public bool testInput = false; // Used to figure out keycodes without looking them up,
+                                       // should be true only when discovering buttons to map.
+
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
 
-        private PlayerController player;
-        private new Rigidbody rigidbody;
-        private GunController gun;
 
-        public KeyCode mouseShoot = KeyCode.Mouse0;
-        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
 
+        [Header("Keyboard + Mouse Controls")]
+        public KeyCode kbmShoot = KeyCode.Mouse0;
         public KeyCode kbmPause = KeyCode.Escape;
+
+        [Header("Joystick Controls")]
+        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
         public KeyCode controllerPause = KeyCode.Joystick1Button7;
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
         private Vector2 mousePos;
 
+        private PlayerController player;
+        private new Rigidbody rigidbody;
+        private GunController gun;
+
         private bool debugging = false;
 
-        public bool allowInput = true;
+        private bool allowInput = true;
         private float forceMoveDistanceCounter = 0.0f;
         private float forceMoveDistanceTarget = 0.0f;
 
@@ -37,9 +44,7 @@ namespace Player
         private enum ControlMethod { KBM, CONTROLLER };
         private ControlMethod control = ControlMethod.KBM;
 
-        public bool testInput = false; // Used to figure out keycodes without looking them up,
-                                       // should be true only when discovering buttons to map.
-        bool paused = false;
+        private bool paused = false; // Is player input halted?
 
         // Use this for initialization
         void Start()
@@ -185,7 +190,7 @@ namespace Player
         private void actions()
         {
             // Shooting
-            if (UnityEngine.Input.GetKey(mouseShoot) || UnityEngine.Input.GetKey(controllerShoot))
+            if (UnityEngine.Input.GetKey(kbmShoot) || UnityEngine.Input.GetKey(controllerShoot))
             {
                 if (canShoot) // Used for rewind system
                 {
