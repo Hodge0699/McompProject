@@ -9,7 +9,6 @@ using UnityEditor;
 public class VisionCone : MonoBehaviour
 {
     public List<string> targetTags; // The tag assigned to any possible target this script should track.
-    public List<string> ignoreTags; // The tags this vision cone can see through  (e.g. small objects like bullets)
     public float viewDistance = 10.0f; // The furthest distance the agent can detect targets.
     [Range(0, 360)]
     public float FOV = 100.0f; // The angle the agent can see at. 
@@ -58,7 +57,7 @@ public class VisionCone : MonoBehaviour
 
                 if (hitInfo.collider) // If collider was hit
                 {
-                    while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject) || ignoreTags.Contains(hitInfo.collider.gameObject.tag))
+                    while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject))
                         Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
                     if (hitInfo.collider.gameObject == nearbyTargets[i] || isAChildOf(hitInfo.collider.gameObject, nearbyTargets[i])) // Collider is target we were aiming for
@@ -90,13 +89,22 @@ public class VisionCone : MonoBehaviour
                         }
                     }
                     else // Obscured
-                        unsee(nearbyTargets[i]);
+                    {
+                        if (visibleTargets.Contains(nearbyTargets[i]))
+                            unsee(nearbyTargets[i]);
+                    }
                 }
                 else // Out of range
-                    unsee(nearbyTargets[i]);
+                {
+                    if (visibleTargets.Contains(nearbyTargets[i]))
+                        unsee(nearbyTargets[i]);
+                }
             }
             else // Not in field of view
-                unsee(nearbyTargets[i]);
+            {
+                if (visibleTargets.Contains(nearbyTargets[i]))
+                    unsee(nearbyTargets[i]);
+            }
         }
     }
 
@@ -283,7 +291,7 @@ public class VisionCone : MonoBehaviour
 
         // Remove destroyed
         for (int i = nullIndices.Count - 1; i >= 0; i--)
-            nearbyTargets.RemoveAt(nullIndices[i]);
+            nearbyTargets.RemoveAt(i);
 
         nullIndices.Clear();
 
@@ -294,6 +302,6 @@ public class VisionCone : MonoBehaviour
         }
 
         for (int i = nullIndices.Count - 1; i >= 0; i--)
-            visibleTargets.RemoveAt(nullIndices[i]);
+            visibleTargets.RemoveAt(i);
     }
 }
