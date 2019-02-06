@@ -13,10 +13,15 @@ namespace RoomBuilding
 
         public Vector3 dimensions = new Vector3(25.0f, 5.0f, 20.0f); // Dimensions of the room
 
-        public float wallThickness = 1.0f;
+        // Manual build button
+        public bool build = false;
+
+        [Header("Doors")]
         public float doorSize = 6.0f;
         public float doorSpeed = 2.0f;
 
+        [Header("Walls")]
+        public float wallThickness = 1.0f;
         // NONE = 2D, SEMI = north and east walls 3D, ALL = all walls 3D
         public preview previewWalls = preview.SEMI;
         public enum preview { NONE, SEMI, ALL };
@@ -27,9 +32,6 @@ namespace RoomBuilding
         public wallType eastWall;
         public wallType northWall;
         public wallType southWall;
-
-        // Manual build button
-        public bool build = false;
 
         private void Start()
         {

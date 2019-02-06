@@ -9,25 +9,37 @@ namespace Player
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+        public bool testInput = false; // Used to figure out keycodes without looking them up,
+                                       // should be true only when discovering buttons to map.
+
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
 
-        private PlayerController player;
-        private new Rigidbody rigidbody;
-        private GunController gun;
 
-        public KeyCode controlSchemeToggle = KeyCode.P;
+        [Header("Keyboard + Mouse Controls")]
+        public KeyCode kbmShoot = KeyCode.Mouse0;
+        public KeyCode kbmPause = KeyCode.Escape;
 
-        public KeyCode mouseShoot = KeyCode.Mouse0;
-        public KeyCode controllerShoot = KeyCode.Joystick1Button4;
+        public List<KeyCode> weaponSwitches = new List<KeyCode>();
+        public List<System.Type> weapons = new List<System.Type>();
+
+
+        [Header("Joystick Controls")]
+        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
+        public KeyCode controllerPause = KeyCode.Joystick1Button7;
+
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
         private Vector2 mousePos;
 
+        private PlayerController player;
+        private new Rigidbody rigidbody;
+        private GunController gunController;
+
         private bool debugging = false;
 
-        public bool allowInput = true;
+        private bool allowInput = true;
         private float forceMoveDistanceCounter = 0.0f;
         private float forceMoveDistanceTarget = 0.0f;
 
@@ -35,6 +47,8 @@ namespace Player
 
         private enum ControlMethod { KBM, CONTROLLER };
         private ControlMethod control = ControlMethod.KBM;
+
+        private bool paused = false; // Is player input halted?
 
         private Vector3 lastMoveDir;
 
@@ -46,18 +60,42 @@ namespace Player
         [SerializeField]
         private GameObject dashEffect;
         // Use this for initialization
+
         void Start()
         {
             player = GetComponent<PlayerController>();
             rigidbody = GetComponent<Rigidbody>();
-            gun = transform.Find("GunPrimary").GetComponent<GunController>();
+            gunController = transform.Find("GunPrimary").GetComponent<GunController>();
 
             mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
+
+            initWeaponTypes();
+        }
+
+        /// <summary>
+        /// Adds iterable weapon types to a list
+        /// </summary>
+        private void initWeaponTypes()
+        {
+            weapons.Add(typeof(Weapon.Gun.Handgun));
+            weapons.Add(typeof(Weapon.Gun.Shotgun));
+            weapons.Add(typeof(Weapon.Gun.MachineGun));
+            weapons.Add(typeof(Weapon.Gun.EXDHandgun));
+            weapons.Add(typeof(Weapon.Gun.NonTimeEffectingGun));
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (testInput)
+                printKeys();
+
+
+            handlePauseToggle();
+
+            if (paused)
+                return;
+
             control = getControlMethod();
 
             if (debugging)
@@ -116,8 +154,6 @@ namespace Player
                     GetComponent<PlayerHealthManager>().setGodmode(true, 1.5f);
                 }
             }
-            else
-                directionVector = Vector3.zero;
         }
 
         /// <summary>
@@ -187,16 +223,56 @@ namespace Player
         private void actions()
         {
             // Shooting
-            if (UnityEngine.Input.GetKey(mouseShoot) || UnityEngine.Input.GetKey(controllerShoot))
+            if (Input.GetKey(kbmShoot) || Input.GetKey(controllerShoot))
             {
                 if (canShoot) // Used for rewind system
                 {
-                    gun.shoot();
+                    gunController.shoot();
                     player.setFace(PlayerController.EMOTION.ANGRY);
                 }
             }
             else
                 player.setFace(PlayerController.EMOTION.HAPPY);
+
+            for (int i = 0; i < weaponSwitches.Count; i++)
+            {
+                if (Input.GetKeyDown(weaponSwitches[i]))
+                {
+                    if (weapons.Count > i)
+                        gunController.setGun(weapons[i]);
+                    else
+                        Debug.LogError("Weapon not mapped to button " + weaponSwitches[i] + "!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Used only to pause/unpause the game. 
+        /// 
+        /// Allows input checking even when game is paused.
+        /// </summary>
+        private void handlePauseToggle()
+        {
+            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+                pause();
+        }
+
+        /// <summary>
+        /// Pauses/unpauses player input
+        /// </summary>
+        /// <param name="pause">True to pause, False to unpause.</param>
+        public void pause(bool pause = true)
+        {
+            paused = !paused;
+            player.getUI().GetComponentInChildren<PauseMenu>().Pause(paused);
+        }
+
+        /// <summary>
+        /// Returns true if player is paused.
+        /// </summary>
+        public bool isPaused()
+        {
+            return paused;
         }
 
         /// <summary>
@@ -274,6 +350,30 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 CanMove(lastMoveDir, dashDistance);
+            }
+        }
+
+        /// Returns the direction vector of the player
+        /// </summary>
+        public Vector3 getDirectionVector()
+        {
+            return directionVector;
+        }
+
+        /// <summary>
+        /// Prints a statement for each key currently pressed.
+        /// 
+        /// Used to figure out keycodes without looking them up.
+        /// 
+        /// Very slow, should only be called when discovering new
+        /// buttons to map.
+        /// </summary>
+        private void printKeys()
+        {
+            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(key))
+                    Debug.Log(key);
             }
         }
     }

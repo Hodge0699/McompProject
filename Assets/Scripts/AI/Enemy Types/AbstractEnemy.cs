@@ -18,22 +18,18 @@ namespace EnemyType
 
         protected VisionCone visionCone;
 
-        public float maxDistance = 1.6f;
+        public float maxDistance = 1.6f; // Distance enemy should get to the player
 
-        private HealthManager health;
+        public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
 
         // Use this for initialization
         protected virtual void Awake()
         {
             visionCone = GetComponent<VisionCone>();
-            health = GetComponent<HealthManager>();
         }
 
         private void LateUpdate()
         {
-            if (health.isDead())
-                die();
-
             directionVector.Normalize();
             Vector3 movement = directionVector * movementSpeed * Time.deltaTime;
 
@@ -48,23 +44,9 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Kills the enemy.
-        /// </summary>
-        private void die()
-        {
-            myRoom.enemyKilled(this);
-            
-            gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
-
-            onDeath();
-
-            Destroy(gameObject);
-        }
-
-        /// <summary>
         /// Override if a specific enemy should do something special on death
         /// </summary>
-        protected virtual void onDeath() { }
+        public virtual void onDeath() { }
 
         /// <summary>
         /// Links this enemy to a room
@@ -101,7 +83,7 @@ namespace EnemyType
         /// <summary>
         /// Randomly sets the direction vector
         /// </summary>
-        protected void wander()
+        protected virtual void wander()
         {
             RaycastHit hitInfo;
             Physics.Raycast(transform.position, transform.forward, out hitInfo, 3.0f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
@@ -118,8 +100,8 @@ namespace EnemyType
             }
             else
             {
-                float rotation = Random.Range(-90.0f, 90.0f);
-                transform.Rotate(Vector3.up, Mathf.Lerp(0.0f, rotation, Time.deltaTime));
+                float rotation = Random.Range(-turnSpeed, turnSpeed);
+                turnTo(rotation);
             }
 
             directionVector = transform.forward;
@@ -128,15 +110,56 @@ namespace EnemyType
         /// <summary>
         /// Chases the target if there is one
         /// </summary>
-        protected void chase()
+        protected virtual void chase()
         {
             if (target == null)
                 return;
 
             if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
-                transform.LookAt(target.transform);
+                turnTo(target);
                 directionVector = transform.forward;
+            }
+        }
+        
+        //
+        // turnTo overrides
+        //
+
+        /// <summary>
+        /// Turns to look at a GameObject.
+        /// </summary>
+        /// <param name="target">Target gameobject</param>
+        protected void turnTo(GameObject target)
+        {
+            turnTo(target.transform.position);
+        }
+
+        /// <summary>
+        /// Turns to look at a position.
+        /// </summary>
+        /// <param name="position">Target position</param>
+        protected void turnTo(Vector3 position)
+        {
+            float angle = Vector3.SignedAngle(transform.forward, (position - transform.position).normalized, Vector3.up);
+            turnTo(angle);
+        }
+
+        /// <summary>
+        /// Turns a specified angle.
+        /// </summary>
+        protected void turnTo(float angle)
+        {
+            if (Mathf.Abs(angle) < turnSpeed * Time.deltaTime)
+                transform.Rotate(Vector3.up, angle);
+            else
+            {
+                if (angle > 0)
+                    angle = turnSpeed * Time.deltaTime;
+                else
+                    angle = -turnSpeed * Time.deltaTime;
+
+                transform.Rotate(Vector3.up, angle);
             }
         }
     }

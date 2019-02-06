@@ -137,9 +137,8 @@ public class Room : MonoBehaviour {
         // If the door is now the bottom door, create a fader
         if (door.transform.position.z - transform.position.z < 0)
         {
-            GameObject fader;
-            fader = instantiateFader(door.transform.Find("Left Door"));
-            fader = instantiateFader(door.transform.Find("Right Door"));
+            instantiateFader(door.transform.Find("Left Door"));
+            instantiateFader(door.transform.Find("Right Door"));
         }
     }
 
