@@ -5,15 +5,21 @@ using UnityEngine;
 public class TimeJump : MonoBehaviour
 {
 
+    //Light sceneLight;
+    GameObject sceneLight;
+    GameObject sceneCamera;
 
-    private float distance = 100;
+    private float Jumpdistance = 100;
     private bool teleported;
 
 
     // Use this for initialization
     void Start()
     {
-
+        //sceneLight = FindObjectOfType<Light>();
+        sceneLight = GameObject.Find("Directional Light");
+        sceneCamera = GameObject.Find("Main Camera(Clone)");
+        
     }
 
     // Update is called once per frame
@@ -23,23 +29,35 @@ public class TimeJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-
+            Debug.Log(sceneLight);
+            Debug.Log(sceneCamera);
             teleported = !teleported;
 
+            //position of the object that will be moved (it is only player for now)
             Vector3 pos = gameObject.transform.position;
 
-            if (teleported == true)
-            {
-
-                gameObject.transform.position = new Vector3(pos.x + distance, pos.y, pos.z);
-            }
-            else
-            {
-
-                gameObject.transform.position = new Vector3(pos.x - distance, pos.y, pos.z);
-            }
-
-
+            if (teleported == true) FutureJump(pos);
+            else PresentJump(pos);
+          
         }
     }
+
+
+    void FutureJump(Vector3 pos)
+    {
+
+
+       // sceneCamera.GetComponent<CameraController>().BlurTransition();
+        sceneLight.SetActive(false);
+        gameObject.transform.position = new Vector3(pos.x + Jumpdistance, pos.y, pos.z);
+        
+    }
+
+    void PresentJump(Vector3 pos)
+    {
+        sceneLight.SetActive(true);
+        gameObject.transform.position = new Vector3(pos.x - Jumpdistance, pos.y, pos.z);
+    }
+
+
 }
