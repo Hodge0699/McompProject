@@ -324,23 +324,19 @@ namespace Player
             {
                 dashParticle();
                 transform.position += dir * (distance - hitInfo.distance) /2;
-                destroyDash();
             }
             else
             {
                 dashParticle();
                 transform.position += dir * distance;
-                destroyDash();
             }
         }
 
         private void dashParticle()
         {
-            Instantiate(dashEffect, transform.position, Quaternion.identity);
-        }
-        private void destroyDash()
-        {
-            Destroy(dashEffect, 5);
+            GameObject dash;
+            dash = Instantiate(dashEffect, transform.position, Quaternion.identity) as GameObject;
+            dash.transform.parent = this.transform;
         }
         /// <summary>
         /// Checks to see if user tries to dash

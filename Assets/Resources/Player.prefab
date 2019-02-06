@@ -566,6 +566,7 @@ MonoBehaviour:
   firePoint: {fileID: 4528453300267580}
   ignoreTags:
   - Player
+  autoSwitchOnEmpty: 1
   debugging: 0
 --- !u!114 &114436240047496228
 MonoBehaviour:
