@@ -129,6 +129,8 @@ namespace RoomBuilding
             // Liam - applying set texture to the floor on generation
             floor.GetComponent<Renderer>().material.mainTexture = floorTexture; // Liam
 
+            Destroy(floor.GetComponent<Rigidbody>()); // Giving the floor a rigid body makes enemys fall through for some reason
+
             buildWalls(roomOrigin.transform);
             room.setDoors(buildDoors(roomOrigin.transform));
             room.createGeometryShaders();
