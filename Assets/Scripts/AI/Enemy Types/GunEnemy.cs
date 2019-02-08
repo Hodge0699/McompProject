@@ -52,7 +52,7 @@ namespace EnemyType
                 shoot();
         }
 
-        private void shoot()
+        protected void shoot()
         {
             gunController.shoot();
         }
@@ -60,7 +60,7 @@ namespace EnemyType
         /// <summary>
         /// Moves the agent to a pickup if there is one visible.
         /// </summary>
-        private void moveToPickup()
+        protected void moveToPickup()
         {
             Vector3 pickupLocation;
 
@@ -107,7 +107,7 @@ namespace EnemyType
         /// Aims at the player taking into consideration distance, 
         /// player velocity and bot velocity.
         /// </summary>
-        private void predictiveAim()
+        protected void predictiveAim()
         {
             if (target == null)
                 return;

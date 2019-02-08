@@ -42,12 +42,15 @@ public class EnemyHealthManager : HealthManager {
     {
         EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
 
-        if (me.getRoom() != null)
-            me.getRoom().enemyKilled(me);
+        if (me != null)
+        {
+            if (me.getRoom() != null)
+                me.getRoom().enemyKilled(me);
 
-        gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
+            gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
-        me.onDeath();
+            me.onDeath();
+        }
 
         Destroy(gameObject);
     }
