@@ -6,7 +6,7 @@ using Weapon.Gun;
 using sceneTransitions;
 using System;
 
-namespace EnemyType
+namespace EnemyType.Bosses
 {
     public class BossEnemy : AbstractEnemy
     {

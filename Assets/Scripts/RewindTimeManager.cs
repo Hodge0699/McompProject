@@ -106,8 +106,8 @@ public class RewindTimeManager : MonoBehaviour {
                 gameObject.GetComponent<GunEnemy>().canShoot = false;
 
         if (gameObject.tag == "Boss")
-            if (gameObject.GetComponent<BossEnemy>() != null)
-                gameObject.GetComponent<BossEnemy>().canShoot = false;
+            if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
+                gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = false;
 
         if (gameObject.tag == "Turret")
             if (gameObject.GetComponent<bulletPillar>() != null)
@@ -129,8 +129,8 @@ public class RewindTimeManager : MonoBehaviour {
                 gameObject.GetComponent<GunEnemy>().canShoot = true;
 
         if (gameObject.tag == "Boss")
-            if (gameObject.GetComponent<BossEnemy>() != null)
-                gameObject.GetComponent<BossEnemy>().canShoot = true;
+            if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
+                gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = true;
 
         if (gameObject.tag == "Turret")
             if (gameObject.GetComponent<bulletPillar>() != null)

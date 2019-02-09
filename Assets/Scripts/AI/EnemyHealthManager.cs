@@ -8,6 +8,8 @@ public class EnemyHealthManager : HealthManager {
     [Header("Enemy Health")]
     public Image healthBar;
 
+    public bool lookAtPlayerOnHit = true;
+
     public override void hurt(float damageAmount)
     {
         base.hurt(damageAmount);
@@ -19,7 +21,8 @@ public class EnemyHealthManager : HealthManager {
             die();
             return;
         }
-        else
+        
+        if (lookAtPlayerOnHit)
         {
             // look at player
             GameObject player = GameObject.FindGameObjectWithTag("Player");

@@ -107,7 +107,15 @@ public class VisionCone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (targetTags.Contains(other.transform.tag))
+        {
+            for (int i = 0; i < nearbyTargets.Count; i++)
+            {
+                if (isAChildOf(other.gameObject, nearbyTargets[i]) || isAChildOf(nearbyTargets[i], other.gameObject))
+                    return;
+            }
+
             nearbyTargets.Add(other.gameObject);
+        }
     }
 
     /// <summary>
