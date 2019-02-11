@@ -55,5 +55,13 @@ namespace EnemyType.Bosses
             Vector3 dir = (point - transform.position).normalized;
             return (Vector3.Dot(forward.Value, dir) >= 1.0f - tolerance);
         }
+
+        protected override void onStateSwitch(JakeBoss newState)
+        {
+            rightPivot.stopPivot(true);
+            leftPivot.stopPivot(true);
+
+            base.onStateSwitch(newState);
+        }
     }
 }

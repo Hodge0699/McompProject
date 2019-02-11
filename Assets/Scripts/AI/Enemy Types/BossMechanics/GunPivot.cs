@@ -7,19 +7,20 @@ public class GunPivot : MonoBehaviour {
     public float angle = 180.0f;
     public float speed = 10.0f;
 
-    [SerializeField]
     private float startAngle;
     private float relativeAngle;
     private bool turningClockwise = true;
 
     private enum State { STOPPED, RUNNING, STOPPING, GOING_TO_BOUND };
     
+    [SerializeField]
     private State state = State.STOPPED;
 
     // Use this for initialization
     void Start()
     {
         startAngle = convertToSignedAngle(transform.localRotation.eulerAngles.y);
+        relativeAngle = 0.0f;
     }
 
     // Update is called once per frame
@@ -32,20 +33,17 @@ public class GunPivot : MonoBehaviour {
 
         switch (state)
         {
-            case State.RUNNING:
-                checkBounds();
-                break;
-
             case State.STOPPING:
                 if (isAtCentre())
                 {
-                    //transform.Rotate(Vector3.up, -relativeAngle);
                     state = State.STOPPED;
+                    transform.Rotate(Vector3.up, -relativeAngle);
+                    relativeAngle = 0.0f;
                 }
                 break;
 
             case State.GOING_TO_BOUND:
-                if (checkBounds())
+                if (getRotationPercentage() >= 0.9f)
                     state = State.STOPPED;
                 break;
 
@@ -68,9 +66,12 @@ public class GunPivot : MonoBehaviour {
     /// <param name="returnToCentre">Should the pivot return to its starting rotation.</param>
     public void stopPivot(bool returnToCentre = false)
     {
+        if (state == State.STOPPED && (!returnToCentre || isAtCentre()))
+            return;
+
         if (returnToCentre)
         {
-            if ((turningClockwise && relativeAngle > startAngle) || (!turningClockwise && relativeAngle < startAngle))
+            if ((turningClockwise && relativeAngle > 0) || (!turningClockwise && relativeAngle < 0))
                 turningClockwise = !turningClockwise;
 
             state = State.STOPPING;
@@ -95,6 +96,11 @@ public class GunPivot : MonoBehaviour {
         turningClockwise = false;
     }
 
+    public float getRotationPercentage()
+    {
+        return relativeAngle / (angle / 2);
+    }
+
     /// <summary>
     /// Turns the pivot to one of its bounds
     /// </summary>
@@ -112,12 +118,14 @@ public class GunPivot : MonoBehaviour {
     {
         float turnDistance = speed * Time.deltaTime;
 
+        checkBounds();
+
         if (turningClockwise)
             transform.Rotate(Vector3.up, turnDistance);
         else
             transform.Rotate(Vector3.up, -turnDistance);
 
-        relativeAngle = convertToSignedAngle(transform.localRotation.eulerAngles.y - startAngle);
+        relativeAngle = convertToSignedAngle(transform.localRotation.eulerAngles.y) - startAngle;
     }
 
     /// <summary>
@@ -143,9 +151,9 @@ public class GunPivot : MonoBehaviour {
     /// <summary>
     /// Returns true if the pivot is back at its starting position.
     /// </summary>
-    private bool isAtCentre()
+    public bool isAtCentre()
     {
-        return (turningClockwise && relativeAngle > startAngle) || (!turningClockwise && relativeAngle < startAngle);
+        return (Mathf.Abs(relativeAngle) <= 1.0f);
     }
 
     /// <summary>

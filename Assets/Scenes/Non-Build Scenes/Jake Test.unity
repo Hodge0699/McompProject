@@ -434,21 +434,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114789346317177152, guid: 5900b99f2c16a5348af3334cdedf2123,
-        type: 2}
-      propertyPath: FOV
-      value: 106
-      objectReference: {fileID: 0}
-    - target: {fileID: 114825336949082652, guid: 5900b99f2c16a5348af3334cdedf2123,
-        type: 2}
-      propertyPath: angle
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 114434391035150736, guid: 5900b99f2c16a5348af3334cdedf2123,
-        type: 2}
-      propertyPath: turnSpeed
-      value: 35
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5900b99f2c16a5348af3334cdedf2123, type: 2}
   m_IsPrefabAsset: 0

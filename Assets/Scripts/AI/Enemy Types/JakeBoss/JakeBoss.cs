@@ -40,6 +40,11 @@ namespace EnemyType.Bosses
             stateAction();
         }
 
+        /// <summary>
+        /// Shoots guns
+        /// </summary>
+        /// <param name="shootRight">Should right gun be fired?</param>
+        /// <param name="shootLeft">Should left gun be fired?</param>
         protected virtual void shoot(bool shootRight = true, bool shootLeft = true)
         {
             if (shootRight)
@@ -60,6 +65,19 @@ namespace EnemyType.Bosses
         protected abstract System.Type decideState();
 
         /// <summary>
+        /// Copies variables into new state and destroys gameobject.
+        /// 
+        /// Should be overrided by any behaviours that alter pivots to reset them
+        /// back to stopped at their centre.
+        /// </summary>
+        /// <param name="newState">Next state that is being switched to.</param>
+        protected virtual void onStateSwitch(JakeBoss newState)
+        {
+            newState.copyBaseVariables(this);
+            Destroy(this);
+        }
+
+        /// <summary>
         /// Moves onto the next state
         /// </summary>
         /// <param name="state">State to switch to.</param>
@@ -70,10 +88,13 @@ namespace EnemyType.Bosses
                 return;
 
             gameObject.AddComponent(state);
-            GetComponents<JakeBoss>()[1].copyBaseVariables(this);
-            Destroy(this);
+            onStateSwitch(GetComponents<JakeBoss>()[1]);
         }
 
+        /// <summary>
+        /// Copies base AbstractEnemy variables into a new behaviour
+        /// </summary>
+        /// <param name="enemy">Behaviour to copy into</param>
         public void copyBaseVariables(AbstractEnemy enemy)
         {
             this.movementSpeed = enemy.movementSpeed;
