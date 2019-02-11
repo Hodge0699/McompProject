@@ -102,5 +102,13 @@ namespace EnemyType.Bosses
             this.turnSpeed = enemy.turnSpeed;
             this.myRoom = enemy.getRoom();
         }
+
+        public override void onDeath()
+        {
+            GameObject sceneManager = GameObject.Find("SceneManager");
+
+            if (sceneManager != null)
+                sceneManager.GetComponent<sceneTransitions.SceneTransitions>().LoadNextScene();
+        }
     }
 }

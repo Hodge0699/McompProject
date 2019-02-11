@@ -62,8 +62,11 @@ namespace Player
         {
             base.hurt(damageAmount);
 
-            damaged = true;
-            healthSlider.value = currentHealth;
+            if (!godmode)
+            {
+                damaged = true;
+                healthSlider.value = currentHealth;
+            }
         }
 
         /// <summary>

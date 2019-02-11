@@ -31,6 +31,9 @@ namespace EnemyType.Bosses
 
         protected override void stateAction()
         {
+            if (!peripheralVisionCone.hasVisibleTargets())
+                return;
+
             turnTo(peripheralVisionCone.getClosestVisibleTarget());
 
             // Don't shoot player-side gun

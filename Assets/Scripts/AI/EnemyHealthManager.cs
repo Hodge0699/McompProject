@@ -49,8 +49,9 @@ public class EnemyHealthManager : HealthManager {
         {
             if (me.getRoom() != null)
                 me.getRoom().enemyKilled(me);
-
-            gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
+            
+            if (gameObject.GetComponent<RandomPowerDrop>() != null)
+                gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
             me.onDeath();
         }

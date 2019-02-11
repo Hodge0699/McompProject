@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour
     protected float currentHealth;
 
     public bool godmode = false;
-    private float godmodeTimer = 0.0f;
+    private float godmodeTimer = -1.0f;
 
     public bool debugging = false;
 
@@ -47,7 +47,7 @@ public class HealthManager : MonoBehaviour
     public void setGodmode(bool godmode = true, float duration = 0)
     {
         // Don't set a timed godmode if unlimited is already on
-        if (this.godmode == godmode && godmodeTimer <= 0.0f)
+        if (this.godmode && godmodeTimer == -1.0f)
             return;
 
         this.godmode = godmode;

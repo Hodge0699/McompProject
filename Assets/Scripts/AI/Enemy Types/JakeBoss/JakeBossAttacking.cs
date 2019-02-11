@@ -23,20 +23,27 @@ namespace EnemyType.Bosses
 
         protected override System.Type decideState()
         {
-            // Target in peripheral but not main vision
-            if (!visionCone.hasVisibleTargets() && peripheralVisionCone.hasVisibleTargets())
-                return typeof(JakeBossTurning);
+            // Target in peripheral vision
+            if (peripheralVisionCone.hasVisibleTargets())
+            {
+                // Directly ahead
+                if (visionCone.hasVisibleTargets())
+                {
+                    // Ready to start firing
+                    if (rightPivot.isAtCentre())
+                        basicAttackTimer -= Time.deltaTime;
 
-
-            if (rightPivot.isAtCentre())
-            { 
-                basicAttackTimer -= Time.deltaTime;
-
-                if (basicAttackTimer <= 0.0f)
-                    return typeof(JakeBossTrapping);
+                    // Basic attack finished
+                    if (basicAttackTimer <= 0.0f)
+                        return typeof(JakeBossTrapping);
+                    else
+                        return this.GetType();
+                }
+                else // Not directly ahead
+                    return typeof(JakeBossTurning);
             }
-
-            return this.GetType();
+            else // Not in peripheral vision
+                return typeof(JakeBossWaiting);
         }
 
         protected override void stateAction()
