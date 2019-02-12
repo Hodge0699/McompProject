@@ -47,7 +47,7 @@ namespace Player
 
             damaged = false;
 
-            if (isDead())
+            if (!isAlive)
             {
                 gameObject.SetActive(false);
                 deathScene.SetActive(true);

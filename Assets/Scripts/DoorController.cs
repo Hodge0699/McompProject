@@ -127,7 +127,7 @@ public class DoorController : MonoBehaviour {
             currentState = State.OPENING;
 
         // Add an indicator chevron to point to this.
-        GameObject.Find("Player").GetComponent<Player.PlayerController>().addIndicator(this.transform.position);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerController>().addIndicator(this.transform.position);
     }
 
     /// <summary>

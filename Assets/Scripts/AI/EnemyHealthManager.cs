@@ -12,11 +12,14 @@ public class EnemyHealthManager : HealthManager {
 
     public override void hurt(float damageAmount)
     {
+        if (!isAlive)
+            return;
+
         base.hurt(damageAmount);
 
         healthBar.fillAmount = base.currentHealth / base.startingHealth;
 
-        if (currentHealth <= 0.0f)
+        if (!isAlive)
         {
             die();
             return;

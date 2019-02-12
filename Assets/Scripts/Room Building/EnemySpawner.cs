@@ -27,6 +27,8 @@ namespace RoomBuilding
             else
                 enemy.AddComponent(type);
 
+            enemy.GetComponent<EnemyType.AbstractEnemy>().enabled = false;
+
             return enemy;
         }
 
