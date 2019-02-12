@@ -45,6 +45,7 @@ namespace RoomBuilding
 
             // Create initial room
             Room startRoom = createRoom(null, null);
+            startRoom.enableEnemies();
             player.setRoom(startRoom);
 
         }

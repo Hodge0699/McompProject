@@ -6,8 +6,8 @@ public class Room : MonoBehaviour {
 
     public Vector3 dimensions;
 
-    private List<DoorController> doors = new List<DoorController>(); // List of all doors connected to this room
-    private List<Room> childRooms = new List<Room>();
+    protected List<DoorController> doors = new List<DoorController>(); // List of all doors connected to this room
+    protected List<Room> childRooms = new List<Room>();
 
     public int enemyCount; // Number of alive enemies in this room.
     public GameObject enemies; // Parent of all enemies in this room.
@@ -15,8 +15,8 @@ public class Room : MonoBehaviour {
     private GameObject powerUpDrops; // Parent of all drops in this room.
 
     public float lifetimeAfterExit = 2.0f; // How many seconds the room lasts after the player exits
-    private float lifetimeCounter = 0.0f; 
-    private bool roomBeaten = false; // Whether the room has been beaten
+    private float lifetimeCounter = 0.0f;
+    protected bool roomBeaten = false; // Whether the room has been beaten
 
     private GameObject player;
 
@@ -88,6 +88,7 @@ public class Room : MonoBehaviour {
             if (doors[i] == exit)
             {
                 childRooms[i].addDoor(exit);
+                childRooms[i].enableEnemies();
 
                 player.GetComponent<Player.PlayerController>().setRoom(childRooms[i]);
 
@@ -129,7 +130,7 @@ public class Room : MonoBehaviour {
     /// Adds a single door to the doors list.
     /// </summary>
     /// <param name="door">Exit from previous room.</param>
-    public void addDoor(DoorController door)
+    public virtual void addDoor(DoorController door)
     {
         door.transform.parent = transform.Find("Doors").transform;
         doors.Add(door);
@@ -192,6 +193,11 @@ public class Room : MonoBehaviour {
         }
     }
 
+    public void enableEnemies()
+    {
+        for (int i = 0; i < enemyCount; i++)
+            enemies.transform.GetChild(i).GetComponent<EnemyType.AbstractEnemy>().enabled = true;
+    }
 
 
     //

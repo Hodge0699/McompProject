@@ -17,8 +17,17 @@ public class BossRoom : Room
 
     public void spawn()
     {
-        boss = (GameObject)Instantiate(bossPrefab);
+        boss = Instantiate(bossPrefab);
         boss.transform.position = spawnSpot.position;
+        boss.GetComponent<EnemyType.AbstractEnemy>().enabled = false;
         base.addEnemy(boss.GetComponent<EnemyType.AbstractEnemy>());
+    }
+
+    public override void addDoor(DoorController door)
+    {
+        base.addDoor(door);
+
+        // Remove it from doors array so it doesn't open when room beaten
+        doors.Remove(door);
     }
 }

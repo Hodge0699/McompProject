@@ -12,9 +12,12 @@ public class HealthManager : MonoBehaviour
 
     public bool debugging = false;
 
+    public bool isAlive { get; private set; }
+
     private void Awake()
     {
         currentHealth = startingHealth;
+        isAlive = currentHealth > 0;
     }
 
     public void Update()
@@ -34,10 +37,12 @@ public class HealthManager : MonoBehaviour
     /// <param name="damageAmount">Damage to inflict</param>
     public virtual void hurt(float damageAmount)
     {
-        if (godmode)
+        if (godmode || !isAlive)
             return;
 
         currentHealth -= damageAmount;
+
+        isAlive = currentHealth > 0;
     }
 
     /// <summary>
@@ -58,13 +63,6 @@ public class HealthManager : MonoBehaviour
             Debug.Log("Godmode set to " + godmode);
     }
 
-    /// <summary>
-    /// Returns true if the character is dead
-    /// </summary>
-    public bool isDead()
-    {
-        return (currentHealth <= 0);
-    }
 
     /// <summary>
     /// Sets the health of this character.
@@ -77,6 +75,8 @@ public class HealthManager : MonoBehaviour
             currentHealth = health;
         else
             currentHealth = startingHealth;
+
+        isAlive = currentHealth > 0;
     }
 
     /// <summary>
