@@ -21,6 +21,8 @@ namespace Player
 
         private GameObject UI;
 
+        private List<GameObject> doorIndicators = new List<GameObject>();
+
         private void Awake()
         {
             myCamera = Instantiate(Resources.Load("Main Camera"), transform.position + cameraOffset, Quaternion.Euler(33, 0, 0)) as GameObject;
@@ -40,7 +42,10 @@ namespace Player
         /// <param name="room">Player's current room.</param>
         public void setRoom(Room room)
         {
-            this.currentRoom = room;
+            currentRoom = room;
+
+            for (int i = 0; i < doorIndicators.Count; i++)
+                Destroy(doorIndicators[i]);
         }
 
         /// <summary>
@@ -68,6 +73,23 @@ namespace Player
         public GameObject getUI()
         {
             return UI;
+        }
+
+        /// <summary>
+        /// Adds a chevron that points to an open door.
+        /// </summary>
+        /// <param name="targetPosition">Position of the open door.</param>
+        /// <returns>The indicator chevron.</returns>
+        public GameObject addIndicator(Vector3 targetPosition)
+        {
+            GameObject indicator = Instantiate(Resources.Load("DoorIndicator")) as GameObject;
+
+            indicator.transform.parent = this.transform;
+            indicator.GetComponent<DoorIndicator>().setTarget(targetPosition);
+
+            doorIndicators.Add(indicator);
+
+            return indicator;
         }
     }
 }
