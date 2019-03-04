@@ -54,11 +54,16 @@ namespace Player
 
         [Header("Dash Distance")]
         [SerializeField]
-        float dashDistance = 30f;
+        private float dashDistance = 30f;
+        private float dashDuration = 0f;
 
         [Header("Dash Particle Effect")]
         [SerializeField]
         private GameObject dashEffect;
+        [SerializeField]
+        private float dashTrailDuration;
+
+
         // Use this for initialization
 
         void Start()
@@ -100,6 +105,17 @@ namespace Player
 
             if (debugging)
                 Debug.Log("Control method: " + control);
+
+
+
+            if (dashDuration > 0)
+            {
+                dashDuration -= Time.deltaTime;
+            }
+            else
+            {
+                dashParticleNotActive();
+            }
 
             move();
             turn(control);
@@ -314,38 +330,54 @@ namespace Player
         private void CanMove(Vector3 dir, float distance)
         {
             RaycastHit hitInfo = new RaycastHit();
-            Physics.Raycast(transform.position, dir, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-            GameObject Gobject = hitInfo.collider.gameObject;
+            GameObject Gobject;
+            if (Physics.Raycast(transform.position, dir, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                Gobject = hitInfo.collider.gameObject;
+            else
+                Gobject = null;
+
+            if (Gobject == null)
+                return;
             if (Gobject.tag == "Untagged" && hitInfo.distance <= 1)
             {
 
             }
             else if (Gobject.tag == "Untagged" && hitInfo.distance <= 4.0f)
             {
-                dashParticle();
-                transform.position += dir * (distance - hitInfo.distance) /2;
+
+                transform.position += dir * (distance - hitInfo.distance) / 2;
             }
             else
             {
-                dashParticle();
+
                 transform.position += dir * distance;
             }
         }
 
-        private void dashParticle()
+        /// <summary>
+        /// set particle to active
+        /// </summary>
+        private void dashParticleActive()
         {
-            GameObject dash;
-            dash = Instantiate(dashEffect, transform.position, Quaternion.identity) as GameObject;
-            dash.transform.parent = this.transform;
+            dashEffect.SetActive(true);
+        }
+        /// <summary>
+        /// set particle to inactive
+        /// </summary>
+        private void dashParticleNotActive()
+        {
+            dashEffect.SetActive(false);
         }
         /// <summary>
         /// Checks to see if user tries to dash
         /// </summary>
         private void dash()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null)
             {
+                dashParticleActive();
                 CanMove(lastMoveDir, dashDistance);
+                dashDuration = dashTrailDuration;
             }
         }
 
