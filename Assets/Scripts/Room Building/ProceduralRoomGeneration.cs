@@ -12,6 +12,7 @@ namespace RoomBuilding
 
         [Range(0, 25)]
         public int enemyFrequency = 5; // Amount of enemies to be spawned per 1000 units squared
+        public bool useDifficulty = true; // Set true to adjust enemyFrequency based on difficulty
 
         [Range(0,15)]
         public int rooms = 5; // Number of rooms player must progress through before boss room spawns.
@@ -202,6 +203,11 @@ namespace RoomBuilding
             float roomSizeSqr = room.dimensions.x * room.dimensions.z;
             int enemyCount = (int)((roomSizeSqr / 1000) * enemyFrequency);
 
+            // Apply difficulty modifier to enemy count
+            if (useDifficulty)
+                enemyCount = (int)((float)enemyCount * Difficulty.getModifier());
+            
+            // Find position and spawn enemy
             do
             {
                 GameObject enemy = enemySpawner.spawn();
