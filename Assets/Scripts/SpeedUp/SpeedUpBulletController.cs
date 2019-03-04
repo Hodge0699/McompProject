@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpeedUpBulletController : MonoBehaviour
 {
+
     public float speed = 5.0f;
     public SpeedUpBubbleController tB;
 
@@ -28,13 +29,7 @@ public class SpeedUpBulletController : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("I'm getting inside the collision function when the bullet hits a viable target" + " " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "SpeedUp")
-        {
-            Debug.Log("I'm getting inside the collision function when the bullet hits a viable target");
-            Destroy(gameObject);
-
-            SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
-        }
+        SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
+        Destroy(gameObject);
     }
 }

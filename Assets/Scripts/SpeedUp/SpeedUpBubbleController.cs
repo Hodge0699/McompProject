@@ -7,6 +7,9 @@ public class SpeedUpBubbleController : MonoBehaviour {
     public Vector3 direction;
     public float speed = 10.0f;
     public float bubbleDuration = 100.0f;
+    private float defaultSpeed = 0.0f;
+    private float _localTimeScale = 1.0f;
+    public List<Rigidbody> r;
 
     void Start()
     {
@@ -19,22 +22,52 @@ public class SpeedUpBubbleController : MonoBehaviour {
         // destroys the bubble after a set time
         bubbleDuration -= Time.deltaTime;
 
-        if(bubbleDuration <= 0)
+        if (bubbleDuration <= 0)
         {
             Destroy(this.gameObject);
         }
     }
 
+    void FixedUpdate()
+    {
+        foreach (Rigidbody rb in r)
+        {
+            rb.AddForce(-Physics.gravity + (Physics.gravity * (_localTimeScale * _localTimeScale)), ForceMode.Acceleration);
+        }
+
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // if something enters the field of the bubble increase its speed
-        if (other.gameObject.tag == "SpeedUp")
+        if ((other.tag != "Untagged"))
         {
-            Debug.Log("I'm registering the player is inside the bubble");
-            //other.GetComponent<PlayerController>().moveSpeed = other.GetComponent<PlayerController>().moveSpeed + speed;
-            //other.transform.Translate(direction * speed * Time.deltaTime);
-            other.GetComponent<Rigidbody>().AddForce(0, speed, 0);
+            Debug.Log("someone entered time bubble");
+            r.Add(other.GetComponent<Rigidbody>());
+            speedAdjuster(2.0f, r);
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag != "Untagged")
+        {
+            speedAdjuster(1.0f, r);
+            r.Remove(other.GetComponent<Rigidbody>());
+        }
+    }
+    /// <summary>
+    /// adjusts all the object's rigidbody velocity that is inside the bubble
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="other"></param>
+    private void speedAdjuster(float value, List<Rigidbody> other)
+    {
+        float multiplier = value / _localTimeScale;
+        foreach (Rigidbody rb in r)
+        {
+            rb.velocity *= multiplier;
+        }
+        _localTimeScale = value;
     }
 }
