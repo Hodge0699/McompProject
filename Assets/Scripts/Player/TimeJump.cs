@@ -49,14 +49,14 @@ public class TimeJump : MonoBehaviour
 
        // sceneCamera.GetComponent<CameraController>().BlurTransition();
         sceneLight.SetActive(false);
-        gameObject.transform.position = new Vector3(pos.x + Jumpdistance, pos.y, pos.z);
+        gameObject.transform.position = new Vector3(pos.x + Jumpdistance, pos.y - Jumpdistance, pos.z);
         
     }
 
     void PresentJump(Vector3 pos)
     {
         sceneLight.SetActive(true);
-        gameObject.transform.position = new Vector3(pos.x - Jumpdistance, pos.y, pos.z);
+        gameObject.transform.position = new Vector3(pos.x - Jumpdistance, pos.y + Jumpdistance, pos.z);
     }
 
 
