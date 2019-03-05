@@ -11,9 +11,6 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (target == null)
-                return;
-
             transform.localPosition = Vector3.zero; // Reset back to centre
             transform.position = new Vector3(transform.position.x, 0.25f, transform.position.z); // Float 0.25f above ground
             transform.LookAt(target);
