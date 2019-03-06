@@ -78,10 +78,7 @@ namespace EnemyType
                 directionVector = (pickupLocation - transform.position).normalized;
             }
             else
-            {
-                turnTo(pickupLocation);
-                directionVector = transform.forward;
-            }
+                goToPosition(pickupLocation);
         }
 
         /// <summary>
