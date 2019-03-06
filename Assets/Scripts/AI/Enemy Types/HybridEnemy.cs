@@ -34,6 +34,11 @@ namespace EnemyType
             }
         }
 
+        /// <summary>
+        /// Switches behaviours
+        /// </summary>
+        /// <param name="behaviour">New behaviour to switch to</param>
+        /// <param name="force">True to force behaviour switch without checking current behaviour</param>
         void switchBehaviour(Behaviour behaviour, bool force = false)
         {
             if (!force && currentBehaviour == behaviour)

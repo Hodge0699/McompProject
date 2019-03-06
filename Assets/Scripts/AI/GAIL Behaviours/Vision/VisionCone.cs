@@ -124,6 +124,10 @@ public class VisionCone : MonoBehaviour
     /// <param name="other">Agent that left the trigger area</param>
     private void OnTriggerExit(Collider other)
     {
+        // If still within view distance, different trigger exitted
+        if ((transform.position - other.transform.position).magnitude < viewDistance)
+            return;
+
         if (targetTags.Contains(other.transform.tag)) // If the target's tag is in the targetTag list
         {
             if (nearbyTargets.Contains(other.gameObject)) // If the target is in the nearbyTargets array, remove it

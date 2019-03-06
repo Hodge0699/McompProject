@@ -42,7 +42,7 @@ namespace RoomBuilding
             switch (rand)
             {
                 case (0):
-                    return typeof(EnemyType.MeleeEnemy);
+                    return typeof(EnemyType.HybridEnemy);
                 case (1):
                     return typeof(EnemyType.GunEnemy);
                 default:
