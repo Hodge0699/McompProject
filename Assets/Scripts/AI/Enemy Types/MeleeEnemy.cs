@@ -13,11 +13,17 @@ namespace EnemyType
 
         public float attackDamage = 10.0f;
 
+        public bool usePickups = false;
+
+        private VisionCone pickUpVisionCone;
+
         protected override void Awake()
         {
             base.Awake();
 
-            movementSpeed *= 2;
+            pickUpVisionCone = GetComponents<VisionCone>()[1];
+
+            movementSpeed *= 3;
         }
 
         private void Update()
@@ -26,7 +32,12 @@ namespace EnemyType
                 attackCooldownCounter -= Time.deltaTime;
 
             if (target == null)
-                wander();
+            {
+                if (usePickups && pickUpVisionCone.hasVisibleTargets())
+                    goToPosition(pickUpVisionCone.getClosestVisibleTarget().transform.position);
+                else
+                    wander();
+            }
             else
             {
                 chase();

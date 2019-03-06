@@ -84,16 +84,40 @@ public class GunController : MonoBehaviour {
     /// <summary>
     /// Switches to the best weapon available with ammo
     /// </summary>
-    public void switchToBest()
+    /// <returns>True if found weapon with ammo</returns>
+    public bool switchToBest()
     {
-        for (int i = guns.Count - 1; i > 0; i--)
+        for (int i = guns.Count - 1; i >= 0; i--)
         {
-            if (guns[i].getCurrentAmmo() > 0)
+            if (guns[i].hasAmmo())
             {
                 setGun(guns[i].GetType());
-                return;
+                return true;
             }
         }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if this GunController has any ammo
+    /// </summary>
+    /// <param name="checkAllGuns">Should unequipped guns also be checked?</param>
+    /// <returns>True if ammo remaining</returns>
+    public bool hasAmmo(bool checkAllGuns = false)
+    {
+        if (checkAllGuns)
+        {
+            foreach (AbstractGun g in guns)
+            {
+                if (g.hasAmmo())
+                    return true;
+            }
+
+            return false;
+        }
+        else
+            return currentGun.hasAmmo();
     }
 
     /// <summary>
