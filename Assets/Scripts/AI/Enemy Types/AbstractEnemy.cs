@@ -122,6 +122,16 @@ namespace EnemyType
             }
         }
         
+        /// <summary>
+        /// Faces position and walks towards it
+        /// </summary>
+        /// <param name="position">Position to walk to</param>
+        protected virtual void goToPosition(Vector3 position)
+        {
+            turnTo(position);
+            directionVector = transform.forward;
+        }
+
         //
         // turnTo overrides
         //

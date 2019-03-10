@@ -131,6 +131,15 @@ namespace Weapon.Gun
         }
 
         /// <summary>
+        /// Tests if the gun has any ammo
+        /// </summary>
+        /// <returns>True if ammo left</returns>
+        public bool hasAmmo()
+        {
+            return currentAmmo > 0;
+        }
+
+        /// <summary>
         /// Adds more ammo to the gun.
         /// </summary>
         /// <param name="ammo">Ammo to add.</param>
