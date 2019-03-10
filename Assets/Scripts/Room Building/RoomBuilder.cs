@@ -8,9 +8,6 @@ namespace RoomBuilding
     {
         public enum Direction { NORTH, EAST, SOUTH, WEST, ERROR };
 
-        // Liam: setting floor texture for generated room floor
-        public Texture floorTexture; // Liam
-
         public Vector3 dimensions = new Vector3(25.0f, 5.0f, 20.0f); // Dimensions of the room
 
         // Manual build button
@@ -125,9 +122,7 @@ namespace RoomBuilding
             room.dimensions = dimensions;
 
             // Create floor
-            GameObject floor = instantiateCube("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
-            // Liam - applying set texture to the floor on generation
-            floor.GetComponent<Renderer>().material.mainTexture = floorTexture; // Liam
+            GameObject floor = instantiateFloor("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
 
             Destroy(floor.GetComponent<Rigidbody>()); // Giving the floor a rigid body makes enemys fall through for some reason
 
@@ -145,12 +140,15 @@ namespace RoomBuilding
         private void buildWalls(Transform parent)
         {
             GameObject walls = new GameObject();
+            
             walls.name = "Walls";
             walls.transform.parent = parent;
             walls.transform.localPosition = Vector3.zero;
             // West
             if (westWall == wallType.SOLID)
+            {
                 instantiateCube("Left Wall", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 270);
+            }
             else
             {
                 float newWallSize = (dimensions.z - doorSize) / 2;
@@ -239,7 +237,6 @@ namespace RoomBuilding
 
                 doors.Add(door.GetComponent<DoorController>());
             }
-
             return doors;
         }
 
@@ -257,12 +254,28 @@ namespace RoomBuilding
             cube.transform.parent = parent;
             cube.transform.localPosition = localPosition;
             cube.transform.localScale = localScale;
-
             cube.transform.Rotate(Vector3.up, rotateDegrees);
 
             return cube;
         }
+        /// <summary>
+        /// Instantiates a floor in the level.
+        /// </summary>
+        /// <param name="parent">The parent object to attach this cube to.</param>
+        /// <param name="localPosition">Position of this cube in relation to parent.</param>
+        /// <param name="localScale">Scale of this cube in relation to parent.</param>
+        /// <returns></returns>
+        private GameObject instantiateFloor(string name, Transform parent, Vector3 localPosition, Vector3 localScale, float rotateDegrees = 0.0f)
+        {
+            GameObject cube = Instantiate(Resources.Load("Room Components\\Floor")) as GameObject;
+            cube.transform.name = name;
+            cube.transform.parent = parent;
+            cube.transform.localPosition = localPosition;
+            cube.transform.localScale = localScale;
+            cube.transform.Rotate(Vector3.up, rotateDegrees);
 
+            return cube;
+        }
         /// <summary>
         /// Instantiates a cube in the level.
         /// </summary>
@@ -275,7 +288,6 @@ namespace RoomBuilding
             door.transform.name = name;
             door.transform.parent = parent;
             door.transform.localPosition = localPosition;
-
             door.GetComponent<DoorController>().init(doorSize, dimensions.y, wallThickness * 0.9f, doorSpeed);
 
             return door;

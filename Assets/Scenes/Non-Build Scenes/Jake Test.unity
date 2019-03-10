@@ -282,7 +282,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1653496019388500, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114436240047496228, guid: ad39af0fc3a950547966b40ca79132f9,
         type: 2}
@@ -441,6 +441,73 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 910cd06824dc51046bf6cac566dffe12, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &959366468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1318024367561644, guid: 5900b99f2c16a5348af3334cdedf2123,
+    type: 2}
+  m_PrefabInternal: {fileID: 1590900879}
+--- !u!1001 &1573418936
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: bossRoom
+      value: 
+      objectReference: {fileID: 959366468}
+    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: floorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 0ee3edd92a04245d5a2bb14a5e26e50e, type: 3}
+    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: wallTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 46c25ca52c699402e88cf0bf1030ebcc, type: 3}
+    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: doorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 798ae30319d6842d2b553fbba4527ab6, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1590900879
 Prefab:
   m_ObjectHideFlags: 0
@@ -486,106 +553,4 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5900b99f2c16a5348af3334cdedf2123, type: 2}
-  m_IsPrefabAsset: 0
---- !u!1001 &2002546458
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4694517422671312, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: enemyFrequency
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: rooms
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: bossRoom
-      value: 
-      objectReference: {fileID: 1663305555646758, guid: 910cd06824dc51046bf6cac566dffe12,
-        type: 2}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: minRoomSize.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: minRoomSize.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: maxRoomSize.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: maxRoomSize.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1365513603276702, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: wallMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 9ee1a6843ab6333479e7c18343f1c869, type: 2}
-    - target: {fileID: 114875700387579782, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: doorMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 5a594d986df38284ab14d8df9ec0b44c, type: 2}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: spawnPlayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
-        type: 2}
-      propertyPath: useDifficulty
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
   m_IsPrefabAsset: 0
