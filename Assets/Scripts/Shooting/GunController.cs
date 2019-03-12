@@ -129,6 +129,23 @@ public class GunController : MonoBehaviour {
     }
 
     /// <summary>
+    /// Attempts to get gun of specific type
+    /// </summary>
+    /// <param name="gun">Gun type to get</param>
+    /// <returns>Gun or null if not held</returns>
+    public AbstractGun getGun(System.Type gun)
+    {
+        foreach (AbstractGun g in guns)
+        {
+            if (gun == g.GetType())
+                return g;
+        }
+
+        // Gun not held by GunController
+        return null;
+    }
+
+    /// <summary>
     /// Adds ammo to a certain gun
     /// </summary>
     /// <param name="gun">Gun to replenish.</param>

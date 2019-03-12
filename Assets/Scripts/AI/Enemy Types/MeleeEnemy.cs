@@ -13,21 +13,24 @@ namespace EnemyType
 
         public float attackDamage = 10.0f;
 
-        public bool usePickups = false;
-
-        private VisionCone pickUpVisionCone;
+        public bool usePickups = false; // Should this enemy try to find a gun?
 
         protected override void Awake()
         {
             base.Awake();
 
-            pickUpVisionCone = GetComponents<VisionCone>()[1];
+            movementSpeed = 6.0f;
 
-            movementSpeed *= 3;
+            // Make sure all ammo is empty just in case this enemy is hybrid
+            gunController.getGun(typeof(Weapon.Gun.Handgun)).setAmmo(0);
         }
 
         private void Update()
         {
+            // Switch to GunEnemy if has ammo
+            if (usePickups && gunController.hasAmmo(true))
+                switchToBehaviour(typeof(GunEnemy), true, false);
+
             if (attackCooldownCounter >= 0.0f)
                 attackCooldownCounter -= Time.deltaTime;
 

@@ -14,7 +14,6 @@ namespace EnemyType.Bosses
         [System.NonSerialized]
         public bool canShoot = true;
 
-        public GunController gunController;
         private GameObject SceneManager;
 
 
@@ -36,7 +35,6 @@ namespace EnemyType.Bosses
 
         protected override void Awake()
         {
-            gunController = GetComponentInChildren<GunController>();
             SceneManager = GameObject.Find("SceneManager");
             shooterPosition = transform.position;
             shooterVelocity = this.GetComponent<Rigidbody>().velocity;
@@ -141,5 +139,12 @@ namespace EnemyType.Bosses
             //return turnToTarget + t * (targetRelativeVelocity); // applying bullet drop to the calculations
         }
 
+        /// <summary>
+        /// Accessor for BossGunSwitchM
+        /// </summary>
+        public GunController getGunController()
+        {
+            return gunController;
+        }
     }
 }

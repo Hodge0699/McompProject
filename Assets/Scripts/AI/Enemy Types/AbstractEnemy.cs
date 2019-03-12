@@ -22,10 +22,17 @@ namespace EnemyType
 
         public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
 
+        protected GunController gunController;
+        protected VisionCone pickUpVisionCone;
+
+
         // Use this for initialization
         protected virtual void Awake()
         {
-            visionCone = GetComponent<VisionCone>();
+            gunController = GetComponentInChildren<GunController>();
+            visionCone = GetComponents<VisionCone>()[0];
+            pickUpVisionCone = GetComponents<VisionCone>()[1];
+
         }
 
         private void LateUpdate()
@@ -171,6 +178,48 @@ namespace EnemyType
 
                 transform.Rotate(Vector3.up, angle);
             }
+        }
+
+
+        //
+        // Behaviour switching
+        //
+
+        /// <summary>
+        /// Copies base AbstractEnemy variables into a new behaviour
+        /// </summary>
+        /// <param name="enemy">Behaviour to copy into</param>
+        public void copyBaseVariables(AbstractEnemy enemy)
+        {
+            this.movementSpeed = enemy.movementSpeed;
+            this.maxDistance = enemy.maxDistance;
+            this.turnSpeed = enemy.turnSpeed;
+        }
+
+        /// <summary>
+        /// Switches enemy behaviour and copies base variables over
+        /// </summary>
+        /// <param name="state">Behaviour to switch to</param>
+        /// <param name="destroyOldBehaviour">Should old behaviour be destroyed immediately?</param>
+        /// <returns>True if switch is successful</returns>
+        protected virtual bool switchToBehaviour(System.Type behaviour, bool destroyOldBehaviour = true, bool copyVariables = true)
+        {
+            // Don't switch if same behaviour
+            if (behaviour == this.GetType())
+                return false;
+
+            gameObject.AddComponent(behaviour);
+
+            if (copyVariables)
+                gameObject.GetComponents<AbstractEnemy>()[1].copyBaseVariables(this);
+
+            // Always copy the room
+            gameObject.GetComponents<AbstractEnemy>()[1].setRoom(getRoom());
+
+            if (destroyOldBehaviour)
+                Destroy(this);
+
+            return true;
         }
     }
 }

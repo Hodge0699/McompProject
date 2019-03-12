@@ -21,12 +21,12 @@ public class BossGunSwitchM : MonoBehaviour {
         // checks health to switch guns
         if (health.getHealthPercentage() <= 0.5f && health.getHealthPercentage() > 0.25f && gunSwitchChanger == 0)
         {
-            bEnemy.gunController.setGun(typeof(Shotgun), true);
+            bEnemy.getGunController().setGun(typeof(Shotgun), true);
             gunSwitchChanger = 1;
         }
         else if (health.getHealthPercentage() <= 0.25f && health.getHealth() > 0 && gunSwitchChanger == 1)
         {
-            bEnemy.gunController.setGun(typeof(EXDHandgun), true);
+            bEnemy.getGunController().setGun(typeof(EXDHandgun), true);
             gunSwitchChanger = 2;
         }
     }
