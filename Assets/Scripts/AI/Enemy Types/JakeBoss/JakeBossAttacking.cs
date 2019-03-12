@@ -57,8 +57,6 @@ namespace EnemyType.Bosses
         protected override void onStateSwitch(JakeBoss newState)
         {
             mainPivot.stopPivot(true);
-
-            base.onStateSwitch(newState);
         }
     }
 }

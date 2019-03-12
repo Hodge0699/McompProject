@@ -63,8 +63,6 @@ namespace EnemyType.Bosses
         {
             rightPivot.stopPivot(true);
             leftPivot.stopPivot(true);
-
-            base.onStateSwitch(newState);
         }
     }
 }

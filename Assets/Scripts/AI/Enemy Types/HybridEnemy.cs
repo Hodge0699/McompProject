@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// DEPRECATED
+/// 
+/// </summary>
 namespace EnemyType
 {
     public class HybridEnemy : MonoBehaviour {
@@ -18,6 +23,8 @@ namespace EnemyType
             gunController.getGun().setAmmo(0);
 
             switchBehaviour(Behaviour.MELEE, true);
+
+            Debug.LogWarning("HybridEnemy is now implemented into MeleeEnemy when usePickups is True");
         }
 
         // Update is called once per frame

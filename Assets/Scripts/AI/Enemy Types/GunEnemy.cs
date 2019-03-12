@@ -10,25 +10,22 @@ namespace EnemyType
         [System.NonSerialized]
         public bool canShoot = true;
 
-        private GunController gunController;
-        private VisionCone pickUpVisionCone;
-
         private bool usePredictiveAiming = true; // Lightweight predictive shooting
                                                   //
                                                   // To do:
                                                   // - Fix issue where bullets fall behind player when moving in straight line far away.
                                                   // - Artificial stupidity.
 
-        protected override void Awake()
-        {
-            gunController = GetComponentInChildren<GunController>();
-            pickUpVisionCone = GetComponents<VisionCone>()[1];
-
-            base.Awake();
-        }
-
         private void Update()
         {
+            // Switch back to MeleeEnemy if out of ammo
+            if (!gunController.hasAmmo())
+            {
+                switchToBehaviour(typeof(MeleeEnemy), false, false);
+                GetComponent<MeleeEnemy>().usePickups = true;
+                Destroy(this);
+            }
+
             gunController.switchToBest();
 
             if (pickUpVisionCone.hasVisibleTargets())

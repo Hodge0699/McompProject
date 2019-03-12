@@ -18,6 +18,8 @@ namespace RoomBuilding
         /// <returns>New enemy</returns>
         public GameObject spawn(System.Type type = null)
         {
+            bool useHybridMelee = true;
+
             GameObject enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
@@ -27,7 +29,11 @@ namespace RoomBuilding
             else
                 enemy.AddComponent(type);
 
-            enemy.GetComponent<EnemyType.AbstractEnemy>().enabled = false;
+            EnemyType.AbstractEnemy enemyScr = enemy.GetComponent<EnemyType.AbstractEnemy>();
+            enemyScr.enabled = false;
+
+            if (useHybridMelee && enemyScr.GetType() == typeof(EnemyType.MeleeEnemy))
+                enemy.GetComponent<EnemyType.MeleeEnemy>().usePickups = true;
 
             return enemy;
         }

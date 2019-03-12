@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace EnemyType.Bosses
         void Update()
         {
             System.Type newState = decideState();
-            setState(newState);
+            switchToBehaviour(newState);
             stateAction();
         }
 
@@ -71,36 +72,22 @@ namespace EnemyType.Bosses
         /// back to stopped at their centre.
         /// </summary>
         /// <param name="newState">Next state that is being switched to.</param>
-        protected virtual void onStateSwitch(JakeBoss newState)
-        {
-            newState.copyBaseVariables(this);
-            Destroy(this);
-        }
+        protected abstract void onStateSwitch(JakeBoss newState);
 
         /// <summary>
-        /// Moves onto the next state
+        /// Switches enemy behaviour
         /// </summary>
-        /// <param name="state">State to switch to.</param>
-        protected void setState(System.Type state)
+        /// <param name="state">Behaviour to switch to</param>
+        protected override bool switchToBehaviour(Type behaviour, bool destroyOldBehaviour = false, bool copyVariables = true)
         {
-            // Don't switch if same state
-            if (state == this.GetType())
-                return;
+            if (!base.switchToBehaviour(behaviour, destroyOldBehaviour, copyVariables))
+                return false; // Couldn't switch, don't call onStateSwitch
 
-            gameObject.AddComponent(state);
             onStateSwitch(GetComponents<JakeBoss>()[1]);
-        }
 
-        /// <summary>
-        /// Copies base AbstractEnemy variables into a new behaviour
-        /// </summary>
-        /// <param name="enemy">Behaviour to copy into</param>
-        public void copyBaseVariables(AbstractEnemy enemy)
-        {
-            this.movementSpeed = enemy.movementSpeed;
-            this.maxDistance = enemy.maxDistance;
-            this.turnSpeed = enemy.turnSpeed;
-            this.myRoom = enemy.getRoom();
+            Destroy(this);
+
+            return true;
         }
 
         public override void onDeath()
