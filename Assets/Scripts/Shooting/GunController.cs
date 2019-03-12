@@ -20,8 +20,12 @@ public class GunController : MonoBehaviour {
     private AbstractGun currentGun;
     private List<AbstractGun> guns = new List<AbstractGun>();
 
+    private WeaponUISwitch weaponUISwitch;
+
     private void Awake ()
     {
+        weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
+
         bulletContainer = new GameObject();
         bulletContainer.name = "Active Bullets";
         bulletContainer.transform.position = Vector3.zero;
@@ -58,7 +62,10 @@ public class GunController : MonoBehaviour {
         bullet.transform.parent = bulletContainer.transform;
 
         if (currentGun.getCurrentAmmo() <= 0)
+        {
             setGun(typeof(Handgun));
+            weaponUISwitch.switchWeaponUI(0);
+        }
     }
 
     /// <summary>
@@ -92,6 +99,7 @@ public class GunController : MonoBehaviour {
             if (guns[i].hasAmmo())
             {
                 setGun(guns[i].GetType());
+                //weaponUISwitch.switchWeaponUI(i);
                 return true;
             }
         }

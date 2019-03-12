@@ -36,6 +36,7 @@ namespace Player
         private PlayerController player;
         private new Rigidbody rigidbody;
         private GunController gunController;
+        private WeaponUISwitch weaponUISwitch;
 
         private bool debugging = false;
 
@@ -71,6 +72,7 @@ namespace Player
             player = GetComponent<PlayerController>();
             rigidbody = GetComponent<Rigidbody>();
             gunController = transform.Find("GunPrimary").GetComponent<GunController>();
+            weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
 
             mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
 
@@ -255,7 +257,10 @@ namespace Player
                 if (Input.GetKeyDown(weaponSwitches[i]))
                 {
                     if (weapons.Count > i)
+                    {
                         gunController.setGun(weapons[i]);
+                        weaponUISwitch.switchWeaponUI(i);
+                    }
                     else
                         Debug.LogError("Weapon not mapped to button " + weaponSwitches[i] + "!");
                 }

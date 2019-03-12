@@ -15,6 +15,7 @@ TagManager:
   - GameManager
   - BossRandomTeleporter
   - Turret
+  - WeaponUI
   layers:
   - Default
   - TransparentFX
