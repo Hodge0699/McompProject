@@ -36,7 +36,7 @@ public class RewindTimeManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // Toggle rewind to rewind for "recordTime" seconds
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
             StartRewind();
     }
 
