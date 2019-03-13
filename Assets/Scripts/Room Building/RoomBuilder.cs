@@ -124,8 +124,6 @@ namespace RoomBuilding
             // Create floor
             GameObject floor = instantiateFloor("Floor", roomOrigin.transform, new Vector3(0.0f, -0.25f, 0.0f), new Vector3(dimensions.x, 0.5f, dimensions.z));
 
-            Destroy(floor.GetComponent<Rigidbody>()); // Giving the floor a rigid body makes enemys fall through for some reason
-
             buildWalls(roomOrigin.transform);
             room.setDoors(buildDoors(roomOrigin.transform));
             room.createGeometryShaders();
