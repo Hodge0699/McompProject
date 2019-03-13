@@ -91,7 +91,8 @@ public class DoorController : MonoBehaviour {
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player.PlayerController>() == null || triggered)
+        // If other is not player, or already triggered, or currently closed, don't load next room
+        if (other.GetComponent<Player.PlayerController>() == null || triggered || currentState == State.CLOSED)
             return;
 
         triggered = true;
