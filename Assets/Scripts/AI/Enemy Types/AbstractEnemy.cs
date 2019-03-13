@@ -18,6 +18,8 @@ namespace EnemyType
 
         protected VisionCone visionCone;
 
+        protected Animator anim;
+
         public float maxDistance = 1.6f; // Distance enemy should get to the player
 
         public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
@@ -32,6 +34,7 @@ namespace EnemyType
             gunController = GetComponentInChildren<GunController>();
             visionCone = GetComponents<VisionCone>()[0];
             pickUpVisionCone = GetComponents<VisionCone>()[1];
+            anim = GetComponent<Animator>();
 
         }
 

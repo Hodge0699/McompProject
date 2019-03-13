@@ -33,17 +33,26 @@ namespace EnemyType
             else if (target != null)
             {
                 if (getDistanceToTarget() >= 5.0f)
+                {
                     chase();
+                    anim.SetTrigger("Chasing");
+                }
                 else
                 {
                     if (usePredictiveAiming)
+                    {
                         predictiveAim();
+                        anim.SetTrigger("PistolShooting");
+                    }
                     else
                         turnTo(target);
                 }
             }
             else
+            {
                 wander();
+                anim.SetTrigger("PlayerDead");
+            }
 
             if (target != null && canShoot)
                 shoot();
