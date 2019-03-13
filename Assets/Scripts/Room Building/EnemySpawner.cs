@@ -20,7 +20,7 @@ namespace RoomBuilding
         {
             bool useHybridMelee = true;
 
-            GameObject enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+            GameObject enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
 
