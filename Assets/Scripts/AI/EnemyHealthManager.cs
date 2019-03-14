@@ -67,16 +67,6 @@ public class EnemyHealthManager : HealthManager {
     {
         anim.SetTrigger("Dead");
         deathAnimationDuration = 2;
-        if (GetComponent<GunEnemy>() != null)
-            Destroy(GetComponent<GunEnemy>());
-        if(GetComponent<MeleeEnemy>() != null)
-            Destroy(GetComponent<MeleeEnemy>());
-
-    }
-
-    private void destroyGameObject()
-    {
-        Debug.Log("Getting here");
 
         EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
 
@@ -90,6 +80,17 @@ public class EnemyHealthManager : HealthManager {
 
             me.onDeath();
         }
+
+        if (GetComponent<GunEnemy>() != null)
+            Destroy(GetComponent<GunEnemy>());
+        if(GetComponent<MeleeEnemy>() != null)
+            Destroy(GetComponent<MeleeEnemy>());
+
+    }
+
+    private void destroyGameObject()
+    {
+        Debug.Log("Getting here");
         Destroy(gameObject);
     }
 }
