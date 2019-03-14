@@ -7,6 +7,9 @@ public class HealthManager : MonoBehaviour
     public float startingHealth;
     protected float currentHealth;
 
+
+    protected Animator anim;
+
     public bool godmode = false;
     private float godmodeTimer = -1.0f;
 
@@ -18,6 +21,7 @@ public class HealthManager : MonoBehaviour
     {
         currentHealth = startingHealth;
         isAlive = currentHealth > 0;
+        anim = GetComponent<Animator>();
     }
 
     public void Update()

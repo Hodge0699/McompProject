@@ -120,11 +120,12 @@ namespace Player
             }
 
             actions();
+            move();
+            turn(control);
         }
         private void FixedUpdate()
         {
-            move();
-            turn(control);
+
             dash();
         }
 
@@ -155,6 +156,7 @@ namespace Player
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
             Vector3 movement = directionVector.normalized * player.moveSpeed * Time.deltaTime;
+            //rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;
             lastMoveDir = movement;

@@ -57,6 +57,7 @@ namespace EnemyType
         /// Override if a specific enemy should do something special on death
         /// </summary>
         public virtual void onDeath() { }
+        
 
         /// <summary>
         /// Links this enemy to a room
