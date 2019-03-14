@@ -16,6 +16,8 @@ TagManager:
   - BossRandomTeleporter
   - Turret
   - WeaponUI
+  - Untagg
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - Shootable
   - Invisible
   - PostProcessing
-  - 
+  - Bullets
   - 
   - 
   - 
