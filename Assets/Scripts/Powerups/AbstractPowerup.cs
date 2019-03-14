@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using EnemyType;
 using Weapon.Gun;
 
 namespace Powerups
@@ -23,7 +23,7 @@ namespace Powerups
 
             GunController gunController = other.GetComponentInChildren<GunController>();
 
-            if (gunController != null)
+            if (gunController != null && other.GetComponent<GunEnemy>() != null || gunController != null && other.GetComponent<MeleeEnemy>() != null)
             {
                 //gunController.setGun(gun, duration);
                 gunController.addAmmo(gun, ammo);
