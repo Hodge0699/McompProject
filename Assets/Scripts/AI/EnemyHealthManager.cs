@@ -17,10 +17,8 @@ public class EnemyHealthManager : HealthManager {
 
     new void Update()
     {
-
         if (deathAnimationDuration <= 2)
         {
-            Debug.Log("Timer: " + deathAnimationDuration);
             deathAnimationDuration -= Time.deltaTime;
         }
         if (deathAnimationDuration <= 0)
@@ -68,31 +66,30 @@ public class EnemyHealthManager : HealthManager {
     private void die()
     {
         anim.SetTrigger("Dead");
-        EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
-        
-        if(GetComponent<GunEnemy>() != null)
+        deathAnimationDuration = 2;
+        if (GetComponent<GunEnemy>() != null)
             Destroy(GetComponent<GunEnemy>());
         if(GetComponent<MeleeEnemy>() != null)
             Destroy(GetComponent<MeleeEnemy>());
 
+    }
+
+    private void destroyGameObject()
+    {
+        Debug.Log("Getting here");
+
+        EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
 
         if (me != null)
         {
             if (me.getRoom() != null)
                 me.getRoom().enemyKilled(me);
-            
+
             if (gameObject.GetComponent<RandomPowerDrop>() != null)
                 gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
 
             me.onDeath();
         }
-
-        deathAnimationDuration = 2;
-    }
-
-    private void destroyGameObject()
-    {
-        Debug.Log("something");
         Destroy(gameObject);
     }
 }
