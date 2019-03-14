@@ -30,6 +30,9 @@ public class WeaponUISwitch : MonoBehaviour {
         weaponUI.Add(machinegun);
         //weaponUI.Add(EXDhandgun);
         //weaponUI.Add(nonTimeEffectingGun);
+
+        // Show starting pistol - Jake
+        switchWeaponUI(0);
     }
 
     // Update is called once per frame
