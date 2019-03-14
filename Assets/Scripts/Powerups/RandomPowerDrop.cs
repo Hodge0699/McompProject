@@ -22,8 +22,8 @@ public class RandomPowerDrop : MonoBehaviour {
     public void CalculateLoot()
     {
         // Don't drop a power up if enemy not tied to a room - Jake
-        if (GetComponent<EnemyType.AbstractEnemy>().getRoom() == null)
-            return;
+        //if (GetComponent<EnemyType.AbstractEnemy>().getRoom() == null)
+        //    return;
 
         int Calc_ItemDropChance = Random.Range(0, 101);
         if (Calc_ItemDropChance > ItemDropChance)

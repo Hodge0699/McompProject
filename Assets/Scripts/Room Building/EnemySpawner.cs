@@ -62,7 +62,7 @@ namespace RoomBuilding
         /// <returns>Vector3 world position.</returns>
         public Vector3 generateNewPosition()
         {
-            return transform.position = new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.00f, Random.Range(-size.z / 2, size.z / 2));
+            return transform.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), 0.00f, Random.Range(-size.z / 2, size.z / 2));
         }
 
         void OnDrawGizmosSelected()
