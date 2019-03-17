@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 114768021787505068}
   - component: {fileID: 114483397632992554}
   - component: {fileID: 114737799830531368}
+  - component: {fileID: 114372923051910610}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -795,6 +796,17 @@ MonoBehaviour:
   - Player
   autoSwitchOnEmpty: 1
   debugging: 0
+--- !u!114 &114372923051910610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653496019388500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26b1ff9311e3244aa48622163dd4ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114436240047496228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -849,6 +861,7 @@ MonoBehaviour:
   weaponSwitches: 3100000032000000330000003400000035000000
   controllerShoot: 355
   controllerPause: 337
+  TS: {fileID: 0}
   dashDistance: 30
   dashEffect: {fileID: 1283392760384260}
   dashTrailDuration: 0.25

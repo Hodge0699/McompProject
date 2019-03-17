@@ -5,43 +5,32 @@ using UnityEngine;
 public class TimeStop : MonoBehaviour
 {
 
+
     [SerializeField]
 
-    bool pausetime = false;
+    //uncomment onces levelThree has been created
 
-    public float PauseTime = 0.0f;
-    private float NonPausedTime = 1.0f;
-    
-     void Start()
+    //void Start()
+    //{
+    //    Scene scene = SceneManager.GetActiveScene();
+    //    if (scene.name == "LevelThree")
+    //        gameObject.GetComponent<TimeStop>().enabled = true;
+    //    else
+    //        gameObject.GetComponent<TimeStop>().enabled = false;
+    //}
+
+    void Update()
     {
-       
-    }
 
 
-    public void Update()
-    {
-       if(Input.GetKeyDown("space"))
+
+        if (Input.GetKeyDown("e"))
         {
-       
-            StartPaused(); 
-        }
-       else
-        if(Input.GetKeyUp("space"))
-        {
-            EndPaused();
-        }
-    }
+            if (Time.timeScale == 1.0)
+                Time.timeScale = 0.0f;
 
-
-    void EndPaused()
-    {
-        Time.timeScale = NonPausedTime;
-    }
-    void StartPaused()
-    {
-        
-        pausetime = true;
-        Time.timeScale = PauseTime;
-        
+            else
+                Time.timeScale = 1.0f;
+        }             
     }
 }

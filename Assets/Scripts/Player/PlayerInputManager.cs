@@ -37,6 +37,7 @@ namespace Player
         private new Rigidbody rigidbody;
         private GunController gunController;
         private WeaponUISwitch weaponUISwitch;
+        public TimeStop TS;
 
         private bool debugging = false;
 
@@ -112,7 +113,7 @@ namespace Player
 
             if (dashDuration > 0)
             {
-                dashDuration -= Time.deltaTime;
+                dashDuration -= Time.unscaledDeltaTime;
             }
             else
             {
@@ -155,8 +156,8 @@ namespace Player
             if (allowInput)
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
-            Vector3 movement = directionVector.normalized * player.moveSpeed * Time.deltaTime;
-            //rigidbody.transform.Translate(movement, Space.World);
+            Vector3 movement = directionVector.normalized * player.moveSpeed * Time.unscaledDeltaTime;
+            rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;
             lastMoveDir = movement;

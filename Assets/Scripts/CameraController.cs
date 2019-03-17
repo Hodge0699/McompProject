@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour {
     {
         Vector3 targetPos = getBoundedTargetPos(target.position);
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, smoothing * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPos, smoothing * Time.unscaledDeltaTime);
     }
     
     /// <summary>
