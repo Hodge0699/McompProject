@@ -58,6 +58,7 @@ namespace Player
         [SerializeField]
         private float dashDistance = 30f;
         private float dashDuration = 0f;
+        private float dashCooldown = 0;
 
         [Header("Dash Particle Effect")]
         [SerializeField]
@@ -119,7 +120,10 @@ namespace Player
             {
                 dashParticleNotActive();
             }
-
+            if (dashCooldown > 0)
+            {
+                dashCooldown -= Time.deltaTime;
+            }
             actions();
             move();
             turn(control);
@@ -346,11 +350,11 @@ namespace Player
 
             if (Gobject == null)
                 return;
-            if (Gobject.tag == "Untagged" && hitInfo.distance <= 1)
+            if (Gobject.tag == "Untagged" && hitInfo.distance <= 3)
             {
-
+                return;
             }
-            else if (Gobject.tag == "Untagged" && hitInfo.distance <= 4.0f)
+            else if (Gobject.tag == "Untagged" && hitInfo.distance <= 8.0f)
             {
 
                 transform.position += dir * (distance - hitInfo.distance) / 2;
@@ -381,10 +385,11 @@ namespace Player
         /// </summary>
         private void dash()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null)
+            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null && dashCooldown <= 0)
             {
                 dashParticleActive();
                 CanMove(lastMoveDir, dashDistance);
+                dashCooldown = 1.0f;
                 dashDuration = dashTrailDuration;
             }
         }
