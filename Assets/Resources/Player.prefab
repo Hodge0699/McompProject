@@ -862,7 +862,7 @@ MonoBehaviour:
   controllerShoot: 355
   controllerPause: 337
   TS: {fileID: 0}
-  dashDistance: 30
+  dashDistance: 20
   dashEffect: {fileID: 1283392760384260}
   dashTrailDuration: 0.25
 --- !u!114 &114872564346895096
