@@ -6,15 +6,9 @@ namespace Player.Runway
 {
     public class RunwayModelDarren : MonoBehaviour
     {
-        public GameObject hat;
         public float rotationSpeed = 50.0f;
 
-        private void Start()
-        {
-            GameObject h = Instantiate(hat);
-            h.transform.SetParent(transform.Find("Hat Anchor"), false);
-            h.name = "Hat";
-        }
+        private GameObject hat;
 
         private void Update()
         {
@@ -22,6 +16,16 @@ namespace Player.Runway
                 transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
             else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 transform.Rotate(Vector3.up, -rotationSpeed * Time.deltaTime);
+        }
+
+        public void setHat(GameObject hatAsset)
+        {
+            if (hat != null)
+                Destroy(hat);
+
+            hat = Instantiate(hatAsset) as GameObject;
+            hat.transform.SetParent(transform.Find("Hat Anchor"), false);
+            hat.name = "Hat";
         }
     }
 }
