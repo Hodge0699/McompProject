@@ -19,6 +19,13 @@ namespace Powerups
             if (other.isTrigger)
                 return;
 
+            if (other.GetComponent<HealthManager>() != null)
+            {
+                // Player/Enemy dead
+                if (!other.GetComponent<HealthManager>().isAlive)
+                    return;
+            }
+
             GunController gunController = other.GetComponentInChildren<GunController>();
 
             if (gunController != null)
