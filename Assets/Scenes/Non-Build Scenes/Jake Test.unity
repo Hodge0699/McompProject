@@ -214,6 +214,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114872564346895096, guid: ad39af0fc3a950547966b40ca79132f9,
+        type: 2}
+      propertyPath: godmode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
   m_IsPrefabAsset: 0
@@ -485,7 +490,7 @@ Prefab:
     - target: {fileID: 114254514015239344, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: OGEnemies
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c81b63f3a890454ebe0c48587407001, type: 2}
