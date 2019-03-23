@@ -14,11 +14,7 @@ public class HatSelector : MonoBehaviour {
 
     private void Start()
     {
-        hatNum = 0;
-
-        GameObject j = HatManager.getHat();
-
-        HatManager.setHat(hats[hatNum]);
+        hatNum = hats.IndexOf(HatManager.getHat());
 
         darren = GameObject.Find("Darren").GetComponent<Player.Runway.RunwayModelDarren>();
         darren.setHat(hats[hatNum]);
