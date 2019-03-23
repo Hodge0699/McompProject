@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player.Runway
+namespace Wardrobe
 {
-    public class RunwayModelDarren : MonoBehaviour
+    public class WardrobeModelDarren : MonoBehaviour
     {
         public float rotationSpeed = 50.0f;
 
