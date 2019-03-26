@@ -10,6 +10,7 @@ namespace RoomBuilding
 	public class EnemySpawner : MonoBehaviour
 	{
 	    public Vector3 size;
+        public bool OGEnemies = false;
 
         /// <summary>
         /// Spawns an enemy of a specific type
@@ -20,7 +21,13 @@ namespace RoomBuilding
         {
             bool useHybridMelee = true;
 
-            GameObject enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
+            GameObject enemy;
+
+            if (OGEnemies)
+                enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+            else
+                enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
+
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
 

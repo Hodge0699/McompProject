@@ -12,17 +12,19 @@ public class EnemyHealthManager : HealthManager {
 
 
     public bool lookAtPlayerOnHit = true;
-    private float deathAnimationDuration = 6;
-
+    private float deathAnimationDuration = 6.0f;
 
     new void Update()
     {
-        if (deathAnimationDuration <= 2)
+        if (anim != null)
         {
-            deathAnimationDuration -= Time.deltaTime;
+            if (deathAnimationDuration <= 2)
+            {
+                deathAnimationDuration -= Time.deltaTime;
+            }
+            if (deathAnimationDuration <= 0)
+                Destroy(gameObject);
         }
-        if (deathAnimationDuration <= 0)
-            destroyGameObject();
     }
 
     /// <summary>
@@ -65,9 +67,6 @@ public class EnemyHealthManager : HealthManager {
     /// </summary>
     private void die()
     {
-        anim.SetTrigger("Dead");
-        deathAnimationDuration = 2;
-
         EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
 
         if (me != null)
@@ -81,16 +80,13 @@ public class EnemyHealthManager : HealthManager {
             me.onDeath();
         }
 
-        if (GetComponent<GunEnemy>() != null)
-            Destroy(GetComponent<GunEnemy>());
-        if(GetComponent<MeleeEnemy>() != null)
-            Destroy(GetComponent<MeleeEnemy>());
-
-    }
-
-    private void destroyGameObject()
-    {
-        Debug.Log("Getting here");
-        Destroy(gameObject);
+        if (anim != null)
+        {
+            anim.SetTrigger("Dead");
+            deathAnimationDuration = 2;
+            Destroy(GetComponent<AbstractEnemy>());
+        }
+        else
+            Destroy(gameObject);
     }
 }

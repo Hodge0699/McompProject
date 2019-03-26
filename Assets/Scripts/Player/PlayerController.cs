@@ -25,6 +25,10 @@ namespace Player
 
         private void Awake()
         {
+            GameObject hat = Instantiate(HatManager.getHat()) as GameObject;
+            hat.transform.SetParent(transform.Find("Hat Anchor"), false);
+            hat.name = "Hat";
+
             myCamera = Instantiate(Resources.Load("Main Camera"), transform.position + cameraOffset, Quaternion.Euler(33, 0, 0)) as GameObject;
             myCamera.GetComponent<Camera>().nearClipPlane = -2.5f; // Let objects penetrate camera by 2.5 units before culling (stops visible wall cull)
 

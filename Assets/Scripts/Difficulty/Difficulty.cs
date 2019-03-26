@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class Difficulty
 {
-
     public enum DifficultyLevel { EASY, MEDIUM, HARD };
     private static DifficultyLevel currentDifficulty = DifficultyLevel.MEDIUM;
 
