@@ -14,7 +14,7 @@ namespace Player
 
         private bool damaged;
         private Image damageImage;
-        private Slider healthSlider;
+        private Image healthSlider;
 
         private bool initialised = false;
 
@@ -24,7 +24,7 @@ namespace Player
         /// <param name="ui">UI Canvas object</param>
         public void init(GameObject ui)
         {
-            healthSlider = ui.transform.Find("HealthUI").transform.Find("HealthSlider").GetComponent<Slider>();
+            healthSlider = ui.transform.Find("Elite").transform.Find("Bars").transform.Find("Healthbar").GetComponent<Image>();
 
             damageImage = ui.transform.Find("DamageImage").GetComponent<Image>();
             deathScene = ui.transform.Find("DeathScene").gameObject;
@@ -65,7 +65,8 @@ namespace Player
             if (!godmode)
             {
                 damaged = true;
-                healthSlider.value = currentHealth;
+                healthSlider.fillAmount = currentHealth /100;
+                Debug.Log("health slider amount: " + healthSlider.fillAmount);
             }
         }
 
@@ -78,7 +79,7 @@ namespace Player
         {
             base.setHealth(health, force);
 
-            healthSlider.value = currentHealth;
+            healthSlider.fillAmount = currentHealth;
         }
     }
 }
