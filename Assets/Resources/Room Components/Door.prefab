@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 33543408083362054}
   - component: {fileID: 23324951791416714}
   - component: {fileID: 65832313877433820}
-  - component: {fileID: 54013810112471060}
   m_Layer: 0
   m_Name: Left Door
   m_TagString: Untagged
@@ -59,7 +58,6 @@ GameObject:
   - component: {fileID: 33502529192165718}
   - component: {fileID: 23871522707398502}
   - component: {fileID: 65084873011947734}
-  - component: {fileID: 54423680369083672}
   m_Layer: 0
   m_Name: Right Door
   m_TagString: Untagged
@@ -227,36 +225,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1390947864235466}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54013810112471060
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1390947864235466}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!54 &54423680369083672
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431164320993976}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &65084873011947734
 BoxCollider:
   m_ObjectHideFlags: 1
