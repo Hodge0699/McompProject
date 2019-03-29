@@ -25,7 +25,7 @@ namespace EnemyType
         public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
 
         protected GunController gunController;
-        protected MissleSctipt missleSctipt;
+        protected MissleScript missleSctipt;
         protected VisionCone pickUpVisionCone;
 
 
@@ -33,7 +33,7 @@ namespace EnemyType
         protected virtual void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
-            MissleSctipt = GetComponentInChildren<MissleSctipt>();
+            missleSctipt = GetComponentInChildren<MissleScript>();
             visionCone = GetComponents<VisionCone>()[0];
             pickUpVisionCone = GetComponents<VisionCone>()[1];
             anim = GetComponent<Animator>();

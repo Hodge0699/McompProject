@@ -33,6 +33,7 @@ namespace EnemyType.Bosses
         //velocities
         static Vector3 shooterVelocity;
         static Vector3 targetVelocity;
+        private MissleScript missleScript;
 
         protected override void Awake()
         {
@@ -71,7 +72,7 @@ namespace EnemyType.Bosses
                 shotSpeed,
                 targetPosition,
                 targetVelocity));
-            MissleScript.Shoot();
+                missleSctipt.Shoot();
         }
 
         /// <summary>
@@ -150,7 +151,7 @@ namespace EnemyType.Bosses
         }
         public MissleScript getmissle()
         {
-            return missleSctipt;
+            return missleScript;
         }
 
     }

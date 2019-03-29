@@ -4,38 +4,24 @@ using UnityEngine;
 
 public class MissleScript : MonoBehaviour
 {
-    public Transform target;
+    public Transform MissleTarget;
+    public Rigidbody MissleRigidbody;
 
-    public float speed = 5f;
-    public float rotateSpeed = 200f;
 
-    private Rigidbody rb;
+    public float turn;
+    public float MissleVelocity;
+    public float LifeSpan = 10.0f; //time till destorying 
 
-    void Start()
+
+    private void FixedUpdate()
     {
-        rb = GetComponent<Rigidbody>();
+        MissleRigidbody.velocity = transform.forward * MissleVelocity; //sets the velocity of the missle
 
-    }
+        var MissleTargetRotation = Quaternion.LookRotation(MissleTarget.position - transform.position); // sets up varible that will determin the rotation of the missile on the target location 
 
-    void FixedUpdate()
-    {
-        Vector3 direction = target.position - rb.position;
-
-        direction.Normalize();
-
-        float rotateAmount = Vector3.Cross(direction, transform.up).z;
+        MissleRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, MissleTargetRotation, turn)); // sets rotation of missle 
         
-        rb.velocity = transform.up * speed;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        Destroy(gameObject);
-    }
-
-    public void Shoot()
-    {
-
-    }
-
+   
 }
