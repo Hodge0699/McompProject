@@ -23,7 +23,7 @@ public class RoomBonus : MonoBehaviour
         enemySpawner = GetComponent<EnemySpawner>();
 
         GameObject playerObj = Instantiate(Resources.Load("Player")) as GameObject;
-        playerObj.transform.position = new Vector3(0, 0.5f, 0);
+        playerObj.transform.position = new Vector3(0, 0.5f, -11);
         playerObj.AddComponent<TimeJump>();
         player = playerObj.GetComponent<Player.PlayerController>();
 
@@ -58,7 +58,7 @@ public class RoomBonus : MonoBehaviour
             enemies.transform.parent = this.transform;
         }
 
-       
+        //enemy.setRoom(this);
         enemy.transform.parent = enemies.transform;
 
     }
