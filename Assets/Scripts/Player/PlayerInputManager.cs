@@ -38,6 +38,7 @@ namespace Player
         private GunController gunController;
         private WeaponUISwitch weaponUISwitch;
         public TimeStop TS;
+        private PlayerUIController pUI;
 
         private bool debugging = false;
 
@@ -73,6 +74,7 @@ namespace Player
         {
             player = GetComponent<PlayerController>();
             rigidbody = GetComponent<Rigidbody>();
+            pUI = GetComponent<PlayerUIController>();
             gunController = transform.Find("GunPrimary").GetComponent<GunController>();
             weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
 
@@ -254,10 +256,14 @@ namespace Player
                 {
                     gunController.shoot();
                     player.setFace(PlayerController.EMOTION.ANGRY);
+                    pUI.changeToSad();
                 }
             }
             else
+            {
                 player.setFace(PlayerController.EMOTION.HAPPY);
+                pUI.changeToHappy();
+            }
 
             for (int i = 0; i < weaponSwitches.Count; i++)
             {

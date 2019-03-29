@@ -12,8 +12,9 @@ public class RoomBonus : MonoBehaviour
 
     public int enemyCount;
     private GameObject enemies;
-   
-   
+
+    private GameObject powerUpDrops;
+
     private EnemySpawner enemySpawner;
     // Use this for initialization
     void Start()
@@ -60,6 +61,18 @@ public class RoomBonus : MonoBehaviour
        
         enemy.transform.parent = enemies.transform;
 
+    }
+
+    public void addPowerUpDrop(GameObject powerUpDrop)
+    {
+        if (powerUpDrops == null)
+        {
+            powerUpDrops = new GameObject();
+            powerUpDrops.name = "Power Up Drops";
+            powerUpDrops.transform.parent = this.transform;
+        }
+
+        powerUpDrop.transform.parent = powerUpDrops.transform;
     }
 
 

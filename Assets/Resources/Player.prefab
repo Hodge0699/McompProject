@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 114483397632992554}
   - component: {fileID: 114737799830531368}
   - component: {fileID: 114372923051910610}
+  - component: {fileID: 114769443199197996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -807,6 +808,20 @@ MonoBehaviour:
   dashDistance: 20
   dashEffect: {fileID: 1283392760384260}
   dashTrailDuration: 0.25
+--- !u!114 &114769443199197996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653496019388500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf5953b4dbb97b45b31aaecf67ca05f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pUI: {fileID: 0}
+  angryFace: {fileID: 0}
+  happyFace: {fileID: 0}
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  godmode: 1
+  godmode: 0
   debugging: 0
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}

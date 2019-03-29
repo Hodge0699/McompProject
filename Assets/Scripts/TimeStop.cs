@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class TimeStop : MonoBehaviour
@@ -10,14 +11,14 @@ public class TimeStop : MonoBehaviour
 
     //uncomment onces levelThree has been created
 
-    //void Start()
-    //{
-    //    Scene scene = SceneManager.GetActiveScene();
-    //    if (scene.name == "LevelThree")
-    //        gameObject.GetComponent<TimeStop>().enabled = true;
-    //    else
-    //        gameObject.GetComponent<TimeStop>().enabled = false;
-    //}
+    void Start()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "LevelThree")
+            gameObject.GetComponent<TimeStop>().enabled = true;
+        else
+            gameObject.GetComponent<TimeStop>().enabled = false;
+    }
 
     void Update()
     {
