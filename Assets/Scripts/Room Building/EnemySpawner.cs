@@ -10,7 +10,13 @@ namespace RoomBuilding
 	public class EnemySpawner : MonoBehaviour
 	{
 	    public Vector3 size;
-        public bool OGEnemies = false;
+        [Header("Debugging")]
+        [SerializeField]
+        private bool OGEnemies = false; // bad jake, no globaling variables.
+        [SerializeField]
+        private bool testEnemies = false;
+        [SerializeField]
+        private bool MeleeEnemies = false;
 
         /// <summary>
         /// Spawns an enemy of a specific type
@@ -22,11 +28,16 @@ namespace RoomBuilding
             bool useHybridMelee = true;
 
             GameObject enemy;
-
-            if (OGEnemies)
-                enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+            if (testEnemies)
+                enemy = Instantiate(Resources.Load("rifleEnemy")) as GameObject;
             else
-                enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
+            {
+                if (OGEnemies)
+                    enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+                else
+                    enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
+            }
+                
 
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
@@ -51,15 +62,19 @@ namespace RoomBuilding
         private System.Type randomEnemyType()
         {
             int rand = Random.Range(0, 2);
-
-            switch (rand)
+            if (MeleeEnemies)
+                return typeof(EnemyType.GunEnemy);
+            else
             {
-                case (0):
-                    return typeof(EnemyType.MeleeEnemy);
-                case (1):
-                    return typeof(EnemyType.GunEnemy);
-                default:
-                    return typeof(EnemyType.AbstractEnemy);
+                switch (rand)
+                {
+                    case (0):
+                        return typeof(EnemyType.MeleeEnemy);
+                    case (1):
+                        return typeof(EnemyType.GunEnemy);
+                    default:
+                        return typeof(EnemyType.AbstractEnemy);
+                }
             }
         }
 

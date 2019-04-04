@@ -34,32 +34,37 @@ namespace EnemyType
             {
                 if (getDistanceToTarget() >= 5.0f)
                 {
-                    chase();
-
-                    if (anim != null)
-                        anim.SetTrigger("Chasing");
+                    if (anim != null)                    
+                        anim.SetTrigger("Chasing");                    
+                    chase();  
                 }
                 else
                 {
                     if (usePredictiveAiming)
                     {
-                        predictiveAim();
-
                         if (anim != null)
-                            anim.SetTrigger("PistolShooting");
+                        {
+                            anim.ResetTrigger("Chasing");
+                            anim.ResetTrigger("PlayerDead");
+                            anim.SetTrigger("Shooting");
+                        }
+                        predictiveAim();
                     }
                     else
+                    {
                         turnTo(target);
+                    }
                 }
             }
             else
             {
-                wander();
-
                 if (anim != null)
+                {
+                    anim.ResetTrigger("Chasing");
                     anim.SetTrigger("PlayerDead");
+                }
+                wander();
             }
-
             if (target != null && canShoot)
                 shoot();
         }
