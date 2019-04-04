@@ -32,7 +32,7 @@ namespace EnemyType
                 moveToPickup();
             else if (target != null)
             {
-                if (getDistanceToTarget() >= 5.0f)
+                if (getDistanceToTarget() >= 10.0f)
                 {
                     if (anim != null)                    
                         anim.SetTrigger("Chasing");                    
@@ -49,6 +49,8 @@ namespace EnemyType
                             anim.SetTrigger("Shooting");
                         }
                         predictiveAim();
+                        if (target != null && canShoot)
+                            shoot();
                     }
                     else
                     {
@@ -65,8 +67,6 @@ namespace EnemyType
                 }
                 wander();
             }
-            if (target != null && canShoot)
-                shoot();
         }
 
         protected void shoot()
