@@ -4,25 +4,41 @@ using UnityEngine;
 
 public class MissleScript : MonoBehaviour
 {
-    public Transform MissleTarget;
-    public Rigidbody MissleRigidbody;
+    public Transform target;
 
+    public float speed = 5f;
+    public float rotateSpeed = 200f;
 
-    public float turn;
-    public float MissleVelocity;
-    public float LifeSpan = 10.0f; //time till destorying 
+    private Rigidbody rb;
 
-
-    private void FixedUpdate()
+    void Start()
     {
-        MissleRigidbody.velocity = transform.forward * MissleVelocity; //sets the velocity of the missle
+        rb = GetComponent<Rigidbody>();
 
-        var MissleTargetRotation = Quaternion.LookRotation(MissleTarget.position - transform.position); // sets up varible that will determin the rotation of the missile on the target location 
-
-        MissleRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, MissleTargetRotation, turn)); // sets rotation of missle 
-        
     }
 
+    void FixedUpdate()
+    {
+        Vector3 direction = target.position - rb.position;
+
+        direction.Normalize();
+
+        float rotateAmount = Vector3.Cross(direction, transform.up).z;
+        
+        rb.velocity = transform.up * speed;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
+
+    public void Shoot()
+    {
+
+    }
+
+<<<<<<< HEAD
    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.gameObject)
@@ -32,4 +48,6 @@ public class MissleScript : MonoBehaviour
     }
 
 
+=======
+>>>>>>> parent of b8666c7... homing missle 0.2
 }
