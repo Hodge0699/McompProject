@@ -13,7 +13,7 @@ public class TimeUsedUI : MonoBehaviour {
     {
         if (scene.name == "LevelTwo")
         {
-            txt.text = "Time Mechanic: Rewind\nUse: Space";
+            txt.text = "Time Mechanic: Rewind\nUse: Right Click";
         }
     }
 

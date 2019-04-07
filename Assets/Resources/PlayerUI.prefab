@@ -588,6 +588,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1459112205453686
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224932418357499198}
+  - component: {fileID: 222323881073799094}
+  - component: {fileID: 114077321587166604}
+  m_Layer: 5
+  m_Name: HandGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1498766433640142
 GameObject:
   m_ObjectHideFlags: 1
@@ -700,7 +717,7 @@ GameObject:
   - component: {fileID: 222453215775353752}
   - component: {fileID: 114093671647117090}
   m_Layer: 5
-  m_Name: HandGun
+  m_Name: EXDHandgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1090,6 +1107,33 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114077321587166604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459112205453686}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: a05532f3f7a585244bba29838cdfc4ae, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114093671647117090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1102,7 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2989,13 +3033,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010c483dd94bfb248aed76024e0930e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handgun: {fileID: 114093671647117090}
+  handgun: {fileID: 114077321587166604}
   shotgun: {fileID: 114166602112137684}
   machinegun: {fileID: 114403964124430928}
+  EXDhandgun: {fileID: 114093671647117090}
   AmmoUI: {fileID: 224008613454312684}
   handgunClass: {fileID: 0}
   shotgunClass: {fileID: 0}
   machinegunClass: {fileID: 0}
+  EXDHandgunClass: {fileID: 0}
 --- !u!114 &114846099023525312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3476,6 +3522,13 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1257470426725836}
   m_CullTransparentMesh: 0
+--- !u!222 &222323881073799094
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459112205453686}
+  m_CullTransparentMesh: 0
 --- !u!222 &222350312505069486
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -3703,7 +3756,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224583879476789968}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -4264,6 +4317,7 @@ RectTransform:
   m_Children:
   - {fileID: 224076458461106324}
   - {fileID: 224360381105587818}
+  - {fileID: 224932418357499198}
   - {fileID: 224961929981879718}
   - {fileID: 224008613454312684}
   m_Father: {fileID: 224595515498099604}
@@ -4739,12 +4793,12 @@ RectTransform:
   m_AnchoredPosition: {x: 480, y: -307.5}
   m_SizeDelta: {x: 840, y: 73.862564}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224961929981879718
+--- !u!224 &224932418357499198
 RectTransform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634905108549622}
+  m_GameObject: {fileID: 1459112205453686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
@@ -4755,6 +4809,24 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.29999924}
+  m_SizeDelta: {x: 379, y: 209}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224961929981879718
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634905108549622}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2499969, y: 0.2499969, z: 1.0000111}
+  m_Children: []
+  m_Father: {fileID: 224583879476789968}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.29994965}
   m_SizeDelta: {x: 379, y: 209}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224993272916738590

@@ -32,36 +32,41 @@ namespace EnemyType
                 moveToPickup();
             else if (target != null)
             {
-                if (getDistanceToTarget() >= 5.0f)
+                if (getDistanceToTarget() >= 10.0f)
                 {
-                    chase();
-
-                    if (anim != null)
-                        anim.SetTrigger("Chasing");
+                    if (anim != null)                    
+                        anim.SetTrigger("Chasing");                    
+                    chase();  
                 }
                 else
                 {
                     if (usePredictiveAiming)
                     {
-                        predictiveAim();
-
                         if (anim != null)
-                            anim.SetTrigger("PistolShooting");
+                        {
+                            anim.ResetTrigger("Chasing");
+                            anim.ResetTrigger("PlayerDead");
+                            anim.SetTrigger("Shooting");
+                        }
+                        predictiveAim();
+                        if (target != null && canShoot)
+                            shoot();
                     }
                     else
+                    {
                         turnTo(target);
+                    }
                 }
             }
             else
             {
-                wander();
-
                 if (anim != null)
+                {
+                    anim.ResetTrigger("Chasing");
                     anim.SetTrigger("PlayerDead");
+                }
+                wander();
             }
-
-            if (target != null && canShoot)
-                shoot();
         }
 
         protected void shoot()

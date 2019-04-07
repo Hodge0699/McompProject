@@ -27,7 +27,7 @@ public class TimeJump : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Joystick1Button4))
         {
             Debug.Log(sceneLight);
             Debug.Log(sceneCamera);
