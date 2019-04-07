@@ -72,7 +72,7 @@ namespace EnemyType.Bosses
                 shotSpeed,
                 targetPosition,
                 targetVelocity));
-                missleSctipt.Shoot();
+               
         }
 
         /// <summary>
@@ -149,10 +149,7 @@ namespace EnemyType.Bosses
         {
             return gunController;
         }
-        public MissleScript getmissle()
-        {
-            return missleScript;
-        }
+
 
     }
 }

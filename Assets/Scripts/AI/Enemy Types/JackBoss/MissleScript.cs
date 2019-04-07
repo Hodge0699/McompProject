@@ -23,5 +23,13 @@ public class MissleScript : MonoBehaviour
         
     }
 
-   
+   void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.gameObject)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 }
