@@ -71,11 +71,9 @@ namespace EnemyType.Bosses
                 shotSpeed,
                 targetPosition,
                 targetVelocity));
-<<<<<<< HEAD
-               
-=======
-            MissleScript.Shoot();
->>>>>>> parent of b8666c7... homing missle 0.2
+                gunController.shoot();
+
+
         }
 
         /// <summary>
@@ -152,14 +150,11 @@ namespace EnemyType.Bosses
         {
             return gunController;
         }
-<<<<<<< HEAD
-
-=======
         public MissleScript getmissle()
         {
-            return missleSctipt;
+            return missleScript;
         }
->>>>>>> parent of b8666c7... homing missle 0.2
+
 
     }
 }

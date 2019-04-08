@@ -70,7 +70,8 @@ namespace EnemyType.Bosses
                 shotSpeed,
                 targetPosition,
                 targetVelocity));
-            gunController.shoot();
+            //gunController.shoot();
+            
         }
 
         /// <summary>
