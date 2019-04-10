@@ -111,8 +111,8 @@ GameObject:
   - component: {fileID: 114374772658219350}
   - component: {fileID: 114157522489348358}
   - component: {fileID: 114665018455137894}
-  - component: {fileID: 114635047924703858}
   - component: {fileID: 114021677696767944}
+  - component: {fileID: 114422590831524820}
   m_Layer: 0
   m_Name: JackBoss
   m_TagString: Boss
@@ -415,6 +415,21 @@ MonoBehaviour:
   FOV: 132
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
+--- !u!114 &114422590831524820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753049230033338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe143545323e8a4db4ceb5a7584fc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
+  directionVector: {x: 0, y: 0, z: 0}
+  maxDistance: 1.6
+  turnSpeed: 90
 --- !u!114 &114618626901708972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,21 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a3a64a6a01b3140aa409565f39fd35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114635047924703858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1753049230033338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d6080272110964186eff4228b8a8eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 3
-  directionVector: {x: 0, y: 0, z: 0}
-  maxDistance: 1.6
-  turnSpeed: 90
 --- !u!114 &114657799359757510
 MonoBehaviour:
   m_ObjectHideFlags: 1
