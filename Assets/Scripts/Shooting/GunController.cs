@@ -36,7 +36,7 @@ public class GunController : MonoBehaviour {
         guns.Add(gameObject.AddComponent<EXDHandgun>());
         guns.Add(gameObject.AddComponent<NonTimeEffectingGun>());
 
-        setGun(typeof(Handgun));
+        setGun(0);
     }
 
     /// <summary>
@@ -66,6 +66,16 @@ public class GunController : MonoBehaviour {
             setGun(typeof(Handgun));
             weaponUISwitch.switchWeaponUI(0);
         }
+    }
+
+    /// <summary>
+    /// Sets the current left-click gun
+    /// </summary>
+    /// <param name="index">Index of gun in array</param>
+    public void setGun(int index = 0)
+    {
+        if (index < guns.Count && index >= 0)
+            currentGun = guns[index];
     }
 
     /// <summary>
@@ -187,5 +197,11 @@ public class GunController : MonoBehaviour {
     private void OnDestroy()
     {
         Destroy(bulletContainer);
+    }
+
+    public void addGun(AbstractGun gun)
+    {
+        guns.Add(gun);
+        gun.transform.parent = this.transform;
     }
 }
