@@ -16,8 +16,8 @@ namespace Weapon.Gun
 
         public bool debugging = false;
 
-        private float currentCooldown = 0.0f;
-        private float unlimitedAmmoTimer = 0.0f;
+        protected float currentCooldown = 0.0f;
+        protected float unlimitedAmmoTimer = 0.0f;
 
         /// <summary>
         /// Initialises a gun with unlimited ammo
@@ -72,7 +72,7 @@ namespace Weapon.Gun
         /// <param name="spawnPos">Location to spawn bullets from.</param>
         /// <param name="ignoreCooldown">Should a bullet be allowed to fire even if cooldown not complete?</param>
         /// <returns>The bullet fired.</returns>
-        protected GameObject spawnBullet(Vector3 spawnPos, bool ignoreCooldown = false)
+        protected virtual GameObject spawnBullet(Vector3 spawnPos, bool ignoreCooldown = false)
         {
             if (!canFire() && !ignoreCooldown)
                 return null;

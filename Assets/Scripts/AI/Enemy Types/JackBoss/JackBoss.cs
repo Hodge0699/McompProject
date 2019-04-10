@@ -36,12 +36,16 @@ namespace EnemyType.Bosses
 
         protected override void Awake()
         {
+            base.Awake();
+            gunController.addGun(gameObject.AddComponent<HomingGun>());
+            gunController.setGun(typeof(HomingGun));
+
+
             SceneManager = GameObject.Find("SceneManager");
             shooterPosition = transform.position;
             shooterVelocity = this.GetComponent<Rigidbody>().velocity;
             speed = base.movementSpeed;
             //target = base.target;
-            base.Awake();
         }
 
         private void Update()
