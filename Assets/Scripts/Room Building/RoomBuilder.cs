@@ -145,54 +145,54 @@ namespace RoomBuilding
             // West
             if (westWall == wallType.SOLID)
             {
-                instantiateCube("Left Wall", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 270);
+                instantiateCube("Left Wall", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), (dimensions.y / 2) - 0.00f, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 270);
             }
             else
             {
                 float newWallSize = (dimensions.z - doorSize) / 2;
                 float offset = (newWallSize / 2) + (doorSize / 2);
 
-                instantiateCube("Left Wall (Above door)", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, offset), new Vector3(newWallSize, dimensions.y, wallThickness), 270);
-                instantiateCube("Left Wall (Under door)", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), dimensions.y / 2, -offset), new Vector3(newWallSize, dimensions.y, wallThickness), 270);
+                instantiateCube("Left Wall (Above door)", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), (dimensions.y / 2) - 0.00f, offset), new Vector3(newWallSize, dimensions.y, wallThickness), 270);
+                instantiateCube("Left Wall (Under door)", walls.transform, new Vector3(-(dimensions.x / 2) + (wallThickness / 2), (dimensions.y / 2) - 0.00f, -offset), new Vector3(newWallSize, dimensions.y, wallThickness), 270);
             }
 
 
             // East
             if (eastWall == wallType.SOLID)
-                instantiateCube("Right Wall", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), dimensions.y / 2, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 90);
+                instantiateCube("Right Wall", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), (dimensions.y / 2) -0.01f, 0.0f), new Vector3(dimensions.z, dimensions.y, wallThickness), 90);
             else
             {
                 float newWallSize = (dimensions.z - doorSize) / 2;
                 float offset = (newWallSize / 2) + (doorSize / 2);
 
-                instantiateCube("Right Wall (Above door)", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), dimensions.y / 2, offset), new Vector3(newWallSize, dimensions.y, wallThickness), 90);
-                instantiateCube("Right Wall (Under door)", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), dimensions.y / 2, -offset), new Vector3(newWallSize, dimensions.y, wallThickness), 90);
+                instantiateCube("Right Wall (Above door)", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), (dimensions.y / 2) - 0.01f, offset), new Vector3(newWallSize, dimensions.y, wallThickness), 90);
+                instantiateCube("Right Wall (Under door)", walls.transform, new Vector3((dimensions.x / 2) - (wallThickness / 2), (dimensions.y / 2) - 0.01f, -offset), new Vector3(newWallSize, dimensions.y, wallThickness), 90);
             }
 
 
             // North
             if (northWall == wallType.SOLID)
-                instantiateCube("Top Wall", walls.transform, new Vector3(0.0f, dimensions.y / 2, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
+                instantiateCube("Top Wall", walls.transform, new Vector3(0.0f, (dimensions.y / 2) - 0.02f, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness));
             else
             {
                 float newWallSize = (dimensions.x - doorSize) / 2;
                 float offset = (newWallSize / 2) + (doorSize / 2);
 
-                instantiateCube("Top Wall (Left of door)", walls.transform, new Vector3(-offset, dimensions.y / 2, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
-                instantiateCube("Top Wall (Right of door)", walls.transform, new Vector3(offset, dimensions.y / 2, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
+                instantiateCube("Top Wall (Left of door)", walls.transform, new Vector3(-offset, (dimensions.y / 2) -0.02f, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
+                instantiateCube("Top Wall (Right of door)", walls.transform, new Vector3(offset, (dimensions.y / 2) -0.02f, (dimensions.z / 2) - (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness));
             }
 
 
             // South
             if (southWall == wallType.SOLID)
-                instantiateCube("Bottom Wall", walls.transform, new Vector3(0.0f, dimensions.y / 2, -(dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness), 180);
+                instantiateCube("Bottom Wall", walls.transform, new Vector3(0.0f, (dimensions.y / 2) -0.03f, -(dimensions.z / 2) - (wallThickness / 2)), new Vector3(dimensions.x, dimensions.y, wallThickness), 180);
             else
             {
                 float newWallSize = (dimensions.x - doorSize) / 2;
                 float offset = (newWallSize / 2) + (doorSize / 2);
 
-                instantiateCube("Bottom Wall (Left of door)", walls.transform, new Vector3(-offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness), 180);
-                instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(offset, dimensions.y / 2, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness), 180);
+                instantiateCube("Bottom Wall (Left of door)", walls.transform, new Vector3(-offset, (dimensions.y / 2) - 0.03f, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness), 180);
+                instantiateCube("Bottom Wall (Right of door)", walls.transform, new Vector3(offset, (dimensions.y / 2) - 0.03f, -(dimensions.z / 2) + (wallThickness / 2)), new Vector3(newWallSize, dimensions.y, wallThickness), 180);
             }
         }
 

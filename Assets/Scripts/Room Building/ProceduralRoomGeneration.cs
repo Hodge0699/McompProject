@@ -110,7 +110,8 @@ namespace RoomBuilding
                 origin[i] -= connectingDoor.transform.forward[i] * (rb.wallThickness / 2);
             }
 
-            origin.y = 0;
+            // Make next room slightly lower to stop floors z fighting
+            origin.y = lastRoom.transform.position.y - 0.01f;
 
             roomObj.transform.position = origin;
 
@@ -134,17 +135,22 @@ namespace RoomBuilding
             if (lastRoom == null)
                 return Vector3.zero;
 
+            // Set origin to would-be centre of new room
             Vector3 roomOrigin = rb.dimensions / 2;
 
             for (int i = 0; i < 3; i++)
             {
+                // Set values that aren't on door's forward vector to 0
                 roomOrigin[i] *= connectingDoor.transform.forward[i];
-                roomOrigin[i] -= connectingDoor.transform.forward[i] * (rb.wallThickness / 2);
+
+                // Move origin back so walls overlap
+                roomOrigin[i] -= connectingDoor.transform.forward[i] * ((rb.wallThickness / 2) - 0.01f);
             }
 
             roomOrigin += connectingDoor.transform.position;
 
-            roomOrigin.y = 0.0f;
+            // Make next room slightly lower to stop floors z fighting
+            roomOrigin.y = lastRoom.transform.position.y - 0.01f;
 
             return roomOrigin;
         }
@@ -190,6 +196,7 @@ namespace RoomBuilding
                 rb.setWallType(dir, RoomBuilder.wallType.DOOR);
             }
         }
+
         /// <summary>
         /// Spawns all enemies inside the room.
         /// </summary>
