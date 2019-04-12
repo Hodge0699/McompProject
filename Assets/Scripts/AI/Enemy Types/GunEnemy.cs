@@ -25,13 +25,14 @@ namespace EnemyType
                 GetComponent<MeleeEnemy>().usePickups = true;
                 Destroy(this);
             }
-
+            
             gunController.switchToBest();
 
             if (pickUpVisionCone.hasVisibleTargets())
                 moveToPickup();
             else if (target != null)
             {
+                // checks to see if distance is greater than a specified number
                 if (getDistanceToTarget() >= 10.0f)
                 {
                     if (anim != null)                    
@@ -40,6 +41,7 @@ namespace EnemyType
                 }
                 else
                 {
+                    // if enemy is close enough start using predictive aiming to fire at enemy
                     if (usePredictiveAiming)
                     {
                         if (anim != null)
@@ -59,6 +61,7 @@ namespace EnemyType
                     }
                 }
             }
+            // if unable to find an enemy keep to default wandering state
             else
             {
                 if (anim != null)
