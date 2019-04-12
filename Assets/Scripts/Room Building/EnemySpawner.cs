@@ -14,7 +14,9 @@ namespace RoomBuilding
         [SerializeField]
         private bool OGEnemies = false; // bad jake, no globaling variables.
         [SerializeField]
-        private bool testEnemies = false;
+        private bool TestEnemies = false;
+        [SerializeField]
+        private bool RifleEnemies = false;
         [SerializeField]
         private bool MeleeEnemies = false;
 
@@ -28,8 +30,11 @@ namespace RoomBuilding
             bool useHybridMelee = true;
 
             GameObject enemy;
-            if (testEnemies)
-                enemy = Instantiate(Resources.Load("rifleEnemy")) as GameObject;
+            if (TestEnemies)
+                if (MeleeEnemies)
+                    enemy = Instantiate(Resources.Load("MeleeEnemy")) as GameObject;
+                else
+                    enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject;
             else
             {
                 if (OGEnemies)
@@ -62,8 +67,11 @@ namespace RoomBuilding
         private System.Type randomEnemyType()
         {
             int rand = Random.Range(0, 2);
-            if (MeleeEnemies)
-                return typeof(EnemyType.GunEnemy);
+            if (TestEnemies)
+                if(MeleeEnemies)
+                    return typeof(EnemyType.MeleeEnemy);
+                if(RifleEnemies)
+                    return typeof(EnemyType.GunEnemy);
             else
             {
                 switch (rand)
