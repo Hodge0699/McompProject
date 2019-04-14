@@ -2175,7 +2175,7 @@ MonoBehaviour:
   startingHealth: 100
   godmode: 0
   debugging: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 114918321478238162}
   lookAtPlayerOnHit: 1
 --- !u!114 &114918321478238162
 MonoBehaviour:
