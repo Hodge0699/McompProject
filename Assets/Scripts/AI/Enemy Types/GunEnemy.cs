@@ -29,15 +29,18 @@ namespace EnemyType
             gunController.switchToBest();
 
             if (pickUpVisionCone.hasVisibleTargets())
+            {
+                setAnimTrigger("Chasing");
                 moveToPickup();
+            }
             else if (target != null)
             {
                 // checks to see if distance is greater than a specified number
                 if (getDistanceToTarget() >= 10.0f)
                 {
-                    if (anim != null)                    
-                        anim.SetTrigger("Chasing");                    
-                    chase();  
+                    if (anim != null)
+                        setAnimTrigger("Chasing");
+                    chase();
                 }
                 else
                 {
@@ -45,12 +48,8 @@ namespace EnemyType
                     if (usePredictiveAiming)
                     {
                         if (anim != null)
-                        {
-                            //reset animation trigger before starting a new one to prevent being in two stages at once.
-                            anim.ResetTrigger("Chasing");
-                            anim.ResetTrigger("PlayerDead");
-                            anim.SetTrigger("Shooting");
-                        }
+                            setAnimTrigger("Shooting");
+
                         predictiveAim();
                         if (target != null && canShoot)
                             shoot();
@@ -65,10 +64,7 @@ namespace EnemyType
             else
             {
                 if (anim != null)
-                {
-                    anim.ResetTrigger("Chasing");
-                    anim.SetTrigger("PlayerDead");
-                }
+                    setAnimTrigger("PlayerDead");
                 wander();
             }
         }
@@ -90,6 +86,7 @@ namespace EnemyType
             else
                 return;
 
+            /* New enemies don't have strafe animation :( 
             if (target != null)
             {
                 if (usePredictiveAiming)
@@ -98,7 +95,7 @@ namespace EnemyType
                     turnTo(target);
                 directionVector = (pickupLocation - transform.position).normalized;
             }
-            else
+            else */
                 goToPosition(pickupLocation);
         }
 
@@ -139,6 +136,19 @@ namespace EnemyType
             targetPos += targetDir * targetSpeed * secondsToImpact;
 
             turnTo(targetPos);
+        }
+
+        /// <summary>
+        /// Resets other triggers and sets new trigger
+        /// </summary>
+        /// <param name="trigger">New trigger to set </param>
+        override protected void setAnimTrigger(string trigger)
+        {
+            anim.ResetTrigger("Chasing");
+            anim.ResetTrigger("PlayerDead");
+            anim.ResetTrigger("Shooting");
+
+            anim.SetTrigger(trigger);
         }
     }
 }
