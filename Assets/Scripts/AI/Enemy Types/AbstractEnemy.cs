@@ -249,5 +249,11 @@ namespace EnemyType
 
             return true;
         }
+
+        /// <summary>
+        /// Resets other triggers and sets new trigger
+        /// </summary>
+        /// <param name="trigger">New trigger to set </param>
+        protected virtual void setAnimTrigger(string trigger) { }
     }
 }

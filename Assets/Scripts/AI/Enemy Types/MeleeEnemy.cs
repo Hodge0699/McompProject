@@ -41,12 +41,8 @@ namespace EnemyType
                 if (targetWithinRange() && attackCooldownCounter <= 0.0f)
                 {
                     if (anim != null)
-                    {
-                        //reset animation trigger before starting a new one to prevent being in two stages at once.
-                        anim.ResetTrigger("Chasing");
-                        anim.ResetTrigger("PlayerDead");
-                        anim.SetTrigger("Melee");
-                    }
+                        setAnimTrigger("Melee");
+
                     target.GetComponent<HealthManager>().hurt(attackDamage);
                     attackCooldownCounter = attackCooldown;
                 }
@@ -65,7 +61,7 @@ namespace EnemyType
         private void chaseTarget()
         {
             if (anim != null)
-                anim.SetTrigger("Chasing");
+                setAnimTrigger("Chasing");
             chase();
         }
         /// <summary>
@@ -76,11 +72,11 @@ namespace EnemyType
             /// This code can be used if we further develope the AI to stop for random amounts of seconds, or if it gets advanced enough to know when a player dies.
             //if (anim != null)
             //{
-            //    anim.ResetTrigger("Chasing");
-            //    anim.SetTrigger("PlayerDead");
+            //    setAnimTrigger("Chasing");
+            //    setAnimTrigger("PlayerDead");
             //}
             if (anim != null)
-                anim.SetTrigger("Chasing");
+                setAnimTrigger("Chasing");
             wander();
         }
         /// <summary>
@@ -93,6 +89,19 @@ namespace EnemyType
                 return false;
 
             return getDistanceToTarget() <= attackRange;
+        }
+
+        /// <summary>
+        /// Resets other triggers and sets new trigger
+        /// </summary>
+        /// <param name="trigger">New trigger to set </param>
+        override protected void setAnimTrigger(string trigger)
+        {
+            anim.ResetTrigger("Chasing");
+            anim.ResetTrigger("PlayerDead");
+            anim.ResetTrigger("Melee");
+
+            anim.SetTrigger(trigger);
         }
     }
 }
