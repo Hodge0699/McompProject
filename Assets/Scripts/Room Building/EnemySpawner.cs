@@ -10,15 +10,10 @@ namespace RoomBuilding
 	public class EnemySpawner : MonoBehaviour
 	{
 	    public Vector3 size;
+
         [Header("Debugging")]
         [SerializeField]
         private bool OGEnemies = false; // bad jake, no globaling variables.
-        [SerializeField]
-        private bool TestEnemies = false;
-        [SerializeField]
-        private bool RifleEnemies = false;
-        [SerializeField]
-        private bool MeleeEnemies = false;
 
         /// <summary>
         /// Spawns an enemy of a specific type
@@ -30,32 +25,30 @@ namespace RoomBuilding
             bool useHybridMelee = true;
 
             GameObject enemy;
-            if (TestEnemies)
-                if (MeleeEnemies)
-                    enemy = Instantiate(Resources.Load("MeleeEnemy")) as GameObject;
-                else
-                    enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject;
-            else
+
+            if (type == null)
+                type = randomEnemyType();
+
+
+            if (OGEnemies) // Original capsule enemies
+                enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+            else // New animated enemies
             {
-                if (OGEnemies)
-                    enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
-                else
-                    enemy = Instantiate(Resources.Load("Enemy2")) as GameObject;
+                if (type == typeof(EnemyType.MeleeEnemy)) // Melee enemy
+                    enemy = Instantiate(Resources.Load("MeleeEnemy")) as GameObject;
+                else // Rifle enemy
+                    enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject;
             }
-                
+
+            enemy.AddComponent(type);
 
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
 
-            if (type == null)
-                enemy.AddComponent(randomEnemyType());
-            else
-                enemy.AddComponent(type);
-
             EnemyType.AbstractEnemy enemyScr = enemy.GetComponent<EnemyType.AbstractEnemy>();
             enemyScr.enabled = false;
 
-            if (useHybridMelee && enemyScr.GetType() == typeof(EnemyType.MeleeEnemy))
+            if (useHybridMelee && type == typeof(EnemyType.MeleeEnemy))
                 enemy.GetComponent<EnemyType.MeleeEnemy>().usePickups = true;
 
             return enemy;
@@ -67,22 +60,15 @@ namespace RoomBuilding
         private System.Type randomEnemyType()
         {
             int rand = Random.Range(0, 2);
-            if (TestEnemies)
-                if(MeleeEnemies)
-                    return typeof(EnemyType.MeleeEnemy);
-                if(RifleEnemies)
-                    return typeof(EnemyType.GunEnemy);
-            else
+
+            switch (rand)
             {
-                switch (rand)
-                {
-                    case (0):
-                        return typeof(EnemyType.MeleeEnemy);
-                    case (1):
-                        return typeof(EnemyType.GunEnemy);
-                    default:
-                        return typeof(EnemyType.AbstractEnemy);
-                }
+                case (0):
+                    return typeof(EnemyType.MeleeEnemy);
+                case (1):
+                    return typeof(EnemyType.GunEnemy);
+                default:
+                    return typeof(EnemyType.AbstractEnemy);
             }
         }
 
