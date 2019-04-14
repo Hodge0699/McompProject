@@ -20,19 +20,17 @@ namespace EnemyType
             base.Awake();
 
             movementSpeed = 6.0f;
-            /// Not needed anymore because there is no hybird - Nicky
+         
             // Make sure all ammo is empty just in case this enemy is hybrid
             gunController.getGun(typeof(Weapon.Gun.Handgun)).setAmmo(0);
-            ///
         }
 
         private void Update()
         {
-            /// Not needed anymore because there is no hybird - Nicky
             // Switch to GunEnemy if has ammo
-            //if (usePickups && gunController.hasAmmo(true))
-            //    switchToBehaviour(typeof(GunEnemy), true, false);
-            ///
+            if (usePickups && gunController.hasAmmo(true))
+                switchToBehaviour(typeof(GunEnemy), true, false);
+
             if (attackCooldownCounter >= 0.0f)
                 attackCooldownCounter -= Time.deltaTime;
 
@@ -55,10 +53,10 @@ namespace EnemyType
             }
             else
             {
-                /// melee won't pick up anymore as we have no hybid - Nicky
                 if (usePickups && pickUpVisionCone.hasVisibleTargets())
                     goToPosition(pickUpVisionCone.getClosestVisibleTarget().transform.position);
-                wanderForTarget();
+                else
+                    wanderForTarget();
             }
         }
         /// <summary>

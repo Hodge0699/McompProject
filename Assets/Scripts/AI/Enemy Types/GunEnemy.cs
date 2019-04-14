@@ -49,6 +49,7 @@ namespace EnemyType
                             //reset animation trigger before starting a new one to prevent being in two stages at once.
                             anim.ResetTrigger("Chasing");
                             anim.ResetTrigger("PlayerDead");
+
                             anim.SetTrigger("Shooting");
                         }
                         predictiveAim();

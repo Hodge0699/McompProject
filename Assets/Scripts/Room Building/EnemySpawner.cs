@@ -35,7 +35,7 @@ namespace RoomBuilding
             else // New animated enemies
             {
                 if (type == typeof(EnemyType.MeleeEnemy)) // Melee enemy
-                    enemy = Instantiate(Resources.Load("MeleeEnemy")) as GameObject;
+                    enemy = Instantiate(Resources.Load("HybridEnemy")) as GameObject;
                 else // Rifle enemy
                     enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject;
             }
@@ -59,7 +59,9 @@ namespace RoomBuilding
         /// </summary>
         private System.Type randomEnemyType()
         {
-            int rand = Random.Range(0, 2);
+            const int NUM_ENEMY_TYPES = 2;
+
+            int rand = Random.Range(0, NUM_ENEMY_TYPES);
 
             switch (rand)
             {

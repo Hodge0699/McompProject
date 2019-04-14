@@ -217,7 +217,7 @@ public class Room : MonoBehaviour {
             powerUpDrops.transform.parent = this.transform;
         }
 
-        powerUpDrop.transform.parent = powerUpDrops.transform;
+        powerUpDrop.transform.SetParent(powerUpDrops.transform);
     }
 
 
