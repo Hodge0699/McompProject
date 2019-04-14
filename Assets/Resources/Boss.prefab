@@ -542,7 +542,9 @@ MonoBehaviour:
   teleportLocations: []
   furthestTeleport: 0
   randTeleport: 1
-  teleportHealth: 699
+  teleportHealth: 1050
+  teleportEffect: {fileID: 1645522716988758, guid: b7fcded2421a9d84d814a94708792847,
+    type: 2}
 --- !u!114 &114952255045601490
 MonoBehaviour:
   m_ObjectHideFlags: 1

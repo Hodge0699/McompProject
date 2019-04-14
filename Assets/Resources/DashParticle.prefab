@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4067919394345864}
   - component: {fileID: 198549566432542810}
+  - component: {fileID: 114663068735221950}
   - component: {fileID: 199172434752584438}
-  - component: {fileID: 114862947815993178}
   m_Layer: 0
   m_Name: DashParticle
   m_TagString: Untagged
@@ -42,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &114862947815993178
+--- !u!114 &114663068735221950
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1645522716988758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d034225f8d870b94ab83326ab1db0c85, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ae280a0d5c4edb4d90d5deba80d9a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &198549566432542810
@@ -2582,7 +2582,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -6.21
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2635,7 +2635,7 @@ ParticleSystem:
     strengthY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: -20
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2738,7 +2738,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    separateAxes: 0
+    separateAxes: 1
     frequency: 0.0001
     damping: 1
     octaves: 1
@@ -2748,7 +2748,7 @@ ParticleSystem:
     scrollSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2

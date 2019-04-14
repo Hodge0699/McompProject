@@ -28,7 +28,6 @@ namespace EnemyType
         protected MissleScript missleScript;
         protected VisionCone pickUpVisionCone;
 
-
         // Use this for initialization
         protected virtual void Awake()
         {
@@ -214,7 +213,30 @@ namespace EnemyType
             if (behaviour == this.GetType())
                 return false;
 
+            if (anim != null)
+            {
+                // Those paths tho
+                GameObject sword = transform.Find("Armature_Robot1").Find("hips").Find("spine").Find("chest").Find("upper_arm_R").Find("forearm_R").Find("hand_R").Find("It_Sword").gameObject;
+                GameObject rifle = transform.Find("Armature_Robot1").Find("hips").Find("spine").Find("chest").Find("upper_arm_R").Find("forearm_R").Find("hand_R").Find("RiflePlaceholder").gameObject;
+
+                if (behaviour == typeof(MeleeEnemy))
+                {
+                    rifle.SetActive(false);
+
+                    sword.SetActive(true);
+                    anim.runtimeAnimatorController = Resources.Load("Animations\\Melee") as RuntimeAnimatorController;
+                }
+                else if (behaviour == typeof(GunEnemy))
+                {
+                    sword.SetActive(false);
+
+                    rifle.SetActive(true);
+                    anim.runtimeAnimatorController = Resources.Load("Animations\\Rifle") as RuntimeAnimatorController;
+                }
+            }
+
             gameObject.AddComponent(behaviour);
+
 
             if (copyVariables)
                 gameObject.GetComponents<AbstractEnemy>()[1].copyBaseVariables(this);
@@ -227,5 +249,11 @@ namespace EnemyType
 
             return true;
         }
+
+        /// <summary>
+        /// Resets other triggers and sets new trigger
+        /// </summary>
+        /// <param name="trigger">New trigger to set </param>
+        protected virtual void setAnimTrigger(string trigger) { }
     }
 }

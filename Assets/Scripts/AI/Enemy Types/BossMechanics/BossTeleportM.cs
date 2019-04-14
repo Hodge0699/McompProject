@@ -18,6 +18,9 @@ public class BossTeleportM : MonoBehaviour {
     [SerializeField]
     private int teleportHealth; // health you want the boss to teleport after
     private bool teleport = true;
+    [Header("Teleport Particle Effect")]
+    [SerializeField]
+    private GameObject teleportEffect;
 
     private void Start()
     {
@@ -39,7 +42,6 @@ public class BossTeleportM : MonoBehaviour {
             randomTeleport();
         if (furthestTeleport == true)
             furthestAway();
-
 	}
     /// <summary>
     /// randomly teleports the boss to any of the teleport locations specified.
@@ -50,11 +52,18 @@ public class BossTeleportM : MonoBehaviour {
         {
             if (teleport == true)
             {
-                int i = Random.Range(0, teleportLocations.Capacity);
-                this.transform.position = teleportLocations[i].transform.position;
+                StartCoroutine(wait());
                 teleport = false;
             }
         }
+    }
+    IEnumerator wait()
+    {
+        Instantiate(teleportEffect, this.transform.position, Quaternion.identity);
+        yield return new WaitForSecondsRealtime(1);
+        int i = Random.Range(0, teleportLocations.Capacity);
+        this.transform.position = teleportLocations[i].transform.position;
+
     }
     /// <summary>
     /// Teleportes the boss to the furthest away teleport location
