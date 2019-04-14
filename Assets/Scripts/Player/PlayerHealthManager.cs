@@ -66,7 +66,7 @@ namespace Player
             {
                 damaged = true;
                 healthSlider.fillAmount = currentHealth /100;
-                Debug.Log("health slider amount: " + healthSlider.fillAmount);
+                //Debug.Log("health slider amount: " + healthSlider.fillAmount);
             }
         }
 

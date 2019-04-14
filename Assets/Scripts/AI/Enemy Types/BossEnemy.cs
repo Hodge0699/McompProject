@@ -70,7 +70,7 @@ namespace EnemyType.Bosses
                 shotSpeed,
                 targetPosition,
                 targetVelocity));
-            //gunController.shoot();
+            gunController.shoot();
             
         }
 
@@ -90,27 +90,6 @@ namespace EnemyType.Bosses
         public Room getMyRoom()
         {
             return this.myRoom;
-        }
-
-        /// <summary>
-        /// gets the sqrMagnitude of an object
-        /// </summary>
-        /// <param name="v3"></param>
-        /// <returns></returns>
-        static float sqrMagnitude(Vector3 v3)
-        {
-            float temp = (float)(Math.Pow(v3.x, 2) + Math.Pow(v3.y,2) + Math.Pow(v3.z,2));
-            return temp;
-        }
-        /// <summary>
-        /// gets the Magnitude of an object
-        /// </summary>
-        /// <param name="v3"></param>
-        /// <returns></returns>
-        static float magnitude(Vector3 v3)
-        {
-            float temp = (float)Math.Sqrt(Math.Pow(v3.x, 2) + Math.Pow(v3.y, 2) + Math.Pow(v3.z, 2));
-            return temp;
         }
 
 
@@ -134,7 +113,7 @@ namespace EnemyType.Bosses
             shooterPosition = shooterPosition * speed * Time.deltaTime;
             Vector3 targetRelativePosition = targetPosition - shooterPosition;
             Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
-            const float predictionTime = 10; // One second prediction, you need to experiment.
+            const float predictionTime = 2; // prediction time, can be experimented with for artificial stupidity 
 
             return targetPosition + predictionTime * (targetRelativeVelocity);
             //return turnToTarget + t * (targetRelativeVelocity); // applying bullet drop to the calculations

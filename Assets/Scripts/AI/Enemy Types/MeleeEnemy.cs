@@ -22,7 +22,7 @@ namespace EnemyType
             movementSpeed = 6.0f;
             /// Not needed anymore because there is no hybird - Nicky
             // Make sure all ammo is empty just in case this enemy is hybrid
-            //gunController.getGun(typeof(Weapon.Gun.Handgun)).setAmmo(0);
+            gunController.getGun(typeof(Weapon.Gun.Handgun)).setAmmo(0);
             ///
         }
 
@@ -56,8 +56,8 @@ namespace EnemyType
             else
             {
                 /// melee won't pick up anymore as we have no hybid - Nicky
-                //if (usePickups && pickUpVisionCone.hasVisibleTargets())
-                //    goToPosition(pickUpVisionCone.getClosestVisibleTarget().transform.position);
+                if (usePickups && pickUpVisionCone.hasVisibleTargets())
+                    goToPosition(pickUpVisionCone.getClosestVisibleTarget().transform.position);
                 wanderForTarget();
             }
         }
