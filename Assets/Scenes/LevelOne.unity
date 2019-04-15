@@ -482,7 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 0, y: 0, z: 0}
+  debugging: 0
   OGEnemies: 0
+  debugBehaviour: 0
 --- !u!1 &2011923269
 GameObject:
   m_ObjectHideFlags: 0
