@@ -11,9 +11,11 @@ namespace RoomBuilding
 	{
 	    public Vector3 size;
 
-        [Header("Debugging")]
-        [SerializeField]
-        private bool OGEnemies = false; // bad jake, no globaling variables.
+        // Debugging tools
+        public bool debugging = false;
+        public bool OGEnemies = false;
+        public enum DebugBehaviour { RANDOM, MELEE, GUN, HYBRID };
+        public DebugBehaviour debugBehaviour;
 
         /// <summary>
         /// Spawns an enemy of a specific type
@@ -22,34 +24,65 @@ namespace RoomBuilding
         /// <returns>New enemy</returns>
         public GameObject spawn(System.Type type = null)
         {
-            bool useHybridMelee = true;
-
             GameObject enemy;
 
-            if (type == null)
-                type = randomEnemyType();
+            // Should melee enemies be able to pick up and use guns?
+            bool useHybridMelee = true;
 
-
-            if (OGEnemies) // Original capsule enemies
-                enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
-            else // New animated enemies
+            if (debugging)
             {
-                if (type == typeof(EnemyType.MeleeEnemy)) // Melee enemy
-                    enemy = Instantiate(Resources.Load("HybridEnemy")) as GameObject;
-                else // Rifle enemy
-                    enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject;
+                // Find type
+                switch (debugBehaviour)
+                {
+                    case (DebugBehaviour.RANDOM):
+                        type = randomEnemyType();
+                        break;
+                    case (DebugBehaviour.MELEE):
+                        type = typeof(EnemyType.MeleeEnemy);
+                        useHybridMelee = false;
+                        break;
+                    case (DebugBehaviour.GUN):
+                        type = typeof(EnemyType.GunEnemy);
+                        break;
+                    case (DebugBehaviour.HYBRID):
+                        type = typeof(EnemyType.MeleeEnemy);
+                        useHybridMelee = true;
+                        break;
+                }
+            }
+            else
+            {
+                // Find type
+                if (type == null)
+                    type = randomEnemyType();
             }
 
+            // Spawn
+            if (debugging && OGEnemies)
+                enemy = Instantiate(Resources.Load("Enemy")) as GameObject;
+            else
+            {
+
+                if (type == typeof(EnemyType.MeleeEnemy))
+                    enemy = Instantiate(Resources.Load("HybridEnemy")) as GameObject; // Melee/Hybrid enemy
+                else
+                    enemy = Instantiate(Resources.Load("RifleEnemy")) as GameObject; // Gun enemy
+            }
+
+            // Add behaviour
             enemy.AddComponent(type);
 
+            // Enable hybrid (if applicable)
+            if (useHybridMelee && type == typeof(EnemyType.MeleeEnemy))
+                enemy.GetComponent<EnemyType.MeleeEnemy>().usePickups = true;
+            
+            // Positioning
             enemy.transform.position = generateNewPosition();
             enemy.transform.Rotate(Vector3.up, Random.Range(0.0f, 359.0f));
 
+            // Turn the script behaviour script off (so they are inactive until room starts them)
             EnemyType.AbstractEnemy enemyScr = enemy.GetComponent<EnemyType.AbstractEnemy>();
             enemyScr.enabled = false;
-
-            if (useHybridMelee && type == typeof(EnemyType.MeleeEnemy))
-                enemy.GetComponent<EnemyType.MeleeEnemy>().usePickups = true;
 
             return enemy;
         }
