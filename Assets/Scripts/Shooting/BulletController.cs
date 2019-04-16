@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     public float damage; 
-    public float speed = 12.0f;
+    public float speed = 6.0f;
     public float lifespan = 10.0f; // Seconds before despawning
 
     public bool timeEffected = true;
