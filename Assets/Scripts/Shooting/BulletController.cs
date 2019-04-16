@@ -30,7 +30,7 @@ public class BulletController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    protected virtual void FixedUpdate () {
         if(!timeEffected)
             transform.Translate(Vector3.forward * speed * Time.unscaledDeltaTime);
         else
