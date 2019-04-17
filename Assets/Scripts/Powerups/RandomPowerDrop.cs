@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Player;
 
 public class RandomPowerDrop : MonoBehaviour {
 
@@ -13,10 +13,28 @@ public class RandomPowerDrop : MonoBehaviour {
         public int dropRarity; 
     }
 
+    //player health attributes
+    [SerializeField]
+    private GameObject player;
+    [SerializeField]
+    PlayerHealthManager playerHealth;
+    [SerializeField]
+    private float health;
+    private GameObject dropHealth;
+
     public List<DropItems> LootTable = new List<DropItems>();
     public int  ItemDropChance = 50;
 
     public bool debugging = false;
+
+    private void Update()
+    {
+        if (player == null)
+        {
+            player = GameObject.Find("Player(Clone)");
+            playerHealth = player.GetComponent<PlayerHealthManager>();
+        }
+    }
 
 
     public void CalculateLoot()
@@ -32,34 +50,67 @@ public class RandomPowerDrop : MonoBehaviour {
                 Debug.Log("No loot");
             return;
         }
-        if (Calc_ItemDropChance <= ItemDropChance)
+
+        health = playerHealth.getHealth();
+        if (health <= playerHealth.startingHealth / 2)
         {
-            int ItemWeight = 0;
-
-            for (int i = 0; i < LootTable.Count; i++)
+            Debug.Log("here");
+            Calc_ItemDropChance = Random.Range(0, 4);
+            if (Calc_ItemDropChance <= 2)
             {
-                ItemWeight += LootTable[i].dropRarity;
+                healthDrop();
             }
-
-            if (debugging)
-                Debug.Log("ItemWeight= " + ItemWeight);
-
-            int randomValue = Random.Range(0, ItemWeight);
-
-            for (int j = 0; j < LootTable.Count; j++)
+        }
+        else if (health <= playerHealth.startingHealth / 1.25)
+        {
+            Debug.Log("getting here");
+            Calc_ItemDropChance = Random.Range(0, 4);
+            if (Calc_ItemDropChance == 1)
             {
-                if (randomValue <= LootTable[j].dropRarity)
-                {
-                    GameObject drop = Instantiate(LootTable[j].item, transform.position, Quaternion.identity);
+                healthDrop();
+            }
+        }
+        else {
+            if (Calc_ItemDropChance <= ItemDropChance)
+            {
+                int ItemWeight = 0;
 
-                    // Tie drop to current room - Jake
-                    GetComponent<EnemyType.AbstractEnemy>().getRoom().addPowerUpDrop(drop);
-                    return;
+                for (int i = 0; i < LootTable.Count; i++)
+                {
+                    ItemWeight += LootTable[i].dropRarity;
                 }
-                randomValue -= LootTable[j].dropRarity;
 
                 if (debugging)
-                    Debug.Log("Random Value decreased" + randomValue);
+                    Debug.Log("ItemWeight= " + ItemWeight);
+
+                int randomValue = Random.Range(0, ItemWeight);
+
+                for (int j = 0; j < LootTable.Count; j++)
+                {
+                    if (randomValue <= LootTable[j].dropRarity)
+                    {
+                        GameObject drop = Instantiate(LootTable[j].item, transform.position, Quaternion.identity);
+
+                        // Tie drop to current room - Jake
+                        GetComponent<EnemyType.AbstractEnemy>().getRoom().addPowerUpDrop(drop);
+                        return;
+                    }
+                    randomValue -= LootTable[j].dropRarity;
+
+                    if (debugging)
+                        Debug.Log("Random Value decreased" + randomValue);
+                }
+            }
+        }
+    }
+
+    private void healthDrop()
+    {
+        for (int i = 0; i < LootTable.Count; i++)
+        {
+            if (LootTable[i].name == "Health")
+            {
+                dropHealth = Instantiate(LootTable[i].item, transform.position, Quaternion.identity);
             }
         }
     }
