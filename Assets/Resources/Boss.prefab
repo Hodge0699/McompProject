@@ -543,7 +543,7 @@ MonoBehaviour:
   furthestTeleport: 0
   randTeleport: 1
   teleportHealth: 1050
-  teleportEffect: {fileID: 1645522716988758, guid: b7fcded2421a9d84d814a94708792847,
+  teleportEffect: {fileID: 1548056266330296, guid: 24f83f2ec6a726647b65e01e74fed905,
     type: 2}
 --- !u!114 &114952255045601490
 MonoBehaviour:

@@ -7,7 +7,8 @@ public class BossTeleportM : MonoBehaviour {
 
     [SerializeField]
     private List<GameObject> teleportLocations = new List<GameObject>(); // list of teleport locations 
-    private EnemyType.Bosses.BossEnemy bEnemy;
+    private EnemyType.Bosses.NickyBossMainScript bEnemy;
+    [SerializeField]
     private HealthManager bHealth;
     [Header("Boss Teleporting Mechanic method")]
     [SerializeField]
@@ -21,16 +22,17 @@ public class BossTeleportM : MonoBehaviour {
     [Header("Teleport Particle Effect")]
     [SerializeField]
     private GameObject teleportEffect;
+    [SerializeField]
+    Transform teleContainer;
 
     private void Start()
     {
         // This will find every teleport location in the scene (including other rooms since multiple boss
-        // initially spawn before the player decideds which one to walk into), fix this - Jake - suck me - Nicky 
-        bEnemy = this.GetComponent<EnemyType.Bosses.BossEnemy>();
+        bEnemy = this.GetComponent<EnemyType.Bosses.NickyBossMainScript>();
         bHealth = GetComponent<HealthManager>();
 
-        // omg u deleted my comment saying I taught u how to do this whilst making nuggets?? smh, no honesty - Jake
-        Transform teleContainer = bEnemy.getRoom().transform.Find("BossTeleporter").transform;
+
+        teleContainer = bEnemy.getRoom().transform.Find("BossTeleporter").transform;
         for (int i = 0; i < teleContainer.childCount; i++)
             teleportLocations.Add(teleContainer.GetChild(i).gameObject);
         
