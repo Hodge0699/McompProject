@@ -7,12 +7,12 @@ using EnemyType;
 public class BossGunSwitchM : MonoBehaviour {
 
     HealthManager health;
-    EnemyType.Bosses.BossEnemy bEnemy;
+    EnemyType.Bosses.NickyBossMainScript bEnemy;
     private int gunSwitchChanger = 0;
 
     private void Awake()
     {
-        bEnemy = this.GetComponent<EnemyType.Bosses.BossEnemy>();
+        bEnemy = this.GetComponent<EnemyType.Bosses.NickyBossMainScript>();
         health = GetComponent<HealthManager>();
     }
 	

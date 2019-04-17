@@ -12,7 +12,7 @@ namespace EnemyType.Bosses
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
-
+        [SerializeField]
         private GameObject SceneManager;
 
         [Header("Use Predictive Aiming")]

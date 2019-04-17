@@ -559,10 +559,10 @@ GameObject:
   - component: {fileID: 114083917362140318}
   - component: {fileID: 114592850459762906}
   - component: {fileID: 114836370244193538}
-  - component: {fileID: 114303635869944720}
   - component: {fileID: 114033624575197306}
   - component: {fileID: 114150659349016238}
   - component: {fileID: 114582713261503922}
+  - component: {fileID: 114216096639501656}
   m_Layer: 0
   m_Name: NickyBoss
   m_TagString: Enemy
@@ -798,7 +798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1773348495544736
 GameObject:
   m_ObjectHideFlags: 1
@@ -2056,11 +2056,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportLocations: []
+  bHealth: {fileID: 0}
   furthestTeleport: 0
   randTeleport: 1
   teleportHealth: 1050
   teleportEffect: {fileID: 1548056266330296, guid: 24f83f2ec6a726647b65e01e74fed905,
     type: 2}
+  teleContainer: {fileID: 0}
+--- !u!114 &114216096639501656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541709412927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d2a93a81e5b6b4b8a01b47fafeec35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  godmode: 0
+  debugging: 0
+  healthBar: {fileID: 0}
+  healthSlider: {fileID: 0}
+  lookAtPlayerOnHit: 1
+  playerUI: {fileID: 0}
+  BossUI: {fileID: 0}
 --- !u!114 &114217573448108986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2088,22 +2109,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
---- !u!114 &114303635869944720
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541709412927766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a031abeaec39a841957cc7d807f3656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 2100
-  godmode: 0
-  debugging: 0
-  healthBar: {fileID: 114217573448108986}
-  lookAtPlayerOnHit: 1
 --- !u!114 &114582713261503922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2119,6 +2124,7 @@ MonoBehaviour:
   directionVector: {x: 0, y: 0, z: 0}
   maxDistance: 1.6
   turnSpeed: 90
+  SceneManager: {fileID: 0}
   predictiveAiming: 1
 --- !u!114 &114592850459762906
 MonoBehaviour:
@@ -2279,7 +2285,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 60c58db700a8da04ca42d6343978c650, type: 2}
+  - {fileID: 2100000, guid: da38accf27569d7449be00d15da36eca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
