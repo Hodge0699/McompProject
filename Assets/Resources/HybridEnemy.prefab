@@ -2071,6 +2071,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc191bf6b3e125c409557e83aae8b84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerHealth: {fileID: 0}
+  health: 0
   LootTable:
   - name: Shotgun
     item: {fileID: 1139573452153030, guid: 5f861e9ed6915a34ea2602682e50041b, type: 2}
@@ -2083,7 +2086,10 @@ MonoBehaviour:
     dropRarity: 20
   - name: Time Gun
     item: {fileID: 1185478885353658, guid: a799a827aaf694c4e893b85926792f52, type: 2}
-    dropRarity: 20
+    dropRarity: 0
+  - name: Health
+    item: {fileID: 1185478885353658, guid: a799a827aaf694c4e893b85926792f52, type: 2}
+    dropRarity: 0
   ItemDropChance: 100
   debugging: 0
 --- !u!114 &114760309045508660

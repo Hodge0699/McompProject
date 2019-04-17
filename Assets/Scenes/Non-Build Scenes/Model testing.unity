@@ -1084,7 +1084,7 @@ Prefab:
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: enemyFrequency
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114377736663099220, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
@@ -1119,6 +1119,16 @@ Prefab:
     - target: {fileID: 114254514015239344, guid: 4c81b63f3a890454ebe0c48587407001,
         type: 2}
       propertyPath: TestEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114254514015239344, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: debugBehaviour
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114254514015239344, guid: 4c81b63f3a890454ebe0c48587407001,
+        type: 2}
+      propertyPath: debugging
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1613,6 +1623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc191bf6b3e125c409557e83aae8b84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerHealth: {fileID: 0}
+  health: 0
   LootTable:
   - name: Shotgun
     item: {fileID: 1139573452153030, guid: 5f861e9ed6915a34ea2602682e50041b, type: 2}
