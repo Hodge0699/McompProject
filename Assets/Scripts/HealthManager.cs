@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour
 {
     public float startingHealth;
+    [SerializeField]
     protected float currentHealth;
 
 
