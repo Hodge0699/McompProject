@@ -13,12 +13,7 @@ public class RandomPowerDrop : MonoBehaviour {
         public int dropRarity; 
     }
 
-    //player health attributes
-    [SerializeField]
-    private GameObject player;
-    [SerializeField]
     PlayerHealthManager playerHealth;
-    [SerializeField]
     private float health;
     private GameObject dropHealth;
 
@@ -27,13 +22,9 @@ public class RandomPowerDrop : MonoBehaviour {
 
     public bool debugging = false;
 
-    private void Update()
+    private void Awake()
     {
-        if (player == null)
-        {
-            player = GameObject.Find("Player(Clone)");
-            playerHealth = player.GetComponent<PlayerHealthManager>();
-        }
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
     }
 
 
@@ -54,7 +45,6 @@ public class RandomPowerDrop : MonoBehaviour {
         health = playerHealth.getHealth();
         if (health <= playerHealth.startingHealth / 2)
         {
-            Debug.Log("here");
             Calc_ItemDropChance = Random.Range(0, 4);
             if (Calc_ItemDropChance <= 2)
             {
@@ -63,7 +53,6 @@ public class RandomPowerDrop : MonoBehaviour {
         }
         else if (health <= playerHealth.startingHealth / 1.25)
         {
-            Debug.Log("getting here");
             Calc_ItemDropChance = Random.Range(0, 4);
             if (Calc_ItemDropChance == 1)
             {
