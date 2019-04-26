@@ -26,9 +26,14 @@ public class GunController : MonoBehaviour {
     {
         weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
 
-        bulletContainer = new GameObject();
-        bulletContainer.name = "Active Bullets";
-        bulletContainer.transform.position = Vector3.zero;
+        if (GameObject.Find("Active Bullets"))
+            bulletContainer = GameObject.Find("Active Bullets");
+        else
+        {
+            bulletContainer = new GameObject();
+            bulletContainer.name = "Active Bullets";
+            bulletContainer.transform.position = Vector3.zero;
+        }
 
         guns.Add(gameObject.AddComponent<Handgun>());
         guns.Add(gameObject.AddComponent<Shotgun>());

@@ -2,37 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedUpBulletController : MonoBehaviour
+public class SpeedUpBulletController : BulletController
 {
-
-    public float speed = 10.0f;
-    public SpeedUpBubbleController tB;
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-
-    void FixedUpdate()
-    {
-
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        //Destroy(gameObject, 1);
-    }
     /// <summary>
     /// checks for collisions with the bullet
     /// </summary>
     /// <param name="collision"></param>
-    void OnTriggerEnter(Collider collision)
+    override protected void OnCollisionEnter(Collision collision)
     {
-        if (collision.tag != "TimeBubble")
-        {
-            SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
-            Destroy(gameObject);
-        }
+        if (!ignoreTags.Contains(collision.gameObject.tag))
+            Instantiate(Resources.Load("TimeBubble"), collision.transform.position, collision.transform.rotation, GameObject.Find("Active Bullets").transform);
+
+        Destroy(gameObject);
     }
 }

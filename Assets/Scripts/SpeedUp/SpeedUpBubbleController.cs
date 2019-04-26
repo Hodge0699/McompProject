@@ -7,7 +7,6 @@ public class SpeedUpBubbleController : MonoBehaviour {
     public Vector3 direction;
     public float speed = 10.0f;
     public float bubbleDuration = 100.0f;
-    private float defaultSpeed = 0.0f;
     private float _localTimeScale = 1.0f;
     public List<Rigidbody> r;
     [Header("value to control speed inside bubble")]
@@ -36,12 +35,10 @@ public class SpeedUpBubbleController : MonoBehaviour {
         foreach (Rigidbody rb in r)
         {
             // checks if the rigidbody belongs to the player
-            if (rb.gameObject.name == "Player(speed up test)")
+            if (rb.gameObject == GameObject.FindGameObjectWithTag("Player"))
             {
-                Debug.Log("getting inside here");
-                Vector3 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
+                Vector3 directionVector = rb.gameObject.GetComponent<Player.PlayerInputManager>().getDirectionVector();
                 rb.AddForce(directionVector * speedInside, ForceMode.Impulse);
-                player = rb.gameObject;
             }
             // else its speeding up the enemies.
             else
@@ -63,9 +60,8 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.tag != "Untagged"))
+        if ((other.tag != "Untagged") && !other.isTrigger)
         {
-            Debug.Log("someone entered time bubble");
             r.Add(other.GetComponent<Rigidbody>());
             speedAdjuster(2.0f, r);
         }
@@ -73,7 +69,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag != "Untagged")
+        if (other.tag != "Untagged" && !other.isTrigger)
         {
             speedAdjuster(1.0f, r);
             r.Remove(other.GetComponent<Rigidbody>());

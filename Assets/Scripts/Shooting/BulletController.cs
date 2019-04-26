@@ -39,7 +39,7 @@ public class BulletController : MonoBehaviour {
     }
 
 
-    void OnCollisionEnter(Collision other)
+    protected virtual void OnCollisionEnter(Collision other)
     {
         if (!ignoreTags.Contains(other.gameObject.tag))
         {
