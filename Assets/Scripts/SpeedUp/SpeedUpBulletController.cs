@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpeedUpBulletController : MonoBehaviour
 {
 
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     public SpeedUpBubbleController tB;
 
 
@@ -17,11 +17,11 @@ public class SpeedUpBulletController : MonoBehaviour
 
     // Update is called once per frame
 
-    void Update()
+    void FixedUpdate()
     {
 
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        Destroy(gameObject, 1);
+        //Destroy(gameObject, 1);
     }
     /// <summary>
     /// checks for collisions with the bullet
@@ -29,7 +29,10 @@ public class SpeedUpBulletController : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerEnter(Collider collision)
     {
-        SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
-        Destroy(gameObject);
+        if (collision.tag != "TimeBubble")
+        {
+            SpeedUpBubbleController timeBubble = Instantiate(tB, collision.transform.position, collision.transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }

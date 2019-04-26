@@ -65,7 +65,7 @@ namespace Player
             if (!godmode)
             {
                 damaged = true;
-                healthSlider.fillAmount = currentHealth /100;
+                healthSlider.fillAmount = currentHealth / 200;
                 //Debug.Log("health slider amount: " + healthSlider.fillAmount);
             }
         }

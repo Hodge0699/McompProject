@@ -18,6 +18,7 @@ TagManager:
   - WeaponUI
   - Untagg
   - Bullet
+  - TimeBubble
   layers:
   - Default
   - TransparentFX

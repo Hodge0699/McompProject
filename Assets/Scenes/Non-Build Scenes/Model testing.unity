@@ -736,6 +736,53 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3c7913d3d6504d408f0bf10a59e02f5, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &411416844
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878115503267248, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114701634506329958, guid: a69faefa88682614f8cd243a569a12be,
+        type: 2}
+      propertyPath: startingHealth
+      value: 200
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a69faefa88682614f8cd243a569a12be, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &435644429 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1084932854252756, guid: 4a722eba0a517144f9079e673122fe97,
@@ -1595,6 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  currentHealth: 0
   godmode: 0
   debugging: 0
   healthBar: {fileID: 781574327}
