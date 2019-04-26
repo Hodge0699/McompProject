@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
 
     private void dataUpdate()
     {
-        Debug.Log("DataUpdate");
+
         health = playerHealth.getHealth();
         scene = SceneManager.GetActiveScene();
         sceneName = scene.name;
@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour {
     private void dataLoad()
     {
         playerHealth.setHealth(health, true);
-        Debug.Log("getting here after scene loaded, health on script is: " + health);
+        
         
     }
 
@@ -100,8 +100,6 @@ public class GameController : MonoBehaviour {
             file.Close();
             health = data.health;
             sceneName = data.sceneName;
-            Debug.Log("Player Health: " + health);
-            Debug.Log("Scene: " + sceneName);
             SceneManager.LoadScene(sceneName);
             firstData = 0;
         }
@@ -117,7 +115,5 @@ class PlayerData
     {
         health = phealth;
         sceneName = pscene;
-        Debug.Log("Player Health: " + health);
-        Debug.Log("Scene: " + sceneName);
     }
 }

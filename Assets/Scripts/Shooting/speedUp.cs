@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class speedUp : timeMechanic {
 
-    public SpeedUpBulletController sUpB;
+    public GameObject sUpB;
 
     public Transform secondaryFirePoint;
 
@@ -20,7 +20,7 @@ public class speedUp : timeMechanic {
 
     public override void Shoot()
     {
-        SpeedUpBulletController newBullet = Instantiate(sUpB, secondaryFirePoint.position, secondaryFirePoint.rotation);
-        newBullet.speed = bulletSpeed;
+        GameObject newBullet = Instantiate(sUpB, secondaryFirePoint.position, secondaryFirePoint.rotation);
+        //newBullet.speed = bulletSpeed;
     }
 }

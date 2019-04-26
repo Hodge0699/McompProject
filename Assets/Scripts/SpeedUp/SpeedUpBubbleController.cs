@@ -10,11 +10,14 @@ public class SpeedUpBubbleController : MonoBehaviour {
     private float defaultSpeed = 0.0f;
     private float _localTimeScale = 1.0f;
     public List<Rigidbody> r;
-
-    void Start()
-    {
-        direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-    }
+    [Header("value to control speed inside bubble")]
+    [SerializeField]
+    private int speedInside = 5;
+    [SerializeField]
+    private GameObject player;
+    private GameObject enemy;
+    Vector3 heading;
+    Vector3 enemyDirection;
 
 
     void Update()
@@ -32,7 +35,27 @@ public class SpeedUpBubbleController : MonoBehaviour {
     {
         foreach (Rigidbody rb in r)
         {
-            rb.AddForce(-Physics.gravity + (Physics.gravity * (_localTimeScale * _localTimeScale)), ForceMode.Acceleration);
+            // checks if the rigidbody belongs to the player
+            if (rb.gameObject.name == "Player(speed up test)")
+            {
+                Debug.Log("getting inside here");
+                Vector3 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
+                rb.AddForce(directionVector * speedInside, ForceMode.Impulse);
+                player = rb.gameObject;
+            }
+            // else its speeding up the enemies.
+            else
+            {
+                if (enemy != null)
+                {
+                    enemy = rb.gameObject;
+                    heading = enemy.transform.position - player.transform.position;
+                    float distance = heading.magnitude;
+                    enemyDirection = heading / distance;
+                    rb.AddForce(enemyDirection * speedInside, ForceMode.Impulse);
+                }
+            }
+            //rb.AddForce(-Physics.gravity + (Physics.gravity * (400 * 400)));
         }
 
 
