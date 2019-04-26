@@ -177,8 +177,6 @@ GameObject:
   - component: {fileID: 114737799830531368}
   - component: {fileID: 114372923051910610}
   - component: {fileID: 114769443199197996}
-  - component: {fileID: 114987163098496058}
-  - component: {fileID: 114864742037675158}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -824,19 +822,6 @@ MonoBehaviour:
   pUI: {fileID: 0}
   angryFace: {fileID: 0}
   happyFace: {fileID: 0}
---- !u!114 &114864742037675158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653496019388500}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23f983a376c6164da8211c8a9de6fa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  tB: {fileID: 114708953087063434, guid: 92dafd39ed7aca443bf3b887638a8a85, type: 2}
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -855,17 +840,3 @@ MonoBehaviour:
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   deathScene: {fileID: 0}
---- !u!114 &114987163098496058
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653496019388500}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e226737b32ad2c54ebe0b35be802a2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sUpB: {fileID: 1961617898229682, guid: f9424df1344171845b20c67aac57a99e, type: 2}
-  secondaryFirePoint: {fileID: 4756439425964752}
-  bulletSpeed: 10
