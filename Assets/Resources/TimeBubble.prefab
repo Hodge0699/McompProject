@@ -96,12 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85baf93accda2be469412d7a7dee41f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  speed: 0
   bubbleDuration: 10
-  r: []
-  speedInside: 5
-  player: {fileID: 0}
+  timeDilation: 2
 --- !u!135 &135736572782428064
 SphereCollider:
   m_ObjectHideFlags: 1

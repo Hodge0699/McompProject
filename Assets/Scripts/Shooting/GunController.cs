@@ -33,6 +33,7 @@ public class GunController : MonoBehaviour {
             bulletContainer = new GameObject();
             bulletContainer.name = "Active Bullets";
             bulletContainer.transform.position = Vector3.zero;
+            bulletContainer.transform.parent = null;
         }
 
         guns.Add(gameObject.AddComponent<Handgun>());
@@ -197,11 +198,6 @@ public class GunController : MonoBehaviour {
         }
 
         return -1;
-    }
-
-    private void OnDestroy()
-    {
-        Destroy(bulletContainer);
     }
 
     public void addGun(AbstractGun gun)

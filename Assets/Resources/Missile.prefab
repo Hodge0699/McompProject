@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 135474877032509932}
   - component: {fileID: 114939143524684756}
   - component: {fileID: 54730512275812138}
+  - component: {fileID: 114998573669477738}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -122,6 +123,17 @@ MonoBehaviour:
   turn: 5
   MissleVelocity: 10
   LifeSpan: 10
+--- !u!114 &114998573669477738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592636576716876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135474877032509932
 SphereCollider:
   m_ObjectHideFlags: 1

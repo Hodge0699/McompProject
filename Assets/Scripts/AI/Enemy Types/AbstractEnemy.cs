@@ -28,6 +28,8 @@ namespace EnemyType
         protected MissleScript missleScript;
         protected VisionCone pickUpVisionCone;
 
+        protected LocalTimeDilation myTime;
+
         // Use this for initialization
         protected virtual void Awake()
         {
@@ -37,12 +39,13 @@ namespace EnemyType
             pickUpVisionCone = GetComponents<VisionCone>()[1];
             anim = GetComponent<Animator>();
 
+            myTime = GetComponent<LocalTimeDilation>();
         }
 
         private void LateUpdate()
         {
             directionVector.Normalize();
-            Vector3 movement = directionVector * movementSpeed * Time.deltaTime;
+            Vector3 movement = directionVector * movementSpeed * myTime.getLocalDelta();
 
             transform.Translate(movement, Space.World);
 
@@ -172,14 +175,14 @@ namespace EnemyType
         /// </summary>
         protected void turnTo(float angle)
         {
-            if (Mathf.Abs(angle) < turnSpeed * Time.deltaTime)
+            if (Mathf.Abs(angle) < turnSpeed * myTime.getLocalDelta())
                 transform.Rotate(Vector3.up, angle);
             else
             {
                 if (angle > 0)
-                    angle = turnSpeed * Time.deltaTime;
+                    angle = turnSpeed * myTime.getLocalDelta();
                 else
-                    angle = -turnSpeed * Time.deltaTime;
+                    angle = -turnSpeed * myTime.getLocalDelta();
 
                 transform.Rotate(Vector3.up, angle);
             }

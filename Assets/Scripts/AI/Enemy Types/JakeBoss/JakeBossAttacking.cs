@@ -31,7 +31,7 @@ namespace EnemyType.Bosses
                 {
                     // Ready to start firing
                     if (rightPivot.isAtCentre())
-                        basicAttackTimer -= Time.deltaTime;
+                        basicAttackTimer -= myTime.getLocalDelta();
 
                     // Basic attack finished
                     if (basicAttackTimer <= 0.0f)
