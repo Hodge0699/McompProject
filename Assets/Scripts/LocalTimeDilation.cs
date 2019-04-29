@@ -34,9 +34,9 @@ public class LocalTimeDilation : MonoBehaviour {
     }
 
     /// <summary>
-    /// Modifies the time dilation by set amount
+    /// Modifies the dilation by a set amount
     /// </summary>
-    /// <param name="dilation"></param>
+    /// <param name="dilation">Amount to modify by</param>
     public void modifyTimeDilation(float dilation)
     {
         this.dilation += dilation;
