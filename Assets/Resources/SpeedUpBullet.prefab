@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  speed: 6
+  speed: 8
   lifespan: 10
   timeEffected: 1
   ignoreTags:
