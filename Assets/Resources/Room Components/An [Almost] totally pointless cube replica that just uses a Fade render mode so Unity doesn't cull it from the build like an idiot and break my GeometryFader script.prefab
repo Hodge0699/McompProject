@@ -23,9 +23,7 @@ GameObject:
   - component: {fileID: 23333143165263902}
   - component: {fileID: 65049332972445214}
   m_Layer: 0
-  m_Name: An [Almost] totally pointless cube replica that just uses a Fade render
-    mode so Unity doesn't cull it from the build like an idiot and break my GeometryFader
-    script
+  m_Name: totally pointless cube replica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
