@@ -40,6 +40,8 @@ namespace Player
         public TimeStop TS;
         private PlayerUIController pUI;
 
+        private LocalTimeDilation myTime;
+
         private bool debugging = false;
 
         private bool allowInput = true;
@@ -81,6 +83,8 @@ namespace Player
             mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
 
             initWeaponTypes();
+
+            myTime = GetComponent<LocalTimeDilation>();
         }
 
         /// <summary>
@@ -124,7 +128,7 @@ namespace Player
             }
             if (dashCooldown > 0)
             {
-                dashCooldown -= Time.deltaTime;
+                dashCooldown -= myTime.getLocalDelta();
             }
             actions();
             move();
@@ -162,7 +166,7 @@ namespace Player
             if (allowInput)
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
-            Vector3 movement = directionVector.normalized * player.moveSpeed * Time.unscaledDeltaTime;
+            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getLocalDelta();
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;

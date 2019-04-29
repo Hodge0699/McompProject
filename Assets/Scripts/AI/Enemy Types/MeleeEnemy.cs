@@ -27,12 +27,15 @@ namespace EnemyType
 
         private void Update()
         {
+            if (anim != null)
+                anim.speed = myTime.getDilation();
+
             // Switch to GunEnemy if has ammo
             if (usePickups && gunController.hasAmmo(true))
                 switchToBehaviour(typeof(GunEnemy), true, false);
 
             if (attackCooldownCounter >= 0.0f)
-                attackCooldownCounter -= Time.deltaTime;
+                attackCooldownCounter -= myTime.getLocalDelta();
 
             if (target != null)
             {

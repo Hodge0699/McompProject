@@ -11,7 +11,7 @@ public class SpeedUpBulletController : BulletController
     override protected void OnCollisionEnter(Collision collision)
     {
         if (!ignoreTags.Contains(collision.gameObject.tag))
-            Instantiate(Resources.Load("TimeBubble"), collision.transform.position, collision.transform.rotation, GameObject.Find("Active Bullets").transform);
+            Instantiate(Resources.Load("TimeBubble"), transform.position, transform.rotation, GameObject.Find("Active Bullets").transform);
 
         Destroy(gameObject);
     }

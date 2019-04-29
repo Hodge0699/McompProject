@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114317670016589386}
   - component: {fileID: 114626009116267332}
   - component: {fileID: 54222728033975650}
+  - component: {fileID: 114699693645002860}
   m_Layer: 12
   m_Name: SpeedUpBullet
   m_TagString: Bullet
@@ -129,6 +130,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114699693645002860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135960000950576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135448214557067148

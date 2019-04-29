@@ -114,7 +114,7 @@ namespace EnemyType.Bosses
             Vector3 targetRelativePosition = targetPosition - shooterPosition;
             Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
             const float predictionTime = 2; // prediction time, can be experimented with for artificial stupidity 
-
+            
             return targetPosition + predictionTime * (targetRelativeVelocity);
             //return turnToTarget + t * (targetRelativeVelocity); // applying bullet drop to the calculations
         }

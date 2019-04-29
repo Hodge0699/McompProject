@@ -18,6 +18,9 @@ namespace EnemyType
 
         private void Update()
         {
+            if (anim != null)
+                anim.speed = myTime.getDilation();
+
             // Switch back to MeleeEnemy if out of ammo
             if (!gunController.hasAmmo())
             {

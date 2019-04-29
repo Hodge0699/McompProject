@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 114519810309680258}
   - component: {fileID: 114185290385034858}
   - component: {fileID: 114833422289436808}
+  - component: {fileID: 114532638890590952}
   m_Layer: 0
   m_Name: RifleEnemy
   m_TagString: Enemy
@@ -2088,6 +2089,7 @@ MonoBehaviour:
   - Player
   ignoreTags:
   - Bullet
+  - Enemy
   viewDistance: 20
   FOV: 100
   ignoreVisibilityValue: 0
@@ -2118,6 +2120,17 @@ MonoBehaviour:
     dropRarity: 20
   ItemDropChance: 100
   debugging: 0
+--- !u!114 &114532638890590952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542762566050268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114683101008540286
 MonoBehaviour:
   m_ObjectHideFlags: 1

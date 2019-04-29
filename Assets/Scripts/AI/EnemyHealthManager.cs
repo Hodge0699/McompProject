@@ -19,9 +19,8 @@ public class EnemyHealthManager : HealthManager {
         if (anim != null)
         {
             if (deathAnimationDuration <= 2)
-            {
                 deathAnimationDuration -= Time.deltaTime;
-            }
+
             if (deathAnimationDuration <= 0)
                 Destroy(gameObject);
         }
