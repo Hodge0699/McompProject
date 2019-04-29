@@ -9,6 +9,8 @@ public class SpeedUpBubbleController : MonoBehaviour {
     [SerializeField]
     private float timeDilation = 2.0f;
 
+    List<LocalTimeDilation> affectedObjects = new List<LocalTimeDilation>();
+
     void Update()
     {
         // destroys the bubble after a set time
@@ -21,15 +23,30 @@ public class SpeedUpBubbleController : MonoBehaviour {
     // find all objects who enter the time bubble
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger && other.GetComponent<LocalTimeDilation>() != null)
-            other.GetComponent<LocalTimeDilation>().modifyTimeDilation(timeDilation);
+        LocalTimeDilation otherObj = other.GetComponent<LocalTimeDilation>();
+
+        if (!other.isTrigger && otherObj != null)
+        {
+            otherObj.modifyTimeDilation(timeDilation);
+            affectedObjects.Add(otherObj);
+        }
     }
 
     // remove any objects who leaves the time bubble
     private void OnTriggerExit(Collider other)
     {
-        if (!other.isTrigger && other.GetComponent<LocalTimeDilation>() != null)
-            other.GetComponent<LocalTimeDilation>().modifyTimeDilation(-timeDilation);
+        LocalTimeDilation otherObj = other.GetComponent<LocalTimeDilation>();
+
+        if (otherObj != null && affectedObjects.Contains(otherObj))
+        {
+            otherObj.modifyTimeDilation(-timeDilation);
+            affectedObjects.Remove(otherObj);
+        }
     }
 
+    private void OnDestroy()
+    {
+        foreach (LocalTimeDilation t in affectedObjects)
+            t.modifyTimeDilation(-timeDilation);
+    }
 }
