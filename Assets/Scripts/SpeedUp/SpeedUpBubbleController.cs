@@ -14,6 +14,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
     private int speedInside = 5;
     [SerializeField]
     private GameObject player;
+    [SerializeField]
     private GameObject enemy;
     Vector3 heading;
     Vector3 enemyDirection;
@@ -23,7 +24,10 @@ public class SpeedUpBubbleController : MonoBehaviour {
     {
         // destroys the bubble after a set time
         bubbleDuration -= Time.deltaTime;
-
+        if(player == null)
+        {
+            player = GameObject.Find("Player(Clone)");
+        }
         if (bubbleDuration <= 0)
         {
             Destroy(this.gameObject);
@@ -35,7 +39,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
         foreach (Rigidbody rb in r)
         {
             // checks if the rigidbody belongs to the player
-            if (rb.gameObject == GameObject.FindGameObjectWithTag("Player"))
+            if (rb.gameObject == player)
             {
                 Vector3 directionVector = rb.gameObject.GetComponent<Player.PlayerInputManager>().getDirectionVector();
                 rb.AddForce(directionVector * speedInside, ForceMode.Impulse);
@@ -43,50 +47,29 @@ public class SpeedUpBubbleController : MonoBehaviour {
             // else its speeding up the enemies.
             else
             {
-                if (enemy != null)
-                {
-                    enemy = rb.gameObject;
-                    heading = enemy.transform.position - player.transform.position;
-                    float distance = heading.magnitude;
-                    enemyDirection = heading / distance;
-                    rb.AddForce(enemyDirection * speedInside, ForceMode.Impulse);
-                }
+                enemy = rb.gameObject;
+                rb.AddForce(enemy.transform.forward * speedInside, ForceMode.Impulse);
+
             }
-            //rb.AddForce(-Physics.gravity + (Physics.gravity * (400 * 400)));
         }
 
 
     }
-
+    // find all objects who enter the time bubble
     private void OnTriggerEnter(Collider other)
     {
         if ((other.tag != "Untagged") && !other.isTrigger)
         {
             r.Add(other.GetComponent<Rigidbody>());
-            speedAdjuster(2.0f, r);
         }
     }
-
+    // remove any objects who leaves the time bubble
     private void OnTriggerExit(Collider other)
     {
         if (other.tag != "Untagged" && !other.isTrigger)
         {
-            speedAdjuster(1.0f, r);
             r.Remove(other.GetComponent<Rigidbody>());
         }
     }
-    /// <summary>
-    /// adjusts all the object's rigidbody velocity that is inside the bubble
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="other"></param>
-    private void speedAdjuster(float value, List<Rigidbody> other)
-    {
-        float multiplier = value / _localTimeScale;
-        foreach (Rigidbody rb in r)
-        {
-            rb.velocity *= multiplier;
-        }
-        _localTimeScale = value;
-    }
+
 }
