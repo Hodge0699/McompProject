@@ -38,7 +38,7 @@ public class BulletController : MonoBehaviour {
         if(!timeEffected)
             transform.Translate(Vector3.forward * speed * Time.unscaledDeltaTime);
         else
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * myTime.getLocalDelta());
 
     }
 
