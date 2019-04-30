@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 114665018455137894}
   - component: {fileID: 114021677696767944}
   - component: {fileID: 114422590831524820}
+  - component: {fileID: 114982041151780284}
   m_Layer: 0
   m_Name: JackBoss
   m_TagString: Boss
@@ -147,7 +148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753049230033338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: 1.32, z: 0.47}
+  m_LocalPosition: {x: 13.928792, y: 0.5106211, z: 5.800868}
   m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
   m_Children:
   - {fileID: 4322497517964986}
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 2100
+  currentHealth: 0
   godmode: 0
   debugging: 0
   healthBar: {fileID: 114823929226636360}
@@ -346,10 +348,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ad19f07c1e4bd4296d99e8f9faebea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTags: []
+  targetTags:
+  - Player
   ignoreTags: []
   viewDistance: 20
-  FOV: 200
+  FOV: 211
   ignoreVisibilityValue: 0
   timeToSpot: 5
 --- !u!114 &114173161976607760
@@ -409,8 +412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  speed: 5
-  fireRate: 1
+  speed: 10
+  fireRate: 0.1
   timeEffected: 0
   maxAmmo: 0
   debugging: 0
@@ -430,7 +433,7 @@ MonoBehaviour:
   ignoreTags:
   - Bullet
   viewDistance: 20
-  FOV: 132
+  FOV: 140
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
 --- !u!114 &114422590831524820
@@ -548,6 +551,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114982041151780284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753049230033338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136979640380378908
 CapsuleCollider:
   m_ObjectHideFlags: 1

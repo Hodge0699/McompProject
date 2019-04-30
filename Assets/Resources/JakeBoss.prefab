@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 114436666591164714}
   - component: {fileID: 114245562062295738}
   - component: {fileID: 114434391035150736}
+  - component: {fileID: 114319407415803236}
   m_Layer: 0
   m_Name: JakeBoss
   m_TagString: Boss
@@ -510,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 2100
+  currentHealth: 0
   godmode: 0
   debugging: 0
   healthBar: {fileID: 114881667810855416}
@@ -530,6 +532,17 @@ MonoBehaviour:
   - Enemy
   autoSwitchOnEmpty: 1
   debugging: 0
+--- !u!114 &114319407415803236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318024367561644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114418938463434770
 MonoBehaviour:
   m_ObjectHideFlags: 1
