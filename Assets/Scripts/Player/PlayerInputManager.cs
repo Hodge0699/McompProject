@@ -19,6 +19,8 @@ namespace Player
         private KeyCode kbmPause = KeyCode.Escape;
         [SerializeField]
         private KeyCode kbmTimeMechanic = KeyCode.Mouse1;
+        [SerializeField]
+        private KeyCode kbmDashMechanic = KeyCode.Space;
 
         [SerializeField]
         private List<KeyCode> weaponSwitches = new List<KeyCode>();
@@ -27,11 +29,13 @@ namespace Player
 
         [Header("Joystick Controls")]
         [SerializeField]
-        public KeyCode controllerShoot = KeyCode.Joystick1Button5;
+        private KeyCode controllerShoot = KeyCode.Joystick1Button5; // Rb
         [SerializeField]
-        public KeyCode controllerPause = KeyCode.Joystick1Button7;
+        private KeyCode controllerPause = KeyCode.Joystick1Button7; // Start
         [SerializeField]
-        public KeyCode controllerTimeMechanic = KeyCode.Joystick1Button4;
+        private KeyCode controllerTimeMechanic = KeyCode.Joystick1Button4; // Lb
+        [SerializeField]
+        private KeyCode controllerDashMechanic = KeyCode.Joystick1Button0; // A
 
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
@@ -46,7 +50,7 @@ namespace Player
         private TimeMechanic.LocalTimeDilation myTime;
         private TimeMechanic.TimeMechanic timeMechanic;
 
-
+        private Dash dashMechanic;
 
         private bool allowInput = true;
         private float forceMoveDistanceCounter = 0.0f;
@@ -58,20 +62,6 @@ namespace Player
         private ControlMethod control = ControlMethod.KBM;
 
         private bool paused = false; // Is player input halted?
-
-        private Vector3 lastMoveDir;
-
-        [Header("Dash Distance")]
-        [SerializeField]
-        private float dashDistance = 30f;
-        private float dashDuration = 0f;
-        private float dashCooldown = 0;
-
-        [Header("Dash Particle Effect")]
-        [SerializeField]
-        private GameObject dashEffect;
-        [SerializeField]
-        private float dashTrailDuration;
 
         [Header("Debugging")]
         [SerializeField]
@@ -96,6 +86,7 @@ namespace Player
             initWeaponTypes();
 
             myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
+            dashMechanic = GetComponent<Dash>();
         }
 
         /// <summary>
@@ -128,16 +119,6 @@ namespace Player
 
             move();
             turn(control);
-
-
-
-            if (dashDuration > 0)
-                dashDuration -= Time.unscaledDeltaTime;
-            else
-                dashParticleNotActive();
-
-            if (dashCooldown > 0)
-                dashCooldown -= myTime.getDelta();
         }
 
         /// <summary>
@@ -164,13 +145,12 @@ namespace Player
         void move()
         {
             if (allowInput)
-                directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
+                directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical")).normalized;
 
-            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getDelta();
+            Vector3 movement = directionVector * player.moveSpeed * myTime.getDelta();
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;
-            lastMoveDir = movement;
 
             if (!allowInput)
             {
@@ -341,13 +321,8 @@ namespace Player
         /// </summary>
         private void inputCheck_Dash()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null && dashCooldown <= 0)
-            {
-                dashParticleActive();
-                CanMove(lastMoveDir, dashDistance);
-                dashCooldown = 1.0f;
-                dashDuration = dashTrailDuration;
-            }
+            if (Input.GetKeyDown(KeyCode.Space))
+                dashMechanic.activate(getDirectionVector());
         }
 
 
@@ -415,55 +390,7 @@ namespace Player
             return moved;
         }
 
-        /// <summary>
-        /// Checks to see if the player can dash forward without hitting an object
-        /// </summary>
-        /// <param name="dir"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
-        private void CanMove(Vector3 dir, float distance)
-        {
-            RaycastHit hitInfo = new RaycastHit();
-            GameObject Gobject;
-            if (Physics.Raycast(transform.position, dir, out hitInfo, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
-                Gobject = hitInfo.collider.gameObject;
-            else
-                Gobject = null;
-
-            if (Gobject == null)
-                return;
-            if (Gobject.tag == "Untagged" && hitInfo.distance <= 3)
-            {
-                return;
-            }
-            else if (Gobject.tag == "Untagged" && hitInfo.distance <= 8.0f)
-            {
-
-                transform.position += dir * (distance - hitInfo.distance) / 2;
-            }
-            else
-            {
-
-                transform.position += dir * distance;
-            }
-        }
-
-        /// <summary>
-        /// set particle to active
-        /// </summary>
-        private void dashParticleActive()
-        {
-            dashEffect.SetActive(true);
-        }
-
-        /// <summary>
-        /// set particle to inactive
-        /// </summary>
-        private void dashParticleNotActive()
-        {
-            dashEffect.SetActive(false);
-        }
-
+        ///
         /// Returns the direction vector of the player
         /// </summary>
         public Vector3 getDirectionVector()
