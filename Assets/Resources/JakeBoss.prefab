@@ -98,7 +98,10 @@ GameObject:
   - component: {fileID: 114434391035150736}
   - component: {fileID: 114319407415803236}
   m_Layer: 0
-  m_Name: JakeBoss
+  m_Name: King Danny-Rhys Rainborn of the House Dai-Craig-Ryan, the Last of His Name,
+    King of the Sandals, the Rhondda and the First Bois, Gentleman of the United Kingdom
+    and Protector of the Elm, Gentleman of Cracking Bones, King of Latrine, Khal of
+    the Great Crass Bee, the Unturnt, Maker of Chains, and Father of Flagons
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,6 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unscaled: 0
 --- !u!114 &114418938463434770
 MonoBehaviour:
   m_ObjectHideFlags: 1
