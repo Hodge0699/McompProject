@@ -128,7 +128,7 @@ namespace Player
             }
             if (dashCooldown > 0)
             {
-                dashCooldown -= myTime.getLocalDelta();
+                dashCooldown -= myTime.getDelta();
             }
             actions();
             move();
@@ -166,7 +166,7 @@ namespace Player
             if (allowInput)
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
-            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getLocalDelta();
+            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getDelta();
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;

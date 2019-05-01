@@ -35,7 +35,7 @@ namespace EnemyType
                 switchToBehaviour(typeof(GunEnemy), true, false);
 
             if (attackCooldownCounter >= 0.0f)
-                attackCooldownCounter -= myTime.getLocalDelta();
+                attackCooldownCounter -= myTime.getDelta();
 
             if (target != null)
             {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LocalTimeDilation : MonoBehaviour {
 
+    public bool unscaled = false;
+
     private float dilation = 1.0f;
 
     /// <summary>
@@ -18,9 +20,12 @@ public class LocalTimeDilation : MonoBehaviour {
     /// <summary>
     /// Gets the delta time affected by time dilation
     /// </summary>
-    public float getLocalDelta()
+    public float getDelta()
     {
-        return dilation * Time.deltaTime;
+        if (unscaled)
+            return Time.unscaledDeltaTime;
+        else
+            return dilation * Time.deltaTime;
     }
 
 
