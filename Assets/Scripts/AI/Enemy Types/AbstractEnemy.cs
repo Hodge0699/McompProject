@@ -28,7 +28,7 @@ namespace EnemyType
         protected MissleScript missleScript;
         protected VisionCone pickUpVisionCone;
 
-        protected LocalTimeDilation myTime;
+        protected TimeMechanic.LocalTimeDilation myTime;
 
         // Use this for initialization
         protected virtual void Awake()
@@ -39,7 +39,7 @@ namespace EnemyType
             pickUpVisionCone = GetComponents<VisionCone>()[1];
             anim = GetComponent<Animator>();
 
-            myTime = GetComponent<LocalTimeDilation>();
+            myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
         }
 
         private void LateUpdate()

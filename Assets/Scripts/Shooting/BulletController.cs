@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour {
 
     public List<string> ignoreTags = new List<string>();
 
-    private LocalTimeDilation myTime;
+    private TimeMechanic.LocalTimeDilation myTime;
 
     /// <summary>
     /// Initialises damage, speed and lifespan
@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour {
     {
         Destroy(gameObject, lifespan);
 
-        myTime = GetComponent<LocalTimeDilation>();
+        myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
     }
 
     // Update is called once per frame

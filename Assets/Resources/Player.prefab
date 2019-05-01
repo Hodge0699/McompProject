@@ -173,11 +173,11 @@ GameObject:
   - component: {fileID: 114436240047496228}
   - component: {fileID: 114872564346895096}
   - component: {fileID: 114768021787505068}
-  - component: {fileID: 114483397632992554}
   - component: {fileID: 114737799830531368}
+  - component: {fileID: 114483397632992554}
   - component: {fileID: 114372923051910610}
-  - component: {fileID: 114769443199197996}
   - component: {fileID: 114672859399184930}
+  - component: {fileID: 114769443199197996}
   - component: {fileID: 114921446374059860}
   m_Layer: 0
   m_Name: Player
@@ -752,6 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26b1ff9311e3244aa48622163dd4ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: LevelThree
 --- !u!114 &114436240047496228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -776,17 +777,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: LevelTwo
 --- !u!114 &114672859399184930
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653496019388500}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e226737b32ad2c54ebe0b35be802a2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: LevelFour
   secondaryFirePoint: {fileID: 4756439425964752}
 --- !u!114 &114737799830531368
 MonoBehaviour:
@@ -799,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3008ae7b499bd4cb51c315f1d2b6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSlowMotion: 0
+  level: LevelOne
   slowDownFactor: 0.05
 --- !u!114 &114768021787505068
 MonoBehaviour:
@@ -812,16 +815,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17817e59ee190e64aba15e723afa4327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInput: 0
   kbmShoot: 323
   kbmPause: 27
+  kbmTimeMechanic: 324
   weaponSwitches: 3100000032000000330000003400000035000000
   controllerShoot: 355
   controllerPause: 337
-  TS: {fileID: 0}
+  controllerTimeMechanic: 354
   dashDistance: 20
   dashEffect: {fileID: 1283392760384260}
   dashTrailDuration: 0.25
+  testInput: 0
+  debugging: 0
 --- !u!114 &114769443199197996
 MonoBehaviour:
   m_ObjectHideFlags: 1

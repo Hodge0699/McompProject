@@ -18,13 +18,13 @@ namespace Weapon.Gun
         protected float currentCooldown = 0.0f;
         protected float unlimitedAmmoTimer = 0.0f;
 
-        protected LocalTimeDilation myTime;
-        protected TimeStop timeStop;
+        protected TimeMechanic.LocalTimeDilation myTime;
+        protected TimeMechanic.TimeStop timeStop;
 
         private void Start()
         {
-            myTime = GetComponentInParent<LocalTimeDilation>();
-            timeStop = GetComponentInParent<TimeStop>();
+            myTime = GetComponentInParent<TimeMechanic.LocalTimeDilation>();
+            timeStop = GetComponentInParent<TimeMechanic.TimeStop>();
         }
 
         /// <summary>
@@ -88,9 +88,9 @@ namespace Weapon.Gun
 
             // Time stop
             if (timeStop != null)
-                bullet.GetComponent<LocalTimeDilation>().setDilation(timeStop.isStopped ? 0.0f : 1.0f);
+                bullet.GetComponent<TimeMechanic.LocalTimeDilation>().setDilation(timeStop.isStopped ? 0.0f : 1.0f);
             else
-                bullet.GetComponent<LocalTimeDilation>().setDilation(myTime.getDilation());
+                bullet.GetComponent<TimeMechanic.LocalTimeDilation>().setDilation(myTime.getDilation());
 
 
             currentAmmo--;

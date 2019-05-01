@@ -27,7 +27,7 @@ namespace EnemyType.Turrets
 
         private int currentGun = 0;
 
-        private LocalTimeDilation myTime;
+        private TimeMechanic.LocalTimeDilation myTime;
 
         public new void Start()
         {
@@ -38,7 +38,7 @@ namespace EnemyType.Turrets
             serialPhaseCounter = serialPhaseDuration;
             parallelPhaseCounter = parallelPhaseDuration;
 
-            myTime = GetComponent<LocalTimeDilation>();
+            myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
         }
 
         // Update is called once per frame

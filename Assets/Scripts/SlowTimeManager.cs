@@ -3,51 +3,44 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class SlowTimeManager : MonoBehaviour
+namespace TimeMechanic
 {
-    [SerializeField]
-    bool isSlowMotion = false;
-
-    public float slowDownFactor = 0.05f;
-    private float normTimeFactor = 1.0f;
-
-    private Player.PlayerInputManager playerInput;
-
-    void Start()
+    public class SlowTimeManager : TimeMechanic
     {
-        Scene scene = SceneManager.GetActiveScene();
-        playerInput = GetComponent<Player.PlayerInputManager>();
+        public float slowDownFactor = 0.05f;
+        private float normTimeFactor = 1.0f;
 
-        if (scene.name == "LevelOne")
-            gameObject.GetComponent<SlowTimeManager>().enabled = true;
-        else
-            gameObject.GetComponent<SlowTimeManager>().enabled = false;
-    }
+        private Player.PlayerInputManager playerInput;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerInput.isPaused())
-            return;
+        override protected void Start()
+        {
+            base.Start();
 
-        if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
-            StartSlowMotion();
-        else
-            StopSlowMotion();
-    }
+            playerInput = GetComponent<Player.PlayerInputManager>();
+        }
 
-    void StartSlowMotion()
-    {
-        isSlowMotion = true;
+        // Update is called once per frame
+        void Update()
+        {
+            if (playerInput.isPaused())
+                return;
 
-        Time.timeScale = slowDownFactor;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
-    }
+            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
+                StartSlowMotion();
+            else
+                StopSlowMotion();
+        }
 
-    void StopSlowMotion()
-    {
-        isSlowMotion = false;
-        Time.timeScale = normTimeFactor;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        void StartSlowMotion()
+        {
+            Time.timeScale = slowDownFactor;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        }
+
+        void StopSlowMotion()
+        {
+            Time.timeScale = normTimeFactor;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        }
     }
 }
