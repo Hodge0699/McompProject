@@ -26,9 +26,10 @@ public class GunController : MonoBehaviour {
     {
         weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
 
-        if (GameObject.Find("Active Bullets"))
-            bulletContainer = GameObject.Find("Active Bullets");
-        else
+        bulletContainer = GameObject.Find("Active Bullets");
+
+        // No container found (first gun in level to fire)
+        if (bulletContainer == null)
         {
             bulletContainer = new GameObject();
             bulletContainer.name = "Active Bullets";
@@ -48,12 +49,12 @@ public class GunController : MonoBehaviour {
     /// <summary>
     /// Shoots the current gun
     /// </summary>
-    public void shoot()
+    public GameObject shoot()
     {
         GameObject bullet = currentGun.shoot(firePoint.position);
 
         if (bullet == null)
-            return;
+            return null;
 
         if (bullet.GetComponent<BulletController>())
             bullet.GetComponent<BulletController>().ignoreTags = ignoreTags;
@@ -72,6 +73,8 @@ public class GunController : MonoBehaviour {
             setGun(typeof(Handgun));
             weaponUISwitch.switchWeaponUI(0);
         }
+
+        return bullet;
     }
 
     /// <summary>

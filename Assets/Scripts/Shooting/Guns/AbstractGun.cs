@@ -9,7 +9,6 @@ namespace Weapon.Gun
         public float damage;
         public float speed;
         public float fireRate;
-        public bool timeEffected;
 
         public int maxAmmo;
         protected int currentAmmo;
@@ -19,19 +18,26 @@ namespace Weapon.Gun
         protected float currentCooldown = 0.0f;
         protected float unlimitedAmmoTimer = 0.0f;
 
+        protected LocalTimeDilation myTime;
+        protected TimeStop timeStop;
+
+        private void Start()
+        {
+            myTime = GetComponentInParent<LocalTimeDilation>();
+            timeStop = GetComponentInParent<TimeStop>();
+        }
+
         /// <summary>
         /// Initialises a gun with unlimited ammo
         /// </summary>
         /// <param name="damage">Damage dealt by each bullet.</param>
         /// <param name="speed">Units travelled per second.</param>
         /// <param name="fireRate">Times this gun can fire per second.</param>
-        /// <param name="timeEffected">Is fireRate affected by time manipulation?</param>
-        public virtual void init(float damage, float speed, float fireRate, bool timeEffected)
+        public virtual void init(float damage, float speed, float fireRate)
         {
             this.damage = damage;
             this.speed = speed;
             this.fireRate = fireRate;
-            this.timeEffected = timeEffected;
 
             giveInfiniteAmmo();
         }
@@ -42,15 +48,13 @@ namespace Weapon.Gun
         /// <param name="damage">Damage dealt by each bullet.</param>
         /// <param name="speed">Units travelled per second.</param>
         /// <param name="fireRate">Times this gun can fire per second.</param>
-        /// <param name="timeEffected">Is fireRate affected by time manipulation?</param>
         /// <param name="maxAmmo">Maximum amount of ammo that can be stored.</param>
         /// <param name="startingAmmo">Amount of ammo this gun starts with.</param>
-        public virtual void init(float damage, float speed, float fireRate, bool timeEffected, int maxAmmo, int startingAmmo = 0)
+        public virtual void init(float damage, float speed, float fireRate, int maxAmmo, int startingAmmo = 0)
         {
             this.damage = damage;
             this.speed = speed;
             this.fireRate = fireRate;
-            this.timeEffected = timeEffected;
 
             this.maxAmmo = maxAmmo;
             currentAmmo = startingAmmo;
@@ -80,8 +84,14 @@ namespace Weapon.Gun
             GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject)), spawnPos, Quaternion.Euler(0.0f, 0.0f, 0.0f)) as GameObject;
             BulletController bulletController = bullet.GetComponent<BulletController>();
             bulletController.init(transform.position + (transform.forward * 100), damage, speed);
-            bulletController.timeEffected = timeEffected;
             currentCooldown = 1 / fireRate;
+
+            // Time stop
+            if (timeStop != null)
+                bullet.GetComponent<LocalTimeDilation>().setDilation(timeStop.isStopped ? 0.0f : 1.0f);
+            else
+                bullet.GetComponent<LocalTimeDilation>().setDilation(myTime.getDilation());
+
 
             currentAmmo--;
 
@@ -90,12 +100,15 @@ namespace Weapon.Gun
 
         private void Update()
         {
+            if (timeStop != null && timeStop.isStopped)
+                return;
+
             if (currentCooldown > 0.0f)
-                currentCooldown -= Time.deltaTime;
+                currentCooldown -= myTime.getDelta();
 
             if (unlimitedAmmoTimer > 0.0f)
             {
-                unlimitedAmmoTimer -= Time.deltaTime;
+                unlimitedAmmoTimer -= myTime.getDelta();
 
                 if (unlimitedAmmoTimer <= 0.0f)
                 {

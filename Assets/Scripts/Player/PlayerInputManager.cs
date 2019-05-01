@@ -34,10 +34,9 @@ namespace Player
         private Vector2 mousePos;
 
         private PlayerController player;
-        private new Rigidbody rigidbody;
+        private Rigidbody rigidbody;
         private GunController gunController;
         private WeaponUISwitch weaponUISwitch;
-        public TimeStop TS;
         private PlayerUIController pUI;
 
         private LocalTimeDilation myTime;
