@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimatorFunctions : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    [SerializeField] MenuButtonController menuButtonController;
+    public Button btn;
+
+    void OnPressed()
+    {
+        btn.onClick.Invoke();
+    }
 }
