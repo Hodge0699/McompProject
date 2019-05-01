@@ -18,7 +18,7 @@ public class LocalTimeDilation : MonoBehaviour {
     /// <summary>
     /// Gets the delta time affected by time dilation
     /// </summary>
-    public float getLocalDelta()
+    public float getDelta()
     {
         return dilation * Time.deltaTime;
     }
@@ -28,7 +28,7 @@ public class LocalTimeDilation : MonoBehaviour {
     /// Sets the time dilation of this object
     /// </summary>
     /// <param name="dilation">New time dilation</param>
-    public void setTimeDilation(float dilation = 1.0f)
+    public void setDilation(float dilation = 1.0f)
     {
         this.dilation = dilation;
     }
@@ -37,7 +37,7 @@ public class LocalTimeDilation : MonoBehaviour {
     /// Modifies the dilation by a set amount
     /// </summary>
     /// <param name="dilation">Amount to modify by</param>
-    public void modifyTimeDilation(float dilation)
+    public void modifyDilation(float dilation)
     {
         this.dilation += dilation;
     }

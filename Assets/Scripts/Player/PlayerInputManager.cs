@@ -34,10 +34,9 @@ namespace Player
         private Vector2 mousePos;
 
         private PlayerController player;
-        private new Rigidbody rigidbody;
+        private Rigidbody rigidbody;
         private GunController gunController;
         private WeaponUISwitch weaponUISwitch;
-        public TimeStop TS;
         private PlayerUIController pUI;
 
         private LocalTimeDilation myTime;
@@ -128,7 +127,7 @@ namespace Player
             }
             if (dashCooldown > 0)
             {
-                dashCooldown -= myTime.getLocalDelta();
+                dashCooldown -= myTime.getDelta();
             }
             actions();
             move();
@@ -166,7 +165,7 @@ namespace Player
             if (allowInput)
                 directionVector = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
-            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getLocalDelta();
+            Vector3 movement = directionVector.normalized * player.moveSpeed * myTime.getDelta();
             rigidbody.transform.Translate(movement, Space.World);
             rigidbody.MovePosition(transform.position + movement);
             rigidbody.velocity = movement;
