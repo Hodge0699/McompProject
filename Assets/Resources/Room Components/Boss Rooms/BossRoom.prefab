@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 114331787307657472}
   - component: {fileID: 114372575237861104}
   - component: {fileID: 54576369820762024}
+  - component: {fileID: 114462451908669450}
   m_Layer: 0
   m_Name: ShootingMachine
   m_TagString: Turret
@@ -1326,6 +1327,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114462451908669450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836660502569804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114700335622420640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1361,4 +1373,3 @@ MonoBehaviour:
   serialPhaseDuration: 5
   parallelFireRate: 1.5
   parallelPhaseDuration: 15
-  currentPhase: 1

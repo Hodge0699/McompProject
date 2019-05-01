@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using EnemyType;
 
 public class BossEnemyHealthManager : HealthManager
 {
     [Header("Enemy Health")]
-    public Image healthBar;
     [SerializeField]
     private Image healthSlider;
 
@@ -15,21 +15,16 @@ public class BossEnemyHealthManager : HealthManager
     private float deathAnimationDuration = 6.0f;
 
 
-    // Player UI GameObjects
-    [SerializeField]
-    private GameObject playerUI;
     [SerializeField]
     private GameObject BossUI;
-
+    private string sceneName;
 
     new void Update()
     {
-        if (playerUI == null)
+        if (BossUI == null)
         {
-            playerUI = GameObject.Find("PlayerUI(Clone)");
-            BossUI = playerUI.transform.Find("BossHealth").gameObject;
-            BossUI.SetActive(true);
-            healthSlider = BossUI.transform.Find("Bars").transform.Find("Healthbar").GetComponent<Image>();
+            BossUI = GameObject.Find("BossUI(Clone)");
+            healthSlider = BossUI.transform.Find("BossHealth").transform.Find("Bars").transform.Find("Healthbar").GetComponent<Image>();
         }
         if (anim != null)
         {
@@ -53,8 +48,8 @@ public class BossEnemyHealthManager : HealthManager
 
         base.hurt(damageAmount);
 
-        //healthBar.fillAmount = base.currentHealth / base.startingHealth;
-        healthSlider.fillAmount = currentHealth / 100;
+        healthSlider.fillAmount = base.currentHealth / base.startingHealth;
+        //healthSlider.fillAmount = currentHealth / 100;
         if (!isAlive)
         {
             die();
