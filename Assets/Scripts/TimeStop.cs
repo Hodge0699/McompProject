@@ -11,13 +11,17 @@ public class TimeStop : MonoBehaviour
 
     //uncomment onces levelThree has been created
 
-    void Start()
+    void Awake()
     {
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "LevelThree")
-            gameObject.GetComponent<TimeStop>().enabled = true;
+        {
+            this.enabled = true;
+            GetComponent<LocalTimeDilation>().unscaled = true;
+        }
         else
-            gameObject.GetComponent<TimeStop>().enabled = false;
+            this.enabled = false;
+
     }
 
     void Update()

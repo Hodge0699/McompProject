@@ -45,7 +45,7 @@ namespace EnemyType
         private void LateUpdate()
         {
             directionVector.Normalize();
-            Vector3 movement = directionVector * movementSpeed * myTime.getLocalDelta();
+            Vector3 movement = directionVector * movementSpeed * myTime.getDelta();
 
             transform.Translate(movement, Space.World);
 
@@ -175,14 +175,14 @@ namespace EnemyType
         /// </summary>
         protected void turnTo(float angle)
         {
-            if (Mathf.Abs(angle) < turnSpeed * myTime.getLocalDelta())
+            if (Mathf.Abs(angle) < turnSpeed * myTime.getDelta())
                 transform.Rotate(Vector3.up, angle);
             else
             {
                 if (angle > 0)
-                    angle = turnSpeed * myTime.getLocalDelta();
+                    angle = turnSpeed * myTime.getDelta();
                 else
-                    angle = -turnSpeed * myTime.getLocalDelta();
+                    angle = -turnSpeed * myTime.getDelta();
 
                 transform.Rotate(Vector3.up, angle);
             }
