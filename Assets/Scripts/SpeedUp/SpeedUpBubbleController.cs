@@ -27,7 +27,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
         if (!other.isTrigger && otherObj != null)
         {
-            otherObj.modifyTimeDilation(timeDilation);
+            otherObj.modifyDilation(timeDilation);
             affectedObjects.Add(otherObj);
         }
     }
@@ -39,7 +39,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
         if (otherObj != null && affectedObjects.Contains(otherObj))
         {
-            otherObj.modifyTimeDilation(-timeDilation);
+            otherObj.modifyDilation(-timeDilation);
             affectedObjects.Remove(otherObj);
         }
     }
@@ -47,6 +47,6 @@ public class SpeedUpBubbleController : MonoBehaviour {
     private void OnDestroy()
     {
         foreach (LocalTimeDilation t in affectedObjects)
-            t.modifyTimeDilation(-timeDilation);
+            t.modifyDilation(-timeDilation);
     }
 }

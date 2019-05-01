@@ -22,10 +22,12 @@ namespace EnemyType.Turrets
         public float parallelPhaseDuration = 15.0f;
         private float parallelPhaseCounter = 0.0f;
 
-        public enum FireMode { SERIAL, PARALLEL };
-        public FireMode currentPhase = FireMode.PARALLEL;
+        private enum FireMode { SERIAL, PARALLEL };
+        private FireMode currentPhase = FireMode.PARALLEL;
 
         private int currentGun = 0;
+
+        private LocalTimeDilation myTime;
 
         public new void Start()
         {
@@ -35,6 +37,8 @@ namespace EnemyType.Turrets
 
             serialPhaseCounter = serialPhaseDuration;
             parallelPhaseCounter = parallelPhaseDuration;
+
+            myTime = GetComponent<LocalTimeDilation>();
         }
 
         // Update is called once per frame
@@ -68,8 +72,8 @@ namespace EnemyType.Turrets
         {
             if (currentPhase == FireMode.SERIAL)
             {
-                serialFireTimer -= Time.deltaTime;
-                serialPhaseCounter -= Time.deltaTime;
+                serialFireTimer -= myTime.getDelta();
+                serialPhaseCounter -= myTime.getDelta();
 
                 if (serialPhaseCounter <= 0.0f)
                 {
@@ -81,8 +85,8 @@ namespace EnemyType.Turrets
             }
             else if (currentPhase == FireMode.PARALLEL)
             {
-                parallelFireTimer -= Time.deltaTime;
-                parallelPhaseCounter -= Time.deltaTime;
+                parallelFireTimer -= myTime.getDelta();
+                parallelPhaseCounter -= myTime.getDelta();
 
                 if (parallelPhaseCounter <= 0.0f)
                 {

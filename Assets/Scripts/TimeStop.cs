@@ -5,37 +5,78 @@ using UnityEngine;
 
 public class TimeStop : MonoBehaviour
 {
+    public bool isStopped { get; private set; }
 
-
-    [SerializeField]
-
-    //uncomment onces levelThree has been created
-
-    void Awake()
+    void Start()
     {
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "LevelThree")
-        {
             this.enabled = true;
-            GetComponent<LocalTimeDilation>().unscaled = true;
-        }
         else
             this.enabled = false;
 
+        isStopped = false;
     }
 
     void Update()
     {
-
-
-
         if (Input.GetKeyDown("e"))
         {
-            if (Time.timeScale == 1.0)
-                Time.timeScale = 0.0f;
-
+            if (!isStopped)
+            {
+                setTimeDilation(0.0f);
+                isStopped = true;
+            }
             else
-                Time.timeScale = 1.0f;
+            {
+                setTimeDilation(1.0f);
+                isStopped = false;
+            }
         }             
+    }
+
+    private void setTimeDilation(float timeDilation)
+    {
+        // Enemies
+        Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
+
+        for (int i = 0; i < enemyContainer.childCount; i++)
+        {
+            LocalTimeDilation enemyTime = enemyContainer.GetChild(i).GetComponent<LocalTimeDilation>();
+
+            if (enemyTime != null)
+                enemyTime.setDilation(timeDilation);
+        }
+
+
+        // Bullets
+        Transform bulletContainer = GameObject.Find("Active Bullets").transform;
+
+        if (bulletContainer != null)
+        {
+            for (int i = 0; i < bulletContainer.childCount; i++)
+            {
+                Transform bullet = bulletContainer.GetChild(i);
+
+                if (bullet.name == "Pellet Burst") // Shotgun pellet
+                {
+                    for (int j = 0; j < bullet.childCount; j++)
+                    {
+                        LocalTimeDilation bulletTime = bullet.GetChild(j).GetComponent<LocalTimeDilation>();
+
+                        if (bulletTime != null) // Some bullets aren't affected by time
+                            bulletTime.setDilation(timeDilation);
+                    }
+                }
+                else // Single bullet
+                {
+                    LocalTimeDilation bulletTime = bullet.GetComponent<LocalTimeDilation>();
+
+                    if (bulletTime != null) // Some bullets aren't affected by time
+                        bulletTime.setDilation(timeDilation);
+                }
+            }
+        }
+
     }
 }
