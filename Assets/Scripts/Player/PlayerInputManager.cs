@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player
@@ -9,25 +8,30 @@ namespace Player
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
-        public bool testInput = false; // Used to figure out keycodes without looking them up,
-                                       // should be true only when discovering buttons to map.
-
         // Used for rewind system
         [System.NonSerialized]
         public bool canShoot = true;
 
-
         [Header("Keyboard + Mouse Controls")]
-        public KeyCode kbmShoot = KeyCode.Mouse0;
-        public KeyCode kbmPause = KeyCode.Escape;
+        [SerializeField]
+        private KeyCode kbmShoot = KeyCode.Mouse0;
+        [SerializeField]
+        private KeyCode kbmPause = KeyCode.Escape;
+        [SerializeField]
+        private KeyCode kbmTimeMechanic = KeyCode.Mouse1;
 
-        public List<KeyCode> weaponSwitches = new List<KeyCode>();
-        public List<System.Type> weapons = new List<System.Type>();
+        [SerializeField]
+        private List<KeyCode> weaponSwitches = new List<KeyCode>();
+        private List<System.Type> weapons = new List<System.Type>();
 
 
         [Header("Joystick Controls")]
+        [SerializeField]
         public KeyCode controllerShoot = KeyCode.Joystick1Button5;
+        [SerializeField]
         public KeyCode controllerPause = KeyCode.Joystick1Button7;
+        [SerializeField]
+        public KeyCode controllerTimeMechanic = KeyCode.Joystick1Button4;
 
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
@@ -39,9 +43,10 @@ namespace Player
         private WeaponUISwitch weaponUISwitch;
         private PlayerUIController pUI;
 
-        private LocalTimeDilation myTime;
+        private TimeMechanic.LocalTimeDilation myTime;
+        private TimeMechanic.TimeMechanic timeMechanic;
 
-        private bool debugging = false;
+
 
         private bool allowInput = true;
         private float forceMoveDistanceCounter = 0.0f;
@@ -68,6 +73,13 @@ namespace Player
         [SerializeField]
         private float dashTrailDuration;
 
+        [Header("Debugging")]
+        [SerializeField]
+        private bool testInput = false; // Used to figure out keycodes without looking them up,
+                                       // should be true only when discovering buttons to map.
+        [SerializeField]
+        private bool debugging = false;
+
 
         // Use this for initialization
 
@@ -83,7 +95,7 @@ namespace Player
 
             initWeaponTypes();
 
-            myTime = GetComponent<LocalTimeDilation>();
+            myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
         }
 
         /// <summary>
@@ -104,39 +116,28 @@ namespace Player
             if (testInput)
                 printKeys();
 
-
-            handlePauseToggle();
-
-            if (paused)
-                return;
-
             control = getControlMethod();
 
             if (debugging)
                 Debug.Log("Control method: " + control);
 
+            actions();
+
+            if (paused)
+                return;
+
+            move();
+            turn(control);
+
 
 
             if (dashDuration > 0)
-            {
                 dashDuration -= Time.unscaledDeltaTime;
-            }
             else
-            {
                 dashParticleNotActive();
-            }
-            if (dashCooldown > 0)
-            {
-                dashCooldown -= myTime.getDelta();
-            }
-            actions();
-            move();
-            turn(control);
-        }
-        private void FixedUpdate()
-        {
 
-            dash();
+            if (dashCooldown > 0)
+                dashCooldown -= myTime.getDelta();
         }
 
         /// <summary>
@@ -247,12 +248,45 @@ namespace Player
             }
         }
 
+        //////////////////////
+        /// Input Checking ///
+        //////////////////////
+
         /// <summary>
         /// Responsible for carrying out all other input actions
         /// </summary>
         private void actions()
         {
-            // Shooting
+            if (inputCheck_Pause())
+                return; // Return if paused
+
+            inputCheck_Shoot();
+
+            inputCheck_WeaponSwitch();
+
+            inputCheck_TimeMechanic();
+
+            inputCheck_Dash();
+        }
+
+        /// <summary>
+        /// Used only to pause/unpause the game. 
+        /// 
+        /// Allows input checking even when game is paused.
+        /// </summary>
+        private bool inputCheck_Pause()
+        {
+            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+                pause();
+
+            return paused;
+        }
+
+        /// <summary>
+        /// Checks if the player is trying to shoot
+        /// </summary>
+        private void inputCheck_Shoot()
+        {
             if (Input.GetKey(kbmShoot) || Input.GetKey(controllerShoot))
             {
                 if (canShoot) // Used for rewind system
@@ -267,7 +301,14 @@ namespace Player
                 player.setFace(PlayerController.EMOTION.HAPPY);
                 pUI.changeToHappy();
             }
+        }
 
+        /// <summary>
+        /// Checks if the player is trying to switch weapon
+        /// </summary>
+        private void inputCheck_WeaponSwitch()
+        {
+            // KB+M
             for (int i = 0; i < weaponSwitches.Count; i++)
             {
                 if (Input.GetKeyDown(weaponSwitches[i]))
@@ -281,18 +322,50 @@ namespace Player
                         Debug.LogError("Weapon not mapped to button " + weaponSwitches[i] + "!");
                 }
             }
+
+            // TODO: Controller
         }
 
         /// <summary>
-        /// Used only to pause/unpause the game. 
-        /// 
-        /// Allows input checking even when game is paused.
+        /// Checks if the player is trying to use a time mechanic
         /// </summary>
-        private void handlePauseToggle()
+        private void inputCheck_TimeMechanic()
         {
-            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
-                pause();
+            if (timeMechanic != null && Input.GetKeyDown(kbmTimeMechanic) || Input.GetKeyDown(controllerTimeMechanic))
+                timeMechanic.trigger();
+                
         }
+
+        /// <summary>
+        /// Checks to see if user tries to dash
+        /// </summary>
+        private void inputCheck_Dash()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null && dashCooldown <= 0)
+            {
+                dashParticleActive();
+                CanMove(lastMoveDir, dashDistance);
+                dashCooldown = 1.0f;
+                dashDuration = dashTrailDuration;
+            }
+        }
+
+
+
+
+        /*
+           ^
+          /|\
+         / | \
+        /  |  \
+           |
+           |     o w e r                     \
+           o---------------------------------->
+                                             /
+        */
+
+
+
 
         /// <summary>
         /// Pauses/unpauses player input
@@ -382,25 +455,13 @@ namespace Player
         {
             dashEffect.SetActive(true);
         }
+
         /// <summary>
         /// set particle to inactive
         /// </summary>
         private void dashParticleNotActive()
         {
             dashEffect.SetActive(false);
-        }
-        /// <summary>
-        /// Checks to see if user tries to dash
-        /// </summary>
-        private void dash()
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && lastMoveDir != null && dashCooldown <= 0)
-            {
-                dashParticleActive();
-                CanMove(lastMoveDir, dashDistance);
-                dashCooldown = 1.0f;
-                dashDuration = dashTrailDuration;
-            }
         }
 
         /// Returns the direction vector of the player
@@ -425,6 +486,15 @@ namespace Player
                 if (Input.GetKey(key))
                     Debug.Log(key);
             }
+        }
+
+        /// <summary>
+        /// Sets the time mechanic to be toggled with input buttons
+        /// </summary>
+        /// <param name="timeMechanic">Player's current time mechanic</param>
+        public void setTimeMechanic(TimeMechanic.TimeMechanic timeMechanic)
+        {
+            this.timeMechanic = timeMechanic;
         }
     }
 }
