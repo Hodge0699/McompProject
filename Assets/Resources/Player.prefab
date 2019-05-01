@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 114672859399184930}
   - component: {fileID: 114769443199197996}
   - component: {fileID: 114921446374059860}
+  - component: {fileID: 114844819999671330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -822,9 +823,6 @@ MonoBehaviour:
   controllerShoot: 355
   controllerPause: 337
   controllerTimeMechanic: 354
-  dashDistance: 20
-  dashEffect: {fileID: 1283392760384260}
-  dashTrailDuration: 0.25
   testInput: 0
   debugging: 0
 --- !u!114 &114769443199197996
@@ -841,6 +839,19 @@ MonoBehaviour:
   pUI: {fileID: 0}
   angryFace: {fileID: 0}
   happyFace: {fileID: 0}
+--- !u!114 &114844819999671330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653496019388500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9cfa82345204596cde268fad4585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 30
+  dashTrailDuration: 0.5
 --- !u!114 &114872564346895096
 MonoBehaviour:
   m_ObjectHideFlags: 1
