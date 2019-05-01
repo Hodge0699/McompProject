@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class TimeStop : MonoBehaviour
+namespace TimeMechanic
 {
-    public bool isStopped { get; private set; }
-
-    void Start()
+    public class TimeStop : TimeMechanic
     {
-        Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "LevelThree")
-            this.enabled = true;
-        else
-            this.enabled = false;
+        public bool isStopped { get; private set; }
 
-        isStopped = false;
-    }
+        override protected void Start()
+        {
+            base.Start();
 
-    void Update()
-    {
-        if (Input.GetKeyDown("e"))
+            isStopped = false;
+        }
+
+        public override void trigger()
         {
             if (!isStopped)
             {
@@ -32,51 +28,55 @@ public class TimeStop : MonoBehaviour
                 setTimeDilation(1.0f);
                 isStopped = false;
             }
-        }             
-    }
-
-    private void setTimeDilation(float timeDilation)
-    {
-        // Enemies
-        Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
-
-        for (int i = 0; i < enemyContainer.childCount; i++)
-        {
-            LocalTimeDilation enemyTime = enemyContainer.GetChild(i).GetComponent<LocalTimeDilation>();
-
-            if (enemyTime != null)
-                enemyTime.setDilation(timeDilation);
         }
 
-
-        // Bullets
-        Transform bulletContainer = GameObject.Find("Active Bullets").transform;
-
-        if (bulletContainer != null)
+        /// <summary>
+        /// Sets the time dilation for all enemies and bullets in scene
+        /// </summary>
+        /// <param name="timeDilation">0.0f is frozen, 1.0f is realtime</param>
+        private void setTimeDilation(float timeDilation)
         {
-            for (int i = 0; i < bulletContainer.childCount; i++)
-            {
-                Transform bullet = bulletContainer.GetChild(i);
+            // Enemies
+            Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
 
-                if (bullet.name == "Pellet Burst") // Shotgun pellet
+            for (int i = 0; i < enemyContainer.childCount; i++)
+            {
+                LocalTimeDilation enemyTime = enemyContainer.GetChild(i).GetComponent<LocalTimeDilation>();
+
+                if (enemyTime != null)
+                    enemyTime.setDilation(timeDilation);
+            }
+
+
+            // Bullets
+            Transform bulletContainer = GameObject.Find("Active Bullets").transform;
+
+            if (bulletContainer != null)
+            {
+                for (int i = 0; i < bulletContainer.childCount; i++)
                 {
-                    for (int j = 0; j < bullet.childCount; j++)
+                    Transform bullet = bulletContainer.GetChild(i);
+
+                    if (bullet.name == "Pellet Burst") // Shotgun pellet
                     {
-                        LocalTimeDilation bulletTime = bullet.GetChild(j).GetComponent<LocalTimeDilation>();
+                        for (int j = 0; j < bullet.childCount; j++)
+                        {
+                            LocalTimeDilation bulletTime = bullet.GetChild(j).GetComponent<LocalTimeDilation>();
+
+                            if (bulletTime != null) // Some bullets aren't affected by time
+                                bulletTime.setDilation(timeDilation);
+                        }
+                    }
+                    else // Single bullet
+                    {
+                        LocalTimeDilation bulletTime = bullet.GetComponent<LocalTimeDilation>();
 
                         if (bulletTime != null) // Some bullets aren't affected by time
                             bulletTime.setDilation(timeDilation);
                     }
                 }
-                else // Single bullet
-                {
-                    LocalTimeDilation bulletTime = bullet.GetComponent<LocalTimeDilation>();
-
-                    if (bulletTime != null) // Some bullets aren't affected by time
-                        bulletTime.setDilation(timeDilation);
-                }
             }
-        }
 
+        }
     }
 }
