@@ -13,7 +13,7 @@ namespace Weapon.Gun
             // Temporarily instantiate base handgun to get variables
             Handgun baseHandgun = gameObject.AddComponent<Handgun>();
 
-            base.init(baseHandgun.damage * damageMultiplyer, baseHandgun.speed, baseHandgun.fireRate, 30);
+            base.init(baseHandgun.damage * damageMultiplyer, baseHandgun.speed, baseHandgun.fireRate * 0.75f, 30);
 
             Destroy(baseHandgun);
         }
