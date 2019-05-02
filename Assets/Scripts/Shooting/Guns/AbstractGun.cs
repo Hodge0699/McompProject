@@ -8,7 +8,7 @@ namespace Weapon.Gun
     {
         public float damage;
         public float speed;
-        public float fireRate;
+        public float fireRate; // Rounds per second
 
         public int maxAmmo;
         protected int currentAmmo;
