@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 114021677696767944}
   - component: {fileID: 114422590831524820}
   - component: {fileID: 114982041151780284}
+  - component: {fileID: 114848796223575826}
   m_Layer: 0
   m_Name: JackBoss
   m_TagString: Boss
@@ -414,7 +415,6 @@ MonoBehaviour:
   damage: 10
   speed: 10
   fireRate: 0.1
-  timeEffected: 0
   maxAmmo: 0
   debugging: 0
 --- !u!114 &114374772658219350
@@ -551,6 +551,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114848796223575826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753049230033338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossUI: {fileID: 0}
+  bossName: Jacob the missile fanatic
 --- !u!114 &114982041151780284
 MonoBehaviour:
   m_ObjectHideFlags: 1

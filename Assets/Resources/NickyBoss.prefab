@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 114582713261503922}
   - component: {fileID: 114216096639501656}
   - component: {fileID: 114760835762991668}
+  - component: {fileID: 114121294681825490}
   m_Layer: 0
   m_Name: NickyBoss
   m_TagString: Boss
@@ -2045,6 +2046,19 @@ MonoBehaviour:
   FOV: 225
   ignoreVisibilityValue: 1
   timeToSpot: 0.5
+--- !u!114 &114121294681825490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541709412927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossUI: {fileID: 0}
+  bossName: Jimmy the failure
 --- !u!114 &114150659349016238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2079,10 +2093,8 @@ MonoBehaviour:
   currentHealth: 0
   godmode: 0
   debugging: 0
-  healthBar: {fileID: 0}
   healthSlider: {fileID: 0}
   lookAtPlayerOnHit: 1
-  playerUI: {fileID: 0}
   BossUI: {fileID: 0}
 --- !u!114 &114217573448108986
 MonoBehaviour:
@@ -2243,6 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114868309810629016
 MonoBehaviour:
   m_ObjectHideFlags: 1

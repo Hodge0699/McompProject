@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 114245562062295738}
   - component: {fileID: 114434391035150736}
   - component: {fileID: 114319407415803236}
+  - component: {fileID: 114071922777925250}
   m_Layer: 0
   m_Name: JakeBoss
   m_TagString: Boss
@@ -485,6 +486,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114071922777925250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318024367561644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossUI: {fileID: 0}
+  bossName: King the idiot
 --- !u!114 &114188282898903680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -599,6 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114619325925757370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114709852401223608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -651,6 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114789346317177152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,6 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114983403982346392
 MonoBehaviour:
   m_ObjectHideFlags: 1
