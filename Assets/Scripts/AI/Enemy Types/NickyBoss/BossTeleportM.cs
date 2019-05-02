@@ -9,7 +9,7 @@ public class BossTeleportM : MonoBehaviour {
     private List<GameObject> teleportLocations = new List<GameObject>(); // list of teleport locations 
     private EnemyType.Bosses.NickyBossMainScript bEnemy;
     [SerializeField]
-    private HealthManager bHealth;
+    private HealthManager.HealthManager bHealth;
     [Header("Boss Teleporting Mechanic method")]
     [SerializeField]
     private bool furthestTeleport = false;
@@ -29,7 +29,7 @@ public class BossTeleportM : MonoBehaviour {
     {
         // This will find every teleport location in the scene (including other rooms since multiple boss
         bEnemy = this.GetComponent<EnemyType.Bosses.NickyBossMainScript>();
-        bHealth = GetComponent<HealthManager>();
+        bHealth = GetComponent<HealthManager.HealthManager>();
 
 
         teleContainer = bEnemy.getRoom().transform.Find("BossTeleporter").transform;

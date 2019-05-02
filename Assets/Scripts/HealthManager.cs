@@ -2,110 +2,113 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthManager : MonoBehaviour
+namespace HealthManager
 {
-    public float startingHealth;
-    [SerializeField]
-    protected float currentHealth;
-
-
-    protected Animator anim;
-
-    public bool godmode = false;
-    private float godmodeTimer = -1.0f;
-
-    public bool debugging = false;
-
-    public bool isAlive { get; private set; }
-
-    private void Awake()
+    public class HealthManager : MonoBehaviour
     {
-        currentHealth = startingHealth;
-        isAlive = currentHealth > 0;
-        anim = GetComponent<Animator>();
-    }
+        public float startingHealth;
+        [SerializeField]
+        protected float currentHealth;
 
-    public void Update()
-    {
-        if (godmodeTimer > 0.0f)
+
+        protected Animator anim;
+
+        public bool godmode = false;
+        private float godmodeTimer = -1.0f;
+
+        public bool debugging = false;
+
+        public bool isAlive { get; private set; }
+
+        private void Awake()
         {
-            godmodeTimer -= Time.deltaTime;
-
-            if (godmodeTimer <= 0.0f)
-                setGodmode(false);
-        }
-    }
-
-    /// <summary>
-    /// Damages the character by a set amount
-    /// </summary>
-    /// <param name="damageAmount">Damage to inflict</param>
-    public virtual void hurt(float damageAmount)
-    {
-        if (godmode || !isAlive)
-            return;
-
-        currentHealth -= damageAmount;
-
-        isAlive = currentHealth > 0;
-    }
-
-    /// <summary>
-    /// Makes the player invincible (useful for when player controls are taken away)
-    /// </summary>
-    /// <param name="duration">Seconds invincibility will last for</param>
-    public void setGodmode(bool godmode = true, float duration = 0)
-    {
-        // Don't set a timed godmode if unlimited is already on
-        if (this.godmode && godmodeTimer == -1.0f)
-            return;
-
-        this.godmode = godmode;
-
-        godmodeTimer = duration;
-
-        if (debugging)
-            Debug.Log("Godmode set to " + godmode);
-    }
-
-
-    /// <summary>
-    /// Sets the health of this character.
-    /// </summary>
-    /// <param name="health">The value to set it to.</param>
-    /// <param name="force">True to force the value, false to let it cap if too high.</param>
-    public virtual void setHealth(float health, bool force = false)
-    {
-        if (force)
-            currentHealth = health;
-        else
             currentHealth = startingHealth;
+            isAlive = currentHealth > 0;
+            anim = GetComponent<Animator>();
+        }
 
-        isAlive = currentHealth > 0;
-    }
+        public void Update()
+        {
+            if (godmodeTimer > 0.0f)
+            {
+                godmodeTimer -= Time.deltaTime;
 
-    /// <summary>
-    /// Returns the current health of the character
-    /// </summary>
-    public float getHealth()
-    {
-        return currentHealth;
-    }
+                if (godmodeTimer <= 0.0f)
+                    setGodmode(false);
+            }
+        }
 
-    /// <summary>
-    /// Returns 
-    /// </summary>
-    public float getStartingHealth()
-    {
-        return startingHealth;
-    }
+        /// <summary>
+        /// Damages the character by a set amount
+        /// </summary>
+        /// <param name="damageAmount">Damage to inflict</param>
+        public virtual void hurt(float damageAmount)
+        {
+            if (godmode || !isAlive)
+                return;
 
-    /// <summary>
-    /// Returns the current health as a percentage of the starting health
-    /// </summary>
-    /// <returns></returns>
-    public float getHealthPercentage()
-    {
-        return currentHealth / startingHealth;
+            currentHealth -= damageAmount;
+
+            isAlive = currentHealth > 0;
+        }
+
+        /// <summary>
+        /// Makes the player invincible (useful for when player controls are taken away)
+        /// </summary>
+        /// <param name="duration">Seconds invincibility will last for</param>
+        public void setGodmode(bool godmode = true, float duration = 0)
+        {
+            // Don't set a timed godmode if unlimited is already on
+            if (this.godmode && godmodeTimer == -1.0f)
+                return;
+
+            this.godmode = godmode;
+
+            godmodeTimer = duration;
+
+            if (debugging)
+                Debug.Log("Godmode set to " + godmode);
+        }
+
+
+        /// <summary>
+        /// Sets the health of this character.
+        /// </summary>
+        /// <param name="health">The value to set it to.</param>
+        /// <param name="force">True to force the value, false to let it cap if too high.</param>
+        public virtual void setHealth(float health, bool force = false)
+        {
+            if (force)
+                currentHealth = health;
+            else
+                currentHealth = startingHealth;
+
+            isAlive = currentHealth > 0;
+        }
+
+        /// <summary>
+        /// Returns the current health of the character
+        /// </summary>
+        public float getHealth()
+        {
+            return currentHealth;
+        }
+
+        /// <summary>
+        /// Returns 
+        /// </summary>
+        public float getStartingHealth()
+        {
+            return startingHealth;
+        }
+
+        /// <summary>
+        /// Returns the current health as a percentage of the starting health
+        /// </summary>
+        /// <returns></returns>
+        public float getHealthPercentage()
+        {
+            return currentHealth / startingHealth;
+        }
     }
 }

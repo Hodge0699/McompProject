@@ -19,10 +19,10 @@ namespace Powerups
             if (other.isTrigger)
                 return;
 
-            if (other.GetComponent<HealthManager>() != null)
+            if (other.GetComponent<HealthManager.HealthManager>() != null)
             {
                 // Player/Enemy dead
-                if (!other.GetComponent<HealthManager>().isAlive)
+                if (!other.GetComponent<HealthManager.HealthManager>().isAlive)
                     return;
             }
 

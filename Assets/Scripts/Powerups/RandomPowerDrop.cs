@@ -13,7 +13,7 @@ public class RandomPowerDrop : MonoBehaviour {
         public int dropRarity; 
     }
 
-    PlayerHealthManager playerHealth;
+    HealthManager.PlayerHealthManager playerHealth;
     private float health;
     private GameObject dropHealth;
 
@@ -24,7 +24,7 @@ public class RandomPowerDrop : MonoBehaviour {
 
     private void Awake()
     {
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager.PlayerHealthManager>();
     }
 
 
