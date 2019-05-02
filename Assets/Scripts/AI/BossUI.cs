@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossUI : MonoBehaviour {
     private GameObject bossUI;
-
+    [SerializeField]
     private string bossName;
 
     // Use this for initialization
