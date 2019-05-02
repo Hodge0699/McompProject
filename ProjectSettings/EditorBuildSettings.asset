@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 0fcebd51ef8c8d7458fcc79dd60062bf
   - enabled: 1
+    path: Assets/Scenes/Wardrobe.unity
+    guid: 18cc596f3fa161442a407fcca6ddf169
+  - enabled: 1
     path: Assets/Scenes/LevelOne.unity
     guid: ab4fe148d436e7747850d3e8c4df9fc1
   - enabled: 1
     path: Assets/Scenes/LevelTwo.unity
     guid: 8d703ac428a5caa4aa58e5eef55af780
-  - enabled: 1
-    path: Assets/Scenes/Wardrobe.unity
-    guid: 18cc596f3fa161442a407fcca6ddf169
   m_configObjects: {}

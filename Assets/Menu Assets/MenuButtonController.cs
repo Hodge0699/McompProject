@@ -12,7 +12,7 @@ public class MenuButtonController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        index = 0;
 	}
 	
 	// Update is called once per frame

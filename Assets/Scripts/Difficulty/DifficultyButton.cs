@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DifficultyButton : MonoBehaviour {
 
-    private Text text;
+    //private Text text;
+    private TextMeshProUGUI tmp;
 
 	// Use this for initialization
 	void Start () {
-        text = GetComponentInChildren<Text>();
+        tmp = GetComponentInChildren<TextMeshProUGUI>();
 
         writeButton();
 	}
@@ -28,6 +30,6 @@ public class DifficultyButton : MonoBehaviour {
     /// </summary>
     public void writeButton()
     {
-        text.text = "Difficulty: " + Difficulty.getDifficultyString();
+        tmp.SetText(Difficulty.getDifficultyString());
     }
 }
