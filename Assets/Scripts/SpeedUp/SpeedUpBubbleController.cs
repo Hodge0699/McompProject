@@ -9,16 +9,21 @@ public class SpeedUpBubbleController : MonoBehaviour {
 
     [SerializeField]
     private float timeDilation = 2.0f;
-
+    [SerializeField]
+    speedUp pSpeedUp;
     List<LocalTimeDilation> affectedObjects = new List<LocalTimeDilation>();
 
     void Update()
     {
         // destroys the bubble after a set time
         bubbleDuration -= Time.deltaTime;
-
+        if(pSpeedUp == null)
+            pSpeedUp = GameObject.Find("Player(Clone)").GetComponent<speedUp>();
         if (bubbleDuration <= 0)
+        {
+            pSpeedUp.canShoot = true;
             Destroy(this.gameObject);
+        }
     }
 
     // find all objects who enter the time bubble

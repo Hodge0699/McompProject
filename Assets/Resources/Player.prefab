@@ -790,8 +790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e226737b32ad2c54ebe0b35be802a2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: LevelFour
+  level: Model testing
   secondaryFirePoint: {fileID: 4756439425964752}
+  canShoot: 1
 --- !u!114 &114737799830531368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,10 +820,12 @@ MonoBehaviour:
   kbmShoot: 323
   kbmPause: 27
   kbmTimeMechanic: 324
+  kbmDashMechanic: 32
   weaponSwitches: 3100000032000000330000003400000035000000
   controllerShoot: 355
   controllerPause: 337
   controllerTimeMechanic: 354
+  controllerDashMechanic: 350
   testInput: 0
   debugging: 0
 --- !u!114 &114769443199197996
