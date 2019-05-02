@@ -27,5 +27,16 @@ namespace TimeMechanic
         /// Called when PlayerInputManager recieves input to use TimeMechanic
         /// </summary>
         public virtual void trigger() { }
+
+        /// <summary>
+        /// Tells the PlayerInputManger to use this time mechanic (for manually enabling mechanics in testing).
+        /// </summary>
+        private void OnEnable()
+        {
+            Player.PlayerInputManager inputManager = GetComponent<Player.PlayerInputManager>();
+
+            if (inputManager != null)
+                inputManager.setTimeMechanic(this);
+        }
     }
 }
