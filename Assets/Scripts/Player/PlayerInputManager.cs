@@ -321,7 +321,7 @@ namespace Player
         /// </summary>
         private void inputCheck_Dash()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(kbmDashMechanic) || Input.GetKeyDown(controllerDashMechanic))
                 dashMechanic.activate(getDirectionVector());
         }
 
