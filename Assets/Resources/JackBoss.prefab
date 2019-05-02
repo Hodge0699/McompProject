@@ -562,6 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossName: Jacob the missile fanatic
 --- !u!114 &114982041151780284
 MonoBehaviour:
   m_ObjectHideFlags: 1
