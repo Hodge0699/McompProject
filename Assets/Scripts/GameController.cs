@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Player;
 
 public class GameController : MonoBehaviour {
 
@@ -13,7 +12,7 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private GameObject player;
     [SerializeField]
-    PlayerHealthManager playerHealth;
+    HealthManager.PlayerHealthManager playerHealth;
     public float health;
     string sceneName;
     Scene scene;
@@ -46,7 +45,7 @@ public class GameController : MonoBehaviour {
         if (player == null && scene.name != "MainMenu")
         {
             player = GameObject.Find("Player(Clone)");
-            playerHealth = player.GetComponent<PlayerHealthManager>();
+            playerHealth = player.GetComponent<HealthManager.PlayerHealthManager>();
         }
         if (Input.GetKeyDown(KeyCode.T))
         {

@@ -6,14 +6,14 @@ using EnemyType;
 
 public class BossGunSwitchM : MonoBehaviour {
 
-    HealthManager health;
+    HealthManager.HealthManager health;
     EnemyType.Bosses.NickyBossMainScript bEnemy;
     private int gunSwitchChanger = 0;
 
     private void Awake()
     {
         bEnemy = this.GetComponent<EnemyType.Bosses.NickyBossMainScript>();
-        health = GetComponent<HealthManager>();
+        health = GetComponent<HealthManager.HealthManager>();
     }
 	
 	// Update is called once per frame

@@ -17,7 +17,7 @@ namespace TimeMechanic
 
         Rigidbody rb;
 
-        HealthManager health;
+        HealthManager.HealthManager health;
 
         // Use this for initialization
         protected override void Start()
@@ -26,7 +26,7 @@ namespace TimeMechanic
 
             pointsInTime = new List<PointInTime>();
 
-            health = gameObject.GetComponent<HealthManager>();
+            health = gameObject.GetComponent<HealthManager.HealthManager>();
 
             if (gameObject.GetComponent<Rigidbody>() != null)
                 rb = GetComponent<Rigidbody>();

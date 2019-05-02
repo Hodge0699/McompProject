@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114374772658219350}
   - component: {fileID: 114157522489348358}
   - component: {fileID: 114665018455137894}
-  - component: {fileID: 114021677696767944}
+  - component: {fileID: 114172485932374784}
   - component: {fileID: 114422590831524820}
   - component: {fileID: 114982041151780284}
   - component: {fileID: 114848796223575826}
@@ -321,23 +321,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114021677696767944
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1753049230033338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a031abeaec39a841957cc7d807f3656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 2100
-  currentHealth: 0
-  godmode: 0
-  debugging: 0
-  healthBar: {fileID: 114823929226636360}
-  lookAtPlayerOnHit: 1
 --- !u!114 &114157522489348358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,6 +339,23 @@ MonoBehaviour:
   FOV: 211
   ignoreVisibilityValue: 0
   timeToSpot: 5
+--- !u!114 &114172485932374784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753049230033338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d2a93a81e5b6b4b8a01b47fafeec35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 2100
+  currentHealth: 0
+  godmode: 0
+  debugging: 0
+  healthBar: {fileID: 0}
+  lookAtPlayerOnHit: 1
 --- !u!114 &114173161976607760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -562,8 +562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossUI: {fileID: 0}
-  bossName: Jacob the missile fanatic
 --- !u!114 &114982041151780284
 MonoBehaviour:
   m_ObjectHideFlags: 1

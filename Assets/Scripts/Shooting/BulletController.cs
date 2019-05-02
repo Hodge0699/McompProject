@@ -41,7 +41,7 @@ public class BulletController : MonoBehaviour {
     {
         if (!ignoreTags.Contains(other.gameObject.tag))
         {
-            HealthManager health = other.gameObject.GetComponent<HealthManager>();
+            HealthManager.HealthManager health = other.gameObject.GetComponent<HealthManager.HealthManager>();
 
             if (health != null)
                 health.hurt(damage);

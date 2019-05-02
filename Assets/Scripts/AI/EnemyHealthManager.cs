@@ -5,87 +5,91 @@ using UnityEngine;
 
 using EnemyType;
 
-public class EnemyHealthManager : HealthManager {
-
-    [Header("Enemy Health")]
-    public Image healthBar;
-
-
-    public bool lookAtPlayerOnHit = true;
-    private float deathAnimationDuration = 6.0f;
-
-    new void Update()
+namespace HealthManager
+{
+    public class EnemyHealthManager : HealthManager
     {
-        if (anim != null)
+
+        [Header("Enemy Health")]
+        public Image healthBar;
+
+
+        public bool lookAtPlayerOnHit = true;
+        protected float deathAnimationDuration = 6.0f;
+
+        new void Update()
         {
-            if (deathAnimationDuration <= 2)
-                deathAnimationDuration -= Time.deltaTime;
-
-            if (deathAnimationDuration <= 0)
-                Destroy(gameObject);
-        }
-    }
-
-    /// <summary>
-    /// Enemy takes damage
-    /// </summary>
-    /// <param name="damageAmount"></param>
-    public override void hurt(float damageAmount)
-    {
-        if (!isAlive)
-            return;
-
-        base.hurt(damageAmount);
-
-        healthBar.fillAmount = base.currentHealth / base.startingHealth;
-
-        if (!isAlive)
-        {
-            die();
-            return;
-        }
-        
-        if (lookAtPlayerOnHit)
-        {
-            // look at player
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-            if (player != null)
+            if (anim != null)
             {
-                Vector3 targetPos = player.transform.position;
-                targetPos.y = this.transform.position.y;
+                if (deathAnimationDuration <= 2)
+                    deathAnimationDuration -= Time.deltaTime;
 
-                transform.LookAt(targetPos);
+                if (deathAnimationDuration <= 0)
+                    Destroy(gameObject);
             }
         }
-    }
 
-
-    /// <summary>
-    /// Kills the enemy.
-    /// </summary>
-    private void die()
-    {
-        EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
-
-        if (me != null)
+        /// <summary>
+        /// Enemy takes damage
+        /// </summary>
+        /// <param name="damageAmount"></param>
+        public override void hurt(float damageAmount)
         {
-            if (me.getRoom() != null)
-                me.getRoom().enemyKilled(me);
+            if (!isAlive)
+                return;
 
-            if (gameObject.GetComponent<RandomPowerDrop>() != null)
-                gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
+            base.hurt(damageAmount);
 
-            me.onDeath();
+            healthBar.fillAmount = currentHealth / startingHealth;
+
+            if (!isAlive)
+            {
+                die();
+                return;
+            }
+
+            if (lookAtPlayerOnHit)
+            {
+                // look at player
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player != null)
+                {
+                    Vector3 targetPos = player.transform.position;
+                    targetPos.y = this.transform.position.y;
+
+                    transform.LookAt(targetPos);
+                }
+            }
         }
 
-        if (anim != null)
+
+        /// <summary>
+        /// Kills the enemy.
+        /// </summary>
+        private void die()
         {
-            anim.SetTrigger("Dead");
-            deathAnimationDuration = 2;
-            Destroy(GetComponent<AbstractEnemy>());
+            EnemyType.AbstractEnemy me = GetComponent<EnemyType.AbstractEnemy>();
+
+            if (me != null)
+            {
+                if (me.getRoom() != null)
+                    me.getRoom().enemyKilled(me);
+
+                if (gameObject.GetComponent<RandomPowerDrop>() != null)
+                    gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
+
+                me.onDeath();
+            }
+
+            if (anim != null)
+            {
+                anim.SetTrigger("Dead");
+                deathAnimationDuration = 2;
+                Destroy(GetComponent<AbstractEnemy>());
+            }
+            else
+                Destroy(gameObject);
         }
-        else
-            Destroy(gameObject);
     }
 }

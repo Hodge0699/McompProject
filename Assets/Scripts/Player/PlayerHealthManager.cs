@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Player
+namespace HealthManager
 {
     public class PlayerHealthManager : HealthManager
     {
@@ -65,8 +65,7 @@ namespace Player
             if (!godmode)
             {
                 damaged = true;
-                healthSlider.fillAmount = currentHealth / 200;
-                //Debug.Log("health slider amount: " + healthSlider.fillAmount);
+                healthSlider.fillAmount = currentHealth / startingHealth;
             }
         }
 
@@ -79,7 +78,7 @@ namespace Player
         {
             base.setHealth(health, force);
 
-            healthSlider.fillAmount = currentHealth;
+            healthSlider.fillAmount = currentHealth / startingHealth;
         }
     }
 }

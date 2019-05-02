@@ -42,7 +42,7 @@ namespace Player
         private Vector2 mousePos;
 
         private PlayerController player;
-        private Rigidbody rigidbody;
+        private new Rigidbody rigidbody;
         private GunController gunController;
         private WeaponUISwitch weaponUISwitch;
         private PlayerUIController pUI;
@@ -162,7 +162,7 @@ namespace Player
                     forceMoveDistanceTarget = 0.0f;
                     allowInput = true;
 
-                    GetComponent<PlayerHealthManager>().setGodmode(true, 1.5f);
+                    GetComponent<HealthManager.PlayerHealthManager>().setGodmode(true, 1.5f);
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace Player
 
             directionVector = dir;
 
-            GetComponent<PlayerHealthManager>().setGodmode(true);
+            GetComponent<HealthManager.PlayerHealthManager>().setGodmode(true);
         }
 
         /// <summary>

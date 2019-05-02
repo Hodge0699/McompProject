@@ -15,8 +15,6 @@ namespace EnemyType.Bosses
 
             gunRight.setGun(typeof(Weapon.Gun.MachineGun), true);
             gunLeft.setGun(typeof(Weapon.Gun.MachineGun), true);
-
-            GetComponent<BossEnemyHealthManager>().lookAtPlayerOnHit = false;
         }
 
         protected override Type decideState()

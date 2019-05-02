@@ -46,7 +46,7 @@ namespace EnemyType
                     if (anim != null)
                         setAnimTrigger("Melee");
 
-                    target.GetComponent<HealthManager>().hurt(attackDamage);
+                    target.GetComponent<HealthManager.HealthManager>().hurt(attackDamage);
                     attackCooldownCounter = attackCooldown;
                 }
             }

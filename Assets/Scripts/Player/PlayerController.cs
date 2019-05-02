@@ -34,7 +34,7 @@ namespace Player
 
             UI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
 
-            GetComponent<PlayerHealthManager>().init(UI);
+            GetComponent<HealthManager.PlayerHealthManager>().init(UI);
 
             smile = transform.Find("SmileFace").gameObject;
             angry = transform.Find("AngryFace").gameObject;
