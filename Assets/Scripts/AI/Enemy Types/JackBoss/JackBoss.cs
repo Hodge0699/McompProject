@@ -17,6 +17,7 @@ namespace EnemyType.Bosses
 
         private GameObject SceneManager;
 
+        protected MissleScript missleScript;
 
 
         // === variables you need ===
@@ -39,6 +40,7 @@ namespace EnemyType.Bosses
             base.Awake();
             gunController.addGun(gameObject.AddComponent<HomingGun>());
             gunController.setGun(typeof(HomingGun));
+            missleScript = GetComponentInChildren<MissleScript>();
 
 
             SceneManager = GameObject.Find("SceneManager");

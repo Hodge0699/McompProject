@@ -25,7 +25,6 @@ namespace EnemyType
         public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
 
         protected GunController gunController;
-        protected MissleScript missleScript;
         protected VisionCone pickUpVisionCone;
 
         protected TimeMechanic.LocalTimeDilation myTime;
@@ -34,7 +33,6 @@ namespace EnemyType
         protected virtual void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
-            missleScript = GetComponentInChildren<MissleScript>();
             visionCone = GetComponents<VisionCone>()[0];
             pickUpVisionCone = GetComponents<VisionCone>()[1];
             anim = GetComponent<Animator>();
@@ -45,7 +43,12 @@ namespace EnemyType
         private void LateUpdate()
         {
             directionVector.Normalize();
-            Vector3 movement = directionVector * movementSpeed * myTime.getDelta();
+            Vector3 movement = directionVector * movementSpeed;
+
+            if (myTime.enabled)
+                movement *= myTime.getDelta();
+            else
+                movement *= Time.deltaTime;
 
             transform.Translate(movement, Space.World);
 
@@ -123,20 +126,26 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Chases the target if there is one
+        /// Chases the target if there is one in view
         /// </summary>
         protected virtual void chase()
         {
-            if (target == null)
-                return;
+            if (target != null)
+                chase(target);
+        }
 
+        /// <summary>
+        /// Chases input target
+        /// </summary>
+        protected virtual void chase(GameObject target)
+        {
             if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
                 turnTo(target);
                 directionVector = transform.forward;
             }
         }
-        
+
         /// <summary>
         /// Faces position and walks towards it
         /// </summary>

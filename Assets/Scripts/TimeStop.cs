@@ -37,7 +37,7 @@ namespace TimeMechanic
         private void setTimeDilation(float timeDilation)
         {
             // Enemies
-            Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
+            Transform enemyContainer = GameObject.FindObjectOfType<Room>().transform.Find("Enemies").transform;
 
             for (int i = 0; i < enemyContainer.childCount; i++)
             {

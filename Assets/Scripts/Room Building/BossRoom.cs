@@ -21,6 +21,9 @@ public class BossRoom : Room
         boss.transform.position = spawnSpot.position;
         boss.GetComponent<EnemyType.AbstractEnemy>().enabled = false;
         base.addEnemy(boss.GetComponent<EnemyType.AbstractEnemy>());
+
+        // Make boss look at doorway on spawn
+        boss.transform.LookAt(transform.position + -transform.right * 10);
     }
 
     public override void addDoor(DoorController door)
