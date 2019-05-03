@@ -19,6 +19,7 @@ TagManager:
   - Untagg
   - Bullet
   - TimeBubble
+  - Geometry
   layers:
   - Default
   - TransparentFX
