@@ -59,6 +59,10 @@ public class BossTeleportM : MonoBehaviour {
             }
         }
     }
+    /// <summary>
+    /// Waits a couple of seconds before teleporting and instantiates the teleportEffect
+    /// </summary>
+    /// <returns></returns>
     IEnumerator wait()
     {
         Instantiate(teleportEffect, this.transform.position, Quaternion.identity);
