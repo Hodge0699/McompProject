@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 114503873376885194}
   - component: {fileID: 114472080346373822}
   - component: {fileID: 114790864632161224}
+  - component: {fileID: 114773301378260254}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -486,6 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114503873376885194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -550,6 +552,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114773301378260254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969985479925118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114779128417070500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -608,9 +621,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  currentHealth: 0
   godmode: 0
   debugging: 0
   healthBar: {fileID: 114748638028866890}
+  lookAtPlayerOnHit: 1
 --- !u!114 &114803216485001240
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -482,9 +482,9 @@ GameObject:
   - component: {fileID: 114497616226033804}
   - component: {fileID: 114380567166819148}
   - component: {fileID: 114519810309680258}
-  - component: {fileID: 114185290385034858}
   - component: {fileID: 114833422289436808}
   - component: {fileID: 114532638890590952}
+  - component: {fileID: 114926126410903948}
   m_Layer: 0
   m_Name: RifleEnemy
   m_TagString: Enemy
@@ -2029,18 +2029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a3a64a6a01b3140aa409565f39fd35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114185290385034858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1542762566050268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 
 --- !u!114 &114272593085109500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2219,6 +2207,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114926126410903948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542762566050268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136039608692524288
 CapsuleCollider:
   m_ObjectHideFlags: 1

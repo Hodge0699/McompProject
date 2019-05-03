@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 114422590831524820}
   - component: {fileID: 114982041151780284}
   - component: {fileID: 114848796223575826}
+  - component: {fileID: 114359991708755442}
   m_Layer: 0
   m_Name: JackBoss
   m_TagString: Boss
@@ -401,6 +402,17 @@ MonoBehaviour:
   - Enemy
   autoSwitchOnEmpty: 1
   debugging: 0
+--- !u!114 &114359991708755442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753049230033338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114360824573984820
 MonoBehaviour:
   m_ObjectHideFlags: 1

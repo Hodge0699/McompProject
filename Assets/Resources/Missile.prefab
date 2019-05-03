@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114939143524684756}
   - component: {fileID: 54730512275812138}
   - component: {fileID: 114998573669477738}
+  - component: {fileID: 114355537038984964}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -102,6 +103,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &114355537038984964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592636576716876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114939143524684756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +128,6 @@ MonoBehaviour:
   damage: 10
   speed: 12
   lifespan: 10
-  timeEffected: 1
   ignoreTags: []
   MissleTarget: {fileID: 0}
   MissleRigidbody: {fileID: 54730512275812138}

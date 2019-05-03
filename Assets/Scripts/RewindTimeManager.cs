@@ -9,83 +9,9 @@ namespace TimeMechanic
 {
     public class RewindTimeManager : TimeMechanic
     {
-        bool isRewinding = false;
-
-        private float recordTime = 3f;
-
-        List<PointInTime> pointsInTime;
-
-        Rigidbody rb;
-
-        HealthManager.HealthManager health;
-
-        // Use this for initialization
-        protected override void Start()
-        {
-            base.Start();
-
-            pointsInTime = new List<PointInTime>();
-
-            health = gameObject.GetComponent<HealthManager.HealthManager>();
-
-            if (gameObject.GetComponent<Rigidbody>() != null)
-                rb = GetComponent<Rigidbody>();
-        }
-
         public override void trigger()
         {
             StartRewind();
-        }
-
-        /// <summary>
-        /// Uses FixedUpdate instead of update to keep physics consistant
-        /// </summary>
-        void FixedUpdate()
-        {
-            if (isRewinding)
-                Rewind();
-            else
-                Record();
-        }
-
-        /// <summary>
-        /// Rewinds untill end of list
-        /// Destroys Bullets when they rewind past their time of creation
-        /// </summary>
-        void Rewind()
-        {
-            if (pointsInTime.Count > 0)
-            {
-                PointInTime pointInTime = pointsInTime[0];
-                transform.position = pointInTime.position;
-                transform.rotation = pointInTime.rotation;
-
-                if (health != null)
-                    health.setHealth(pointInTime.health);
-
-                pointsInTime.RemoveAt(0);
-            }
-            else
-            {
-                if (gameObject.tag == "Bullet")
-                    Destroy(gameObject);
-
-                StopRewind();
-            }
-        }
-
-        /// <summary>
-        /// Record position and rotation data into list for past "recordTime" secconds replacing end with new
-        /// </summary>
-        void Record()
-        {
-            if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
-                pointsInTime.RemoveAt(pointsInTime.Count - 1);
-
-            if (health != null)
-                pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, health.getHealth()));
-            else
-                pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
         }
 
         /// <summary>
@@ -94,47 +20,94 @@ namespace TimeMechanic
         /// </summary>
         public void StartRewind()
         {
-            isRewinding = true;
-            if (rb != null)
-                rb.isKinematic = true;
+            GetComponent<RewindTimeSlave>().StartRewind();
 
-            if (gameObject.tag == "Enemy")
-                if (gameObject.GetComponent<GunEnemy>() != null)
-                    gameObject.GetComponent<GunEnemy>().canShoot = false;
+            // Enemies
+            Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
 
-            if (gameObject.tag == "Boss")
-                if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
-                    gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = false;
+            for (int i = 0; i < enemyContainer.childCount; i++)
+            {
+                RewindTimeSlave enemyTime = enemyContainer.GetChild(i).GetComponent<RewindTimeSlave>();
 
-            if (gameObject.tag == "Turret")
-                if (gameObject.GetComponent<bulletPillar>() != null)
-                    gameObject.GetComponent<bulletPillar>().canShoot = false;
+                if (enemyTime != null)
+                    enemyTime.StartRewind();
+            }
 
-            if (gameObject.tag == "Player")
-                gameObject.GetComponent<Player.PlayerInputManager>().canShoot = false;
 
+            // Bullets
+            Transform bulletContainer = GameObject.Find("Active Bullets").transform;
+
+            if (bulletContainer != null)
+            {
+                for (int i = 0; i < bulletContainer.childCount; i++)
+                {
+                    Transform bullet = bulletContainer.GetChild(i);
+
+                    if (bullet.name == "Pellet Burst") // Shotgun pellet
+                    {
+                        for (int j = 0; j < bullet.childCount; j++)
+                        {
+                            RewindTimeSlave bulletTime = bullet.GetChild(j).GetComponent<RewindTimeSlave>();
+
+                            if (bulletTime != null) // Some bullets aren't affected by time
+                                bulletTime.StartRewind();
+                        }
+                    }
+                    else // Single bullet
+                    {
+                        RewindTimeSlave bulletTime = bullet.GetComponent<RewindTimeSlave>();
+
+                        if (bulletTime != null) // Some bullets aren't affected by time
+                            bulletTime.StartRewind();
+                    }
+                }
+            }
         }
 
         public void StopRewind()
         {
-            isRewinding = false;
-            if (rb != null)
-                rb.isKinematic = false;
+            GetComponent<RewindTimeSlave>().StopRewind();
 
-            if (gameObject.tag == "Enemy")
-                if (gameObject.GetComponent<GunEnemy>() != null)
-                    gameObject.GetComponent<GunEnemy>().canShoot = true;
+            // Enemies
+            Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
 
-            if (gameObject.tag == "Boss")
-                if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
-                    gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = true;
+            for (int i = 0; i < enemyContainer.childCount; i++)
+            {
+                RewindTimeSlave enemyTime = enemyContainer.GetChild(i).GetComponent<RewindTimeSlave>();
 
-            if (gameObject.tag == "Turret")
-                if (gameObject.GetComponent<bulletPillar>() != null)
-                    gameObject.GetComponent<bulletPillar>().canShoot = true;
+                if (enemyTime != null)
+                    enemyTime.StopRewind();
+            }
 
-            if (gameObject.tag == "Player")
-                gameObject.GetComponent<Player.PlayerInputManager>().canShoot = true;
+
+            // Bullets
+            Transform bulletContainer = GameObject.Find("Active Bullets").transform;
+
+            if (bulletContainer != null)
+            {
+                for (int i = 0; i < bulletContainer.childCount; i++)
+                {
+                    Transform bullet = bulletContainer.GetChild(i);
+
+                    if (bullet.name == "Pellet Burst") // Shotgun pellet
+                    {
+                        for (int j = 0; j < bullet.childCount; j++)
+                        {
+                            RewindTimeSlave bulletTime = bullet.GetChild(j).GetComponent<RewindTimeSlave>();
+
+                            if (bulletTime != null) // Some bullets aren't affected by time
+                                bulletTime.StopRewind();
+                        }
+                    }
+                    else // Single bullet
+                    {
+                        RewindTimeSlave bulletTime = bullet.GetComponent<RewindTimeSlave>();
+
+                        if (bulletTime != null) // Some bullets aren't affected by time
+                            bulletTime.StopRewind();
+                    }
+                }
+            }
 
         }
     }

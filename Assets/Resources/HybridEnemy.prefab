@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 114816321970519742}
   - component: {fileID: 114565125230075964}
   - component: {fileID: 114922350927667396}
+  - component: {fileID: 114068347807423714}
   m_Layer: 0
   m_Name: HybridEnemy
   m_TagString: Enemy
@@ -1997,6 +1998,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114068347807423714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1303808424268196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114198721747866436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2147,7 +2159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 
+  level: LevelTwo
 --- !u!114 &114860138331828836
 MonoBehaviour:
   m_ObjectHideFlags: 1

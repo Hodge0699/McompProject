@@ -20,7 +20,8 @@ namespace TimeMechanic
                 return;
             }
 
-            GetComponent<Player.PlayerInputManager>().setTimeMechanic(this);
+            if (GetComponent<Player.PlayerInputManager>())
+                GetComponent<Player.PlayerInputManager>().setTimeMechanic(this);
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 114952255045601490}
   - component: {fileID: 114892507652557058}
   - component: {fileID: 114416188896621982}
-  - component: {fileID: 114773474117098752}
+  - component: {fileID: 114790853045696090}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 2100
+  currentHealth: 0
   godmode: 0
   debugging: 0
   healthBar: {fileID: 114559162870080370}
@@ -504,7 +505,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114773474117098752
+--- !u!114 &114790853045696090
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -512,7 +513,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1219392479142710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114856080320444528
@@ -540,11 +541,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportLocations: []
+  bHealth: {fileID: 0}
   furthestTeleport: 0
   randTeleport: 1
   teleportHealth: 1050
   teleportEffect: {fileID: 1548056266330296, guid: 24f83f2ec6a726647b65e01e74fed905,
     type: 2}
+  teleContainer: {fileID: 0}
 --- !u!114 &114952255045601490
 MonoBehaviour:
   m_ObjectHideFlags: 1

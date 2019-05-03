@@ -558,13 +558,13 @@ GameObject:
   - component: {fileID: 114819704540887906}
   - component: {fileID: 114083917362140318}
   - component: {fileID: 114592850459762906}
-  - component: {fileID: 114836370244193538}
   - component: {fileID: 114033624575197306}
   - component: {fileID: 114150659349016238}
   - component: {fileID: 114582713261503922}
   - component: {fileID: 114216096639501656}
   - component: {fileID: 114760835762991668}
   - component: {fileID: 114121294681825490}
+  - component: {fileID: 114150691910431520}
   m_Layer: 0
   m_Name: NickyBoss
   m_TagString: Boss
@@ -2077,6 +2077,17 @@ MonoBehaviour:
   teleportEffect: {fileID: 1548056266330296, guid: 24f83f2ec6a726647b65e01e74fed905,
     type: 2}
   teleContainer: {fileID: 0}
+--- !u!114 &114150691910431520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541709412927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114216096639501656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2242,18 +2253,6 @@ MonoBehaviour:
   FOV: 132
   ignoreVisibilityValue: 0
   timeToSpot: 0.5
---- !u!114 &114836370244193538
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541709412927766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 
 --- !u!114 &114868309810629016
 MonoBehaviour:
   m_ObjectHideFlags: 1

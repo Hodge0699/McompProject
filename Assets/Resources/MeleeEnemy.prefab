@@ -586,9 +586,9 @@ GameObject:
   - component: {fileID: 114616047031205218}
   - component: {fileID: 114271398089280344}
   - component: {fileID: 114455674975139158}
-  - component: {fileID: 114539821148625164}
   - component: {fileID: 114218433404910790}
   - component: {fileID: 114430068059495258}
+  - component: {fileID: 114824982443051320}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -2085,18 +2085,6 @@ MonoBehaviour:
     dropRarity: 0
   ItemDropChance: 100
   debugging: 0
---- !u!114 &114539821148625164
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574168627813376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 
 --- !u!114 &114616047031205218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2138,6 +2126,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114824982443051320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574168627813376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114843153328236980
 MonoBehaviour:
   m_ObjectHideFlags: 1
