@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23691808502707232}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Geometry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 65832313877433820}
   m_Layer: 0
   m_Name: Left Door
-  m_TagString: Untagged
+  m_TagString: Geometry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 65084873011947734}
   m_Layer: 0
   m_Name: Right Door
-  m_TagString: Untagged
+  m_TagString: Geometry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

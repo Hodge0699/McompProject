@@ -54,7 +54,7 @@ namespace EnemyType.Bosses
             shoot();
         }
 
-        protected override void onStateSwitch(JakeBoss newState)
+        protected override void onBehaviourSwitch(AbstractEnemy newBehaviour)
         {
             mainPivot.stopPivot(true);
         }

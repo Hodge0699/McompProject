@@ -65,31 +65,6 @@ namespace EnemyType.Bosses
         /// </summary>
         protected abstract System.Type decideState();
 
-        /// <summary>
-        /// Copies variables into new state and destroys gameobject.
-        /// 
-        /// Should be overrided by any behaviours that alter pivots to reset them
-        /// back to stopped at their centre.
-        /// </summary>
-        /// <param name="newState">Next state that is being switched to.</param>
-        protected abstract void onStateSwitch(JakeBoss newState);
-
-        /// <summary>
-        /// Switches enemy behaviour
-        /// </summary>
-        /// <param name="state">Behaviour to switch to</param>
-        protected override bool switchToBehaviour(Type behaviour, bool destroyOldBehaviour = false, bool copyVariables = true)
-        {
-            if (!base.switchToBehaviour(behaviour, destroyOldBehaviour, copyVariables))
-                return false; // Couldn't switch, don't call onStateSwitch
-
-            onStateSwitch(GetComponents<JakeBoss>()[1]);
-
-            Destroy(this);
-
-            return true;
-        }
-
         public override void onDeath()
         {
             GameObject sceneManager = GameObject.Find("SceneManager");

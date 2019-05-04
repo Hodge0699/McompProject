@@ -25,7 +25,6 @@ namespace EnemyType
         public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
 
         protected GunController gunController;
-        protected MissleScript missleScript;
         protected VisionCone pickUpVisionCone;
 
         protected TimeMechanic.LocalTimeDilation myTime;
@@ -34,7 +33,6 @@ namespace EnemyType
         protected virtual void Awake()
         {
             gunController = GetComponentInChildren<GunController>();
-            missleScript = GetComponentInChildren<MissleScript>();
             visionCone = GetComponents<VisionCone>()[0];
             pickUpVisionCone = GetComponents<VisionCone>()[1];
             anim = GetComponent<Animator>();
@@ -45,7 +43,12 @@ namespace EnemyType
         private void LateUpdate()
         {
             directionVector.Normalize();
-            Vector3 movement = directionVector * movementSpeed * myTime.getDelta();
+            Vector3 movement = directionVector * movementSpeed;
+
+            if (myTime.enabled)
+                movement *= myTime.getDelta();
+            else
+                movement *= Time.deltaTime;
 
             transform.Translate(movement, Space.World);
 
@@ -123,20 +126,26 @@ namespace EnemyType
         }
 
         /// <summary>
-        /// Chases the target if there is one
+        /// Chases the target if there is one in view
         /// </summary>
         protected virtual void chase()
         {
-            if (target == null)
-                return;
+            if (target != null)
+                chase(target);
+        }
 
+        /// <summary>
+        /// Chases input target
+        /// </summary>
+        protected virtual void chase(GameObject target)
+        {
             if (Vector3.Distance(target.transform.position, this.transform.position) > maxDistance)
             {
                 turnTo(target);
                 directionVector = transform.forward;
             }
         }
-        
+
         /// <summary>
         /// Faces position and walks towards it
         /// </summary>
@@ -175,9 +184,7 @@ namespace EnemyType
         /// </summary>
         protected void turnTo(float angle)
         {
-            if (Mathf.Abs(angle) < turnSpeed * myTime.getDelta())
-                transform.Rotate(Vector3.up, angle);
-            else
+            if (Mathf.Abs(angle) > turnSpeed * myTime.getDelta())
             {
                 if (angle > 0)
                     angle = turnSpeed * myTime.getDelta();
@@ -186,6 +193,8 @@ namespace EnemyType
 
                 transform.Rotate(Vector3.up, angle);
             }
+            else
+                transform.Rotate(Vector3.up, angle * myTime.getDelta());
         }
 
 
@@ -197,7 +206,7 @@ namespace EnemyType
         /// Copies base AbstractEnemy variables into a new behaviour
         /// </summary>
         /// <param name="enemy">Behaviour to copy into</param>
-        public void copyBaseVariables(AbstractEnemy enemy)
+        protected virtual void copyBaseVariables(AbstractEnemy enemy)
         {
             this.movementSpeed = enemy.movementSpeed;
             this.maxDistance = enemy.maxDistance;
@@ -238,8 +247,9 @@ namespace EnemyType
                 }
             }
 
-            gameObject.AddComponent(behaviour);
+            AbstractEnemy newBehaviour = gameObject.AddComponent(behaviour) as AbstractEnemy;
 
+            onBehaviourSwitch(newBehaviour);
 
             if (copyVariables)
                 gameObject.GetComponents<AbstractEnemy>()[1].copyBaseVariables(this);
@@ -252,6 +262,12 @@ namespace EnemyType
 
             return true;
         }
+
+        /// <summary>
+        /// Can be used as a destructor for state or to copy variables into new state.
+        /// </summary>
+        /// <param name="newState">Next state that is being switched to.</param>
+        protected virtual void onBehaviourSwitch(AbstractEnemy newBehaviour) { }
 
         /// <summary>
         /// Resets other triggers and sets new trigger
