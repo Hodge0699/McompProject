@@ -59,7 +59,7 @@ namespace EnemyType.Bosses
             return (Vector3.Dot(forward.Value, dir) >= 1.0f - tolerance);
         }
 
-        protected override void onStateSwitch(JakeBoss newState)
+        protected override void onBehaviourSwitch(AbstractEnemy newBehaviour)
         {
             rightPivot.stopPivot(true);
             leftPivot.stopPivot(true);

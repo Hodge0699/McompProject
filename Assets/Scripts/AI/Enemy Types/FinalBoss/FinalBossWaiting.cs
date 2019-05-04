@@ -7,9 +7,12 @@ namespace EnemyType.Bosses
 {
     public class FinalBossWaiting : FinalBoss
     {
+        float stateDuration = 4.0f;
+        float stateDurationCounter = 0.0f;
+
         protected override Type decideState()
         {
-            if (visionCone.hasVisibleTargets()) // Can see player
+            if (stateDurationCounter >= stateDuration) 
                 return typeof(FinalBossChasing);
             else
                 return this.GetType();
@@ -17,7 +20,15 @@ namespace EnemyType.Bosses
 
         protected override void stateAction()
         {
-            // Do nothing
+            turnTo(player);
+
+            if (visionCone.hasVisibleTargets())
+            {
+                stateDurationCounter += myTime.getDelta();
+
+                if (!sawBlade.isAccelerating)
+                    sawBlade.isAccelerating = true;
+            }
         }
     }
 }

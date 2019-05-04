@@ -18,7 +18,7 @@ public class SpeedUpBubbleController : MonoBehaviour {
         // destroys the bubble after a set time
         bubbleDuration -= Time.deltaTime;
         if(pSpeedUp == null)
-            pSpeedUp = GameObject.FindObjectOfType<PlayerController>().GetComponent<speedUp>();
+            pSpeedUp = GameObject.FindGameObjectWithTag("Player").GetComponent<speedUp>();
         if (bubbleDuration <= 0)
         {
             pSpeedUp.canShoot = true;

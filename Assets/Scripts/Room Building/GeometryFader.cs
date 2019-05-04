@@ -127,6 +127,7 @@ namespace RoomBuilding
             {
                 if (obstructedObjects[i] != null)
                 {
+                    // To Do - Add shortest distance from a point to a segment function for diagonal walls
                     float dist = Mathf.Abs(obstructedObjects[i].transform.position.z - parentZ);
 
                     if (dist < minZ)

@@ -232,10 +232,8 @@ public class Room : MonoBehaviour {
     /// </summary>
     public void createGeometryShaders()
     {
-        float tolerance = 0.5f;
-
         // Walls
-        List<Transform> lowerWalls = getCameraLowerWalls(tolerance);
+        List<Transform> lowerWalls = getCameraLowerWalls();
 
         for (int i = 0; i < lowerWalls.Count; i++)
             instantiateFader(lowerWalls[i]);
@@ -244,26 +242,23 @@ public class Room : MonoBehaviour {
     /// <summary>
     /// Returns a list of walls that have the lowest z value
     /// </summary>
-    /// <param name="tolerance">The tolerance between z values of walls</param>
     /// <returns>The transform of the walls</returns>
-    private List<Transform> getCameraLowerWalls(float tolerance)
+    private List<Transform> getCameraLowerWalls()
     {
         Transform walls = transform.Find("Walls");
 
-        float lowestZ = Mathf.Infinity;
         List<Transform> lowerWalls = new List<Transform>();
 
         for (int i = 0; i < walls.childCount; i++)
         {
             Transform currentWall = walls.GetChild(i);
 
-            if (Mathf.Abs(currentWall.transform.position.z - lowestZ) <= tolerance)
-                lowerWalls.Add(currentWall);
-            else if (currentWall.transform.position.z < lowestZ)
+            // Don't do this for vertical (from top down) walls
+            if (Mathf.Abs(currentWall.rotation.eulerAngles.y) % 360 != 90 && Mathf.Abs(currentWall.rotation.eulerAngles.y) % 360 != 270)
             {
-                lowestZ = currentWall.transform.position.z;
-                lowerWalls.Clear();
-                lowerWalls.Add(currentWall);
+                // If wall lower (z distance) locally from camera
+                if (currentWall.transform.position.z < transform.position.z)
+                    lowerWalls.Add(currentWall);
             }
         }
 
@@ -281,6 +276,7 @@ public class Room : MonoBehaviour {
         fader.transform.parent = parent;
         fader.transform.localPosition = new Vector3(0.0f, 0.0f, -4.0f);
         fader.transform.localScale = Vector3.one;
+        fader.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 
         BoxCollider trigger = fader.GetComponent<BoxCollider>();
         trigger.isTrigger = true;

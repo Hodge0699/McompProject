@@ -62,10 +62,10 @@ GameObject:
   - component: {fileID: 114254800944886946}
   - component: {fileID: 114703249073499206}
   - component: {fileID: 114456557972340316}
-  - component: {fileID: 114091475422314872}
   - component: {fileID: 114001688709627106}
   - component: {fileID: 114710914919724038}
   - component: {fileID: 114960824505060250}
+  - component: {fileID: 114137191561844632}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Boss
@@ -220,7 +220,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ae532059e6a5a5f46bdc9b63d1344204, type: 2}
+  - {fileID: 2100000, guid: 1d72125a728529644b3f6a14a2b677b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -309,7 +309,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65346491394249490
 BoxCollider:
@@ -334,18 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114091475422314872
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1263549141222724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 
 --- !u!114 &114092507491608692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,9 +348,9 @@ MonoBehaviour:
   damage: 1
   attackFrequency: 0.01
   maxSpeed: 1000
-  acceleration: 80
-  deceleration: 250
-  isAccelerating: 1
+  acceleration: 100
+  deceleration: 400
+  isAccelerating: 0
 --- !u!114 &114108022351794492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,6 +360,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43a12ca22601116499c944c3addfa957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114137191561844632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1263549141222724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d051dc583def542ad9965959b4018f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114254800944886946
@@ -521,6 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d53b2ee3403674f9304288aefcbe39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossName: Final Boss
 --- !u!114 &114820195133143362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -553,10 +553,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e10f9c96de5b4a8721c902b91c032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 9
+  movementSpeed: 5
   directionVector: {x: 0, y: 0, z: 0}
   maxDistance: 1.6
-  turnSpeed: 180
+  turnSpeed: 900
 --- !u!135 &135137592826306768
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -9,13 +9,20 @@ namespace EnemyType.Bosses
     {
         private float centreSensitivity = 2.0f;
 
+        // How fast the boss can charge
+        private float returningMovementSpeed = 4;
+        private float regularMovementSpeed;
+
         // Use this for initialization
         override protected void Start()
         {
-            Debug.Log("Returning");
             base.Start();
 
             sawBlade.isAccelerating = false;
+
+            regularMovementSpeed = movementSpeed;
+            movementSpeed = returningMovementSpeed;
+
         }
 
         protected override Type decideState()
@@ -30,9 +37,24 @@ namespace EnemyType.Bosses
 
         protected override void stateAction()
         {
-            turnTo(myRoom.transform.position);
+            if (!isFacingCentre())
+                turnTo(myRoom.transform.position);
+
             directionVector = transform.forward;
         }
 
+        protected override void onBehaviourSwitch(AbstractEnemy newBehaviour)
+        {
+            movementSpeed = regularMovementSpeed;
+        }
+
+        private bool isFacingCentre()
+        {
+            float precision = 0.8f;
+
+            Vector3 toCentre = (myRoom.transform.position - transform.position).normalized;
+
+            return Vector3.Dot(transform.forward, toCentre) >= precision;
+        }
     }
 }

@@ -35,9 +35,5 @@ namespace EnemyType.Bosses
             // Do nothing
         }
 
-        protected override void onStateSwitch(JakeBoss newState)
-        {
-            // Do nothing
-        }
     }
 }

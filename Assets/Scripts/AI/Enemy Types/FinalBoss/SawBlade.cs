@@ -13,7 +13,6 @@ namespace Weapon
 
         private float currentSpeed = 0.0f;
 
-        [HideInInspector]
         public bool isAccelerating = false;
 
         TimeMechanic.LocalTimeDilation myTime;

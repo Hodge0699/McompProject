@@ -12,12 +12,14 @@ namespace EnemyType.Bosses
     {
         protected GameObject player; // This boss will know where the player is constantly
         protected Weapon.SawBlade sawBlade;
+        protected MeshRenderer meshRenderer;
 
         // Use this for initialization
         protected virtual void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
             sawBlade = GetComponentInChildren<Weapon.SawBlade>();
+            meshRenderer = GetComponent<MeshRenderer>();
         }
 
         // Update is called once per frame
@@ -37,28 +39,6 @@ namespace EnemyType.Bosses
         /// Decides which state to switch to after this frame
         /// </summary>
         protected abstract System.Type decideState();
-
-        /// <summary>
-        /// Can be used as a destructor for state or to copy variables into new state.
-        /// </summary>
-        /// <param name="newState">Next state that is being switched to.</param>
-        protected virtual void onStateSwitch(FinalBoss newState) { }
-
-        /// <summary>
-        /// Switches enemy behaviour
-        /// </summary>
-        /// <param name="state">Behaviour to switch to</param>
-        protected override bool switchToBehaviour(Type behaviour, bool destroyOldBehaviour = false, bool copyVariables = true)
-        {
-            if (!base.switchToBehaviour(behaviour, destroyOldBehaviour, copyVariables))
-                return false; // Couldn't switch, don't call onStateSwitch
-
-            onStateSwitch(GetComponents<FinalBoss>()[1]);
-
-            Destroy(this);
-
-            return true;
-        }
 
         public override void onDeath()
         {

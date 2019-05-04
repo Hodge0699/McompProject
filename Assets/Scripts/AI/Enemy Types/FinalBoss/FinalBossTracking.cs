@@ -13,7 +13,6 @@ namespace EnemyType.Bosses
         // Use this for initialization
         override protected void Start()
         {
-            Debug.Log("Tracking");
             base.Start();
 
             sawBlade.isAccelerating = true;
@@ -32,6 +31,8 @@ namespace EnemyType.Bosses
             stateDurationCounter += myTime.getDelta();
 
             turnTo(player);
+
+            meshRenderer.material.color = new Color(Mathf.Lerp(0.0f, 1.0f, stateDurationCounter / stateDuration), Mathf.Lerp(1.0f, 0.0f, stateDurationCounter / stateDuration), 0.0f);
         }
     }
 }

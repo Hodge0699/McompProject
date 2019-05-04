@@ -8,12 +8,11 @@ namespace EnemyType.Bosses
     public class FinalBossCharging : FinalBoss
     {
         // How fast the boss can turn whilst charging
-        private float chargingTurnSpeed = 20;
+        private float chargingTurnSpeed = 10;
         private float regularTurnSpeed;
 
         // How fast the boss can charge
         private float chargingMovementSpeed = 15;
-        private float chargingMovementAcceleration = 3.0f;
         private float regularMovementSpeed;
 
         private float sprintTime;
@@ -22,13 +21,13 @@ namespace EnemyType.Bosses
         // Use this for initialization
         override protected void Start()
         {
-            Debug.Log("Charging");
             base.Start();
 
             regularTurnSpeed = turnSpeed;
             turnSpeed = chargingTurnSpeed;
 
             regularMovementSpeed = movementSpeed;
+            movementSpeed = chargingMovementSpeed;
 
             sprintTime = calculateSprintTime();
         }
@@ -46,15 +45,12 @@ namespace EnemyType.Bosses
             // Sprint counter runs off global delta to allow boss to overshoot if sped up
             sprintCounter += Time.deltaTime;
 
-            // Add acceleration every frame (affected by time gun)
-            if (movementSpeed < chargingMovementSpeed)
-                movementSpeed += chargingMovementAcceleration * myTime.getDelta();
-
             turnTo(player);
             directionVector = transform.forward;
+
         }
 
-        protected override void onStateSwitch(FinalBoss newState)
+        protected override void onBehaviourSwitch(AbstractEnemy newState)
         {
             turnSpeed = regularTurnSpeed;
             movementSpeed = regularMovementSpeed;
@@ -87,7 +83,10 @@ namespace EnemyType.Bosses
 
             float distanceToWall = (hitInfo.point - transform.position).magnitude;
 
-            return distanceToWall / movementSpeed;
+            // Stop at distance twice the diameter of boss. Should work well for scaling
+            float stopDistance = transform.lossyScale.x * 2;
+
+            return (distanceToWall - stopDistance) / movementSpeed;
         }
     }
 }
