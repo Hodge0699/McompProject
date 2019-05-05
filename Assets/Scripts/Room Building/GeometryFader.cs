@@ -20,7 +20,11 @@ namespace RoomBuilding
         // Use this for initialization
         void Start()
         {
-            maxDist = GetComponent<BoxCollider>().size.z * 1.5f;
+            maxDist = transform.parent.lossyScale.y * 2;
+
+            BoxCollider trigger = GetComponent<BoxCollider>();
+            trigger.size = new Vector3(trigger.size.x, trigger.size.y, maxDist);
+
             mesh = transform.parent.GetComponent<MeshRenderer>();
 
             setRenderMode(RenderMode.FADE);
@@ -127,8 +131,7 @@ namespace RoomBuilding
             {
                 if (obstructedObjects[i] != null)
                 {
-                    // To Do - Add shortest distance from a point to a segment function for diagonal walls
-                    float dist = Mathf.Abs(obstructedObjects[i].transform.position.z - parentZ);
+                    float dist = getDistance(obstructedObjects[i].transform);
 
                     if (dist < minZ)
                         minZ = dist;
@@ -136,6 +139,29 @@ namespace RoomBuilding
             }
 
             return minZ;
+        }
+
+        /// <summary>
+        /// Calculates the distance from a point to this wall
+        /// </summary>
+        /// <param name="other">Other transform to measure to</param>
+        /// <returns>The closest distance from this wall to other</returns>
+        private float getDistance(Transform other)
+        {
+            Vector2 thisPos = new Vector2(transform.parent.position.x, transform.parent.position.z);
+            float wallLength = transform.parent.lossyScale.x;
+
+            Vector2 otherPos = new Vector2(other.position.x, other.position.z);
+
+            Vector2 wallRight = new Vector2(transform.right.x, transform.right.y);
+
+            Vector2 wallStart = thisPos + (wallRight * (wallLength / 2));
+            Vector2 wallEnd = thisPos + (-wallRight * (wallLength / 2));
+
+            float dx = wallEnd.x - wallStart.x;
+            float dy = wallEnd.y - wallStart.y;
+
+            return Mathf.Abs(dy * otherPos.x - dx * otherPos.y - wallStart.x * wallEnd.y + wallEnd.x * wallStart.y) / Mathf.Sqrt((dx * dx) + (dy * dy));
         }
 
         private void OnDestroy()
