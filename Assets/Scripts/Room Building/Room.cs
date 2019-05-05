@@ -264,6 +264,7 @@ public class Room : MonoBehaviour {
 
         return lowerWalls;
     }
+
     /// <summary>
     /// Creates a trigger that fades the parent option
     /// </summary>
