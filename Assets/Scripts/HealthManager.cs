@@ -16,6 +16,7 @@ namespace HealthManager
         public bool godmode = false;
         private float godmodeTimer = -1.0f;
 
+        private bool ignoreGodmode = false;
         public bool debugging = false;
 
         public bool isAlive { get; private set; }
@@ -42,9 +43,9 @@ namespace HealthManager
         /// Damages the character by a set amount
         /// </summary>
         /// <param name="damageAmount">Damage to inflict</param>
-        public virtual void hurt(float damageAmount)
+        public virtual void hurt(float damageAmount, bool ignoreGodmode = false)
         {
-            if (godmode || !isAlive)
+            if ((godmode && !ignoreGodmode) || !isAlive)
                 return;
 
             currentHealth -= damageAmount;
