@@ -58,9 +58,9 @@ namespace HealthManager
         /// Inflicts damage and sets new value on health slider.
         /// </summary>
         /// <param name="damageAmount">Damage to inflict.</param>
-        public override void hurt(float damageAmount)
+        public override void hurt(float damageAmount, bool ignoreGodmode)
         {
-            base.hurt(damageAmount);
+            base.hurt(damageAmount, ignoreGodmode);
 
             if (!godmode)
             {

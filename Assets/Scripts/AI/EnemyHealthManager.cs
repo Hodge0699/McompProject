@@ -33,12 +33,12 @@ namespace HealthManager
         /// Enemy takes damage
         /// </summary>
         /// <param name="damageAmount"></param>
-        public override void hurt(float damageAmount)
+        public override void hurt(float damageAmount, bool ignoreGodemode = false)
         {
             if (!isAlive)
                 return;
 
-            base.hurt(damageAmount);
+            base.hurt(damageAmount, ignoreGodemode);
 
             healthBar.fillAmount = currentHealth / startingHealth;
 
