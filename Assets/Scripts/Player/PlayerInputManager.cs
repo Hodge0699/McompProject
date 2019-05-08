@@ -309,14 +309,14 @@ namespace Player
             }
 
             // TODO: Controller
-            if (Input.GetButtonDown("NextWeapon"))
+            if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") == 1)
             {
                 if (currentWeapon >= weaponSwitches.Count-1)
                     currentWeapon = 0;
                 else
                     currentWeapon++;
             }
-            else if (Input.GetButtonDown("PreviousWeapon"))
+            else if (Input.GetButtonDown("PreviousWeapon") || Input.GetAxis("Mouse ScrollWheel") == -1)
             {
                 if (currentWeapon == 0)
                     currentWeapon = weaponSwitches.Count-1;
