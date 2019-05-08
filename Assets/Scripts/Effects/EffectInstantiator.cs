@@ -9,6 +9,8 @@ namespace effects
         /// <summary>
         /// effects class to hold the name, effect and whether or not to use it
         /// </summary>
+        ///
+        private GameObject effectObject;
         [System.Serializable]
         public class Effects
         {
@@ -25,7 +27,8 @@ namespace effects
             {
                 if(e.use == true)
                 {
-                    Instantiate(e.effect, transform.position, Quaternion.identity);
+                    effectObject = Instantiate(e.effect, transform.position, Quaternion.identity);
+                    effectObject.GetComponent<TimeGunEffect>().updateGameObject(this.transform.gameObject);
                 }
             }
         }
