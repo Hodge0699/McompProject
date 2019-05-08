@@ -829,15 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17817e59ee190e64aba15e723afa4327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kbmShoot: 323
-  kbmPause: 27
-  kbmTimeMechanic: 324
-  kbmDashMechanic: 32
   weaponSwitches: 3100000032000000330000003400000035000000
-  controllerShoot: 355
-  controllerPause: 337
-  controllerTimeMechanic: 354
-  controllerDashMechanic: 350
   testInput: 0
   debugging: 0
 --- !u!114 &114769443199197996

@@ -12,30 +12,30 @@ namespace Player
         [System.NonSerialized]
         public bool canShoot = true;
 
-        [Header("Keyboard + Mouse Controls")]
-        [SerializeField]
-        private KeyCode kbmShoot = KeyCode.Mouse0;
-        [SerializeField]
-        private KeyCode kbmPause = KeyCode.Escape;
-        [SerializeField]
-        private KeyCode kbmTimeMechanic = KeyCode.Mouse1;
-        [SerializeField]
-        private KeyCode kbmDashMechanic = KeyCode.Space;
+        //[Header("Keyboard + Mouse Controls")]
+        //[SerializeField]
+        //private KeyCode kbmShoot = KeyCode.Mouse0;
+        //[SerializeField]
+        //private KeyCode kbmPause = KeyCode.Escape;
+        //[SerializeField]
+        //private KeyCode kbmTimeMechanic = KeyCode.Mouse1;
+        //[SerializeField]
+        //private KeyCode kbmDashMechanic = KeyCode.Space;
 
         [SerializeField]
         private List<KeyCode> weaponSwitches = new List<KeyCode>();
         private List<System.Type> weapons = new List<System.Type>();
 
 
-        [Header("Joystick Controls")]
-        [SerializeField]
-        private KeyCode controllerShoot = KeyCode.Joystick1Button5; // Rb
-        [SerializeField]
-        private KeyCode controllerPause = KeyCode.Joystick1Button7; // Start
-        [SerializeField]
-        private KeyCode controllerTimeMechanic = KeyCode.Joystick1Button4; // Lb
-        [SerializeField]
-        private KeyCode controllerDashMechanic = KeyCode.Joystick1Button0; // A
+        //[Header("Joystick Controls")]
+        //[SerializeField]
+        //private KeyCode controllerShoot = KeyCode.Joystick1Button5; // Rb
+        //[SerializeField]
+        //private KeyCode controllerPause = KeyCode.Joystick1Button7; // Start
+        //[SerializeField]
+        //private KeyCode controllerTimeMechanic = KeyCode.Joystick1Button4; // Lb
+        //[SerializeField]
+        //private KeyCode controllerDashMechanic = KeyCode.Joystick1Button0; // A
 
 
         private Plane mousePlane; // Plane to track the mouse position on screen.
@@ -70,6 +70,8 @@ namespace Player
         [SerializeField]
         private bool debugging = false;
 
+        private int currentWeapon;
+
 
         // Use this for initialization
 
@@ -80,6 +82,8 @@ namespace Player
             pUI = GetComponent<PlayerUIController>();
             gunController = transform.Find("GunPrimary").GetComponent<GunController>();
             weaponUISwitch = FindObjectOfType<WeaponUISwitch>();
+
+            currentWeapon = 0;
 
             mousePlane = new Plane(Vector3.up, new Vector3(0.0f, 0.5f, 0.0f));
 
@@ -256,7 +260,8 @@ namespace Player
         /// </summary>
         private bool inputCheck_Pause()
         {
-            if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+            //if (Input.GetKeyDown(kbmPause) || Input.GetKeyDown(controllerPause))
+            if (Input.GetButtonDown("Pause"))
                 pause();
 
             return paused;
@@ -267,7 +272,8 @@ namespace Player
         /// </summary>
         private void inputCheck_Shoot()
         {
-            if (Input.GetKey(kbmShoot) || Input.GetKey(controllerShoot))
+            //if (Input.GetKey(kbmShoot) || Input.GetKey(controllerShoot))
+            if (Input.GetButton("FirePrimary") || Input.GetAxis("FirePrimary") == 1)
             {
                 if (canShoot) // Used for rewind system
                 {
@@ -295,8 +301,7 @@ namespace Player
                 {
                     if (weapons.Count > i)
                     {
-                        gunController.setGun(weapons[i]);
-                        weaponUISwitch.switchWeaponUI(i);
+                        currentWeapon = i;
                     }
                     else
                         Debug.LogError("Weapon not mapped to button " + weaponSwitches[i] + "!");
@@ -304,6 +309,23 @@ namespace Player
             }
 
             // TODO: Controller
+            if (Input.GetButtonDown("NextWeapon"))
+            {
+                if (currentWeapon >= weaponSwitches.Count-1)
+                    currentWeapon = 0;
+                else
+                    currentWeapon++;
+            }
+            else if (Input.GetButtonDown("PreviousWeapon"))
+            {
+                if (currentWeapon == 0)
+                    currentWeapon = weaponSwitches.Count-1;
+                else
+                    currentWeapon--;
+            }
+
+            gunController.setGun(weapons[currentWeapon]);
+            weaponUISwitch.switchWeaponUI(currentWeapon);
         }
 
         /// <summary>
@@ -311,7 +333,8 @@ namespace Player
         /// </summary>
         private void inputCheck_TimeMechanic()
         {
-            if (timeMechanic != null && Input.GetKeyDown(kbmTimeMechanic) || Input.GetKeyDown(controllerTimeMechanic))
+            //if (timeMechanic != null && Input.GetKeyDown(kbmTimeMechanic) || Input.GetKeyDown(controllerTimeMechanic))
+            if (timeMechanic != null && Input.GetButtonDown("UseTime"))
                 timeMechanic.trigger();
                 
         }
@@ -321,7 +344,8 @@ namespace Player
         /// </summary>
         private void inputCheck_Dash()
         {
-            if (Input.GetKeyDown(kbmDashMechanic) || Input.GetKeyDown(controllerDashMechanic))
+            //if (Input.GetKeyDown(kbmDashMechanic) || Input.GetKeyDown(controllerDashMechanic))
+            if (Input.GetButtonDown("Dash"))
                 dashMechanic.activate(getDirectionVector());
         }
 

@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 222453215775353752}
   - component: {fileID: 114093671647117090}
   m_Layer: 5
-  m_Name: EXDHandgun
+  m_Name: NonTimeGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1116,6 +1116,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1950048378889842
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224344921455337720}
+  - component: {fileID: 222615831283870758}
+  - component: {fileID: 114736756108392774}
+  m_Layer: 5
+  m_Name: EXDHandgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1954060804636604
 GameObject:
   m_ObjectHideFlags: 1
@@ -1348,7 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.022294998, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3364,6 +3381,33 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 80
+--- !u!114 &114736756108392774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950048378889842}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: a05532f3f7a585244bba29838cdfc4ae, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114764272081054008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3492,12 +3536,14 @@ MonoBehaviour:
   handgun: {fileID: 114077321587166604}
   shotgun: {fileID: 114166602112137684}
   machinegun: {fileID: 114403964124430928}
-  EXDhandgun: {fileID: 114093671647117090}
+  EXDhandgun: {fileID: 114736756108392774}
+  nontimegun: {fileID: 114093671647117090}
   AmmoUI: {fileID: 224008613454312684}
   handgunClass: {fileID: 0}
   shotgunClass: {fileID: 0}
   machinegunClass: {fileID: 0}
   EXDHandgunClass: {fileID: 0}
+  nonTimeGunClass: {fileID: 0}
 --- !u!114 &114846099023525312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4171,6 +4217,13 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1986960934334772}
   m_CullTransparentMesh: 0
+--- !u!222 &222615831283870758
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950048378889842}
+  m_CullTransparentMesh: 0
 --- !u!222 &222618859097775394
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -4370,7 +4423,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224583879476789968}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -4788,6 +4841,24 @@ RectTransform:
   m_AnchoredPosition: {x: -4.999939, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224344921455337720
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950048378889842}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2499969, y: 0.2499969, z: 1.0000111}
+  m_Children: []
+  m_Father: {fileID: 224583879476789968}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.29994965}
+  m_SizeDelta: {x: 379, y: 209}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224360381105587818
 RectTransform:
   m_ObjectHideFlags: 1
@@ -5064,6 +5135,7 @@ RectTransform:
   - {fileID: 224076458461106324}
   - {fileID: 224360381105587818}
   - {fileID: 224932418357499198}
+  - {fileID: 224344921455337720}
   - {fileID: 224961929981879718}
   - {fileID: 224008613454312684}
   m_Father: {fileID: 224595515498099604}
@@ -5405,7 +5477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.00024414062, y: -0.29003906}
+  m_AnchoredPosition: {x: 0, y: -0.29003906}
   m_SizeDelta: {x: 814, y: 253}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224757080965653594
@@ -5642,14 +5714,14 @@ RectTransform:
   m_GameObject: {fileID: 1634905108549622}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2499969, y: 0.2499969, z: 1.0000111}
+  m_LocalScale: {x: 0.2499979, y: 0.2499979, z: 1.0000116}
   m_Children: []
   m_Father: {fileID: 224583879476789968}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.29994965}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0.29994965}
   m_SizeDelta: {x: 379, y: 209}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224993272916738590

@@ -11,6 +11,7 @@ public class WeaponUISwitch : MonoBehaviour {
     [SerializeField] private Image shotgun;
     [SerializeField] private Image machinegun;
     [SerializeField] private Image EXDhandgun;
+    [SerializeField] private Image nontimegun;
     //[SerializeField] private Image nonTimeEffectingGun;
 
     [SerializeField] private Transform AmmoUI;
@@ -24,6 +25,7 @@ public class WeaponUISwitch : MonoBehaviour {
     public Shotgun shotgunClass;
     public MachineGun machinegunClass;
     public EXDHandgun EXDHandgunClass;
+    public NonTimeEffectingGun nonTimeGunClass;
 
     private void initWeaponUI()
     {
@@ -31,7 +33,7 @@ public class WeaponUISwitch : MonoBehaviour {
         weaponUI.Add(shotgun);
         weaponUI.Add(machinegun);
         weaponUI.Add(EXDhandgun);
-        //weaponUI.Add(nonTimeEffectingGun);
+        weaponUI.Add(nontimegun);
     }
 
     //private void Awake()
@@ -49,7 +51,7 @@ public class WeaponUISwitch : MonoBehaviour {
         weaponUI.Add(shotgun);
         weaponUI.Add(machinegun);
         weaponUI.Add(EXDhandgun);
-        //weaponUI.Add(nonTimeEffectingGun);
+        weaponUI.Add(nontimegun);
 
         // Show starting pistol - Jake
         switchWeaponUI(0);
@@ -66,9 +68,12 @@ public class WeaponUISwitch : MonoBehaviour {
         
         if (machinegunClass == null)
             machinegunClass = GameObject.FindGameObjectWithTag("Player").transform.Find("GunPrimary").GetComponent<MachineGun>();
-        
+
         if (EXDHandgunClass == null)
             EXDHandgunClass = GameObject.FindGameObjectWithTag("Player").transform.Find("GunPrimary").GetComponent<EXDHandgun>();
+
+        if (nonTimeGunClass == null)
+            nonTimeGunClass = GameObject.FindGameObjectWithTag("Player").transform.Find("GunPrimary").GetComponent<NonTimeEffectingGun>();
 
         if (weaponUI[0].isActiveAndEnabled)
             currentAmmo = handgunClass.getCurrentAmmo();
@@ -78,6 +83,8 @@ public class WeaponUISwitch : MonoBehaviour {
             currentAmmo = machinegunClass.getCurrentAmmo();
         if (weaponUI[3].isActiveAndEnabled)
             currentAmmo = EXDHandgunClass.getCurrentAmmo();
+        if (weaponUI[4].isActiveAndEnabled)
+            currentAmmo = nonTimeGunClass.getCurrentAmmo();
 
         updateAmmo(currentAmmo);
 
