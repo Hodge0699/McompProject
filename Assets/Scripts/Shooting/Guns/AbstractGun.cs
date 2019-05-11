@@ -6,14 +6,14 @@ namespace Weapon.Gun
 {
     public abstract class AbstractGun : MonoBehaviour
     {
+        public bool customValues = false;
+
         public float damage;
         public float speed;
         public float fireRate; // Rounds per second
 
         public int maxAmmo;
         protected int currentAmmo;
-
-        public bool debugging = false;
 
         protected float currentCooldown = 0.0f;
         protected float unlimitedAmmoTimer = 0.0f;
@@ -35,6 +35,9 @@ namespace Weapon.Gun
         /// <param name="fireRate">Times this gun can fire per second.</param>
         public virtual void init(float damage, float speed, float fireRate)
         {
+            if (customValues) // Values set in inspector
+                return;
+
             this.damage = damage;
             this.speed = speed;
             this.fireRate = fireRate;
@@ -52,6 +55,9 @@ namespace Weapon.Gun
         /// <param name="startingAmmo">Amount of ammo this gun starts with.</param>
         public virtual void init(float damage, float speed, float fireRate, int maxAmmo, int startingAmmo = 0)
         {
+            if (customValues) // Values set in inspector
+                return;
+
             this.damage = damage;
             this.speed = speed;
             this.fireRate = fireRate;
@@ -98,7 +104,7 @@ namespace Weapon.Gun
             return bullet;
         }
 
-        private void Update()
+        protected void Update()
         {
             if (timeStop != null && timeStop.isStopped)
                 return;

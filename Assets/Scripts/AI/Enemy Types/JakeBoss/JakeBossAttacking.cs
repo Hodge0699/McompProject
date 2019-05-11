@@ -19,6 +19,9 @@ namespace EnemyType.Bosses
             leftPivot.stopPivot(true);
 
             basicAttackTimer = basicAttackDuration;
+
+            gunRight.setGun(typeof(Weapon.Gun.MachineGun), true);
+            gunLeft.setGun(typeof(Weapon.Gun.MachineGun), true);
         }
 
         protected override System.Type decideState()

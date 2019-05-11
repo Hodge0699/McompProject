@@ -7,6 +7,9 @@ namespace EnemyType.Bosses
 {
     public class JakeBossWaiting : JakeBoss
     {
+        private float stateDuration = 5.0f;
+        private float stateTimer = 0.0f;
+
         protected override void Start()
         {
             base.Start();
@@ -20,11 +23,11 @@ namespace EnemyType.Bosses
         protected override Type decideState()
         {
             // Player ahead
-            if (visionCone.hasVisibleTargets())
+            if (stateTimer >= stateDuration)
                 return typeof(JakeBossAttacking);
 
             // Player in peripheral
-            if (peripheralVisionCone.hasVisibleTargets())
+            if (!visionCone.hasVisibleTargets() && peripheralVisionCone.hasVisibleTargets())
                 return typeof(JakeBossTurning);
 
             return this.GetType();
@@ -32,7 +35,12 @@ namespace EnemyType.Bosses
 
         protected override void stateAction()
         {
-            // Do nothing
+            if (visionCone.hasVisibleTargets())
+            {
+                stateTimer += myTime.getDelta();
+                gunLeft.shoot();
+                gunRight.shoot();
+            }
         }
 
     }

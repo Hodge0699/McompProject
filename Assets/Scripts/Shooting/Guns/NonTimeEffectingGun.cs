@@ -25,5 +25,22 @@ namespace Weapon.Gun
 
             return bullet;
         }
+
+        protected new void Update()
+        {
+            if (currentCooldown > 0.0f)
+                currentCooldown -= Time.unscaledDeltaTime;
+
+            if (unlimitedAmmoTimer > 0.0f)
+            {
+                unlimitedAmmoTimer -= Time.unscaledDeltaTime;
+
+                if (unlimitedAmmoTimer <= 0.0f)
+                {
+                    setAmmo(maxAmmo);
+                    unlimitedAmmoTimer = 0.0f;
+                }
+            }
+        }
     }
 }

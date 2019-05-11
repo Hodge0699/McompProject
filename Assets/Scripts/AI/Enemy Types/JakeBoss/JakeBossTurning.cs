@@ -14,6 +14,9 @@ namespace EnemyType.Bosses
 
             rightPivot.goToBound(true);
             leftPivot.goToBound(false);
+
+            gunRight.setGun(typeof(Weapon.Gun.MachineGun), true);
+            gunLeft.setGun(typeof(Weapon.Gun.MachineGun), true);
         }
 
         protected override System.Type decideState()

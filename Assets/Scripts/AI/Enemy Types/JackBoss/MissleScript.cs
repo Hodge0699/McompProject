@@ -16,6 +16,8 @@ public class MissleScript : BulletController
         // sets up varible that will determin the rotation of the missile on the target location 
         var MissleTargetRotation = Quaternion.LookRotation(MissleTarget.position - transform.position);
         // sets rotation of missle 
-        MissleRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, MissleTargetRotation, turn)); 
+        MissleRigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, MissleTargetRotation, turn));
+
+        lifetime += myTime.getDelta();
     }
 }

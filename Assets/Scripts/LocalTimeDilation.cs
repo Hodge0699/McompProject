@@ -31,9 +31,21 @@ namespace TimeMechanic
         /// Sets the time dilation of this object
         /// </summary>
         /// <param name="dilation">New time dilation</param>
-        public void setDilation(float dilation = 1.0f)
+        /// <param name="applyToChildren">Should the new dilation be applied to this gameobject's children?</param>
+        public void setDilation(float dilation = 1.0f, bool applyToChildren = true)
         {
             this.dilation = dilation;
+
+            if (applyToChildren)
+            {
+                LocalTimeDilation[] childTimes = GetComponentsInChildren<LocalTimeDilation>();
+
+                foreach (LocalTimeDilation child in childTimes)
+                {
+                    if (child.gameObject != this.gameObject) 
+                        child.setDilation(dilation);
+                }
+            }
         }
 
         /// <summary>
