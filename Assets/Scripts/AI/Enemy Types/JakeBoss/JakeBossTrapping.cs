@@ -11,6 +11,9 @@ namespace EnemyType.Bosses
             base.Start();
 
             mainPivot.stopPivot(true);
+
+            gunRight.setGun(typeof(Weapon.Gun.EXDHandgun), true);
+            gunLeft.setGun(typeof(Weapon.Gun.EXDHandgun), true);
         }
 
         protected override System.Type decideState()

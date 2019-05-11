@@ -37,12 +37,7 @@ public class GunController : MonoBehaviour {
             bulletContainer.transform.parent = null;
         }
 
-        guns.Add(gameObject.AddComponent<Handgun>());
-        guns.Add(gameObject.AddComponent<Shotgun>());
-        guns.Add(gameObject.AddComponent<MachineGun>());
-        guns.Add(gameObject.AddComponent<EXDHandgun>());
-        guns.Add(gameObject.AddComponent<NonTimeEffectingGun>());
-
+        instantiateGuns();
         setGun(0);
     }
 
@@ -203,6 +198,41 @@ public class GunController : MonoBehaviour {
         return -1;
     }
 
+    /// <summary>
+    /// Instantiates default guns if custom version hasn't already been added
+    /// </summary>
+    private void instantiateGuns()
+    {
+        if (GetComponent<Handgun>() != null)
+            guns.Add(GetComponent<Handgun>());
+        else
+            guns.Add(gameObject.AddComponent<Handgun>());
+
+        if (GetComponent<Shotgun>() != null)
+            guns.Add(GetComponent<Shotgun>());
+        else
+            guns.Add(gameObject.AddComponent<Shotgun>());
+
+        if (GetComponent<MachineGun>() != null)
+            guns.Add(GetComponent<MachineGun>());
+        else
+            guns.Add(gameObject.AddComponent<MachineGun>());
+
+        if (GetComponent<EXDHandgun>() != null)
+            guns.Add(GetComponent<EXDHandgun>());
+        else
+            guns.Add(gameObject.AddComponent<EXDHandgun>());
+
+        if (GetComponent<NonTimeEffectingGun>() != null)
+            guns.Add(GetComponent<NonTimeEffectingGun>());
+        else
+            guns.Add(gameObject.AddComponent<NonTimeEffectingGun>());
+    }
+
+    /// <summary>
+    /// Adds a gun to available weapons
+    /// </summary>
+    /// <param name="gun">Gun to add</param>
     public void addGun(AbstractGun gun)
     {
         guns.Add(gun);

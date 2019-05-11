@@ -7,10 +7,11 @@ public class BulletController : MonoBehaviour {
     public float damage; 
     public float speed = 6.0f;
     public float lifespan = 10.0f; // Seconds before despawning
+    protected float lifetime = 0.0f;
 
     public List<string> ignoreTags = new List<string>();
 
-    private TimeMechanic.LocalTimeDilation myTime;
+    protected TimeMechanic.LocalTimeDilation myTime;
 
     /// <summary>
     /// Initialises damage, speed and lifespan
@@ -26,15 +27,21 @@ public class BulletController : MonoBehaviour {
 
     protected void Start()
     {
-        Destroy(gameObject, lifespan);
-
         myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
+    }
+
+    protected void Update()
+    {
+        if (lifetime >= lifespan)
+            Destroy(gameObject);
     }
 
     // Update is called once per frame
     protected virtual void FixedUpdate ()
     {
         transform.Translate(Vector3.forward * speed * myTime.getDelta());
+
+        lifetime += myTime.getDelta();
     }
 
     protected virtual void OnCollisionEnter(Collision other)

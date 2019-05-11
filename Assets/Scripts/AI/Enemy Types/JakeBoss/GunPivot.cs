@@ -16,11 +16,15 @@ public class GunPivot : MonoBehaviour {
     [SerializeField]
     private State state = State.STOPPED;
 
+    private TimeMechanic.LocalTimeDilation myTime;
+
     // Use this for initialization
     void Start()
     {
         startAngle = convertToSignedAngle(transform.localRotation.eulerAngles.y);
         relativeAngle = 0.0f;
+
+        myTime = GetComponent<TimeMechanic.LocalTimeDilation>();
     }
 
     // Update is called once per frame
@@ -116,7 +120,12 @@ public class GunPivot : MonoBehaviour {
     /// </summary>
     private void turn()
     {
-        float turnDistance = speed * Time.deltaTime;
+        float turnDistance;
+
+        if (myTime != null)
+            turnDistance = speed * myTime.getDelta();
+        else
+            turnDistance = speed * Time.deltaTime;
 
         checkBounds();
 
