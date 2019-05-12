@@ -73,11 +73,11 @@ namespace Player
 
             if (Gobject == null)
                 return;
-            if (Gobject.tag == "Untagged" && hitInfo.distance <= 3)
+            if (Gobject.tag == "Geometry" && hitInfo.distance <= 3)
             {
                 return;
             }
-            else if (Gobject.tag == "Untagged" && hitInfo.distance <= 8.0f)
+            else if (Gobject.tag == "Geometry" && hitInfo.distance <= 8.0f)
             {
 
                 transform.position += dir * (distance - hitInfo.distance) / 2;
