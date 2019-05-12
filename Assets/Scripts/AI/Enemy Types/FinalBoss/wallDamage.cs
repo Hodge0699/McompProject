@@ -7,7 +7,7 @@ using HealthManager;
 public class wallDamage : MonoBehaviour {
 
     [SerializeField]
-    private float damage;
+    private float damage = 0;
 
     private void OnTriggerEnter(Collider other)
     {

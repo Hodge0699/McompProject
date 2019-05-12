@@ -21,7 +21,6 @@ public class BossRoom : Room
         boss.transform.position = spawnSpot.position;
 
         AbstractEnemy bossScr = boss.GetComponent<AbstractEnemy>();
-        bossScr.enabled = false;
 
         // Make boss look at doorway on spawn
         boss.transform.LookAt(boss.transform.position - transform.right);
