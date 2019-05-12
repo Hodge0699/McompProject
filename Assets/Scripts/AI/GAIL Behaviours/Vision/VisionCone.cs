@@ -58,13 +58,11 @@ public class VisionCone : MonoBehaviour
 
                 if (hitInfo.collider) // If collider was hit
                 {
-                    while (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject) || ignoreTags.Contains(hitInfo.collider.gameObject.tag))
-                    {
-                        if (hitInfo.collider == null)
-                            return;
-
+                    while (hitInfo.collider != null && (hitInfo.collider.gameObject == this.gameObject || isAChildOf(hitInfo.collider.gameObject, this.gameObject) || ignoreTags.Contains(hitInfo.collider.gameObject.tag)))
                         Physics.Raycast(hitInfo.point + (direction * 0.1f), direction, out hitInfo, viewDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-                    }
+
+                    if (hitInfo.collider == null)
+                        return;
 
                     if (hitInfo.collider.gameObject == nearbyTargets[i] || isAChildOf(hitInfo.collider.gameObject, nearbyTargets[i])) // Collider is target we were aiming for
                     {

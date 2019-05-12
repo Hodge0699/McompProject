@@ -63,7 +63,7 @@ namespace TimeMechanic
             }
             else
             {
-                if (gameObject.tag == "Bullet")
+                if (gameObject.GetComponent<BulletController>())
                     Destroy(gameObject);
 
                 StopRewind();
@@ -97,8 +97,8 @@ namespace TimeMechanic
             if (gameObject.GetComponent<GunEnemy>() != null)
                 gameObject.GetComponent<GunEnemy>().canShoot = false;
 
-            if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
-                gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = false;
+            if (gameObject.GetComponent<EnemyType.Bosses.JackBoss>() != null)
+                gameObject.GetComponent<EnemyType.Bosses.JackBoss>().canShoot = false;
 
             if (gameObject.GetComponent<bulletPillar>() != null)
                 gameObject.GetComponent<bulletPillar>().canShoot = false;
@@ -118,8 +118,8 @@ namespace TimeMechanic
             if (gameObject.GetComponent<GunEnemy>() != null)
                 gameObject.GetComponent<GunEnemy>().canShoot = true;
 
-            if (gameObject.GetComponent<EnemyType.Bosses.BossEnemy>() != null)
-                gameObject.GetComponent<EnemyType.Bosses.BossEnemy>().canShoot = true;
+            if (gameObject.GetComponent<EnemyType.Bosses.JackBoss>() != null)
+                gameObject.GetComponent<EnemyType.Bosses.JackBoss>().canShoot = true;
 
             if (gameObject.GetComponent<bulletPillar>() != null)
                 gameObject.GetComponent<bulletPillar>().canShoot = true;

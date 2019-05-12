@@ -41,7 +41,7 @@ Transform:
   m_GameObject: {fileID: 1135960000950576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.9836655, y: 1.54, z: -5.622551}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -117,7 +117,6 @@ MonoBehaviour:
   damage: 0
   speed: 8
   lifespan: 10
-  timeEffected: 1
   ignoreTags:
   - TimeBubble
   - Player
@@ -132,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a6f9d25fb0a2e4e967c3e1835a73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 
 --- !u!114 &114699693645002860
 MonoBehaviour:
   m_ObjectHideFlags: 1

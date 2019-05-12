@@ -20,7 +20,7 @@ namespace Weapon.Gun
             bullet.transform.forward = this.transform.forward;
 
             MissleScript missileScr = bullet.GetComponent<MissleScript>();
-            missileScr.MissleTarget = GameObject.Find("Player").transform;
+            missileScr.MissleTarget = GameObject.FindGameObjectWithTag("Player").transform;
 
             currentCooldown = 1 / fireRate;
             currentAmmo--;
