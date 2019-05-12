@@ -112,7 +112,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4788cb7a3134fde409b83a3eda4b1d3c, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -364,6 +364,7 @@ MonoBehaviour:
   menuButtonController: {fileID: 0}
   animator: {fileID: 95200936044573162}
   animatorFunctions: {fileID: 114034850935198796}
+  btn: {fileID: 114161166014072718}
   thisIndex: 4
 --- !u!114 &114894127583083636
 MonoBehaviour:
