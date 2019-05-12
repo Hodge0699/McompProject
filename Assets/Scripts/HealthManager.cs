@@ -87,6 +87,17 @@ namespace HealthManager
             isAlive = currentHealth > 0;
         }
 
+        public void addHealth(float health)
+        {
+            if (currentHealth + health > 200)
+            {
+                float temp;
+                temp = 200 - currentHealth;
+                currentHealth = currentHealth + temp;
+            }
+            currentHealth = currentHealth + health;
+        }
+
         /// <summary>
         /// Returns the current health of the character
         /// </summary>
