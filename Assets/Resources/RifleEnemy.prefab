@@ -2107,6 +2107,9 @@ MonoBehaviour:
   - name: Time Gun
     item: {fileID: 1185478885353658, guid: a799a827aaf694c4e893b85926792f52, type: 2}
     dropRarity: 20
+  - name: Health
+    item: {fileID: 1834646869923328, guid: d65e2cd844956c44dbf55e342ec20ea7, type: 2}
+    dropRarity: 100
   ItemDropChance: 100
   debugging: 0
 --- !u!114 &114532638890590952
