@@ -23,16 +23,26 @@ namespace TimeMechanic
             GetComponent<RewindTimeSlave>().StartRewind();
 
             // Enemies
-            Transform enemyContainer = GameObject.Find("Room").transform.Find("Enemies").transform;
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-            for (int i = 0; i < enemyContainer.childCount; i++)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                RewindTimeSlave enemyTime = enemyContainer.GetChild(i).GetComponent<RewindTimeSlave>();
+                RewindTimeSlave enemyTime = enemies[i].GetComponent<RewindTimeSlave>();
 
                 if (enemyTime != null)
                     enemyTime.StartRewind();
             }
 
+            // Bosses
+            GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
+
+            for (int i = 0; i < bosses.Length; i++)
+            {
+                RewindTimeSlave bossTime = bosses[i].GetComponent<RewindTimeSlave>();
+
+                if (bossTime != null)
+                    bossTime.StartRewind();
+            }
 
             // Bullets
             Transform bulletContainer = GameObject.Find("Active Bullets").transform;
