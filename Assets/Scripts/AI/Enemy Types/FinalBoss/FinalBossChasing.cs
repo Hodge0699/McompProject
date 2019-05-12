@@ -46,7 +46,6 @@ namespace EnemyType.Bosses
         protected override void onBehaviourSwitch(AbstractEnemy newBehaviour)
         {
             myTime.enabled = true;
-            GetComponent<HealthManager.HealthManager>().setGodmode(true);
         }
     }
 }

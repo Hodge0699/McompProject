@@ -166,7 +166,7 @@ namespace RoomBuilding
 
         private void OnDestroy()
         {
-            setRenderMode(RenderMode.OPAQUE);
+            //setRenderMode(RenderMode.OPAQUE);
         }
     }
 }

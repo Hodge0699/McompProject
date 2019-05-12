@@ -18,6 +18,8 @@ namespace EnemyType.Bosses
         private float sprintTime;
         private float sprintCounter = 0.0f;
 
+        private float healthAtStart;
+
         // Use this for initialization
         override protected void Start()
         {
@@ -30,11 +32,13 @@ namespace EnemyType.Bosses
             movementSpeed = chargingMovementSpeed;
 
             sprintTime = calculateSprintTime();
+
+            healthAtStart = healthManager.getHealth();
         }
 
         protected override Type decideState()
         {
-            if (sprintCounter >= sprintTime) // Completed sprint
+            if (sprintCounter >= sprintTime || healthManager.getHealth() < healthAtStart) // Completed sprint or been damaged
                 return typeof(FinalBossChasing);
             else
                 return this.GetType();

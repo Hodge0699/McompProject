@@ -16,6 +16,8 @@ namespace EnemyType.Bosses
             base.Start();
 
             sawBlade.isAccelerating = true;
+
+            GetComponent<HealthManager.HealthManager>().setGodmode(true);
         }
 
         protected override Type decideState()
