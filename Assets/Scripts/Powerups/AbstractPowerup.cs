@@ -26,7 +26,7 @@ namespace Powerups
                     return;
             }
 
-            if(addHealth > 0 )
+            if(addHealth > 0)
             {
                 other.GetComponent<HealthManager.HealthManager>().addHealth(addHealth);
             }
