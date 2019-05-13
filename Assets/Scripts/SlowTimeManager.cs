@@ -24,23 +24,23 @@ namespace TimeMechanic
         {
             if (playerInput.isPaused())
                 return;
-
+            // checks player's speed
             if (gameObject.GetComponent<Rigidbody>().velocity.magnitude <= 0)
                 StartSlowMotion();
             else
                 StopSlowMotion();
         }
-
+        // slow down time function
         void StartSlowMotion()
         {
-            Time.timeScale = slowDownFactor;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            Time.timeScale = slowDownFactor; // adjust time scale to lower value
+            Time.fixedDeltaTime = 0.02f * Time.timeScale; // updates FixedUpdate
         }
-
+        // resets tune function to run time
         void StopSlowMotion()
         {
-            Time.timeScale = normTimeFactor;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            Time.timeScale = normTimeFactor; // adjust time scale to default
+            Time.fixedDeltaTime = 0.02f * Time.timeScale; // updates FixedUpdate
         }
     }
 }
