@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -9,6 +10,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] MenuButtonController menuButtonController;
     [SerializeField] Animator animator;
     [SerializeField] AnimatorFunctions animatorFunctions;
+    [SerializeField] Button btn;
     [SerializeField] int thisIndex;
     private bool pointerOnBtn;
 
@@ -28,18 +30,25 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (menuButtonController.index == thisIndex)
         {
-                animator.SetBool("selected", true);
+            animator.SetBool("selected", true);
 
-                if (Input.GetAxis("Submit") == 1)
-                    animator.SetBool("pressed", true);
-                else if (pointerOnBtn && (Input.GetAxis("Left Mouse") == 1))
-                    animator.SetBool("pressed", true);
-                else if (animator.GetBool("pressed"))
-                    animator.SetBool("pressed", false);
+            if (Input.GetAxis("Submit") == 1)
+                animator.SetBool("pressed", true);
+            else if (pointerOnBtn && (Input.GetAxis("Left Mouse") == 1))
+                animator.SetBool("pressed", true);
+            else if (animator.GetBool("pressed"))
+                animator.SetBool("pressed", false);
         }
         else
         {
             animator.SetBool("selected", false);
+        }
+
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (btn != null)
+                btn.onClick.Invoke();
         }
 
 	}
