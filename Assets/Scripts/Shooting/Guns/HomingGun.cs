@@ -8,7 +8,7 @@ namespace Weapon.Gun
     {
         public void Awake()
         {
-            base.init(10, 10, 0.5f); // Infinite Ammo
+            base.init(10, 10, 1.5f); // Infinite Ammo
         }
 
         protected override GameObject spawnBullet(Vector3 spawnPos, bool ignoreCooldown = false)
