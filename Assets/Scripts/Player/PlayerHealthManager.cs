@@ -52,6 +52,7 @@ namespace HealthManager
                 gameObject.SetActive(false);
                 deathScene.SetActive(true);
             }
+            checkHealth();
         }
 
         /// <summary>
@@ -78,6 +79,13 @@ namespace HealthManager
         {
             base.setHealth(health, force);
 
+            healthSlider.fillAmount = currentHealth / startingHealth;
+        }
+        /// <summary>
+        /// updates player ui health 
+        /// </summary>
+        private void checkHealth()
+        {
             healthSlider.fillAmount = currentHealth / startingHealth;
         }
     }
