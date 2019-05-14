@@ -46,6 +46,7 @@ namespace RoomBuilding
 
             // Create initial room
             Room startRoom = createRoom(null, null);
+            startRoom.gameObject.SetActive(true);
             startRoom.enableEnemies();
             player.setRoom(startRoom);
 
@@ -80,6 +81,8 @@ namespace RoomBuilding
             enemySpawner.transform.position = rb.transform.position;
 
             spawnEnemies(newRoom);
+
+            newRoom.gameObject.SetActive(false);
 
             return newRoom;
         }
@@ -122,6 +125,9 @@ namespace RoomBuilding
                 roomScr.dimensions.x = roomScr.dimensions.z;
                 roomScr.dimensions.z = temp;
             }
+
+            roomObj.SetActive(false);
+
             return roomScr;
         }
 

@@ -14,12 +14,16 @@ namespace EnemyType.Bosses
         protected Weapon.SawBlade sawBlade;
         protected MeshRenderer meshRenderer;
 
+        protected HealthManager.HealthManager healthManager;
+
         // Use this for initialization
         protected virtual void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
             sawBlade = GetComponentInChildren<Weapon.SawBlade>();
             meshRenderer = GetComponent<MeshRenderer>();
+
+            healthManager = GetComponent<HealthManager.HealthManager>();
         }
 
         // Update is called once per frame

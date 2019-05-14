@@ -87,6 +87,7 @@ public class Room : MonoBehaviour {
         {   // Find door/room index
             if (doors[i] == exit)
             {
+                childRooms[i].gameObject.SetActive(true);
                 childRooms[i].addDoor(exit);
                 childRooms[i].enableEnemies();
 
@@ -281,7 +282,7 @@ public class Room : MonoBehaviour {
 
         BoxCollider trigger = fader.GetComponent<BoxCollider>();
         trigger.isTrigger = true;
-        trigger.size = new Vector3(20.0f, 1.0f, 8.0f);
+        trigger.size = new Vector3(1.0f, 1.0f, 8.0f);
         return fader;
     }
 }

@@ -23,6 +23,7 @@ namespace EnemyType.Bosses
             regularMovementSpeed = movementSpeed;
             movementSpeed = returningMovementSpeed;
 
+            centreSensitivity *= transform.lossyScale.x;
         }
 
         protected override Type decideState()

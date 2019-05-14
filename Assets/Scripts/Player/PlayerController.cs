@@ -10,8 +10,7 @@ namespace Player
 
         public bool debugging = false;
 
-        private GameObject myCamera = null;
-        private Vector3 cameraOffset = new Vector3(0f, 7f, -10f);
+        private CameraControls.CameraController myCamera;
 
         private Room currentRoom;
 
@@ -29,7 +28,8 @@ namespace Player
             hat.transform.SetParent(transform.Find("Hat Anchor"), false);
             hat.name = "Hat";
 
-            myCamera = Instantiate(Resources.Load("Main Camera"), transform.position + cameraOffset, Quaternion.Euler(33, 0, 0)) as GameObject;
+            GameObject camera = Instantiate(Resources.Load("Main Camera"), transform.position, Quaternion.Euler(33, 0, 0)) as GameObject;
+            myCamera = camera.GetComponent<CameraControls.CameraController>();
 
             UI = Instantiate(Resources.Load("PlayerUI")) as GameObject;
 
@@ -46,6 +46,8 @@ namespace Player
         public void setRoom(Room room)
         {
             currentRoom = room;
+
+            myCamera.setRoom(room);
 
             for (int i = 0; i < doorIndicators.Count; i++)
                 Destroy(doorIndicators[i]);

@@ -1415,7 +1415,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1.0000001, z: 1.06}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!65 &65306094135252380
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1624,7 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114193751311646610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114293986592586182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114445393536796780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114631151246312930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114679916857354786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114712985720352288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114740763038636028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114870152000130634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
 --- !u!114 &114886773386640632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1732,4 +1732,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2160c1df8f3f6540adc52c9e98fd114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  damage: 500
