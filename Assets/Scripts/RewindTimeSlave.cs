@@ -16,7 +16,7 @@ namespace TimeMechanic
 
         private float recordTime = 3f;
 
-        List<PointInTime> pointsInTime;
+        List<PointInTime> pointsInTime = new List<PointInTime>();
 
         Rigidbody rb;
 
@@ -25,8 +25,6 @@ namespace TimeMechanic
         // Use this for initialization
         void Start()
         {
-            pointsInTime = new List<PointInTime>();
-
             health = gameObject.GetComponent<HealthManager.HealthManager>();
 
             if (gameObject.GetComponent<Rigidbody>() != null)

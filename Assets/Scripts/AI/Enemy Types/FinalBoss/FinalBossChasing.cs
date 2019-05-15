@@ -18,7 +18,7 @@ namespace EnemyType.Bosses
             base.Start();
 
             // Make boss vulnerable to bullets
-            GetComponent<HealthManager.HealthManager>().setGodmode(false);
+            healthManager.setGodmode(false);
 
             sawBlade.isAccelerating = true;
             myTime.enabled = false;

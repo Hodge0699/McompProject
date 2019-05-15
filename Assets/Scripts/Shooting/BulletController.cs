@@ -44,14 +44,39 @@ public class BulletController : MonoBehaviour {
         lifetime += myTime.getDelta();
     }
 
+    /// <summary>
+    /// Bounces the bullet off an object
+    /// </summary>
+    /// <param name="otherPos">Location of other object</param>
+    private void bounce(Vector3 otherPos)
+    {
+        Vector3 bulletToEnemy = otherPos - transform.position;
+
+        float dotProd = Mathf.Abs(Vector3.Dot(transform.forward, -bulletToEnemy));
+
+        Vector3 newBulletForward = (dotProd * -bulletToEnemy) + ((1 - dotProd) * transform.forward);
+        newBulletForward.Normalize();
+
+        transform.LookAt(transform.position + (newBulletForward * 100));
+    }
+
     protected virtual void OnCollisionEnter(Collision other)
     {
         if (!ignoreTags.Contains(other.gameObject.tag))
         {
             HealthManager.HealthManager health = other.gameObject.GetComponent<HealthManager.HealthManager>();
 
+            // Hit player or AI
             if (health != null)
+            {
                 health.hurt(damage);
+
+                if (health.godmode) // Other in god mode, bounce
+                {
+                    bounce(other.transform.position);
+                    return;
+                }
+            }
         }
 
         Destroy(gameObject);

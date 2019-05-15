@@ -20,6 +20,7 @@ TagManager:
   - Bullet
   - TimeBubble
   - Geometry
+  - Floor
   layers:
   - Default
   - TransparentFX
