@@ -22,7 +22,7 @@ namespace EnemyType
 
         public float maxDistance = 1.6f; // Distance enemy should get to the player
 
-        public float turnSpeed = 90.0f; // Maximum angle enemy can turn in one second
+        public float turnSpeed = 130.0f; // Maximum angle enemy can turn in one second
 
         protected GunController gunController;
         protected VisionCone pickUpVisionCone;

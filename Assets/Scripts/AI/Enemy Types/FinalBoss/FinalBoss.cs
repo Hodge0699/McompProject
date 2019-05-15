@@ -51,5 +51,13 @@ namespace EnemyType.Bosses
             if (sceneManager != null)
                 sceneManager.GetComponent<sceneTransitions.SceneTransitions>().LoadNextScene();
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.transform.tag == "Bullet" && healthManager.godmode)
+            {
+
+            }
+        }
     }
 }
