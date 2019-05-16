@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
 
     private void Awake()
     {
+        // checks to see if the file already exists on the scene
         if(control == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -45,7 +46,8 @@ public class GameController : MonoBehaviour {
         if (player == null && scene.name != "MainMenu")
         {
             player = GameObject.Find("Player(Clone)");
-            playerHealth = player.GetComponent<HealthManager.PlayerHealthManager>();
+            if(player != null)
+                playerHealth = player.GetComponent<HealthManager.PlayerHealthManager>();
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -57,7 +59,9 @@ public class GameController : MonoBehaviour {
             firstData = 1;
         }
     }
-
+    /// <summary>
+    /// updates the file variables with the data from real time to be saved
+    /// </summary>
     private void dataUpdate()
     {
 
@@ -66,14 +70,16 @@ public class GameController : MonoBehaviour {
         sceneName = scene.name;
 
     }
-
+    /// <summary>
+    /// updates character data from the stored file data
+    /// </summary>
     private void dataLoad()
     {
         playerHealth.setHealth(health, true);
-        
-        
     }
-
+    /// <summary>
+    /// Save function to save all the data into a file
+    /// </summary>
     public void Save()
     {
         Debug.Log("Saving File");
@@ -81,25 +87,27 @@ public class GameController : MonoBehaviour {
         {
             dataUpdate();
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
+            FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat"); // creates player file
 
-            PlayerData data = new PlayerData(health, sceneName);
-            bf.Serialize(file, data);
-            file.Close();
+            PlayerData data = new PlayerData(health, sceneName); // creates a class that holds all the data to be sabed
+            bf.Serialize(file, data);// encrypts the file by making it a binrary
+            file.Close(); 
         }
     }
-
+    /// <summary>
+    /// loads the saved player file and all its data stored
+    /// </summary>
     public void Load()
     {
         if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-            PlayerData data = (PlayerData)bf.Deserialize(file);
+            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open); // opens the file
+            PlayerData data = (PlayerData)bf.Deserialize(file); // decrypt the file to get the data
             file.Close();
-            health = data.health;
-            sceneName = data.sceneName;
-            SceneManager.LoadScene(sceneName);
+            health = data.health; // updates this files variable with the saved file data
+            sceneName = data.sceneName; // updates this files variable with the saved file data
+            SceneManager.LoadScene(sceneName); // change scenes
             firstData = 0;
         }
     }
