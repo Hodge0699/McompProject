@@ -12,6 +12,11 @@ namespace TimeMechanic
 
         private Player.PlayerInputManager playerInput;
 
+        private void Awake()
+        {
+            StopSlowMotion();
+        }
+
         override protected void Start()
         {
             base.Start();
