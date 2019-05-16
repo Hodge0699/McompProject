@@ -27,6 +27,10 @@ public class RoomBonus : MonoBehaviour
         playerObj.AddComponent<TimeJump>();
         player = playerObj.GetComponent<Player.PlayerController>();
 
+        // Manualy add og player-follow cam
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        Destroy(camera.GetComponent<CameraControls.RoomScaleCam>());
+        camera.AddComponent<CameraControls.FollowPlayerCam>();
        
         spawnEnemies();
         //enableEnemies();
