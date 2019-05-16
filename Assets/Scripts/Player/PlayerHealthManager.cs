@@ -18,6 +18,8 @@ namespace HealthManager
 
         private bool initialised = false;
 
+        public bool useDifficulty = true;
+
         /// <summary>
         /// Finds ui elements 
         /// </summary>
@@ -30,6 +32,9 @@ namespace HealthManager
             deathScene = ui.transform.Find("DeathScene").gameObject;
 
             initialised = true;
+
+            if (useDifficulty)
+                startingHealth /= Difficulty.getModifier();
         }
 
         // Update is called once per frame
