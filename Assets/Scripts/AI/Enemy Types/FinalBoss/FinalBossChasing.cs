@@ -7,7 +7,7 @@ namespace EnemyType.Bosses
 {
     public class FinalBossChasing : FinalBoss
     {
-        private float stateDuration = 10.0f;
+        private float stateDuration = 15.0f;
         private float stateDurationCounter = 0.0f;
 
         private float colourResetTime = 2.0f;
