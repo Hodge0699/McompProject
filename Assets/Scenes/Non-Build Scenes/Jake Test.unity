@@ -217,7 +217,7 @@ Prefab:
     - target: {fileID: 114872564346895096, guid: ad39af0fc3a950547966b40ca79132f9,
         type: 2}
       propertyPath: godmode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1653496019388500, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
       propertyPath: m_IsActive
