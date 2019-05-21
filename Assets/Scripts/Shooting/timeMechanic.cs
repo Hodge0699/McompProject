@@ -8,7 +8,7 @@ namespace TimeMechanic
     public class TimeMechanic : MonoBehaviour
     {
         [SerializeField]
-        private string level = "";
+        protected string level = "";
 
         protected virtual void Start()
         {

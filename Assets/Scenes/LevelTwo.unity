@@ -528,8 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionAnim: {fileID: 462579870}
-  sceneName: MainMenu
-  winScene: {fileID: 308845542}
+  sceneName: LevelThree
+  winScene: {fileID: 0}
 --- !u!4 &997303969
 Transform:
   m_ObjectHideFlags: 0

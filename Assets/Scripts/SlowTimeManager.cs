@@ -19,7 +19,18 @@ namespace TimeMechanic
 
         override protected void Start()
         {
-            base.Start();
+            Scene scene = SceneManager.GetActiveScene();
+
+            if (scene.name != level)
+            {
+                enabled = false;
+                return;
+            }
+
+            if (GetComponent<Player.PlayerInputManager>())
+                GetComponent<Player.PlayerInputManager>().setTimeMechanic(this);
+
+            StopSlowMotion();
 
             playerInput = GetComponent<Player.PlayerInputManager>();
         }
