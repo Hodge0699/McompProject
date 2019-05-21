@@ -23,7 +23,7 @@ namespace RoomBuilding
             maxDist = transform.parent.lossyScale.y * 2;
 
             BoxCollider trigger = GetComponent<BoxCollider>();
-            trigger.size = new Vector3(trigger.size.x, trigger.size.y, maxDist);
+            trigger.size = new Vector3(10, 1, maxDist);
 
             mesh = transform.parent.GetComponent<MeshRenderer>();
 
@@ -123,8 +123,6 @@ namespace RoomBuilding
         /// </summary>
         private float getClosestObjectDist()
         {
-            float parentZ = transform.parent.transform.position.z;
-
             float minZ = Mathf.Infinity;
 
             for (int i = 0; i < obstructedObjects.Count; i++)
