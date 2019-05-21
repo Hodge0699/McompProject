@@ -16,7 +16,6 @@ namespace HealthManager
         public bool godmode = false;
         private float godmodeTimer = -1.0f;
 
-        private bool ignoreGodmode = false;
         public bool debugging = false;
 
         public bool isAlive { get; private set; }
