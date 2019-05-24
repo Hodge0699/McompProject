@@ -30,8 +30,11 @@ public class PlayerUIController : MonoBehaviour
 
     public void changeToHappy()
     {
-        angryFace.enabled = false;
-        happyFace.enabled = true;
+        if (angryFace != null && happyFace != null)
+        {
+            angryFace.enabled = false;
+            happyFace.enabled = true;
+        }
     }
     public void changeToSad()
     {

@@ -452,6 +452,22 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44c7a822de43305489a0667a8942cd6c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &13420727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1690246505992170, guid: 44c7a822de43305489a0667a8942cd6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1550670057}
+--- !u!114 &13420734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 13420727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647927c8d64af9b4ab5c0321ce6f8605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &77622521
 GameObject:
   m_ObjectHideFlags: 0
@@ -4512,11 +4528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f17540bb3d2437459534dd24f894e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  playerHealth: {fileID: 0}
   health: 0
-  test: 5
-  firstData: 1
 --- !u!4 &1153241453
 Transform:
   m_ObjectHideFlags: 0
@@ -6285,16 +6297,21 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1153241452}
+      objectReference: {fileID: 13420734}
     - target: {fileID: 114192158469941096, guid: 44c7a822de43305489a0667a8942cd6c,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Load
+      value: loadFile
       objectReference: {fileID: 0}
     - target: {fileID: 114192158469941096, guid: 44c7a822de43305489a0667a8942cd6c,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114192158469941096, guid: 44c7a822de43305489a0667a8942cd6c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44c7a822de43305489a0667a8942cd6c, type: 2}
