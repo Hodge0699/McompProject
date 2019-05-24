@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 114297451233976770}
   - component: {fileID: 95949200257949624}
   - component: {fileID: 114512174006906362}
-  - component: {fileID: 114810674838900526}
+  - component: {fileID: 114539743424346970}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -2364,9 +2364,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114810674838900526}
-        m_MethodName: Quit
-        m_Mode: 1
+      - m_Target: {fileID: 114539743424346970}
+        m_MethodName: LoadByIndex
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2908,6 +2908,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4952813741038338, guid: ad39af0fc3a950547966b40ca79132f9, type: 2}
+--- !u!114 &114539743424346970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393901971469074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a39e34066ad594fb651f0b581e213d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114546521940403280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3844,17 +3855,6 @@ MonoBehaviour:
   animatorFunctions: {fileID: 114575812163358936}
   btn: {fileID: 114703164300753648}
   thisIndex: 1
---- !u!114 &114810674838900526
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1393901971469074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b28eac00967509428cb45fa3aaa3d3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114814597761678412
 MonoBehaviour:
   m_ObjectHideFlags: 1
