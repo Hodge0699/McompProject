@@ -4,6 +4,7 @@ using UnityEngine;
 using Weapon.Gun;
 using sceneTransitions;
 using System;
+using Player;
 
 namespace EnemyType.Bosses
 {
@@ -29,17 +30,14 @@ namespace EnemyType.Bosses
 
         // === derived variables ===
         //positions
-        static Vector3 shooterPosition;
         static Vector3 targetPosition;
         //velocities
-        static Vector3 shooterVelocity;
         static Vector3 targetVelocity;
+        private Vector3 predictionPos;
 
         protected override void Awake()
         {
             SceneManager = GameObject.Find("SceneManager");
-            shooterPosition = transform.position;
-            shooterVelocity = this.GetComponent<Rigidbody>().velocity;
             speed = base.movementSpeed;
             //target = base.target;
             base.Awake();
@@ -86,13 +84,7 @@ namespace EnemyType.Bosses
         /// </summary>
         private void shoot()
         {
-            targetPosition = target.transform.position;
-            targetVelocity = target.GetComponent<Rigidbody>().velocity;
-            transform.LookAt(FirstOrderIntercept(shooterPosition,
-                shooterVelocity,
-                shotSpeed,
-                targetPosition,
-                targetVelocity));
+            transform.LookAt(PredictiveShooting(shotSpeed));
             gunController.shoot();
 
         }
@@ -119,27 +111,14 @@ namespace EnemyType.Bosses
         /// <summary>
         /// calculates the relative velocity of the object to adjust for predictive shooting
         /// </summary>
-        /// <param name="shooterPosition"></param>
-        /// <param name="shooterVelocity"></param>
         /// <param name="shotSpeed"></param>
-        /// <param name="targetPosition"></param>
-        /// <param name="targetVelocity"></param>
         /// <returns></returns>
-        private static Vector3 FirstOrderIntercept
-        (
-            Vector3 shooterPosition,
-            Vector3 shooterVelocity,
-            float shotSpeed,
-            Vector3 targetPosition,
-            Vector3 targetVelocity
-        )
+        private Vector3 PredictiveShooting(float shotSpeed)
         {
-            shooterPosition = shooterPosition * speed * Time.deltaTime;
-            Vector3 targetRelativePosition = targetPosition - shooterPosition;
-            Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
-            const float predictionTime = 20; // prediction time, can be experimented with for artificial stupidity 
-
-            return targetPosition + predictionTime * (targetRelativeVelocity);
+            targetPosition = target.transform.position;
+            float travelTime = ((targetPosition - transform.position).sqrMagnitude) / shotSpeed;
+            Vector3 targetDirection = target.GetComponent<PlayerInputManager>().getDirectionVector();
+            return predictionPos = targetPosition + targetDirection * travelTime;
         }
 
         /// <summary>

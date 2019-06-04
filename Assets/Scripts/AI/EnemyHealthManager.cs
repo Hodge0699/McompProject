@@ -78,7 +78,8 @@ namespace HealthManager
 
                 if (gameObject.GetComponent<RandomPowerDrop>() != null)
                     gameObject.GetComponent<RandomPowerDrop>().CalculateLoot();
-
+                cCollider.enabled = false;
+                rigid.useGravity = false;
                 me.onDeath();
             }
 
