@@ -10,7 +10,8 @@ namespace HealthManager
         [SerializeField]
         protected float currentHealth;
 
-
+        protected CapsuleCollider cCollider;
+        protected Rigidbody rigid;
         protected Animator anim;
 
         public bool godmode = false;
@@ -22,6 +23,8 @@ namespace HealthManager
 
         private void Awake()
         {
+            cCollider = this.GetComponent<CapsuleCollider>();
+            rigid = this.GetComponent<Rigidbody>();
             currentHealth = startingHealth;
             isAlive = currentHealth > 0;
             anim = GetComponent<Animator>();

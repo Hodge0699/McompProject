@@ -28,7 +28,8 @@ namespace Powerups
 
             if(addHealth > 0)
             {
-                other.GetComponent<HealthManager.HealthManager>().addHealth(addHealth);
+                if(other.GetComponent<HealthManager.HealthManager>() != null)
+                    other.GetComponent<HealthManager.HealthManager>().addHealth(addHealth);
             }
 
             GunController gunController = other.GetComponentInChildren<GunController>();
